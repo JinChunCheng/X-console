@@ -1,0 +1,234 @@
+<div class="wrapper-md">
+    <div class="row">
+        <form >
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>运输方式:</span>
+                        <select class="form-control" ng-model="condition.transportMode" 
+                        ng-options="transportMode.value as transportMode.label for transportMode in transportModes"
+                        ng-change="transportChange(condition.transportMode)"
+                        required>
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>服务类型:</span>
+                        <select class="form-control" ng-model="condition.serviceType" 
+                        ng-change="serverTypeChange(condition.serviceType)"
+                        ng-options="serviceTypeInfo.value as serviceTypeInfo.label for serviceTypeInfo in serviceTypesInfo" required>
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                </div>
+                 <div class="col-md-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>物流供应商:</span>
+                        <select class="form-control" ng-model="condition.logisticsVendor" ng-change="loadCalUnitInfo()"
+                        ng-options="vendorInfo.vendorCode as vendorInfo.vendorName for vendorInfo in vendorsInfo" required>
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">计费单位:</span>
+                        <select class="form-control" ng-model="condition.calUnit" ng-change="loadWeightIntervalInfo()"
+                        ng-options="calUnitInfo.calUnit as calUnitInfo.calUnit for calUnitInfo in calUnitInfos">
+                            <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">重量区间:</span>
+                        <select class="form-control" ng-model="condition.weightInterval" ng-options="weight.wgtintervalCode as weight.intervalName  for weight in weightIntervalsInfo" >
+                             <option value="">-- 请选择 --</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>起运地/港:</span>
+                        <select class="form-control" ng-model="condition.originCountryCode"  
+                        ng-change="loadStatesInfo(condition.originCountryCode,'origin')"
+                        ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                            <option value="">国家</option>
+                        </select>
+                        <select class="form-control" ng-model="condition.originStateCode" ng-change="loadPortInfo('origin')"
+                        ng-options="originStatesInfo.stateCode as originStatesInfo.stateName for originStatesInfo in originStatessInfo" >
+                            <option value="">州</option>
+                        </select>
+                         <select class="form-control" ng-model="condition.originCityCode" 
+                         ng-options="originCityInfo.portCode as originCityInfo.portEnName for originCityInfo in originCitysInfo" >
+                            <option value="">城市/港</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>目的地/港:</span>
+                        <select class="form-control" ng-model="condition.destCountryCode" 
+                        ng-change="loadStatesInfo(condition.destCountry,'dest')"
+                        ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                            <option value="">国家</option>
+                        </select>
+                        <select class="form-control" ng-model="condition.destStateCode" ng-change="loadPortInfo('dest')"
+                        ng-options="destStatesInfo.stateCode as destStatesInfo.stateName for destStatesInfo in destStatessInfo">
+                            <option value="">州</option>
+                        </select>
+                        <select class="form-control" ng-model="condition.destCityCode"
+                        ng-options="destCityInfo.portCode as destCityInfo.portEnName for destCityInfo in destCitysInfo" >
+                            <option value="">城市/港</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="col-md-10 ">
+                        <div class="input-group m-b">
+                            <span class="input-group-addon">运费类型</span>
+                            <div class="form-control p-t-4" style="height: auto;">
+                                <label class="checkbox-inline i-checks i-checks-sm" ng-repeat="item in freightTypes">
+                                    <input type="checkbox" checklist-model="freightTypes.selectedItems" 
+                                     checklist-value="item.value" ng-click="showfreightType(item.value)"><i></i>{{item.text}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" align="right">
+                <div class="col-md-11">
+                    <button type="submit" class="btn btn-primary m-b" ng-click="searchInterTransportRate()">
+                        <span class="w2em" ng-if="!loading" ng-cloak>查询</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="loading" ng-cloak></i>
+                    </button>
+                    <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>国际海空运费率列表</span>
+            <div class="btn-group pull-right">
+                 <a class="btn btn-primary btn-xs" ng-click="addTransportRate()">
+                     <span ng-bind="'新增'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped tight-table b-t b-light">
+                <thead>
+                    <tr>
+                        <th class="pointer">
+                           序号
+                        </th>
+                        <th class="pointer">
+                           物流供应商
+                        </th>
+                        <th class="pointer">
+                           运输方式
+                        </th>
+                        <th class="pointer">
+                           起运地/港
+                        </th>
+                        <th class="pointer">
+                           目的地/港
+                        </th>
+                        <th class="pointer">
+                           重量区间
+                        </th>
+                        <th class="pointer">
+                           计费单位
+                        </th>
+                        <th class="pointer">
+                           费率币种
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item001">
+                           普通货物
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item002">
+                           冷藏货物
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item003">
+                           冷冻货物
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item004">
+                           液体普货
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item005">
+                           危险品
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item006">
+                           医疗用品
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item007">
+                           瓶装运输
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item008">
+                           活体运输
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item009">
+                           项目运输
+                        </th>
+                        <th class="pointer" ng-show="freightTypes.showItems.item010">
+                           其他
+                        </th>
+                        <th class="pointer">
+                           运输时效
+                        </th>
+                        <th style="width:80px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="loading" ng-cloak>
+                        <td class="text-center" colspan="20"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="!loading&&(!queryResult.Items||queryResult.Items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="20">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in queryResult.Items">
+                         <td ng-bind="(queryResult.pageNo-1)*10+$index+1"></td>
+                         <td ng-bind="item.vendorCode"></td>
+                         <td ng-bind="item.transportMode"></td>
+                         <td ng-bind="item.originCity"></td>
+                         <td ng-bind="item.destCity"></td>
+                         <td ng-bind="item.wgtintervalCode"></td>
+                         <td ng-bind="item.calUnit"></td>
+                         <td ng-bind="item.currency"></td>
+                         <td ng-bind="item.price001" ng-show="freightTypes.showItems.item001"></td>
+                         <td ng-bind="item.price002" ng-show="freightTypes.showItems.item002"></td>
+                         <td ng-bind="item.price003" ng-show="freightTypes.showItems.item003"></td>
+                         <td ng-bind="item.price004" ng-show="freightTypes.showItems.item004"></td>
+                         <td ng-bind="item.price005" ng-show="freightTypes.showItems.item005"></td>
+                         <td ng-bind="item.price006" ng-show="freightTypes.showItems.item006"></td>
+                         <td ng-bind="item.price007" ng-show="freightTypes.showItems.item007"></td>
+                         <td ng-bind="item.price008" ng-show="freightTypes.showItems.item008"></td>
+                         <td ng-bind="item.price009" ng-show="freightTypes.showItems.item009"></td>
+                         <td ng-bind="item.price010" ng-show="freightTypes.showItems.item010"></td>
+                         <td ng-bind="item.transitDays"></td>
+                         <td class="text-bg">
+                            <a href ng-click="editTransportRate(item.id,item.serviceType)" class="fa fa-edit" title="编辑费率信息"></a>
+                            <a href ng-click="deleteRate(item.id)" class="fa fa-trash-o text-sm m-l-xs" title="删除费率信息"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="queryResult.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="queryResult.TotalCount" items-per-page="queryResult.PageSize" ng-change="pageChanged()" ng-model="queryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+</div>

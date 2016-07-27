@@ -1,0 +1,668 @@
+<div class="panel panel-default form-horizontal">
+    <div class="panel-heading font-bold">
+        <span class="panel-title" ng-bind="view.title"></span>
+        <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="view.loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <form id="esinform" name="esinform" method="post" novalidate>
+            <tabset class="tab-container m-b-none">
+                <tab>
+                    <tab-heading>
+                        基本信息
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[0]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab0">
+                        <div class="form-group" ng-if="view.isEdit">
+                            <label class="col-sm-2 control-label">ESIN编号</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" ng-cloak ng-bind="product.code"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><i class="text-danger m-r-xs">*</i>供应商</label>
+                            <div class="col-sm-10" ng-class="{'has-error':view.submitted&&!view.supplier}">
+                                <p class="form-control-static" ng-bind="view.supplier.companyName" ng-if="view.isEdit" ng-cloak></p>
+                                <div class="input-group" ng-if="view.isAdd" ng-cloak>
+                                    <ui-select ng-model="view.supplier" theme="bootstrap">
+                                        <ui-select-match placeholder="">{{view.supplier.companyName}}</ui-select-match>
+                                        <ui-select-choices repeat="item in view.suppliers | filter: $select.search" refresh="refreshSupplier($select.search)" refresh-delay="500">
+                                            <span ng-bind-html="item.companyName | highlight: $select.search"></span>
+                                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-if="!view.supplierLoading" ng-cloak type="button" ng-click="product.supplier=undefined" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                    <span class="btn btn-default" ng-if="view.supplierLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><i class="text-danger m-r-xs">*</i>英文名称</label>
+                            <div class="col-sm-10" ng-class="{'has-error':(esinform.tab0.enName.$invalid && view.submitted)}">
+                                <input type="text" autocomplete="off" class="form-control" name="enName" required maxlength="200" ng-model="product.enName" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">中文名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" autocomplete="off" class="form-control" name="name" maxlength="200" ng-model="product.name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><i class="text-danger m-r-xs">*</i>所属品类</label>
+                            <div class="col-sm-10" ng-class="{'has-error':view.submitted&&!product.categoryName}">
+                                <p class="form-control-static" ng-if="view.isEdit" ng-cloak ng-bind="product.categoryAllName"></p>
+                                <div class="input-group" ng-if="view.isAdd" ng-cloak>
+                                    <span class="form-control btn btn-default tl" data-toggle="dropdown">
+                                    <span name="categoryName" ng-bind="product.categoryAllName"></span>
+                                    <i class="caret pull-right"></i>
+                                    </span>
+                                    <div class="dropdown-menu" style="width:100%;max-height:300px;overflow:auto;">
+                                        <span class="p-5" ng-show="treeData.loading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                                        <ul ng-show="!treeData.loading" ng-cloak stop-propagation class="ztree" setting="treeData.settings" z-tree></ul>
+                                    </div>
+                                    <span class="input-group-btn">
+                                    <button type="button" ng-click="clearCategory()" class="btn btn-default no-border-l">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">HS编码</label>
+                            <div class="col-sm-10">
+                                <input type="text" maxlength="20" autocomplete="off" class="form-control" name="hscode" id="hscode" ng-model="product.hscode" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">品牌</label>
+                            <div class="col-sm-10">
+                                <input type="text" autocomplete="off" class="form-control" name="brand" maxlength="50" ng-model="product.brand" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><i class="text-danger m-r-xs">*</i>增值税率</label>
+                            <div class="col-sm-10" ng-class="{'has-error':view.submitted&&esinform.tab0.vatRate.$invalid}">
+                                <select class="form-control form-group-margin" ng-model="product.vatRate" name="vatRate" required ng-options="item.contentEn*1 as (item.contentCn+'%') for item in view.vatRateCodeList">
+                                    <option value="" default>- 请选择 -</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">产品说明</label>
+                            <div class="col-sm-10">
+                                <textarea autocomplete="off" maxlength="2000" class="form-control" rows="3" ng-model="product.description"></textarea>
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="col-sm-2 control-label">审核意见</label>
+                            <div class="col-sm-10">
+                                <div class="col-sm-10" ng-bind="product.auditRemark"></div>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        销售信息
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[1]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab1">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>订货单位
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.unit.$invalid&&(view.submitted||esinform.tab1.unit.$dirty)}">
+                                <select class="form-control form-group-margin" ng-model="product.unit" name="unit" required>
+                                    <option value="" default>- 请选择 -</option>
+                                    <option ng-repeat="item in view.unitList" value="{{item.contentEn}}">
+                                        {{item.contentCn||item.contentEn}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>最小起订量
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.moq.$invalid&&(view.submitted||esinform.tab1.moq.$dirty)}">
+                                <input type="text" ng-pattern="/[2-9]|[^0]\d+/" autocomplete="off" class="form-control" name="moq" maxlength="5" ng-model="product.moq" ng-change="moqChanged()" min="2" required />
+                                <span class="help-block m-b-none" ng-show="esinform.tab1.moq.$error.pattern&&(esinform.tab1.moq.$dirty||view.submitted)">MOQ必须大于1</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>MOQ供货期
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.moqSupplytime.$invalid&&(view.submitted||esinform.tab1.moqSupplytime.$dirty)}">
+                                <div class="input-group">
+                                    <input type="text" autocomplete="off" ng-pattern="/^[1-9]\d*$/" class="form-control" name="moqSupplytime" maxlength="5" ng-model="product.moqSupplytime" required />
+                                    <span class="input-group-addon">天</span>
+                                </div>
+                                <span ng-show="esinform.tab1.moqSupplytime.$error.pattern&&(view.submitted||esinform.tab1.moqSupplytime.$dirty)" class="help-block m-b-none">请输入正整数！</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>结算币种
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.settlementCurrency.$invalid&&(view.submitted||esinform.tab1.settlementCurrency.$dirty)}">
+                                <select class="form-control form-group-margin" name="settlementCurrency" ng-model="product.settlementCurrency" required>
+                                    <option value="" default>- 请选择 -</option>
+                                    <option ng-repeat="item in view.currencyList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>样品价格
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.samplePrice.$invalid&&(view.submitted||esinform.tab1.samplePrice.$dirty)}">
+                                <input type="text" autocomplete="off" class="form-control" name="samplePrice" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required maxlength="10" ng-model="product.samplePrice" />
+                                <span ng-show="esinform.tab1.samplePrice.$error.pattern&&(view.submitted||esinform.tab1.samplePrice.$dirty)" class="help-block m-b-none">输入小数，精确到小数点后两位！</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                样品最大数量
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.sampleMax.$invalid&&(view.submitted||esinform.tab1.sampleMax.$dirty)}">
+                                <input type="text" ng-pattern="/^[1-9]\d*$/" autocomplete="off" class="form-control" name="sampleMax" maxlength="20" ng-model="product.sampleMax" />
+                                <span ng-show="esinform.tab1.sampleMax.$error.pattern&&(view.submitted||esinform.tab1.sampleMax.$dirty)" class="help-block text-xs">请输入正整数！</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>采购价格
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab1.price.$invalid&&(view.submitted||esinform.tab1.price.$dirty)}">
+                                <input type="text" autocomplete="off" class="form-control" name="price" required ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" ng-model="product.price" />
+                                <span ng-show="esinform.tab1.price.$error.pattern&&(view.submitted||esinform.tab1.price.$dirty)" class="help-block text-xs"> 输入小数，精确到小数点后两位！</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                价格是否分梯度
+                            </label>
+                            <div class="col-sm-10">
+                                <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r-sm">
+                                    <input type="checkbox" ng-model="product.isGrads" ng-true-value="1" ng-false-value="0"><i></i>
+                                </label>
+                                <table class="table table-striped m-b-none" ng-if="product.isGrads" ng-cloak>
+                                    <thead>
+                                        <tr>
+                                            <th class="w150">优惠数量</th>
+                                            <th class="w150">优惠价格</th>
+                                            <th class="w50"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in product.productPrices">
+                                            <td ng-class="{'has-error':item.errorMsg||(esinform.tab1['priceFrom'+$index].$invalid&&(view.submitted||esinform.tab1['priceFrom'+$index].$dirty))}">
+                                                <input type="text" name="priceFrom{{$index}}" autocomplete="off" class="form-control input-sm" ng-model="item.startCount" placeholder="请输入数字" ng-keyup="cleanPriceErrorMsg()" maxlength="5" ng-pattern="/^[1-9]\d*$/" required>
+                                                <span ng-show="esinform.tab1['priceFrom'+$index].$error.pattern&&(view.submitted||esinform.tab1['priceFrom'+$index].$dirty)" class="help-block text-xs">输入正整数！</span>
+                                                <span ng-show="item.errorMsg&&(view.submitted||esinform.tab1['priceFrom'+$index].$dirty)" class="help-block text-xs">{{item.errorMsg}}</span>
+                                            </td>
+                                            <td ng-class="{'has-error':esinform.tab1['priceTo'+$index].$invalid&&(view.submitted||esinform.tab1['priceTo'+$index].$dirty)}">
+                                                <input type="text" name="priceTo{{$index}}" autocomplete="off" class="form-control input-sm" ng-model="item.price" placeholder="请输入数字" maxlength="10" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                                                <span ng-show="esinform.tab1['priceTo'+$index].$error.pattern&&(view.submitted||esinform.tab1['priceTo'+$index].$dirty)" class="help-block text-xs">输入小数，精确到小数点后两位！</span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger btn-sm" ng-click="delPrice($index)" ng-if="$index" ng-cloak>
+                                                    删除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <button type="button" class="btn btn-info btn-sm" ng-click="addPrice()" ng-disabled="product.productPrices.length>=2">
+                                                    添加
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        描述属性
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[2]" ng-cloak></i>
+                        <i class="fa fa-spin fa-spinner m-l-xs" ng-if="view.attrLoading" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab2">
+                        <div class="clearfix view_list">
+                            <div class="form-group" ng-repeat="item in product.customAttributeList|filter:{standard:0}">
+                                <label class="col-sm-2 control-label">
+                                    <i class="text-danger m-r-xs" ng-if="item.required" ng-cloak>*</i> {{item.attributeName||item.attributeEnName}}
+                                </label>
+                                <div class="col-sm-10">
+                                    <div ng-class="{'input-group':item.suffix}" ng-if="item.fieldType==1&&!item.isCustom" ng-cloak>
+                                        <input class="form-control" type="text" name="descAttr{{$index}}" autocomplete="off" ng-model="item.proAttr.attributeVal" maxlength="500" ng-required="item.required" />
+                                        <span class="input-group-addon" ng-if="item.suffix" ng-cloak>{{item.suffix}}</span>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-if="item.isCustom" ng-click="delDescAttr(item)" ng-cloak>
+                                            删除
+                                        </button>
+                                    </div>
+                                    <div ng-if="item.fieldType==1&&item.isCustom" ng-cloak>
+                                        <p class="form-control-static" ng-bind="item.proAttr.attributeVal"></p>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-if="item.isCustom" ng-click="delDescAttr(item)" ng-cloak>
+                                            删除
+                                        </button>
+                                    </div>
+                                    <div ng-class="{'input-group':item.suffix}" ng-if="2==item.fieldType" ng-cloak>
+                                        <textarea class="form-control" name="descAttr{{$index}}" ng-required="item.required" ng-model="item.proAttr.attributeVal" maxlength="500"></textarea>
+                                        <span class="input-group-addon" ng-if="item.suffix" ng-cloak>{{item.suffix}}</span>
+                                    </div>
+                                    <div class="input-group" ng-if="3==item.fieldType" ng-cloak>
+                                        <label class="radio-inline i-checks i-checks-sm m-l-none m-r-sm" ng-repeat="subItem in item.attributeVal">
+                                            <input name="singleCheck{{item.attributeName}}" type="radio" ng-model="item.proAttr.attributeVal" value="{{subItem.enValue}}" />
+                                            <i></i>{{subItem.cnValue||subItem.enValue}}{{item.suffix}}
+                                            <span class="fa fa-times m-l-xs text-danger pull-right mt3" ng-click="delDescAttrVal(item,$index,$event);" ng-if="subItem.isCustom" ng-cloak></span>
+                                        </label>
+                                        <div class="m-t-xs">
+                                            <input type="button" value="添加值" class="btn btn-info btn-xs" ng-click="addDescAttrVal(item)" />
+                                        </div>
+                                    </div>
+                                    <div class="input-group" ng-if="4==item.fieldType" ng-cloak>
+                                        <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r-sm" ng-repeat="subItem in item.attributeVal">
+                                            <input type="checkbox" checklist-model="item.proAttr.attributeValList" checklist-value="subItem.enValue"><i></i>{{subItem.cnValue||subItem.enValue}}{{item.suffix}}
+                                            <span class="fa fa-times m-l-xs text-danger pull-right mt3" ng-click="delDescAttrVal(item,$index,$event);" ng-if="subItem.isCustom" ng-cloak></span>
+                                        </label>
+                                        <div class="m-t-xs">
+                                            <input type="button" value="添加值" class="btn btn-info btn-xs" ng-click="addDescAttrVal(item)" ng-disabled="item.attributeVal.length>=10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    <button type="button" class="btn btn-info btn-sm" ng-click="addDescAttr()">
+                                        新增描述属性
+                                    </button>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab ng-form="tab3">
+                    <tab-heading>
+                        物流属性
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[3]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab3">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>单件产品重量
+                            </label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-9 p-r-none" ng-class="{'has-error':esinform.tab3.netweight.$invalid&&(view.submitted||esinform.tab3.netweight.$dirty)}">
+                                        <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,3})?$/" maxlength="20" class="form-control" name="netweight" ng-model="product.netweight" required>
+                                        <p ng-show="esinform.tab3.netweight.$error.pattern&&(view.submitted||esinform.tab3.netweight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后3位！</p>
+                                    </div>
+                                    <div class="col-sm-3" ng-class="{'has-error':esinform.tab3.netweightUnit.$invalid&&(view.submitted||esinform.tab3.netweightUnit.$dirty)}">
+                                        <select class="form-control form-group-margin" name="netweightUnit" ng-model="product.netweightUnit" required>
+                                            <option value="" default>- 请选择 -</option>
+                                            <option ng-repeat="item in view.netweightUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                单件产品尺寸
+                            </label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-3 p-r-none">
+                                        <select class="form-control form-group-margin" ng-model="product.sizeUnit">
+                                            <option value="" default>- 请选择 -</option>
+                                            <option ng-repeat="item in view.sizeUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3 p-r-none">
+                                        <input type="text" name="length" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="长" name="length" ng-model="product.length">
+                                        <p ng-show="esinform.tab3.length.$error.pattern&&(view.submitted||esinform.tab3.length.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                    <div class="col-sm-3 p-r-none">
+                                        <input type="text" name="width" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="宽" name="width" ng-model="product.width">
+                                        <p ng-show="esinform.tab3.width.$error.pattern&&(view.submitted||esinform.tab3.width.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" name="height" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="高" name="height" ng-model="product.height">
+                                        <p ng-show="esinform.tab3.height.$error.pattern&&(view.submitted||esinform.tab3.height.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>单件包装方式
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab3.skuPackstyle.$invalid&&(view.submitted||esinform.tab3.skuPackstyle.$dirty)}">
+                                <select class="form-control form-group-margin" ng-model="product.skuPackstyle" name="skuPackstyle" required>
+                                    <option value="" default>- 请选择 -</option>
+                                    <option ng-repeat="item in view.skuPackstyleList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>物流包装方式
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab3.packType.$invalid&&(view.submitted||esinform.tab3.packType.$dirty)}">
+                                <select class="form-control form-group-margin" name="packType" ng-model="product.packType" required>
+                                    <option value="" default>- 请选择 -</option>
+                                    <option ng-repeat="item in view.packTypeList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>标准装箱数量
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':esinform.tab3.packAmount.$invalid&&(view.submitted||esinform.tab3.packAmount.$dirty)}">
+                                <input type="text" autocomplete="off" ng-pattern="/^[1-9]\d*$/" maxlength="5" class="form-control" placeholder="" id="packAmount" name="packAmount" ng-model="product.packAmount" required>
+                                <p ng-show="esinform.tab3.packAmount.$error.pattern&&(view.submitted||esinform.tab3.packAmount.$dirty)" class="help-block text-xs">请输入正整数！</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>装箱后重量
+                            </label>
+                            <div class="col-xs-10">
+                                <div class="row">
+                                    <div class="col-sm-9 p-r-none" ng-class="{'has-error':esinform.tab3.packWeight.$invalid&&(view.submitted||esinform.tab3.packWeight.$dirty)}">
+                                        <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,3})?$/" maxlength="10" class="form-control" name="packWeight" ng-model="product.packWeight" required>
+                                        <p ng-show="esinform.tab3.packWeight.$error.pattern&&(view.submitted||esinform.tab3.packWeight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后3位！</p>
+                                    </div>
+                                    <div class="col-sm-3" ng-class="{'has-error':esinform.tab3.packWeightUnit.$invalid&&(view.submitted||esinform.tab3.packWeightUnit.$dirty)}">
+                                        <select class="form-control form-group-margin" name="packWeightUnit" ng-model="product.packWeightUnit" required>
+                                            <option value="" default>- 请选择 -</option>
+                                            <option ng-repeat="item in view.packWeightUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>装箱后尺寸
+                            </label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-3 p-r-none" ng-class="{'has-error':esinform.tab3.packSizeUnit.$invalid&&(view.submitted||esinform.tab3.packSizeUnit.$dirty)}">
+                                        <select class="form-control form-group-margin" name="packSizeUnit" ng-model="product.packSizeUnit" required>
+                                            <option value="" default>- 请选择 -</option>
+                                            <option ng-repeat="item in view.packSizeUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3 p-r-none" ng-class="{'has-error':esinform.tab3.packLength.$invalid&&(view.submitted||esinform.tab3.packLength.$dirty)}">
+                                        <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="长" id="packLength" name="packLength" ng-model="product.packLength" required>
+                                        <p ng-show="esinform.tab3.packLength.$error.pattern&&(view.submitted||esinform.tab3.packLength.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                    <div class="col-sm-3 p-r-none" ng-class="{'has-error':esinform.tab3.packWidth.$invalid&&(view.submitted||esinform.tab3.packWidth.$dirty)}">
+                                        <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="宽" id="packWidth" name="packWidth" ng-model="product.packWidth" required>
+                                        <p ng-show="esinform.packWidth.$error.pattern&&(view.submitted||esinform.tab3.packWidth.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                    <div class="col-sm-3" ng-class="{'has-error':esinform.tab3.packHeight.$invalid&&(view.submitted||esinform.tab3.packHeight.$dirty)}">
+                                        <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" class="form-control" placeholder="高" id="packHeight" name="packHeight" ng-model="product.packHeight" required>
+                                        <p ng-show="esinform.tab3.packHeight.$error.pattern&&(view.submitted||esinform.tab3.packHeight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后2位！</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>特殊配送标记
+                            </label>
+                            <div class="col-sm-10" ng-class="{'has-error':view.deliveryFlags.selectedItems.length==0&&(view.submitted||view.deliveryChanged)}">
+                                <div style="border:1px;">
+                                    <label class="checkbox-inline i-checks i-checks-sm m-l-none m-rs" ng-repeat="item in view.deliveryFlags.vals">
+                                        <input type="checkbox" checklist-model="view.deliveryFlags.selectedItems" checklist-value="item.contentEn" ng-change="view.deliveryChanged=true" /><i></i> {{item.contentCn||item.contentEn}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <i class="text-danger m-r-xs">*</i>交货地点
+                            </label>
+                            <div class="col-sm-10">
+                                <div class="row">
+                                    <div class="col-sm-3 p-r-none" ng-class="{'has-error':esinform.tab3.province.$invalid&&(view.submitted||esinform.tab3.province.$dirty)}">
+                                        <select class="form-control" ng-model="product.deliveryProvince" name="province" ng-options="p.stateCode as p.stateName for p in view.provinces" ng-change="product.deliveryCity=''" required>
+                                            <option value="">- 省 -</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3 p-r-none" ng-class="{'has-error':esinform.tab3.city.$invalid&&(view.submitted||esinform.tab3.city.$dirty)}">
+                                        <select class="form-control" ng-model="product.deliveryCity" name="city" ng-options="c.cityCode as c.cityName for c in getCities()" ng-change="product.district=''" required>
+                                            <option value="">- 市 -</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6" ng-class="{'has-error':esinform.tab3.deliveryPlace.$invalid&&(view.submitted||esinform.tab3.deliveryPlace.$dirty)}">
+                                        <input type="text" autocomplete="off" class="form-control" name="deliveryPlace" maxlength="200" placeholder="详细地址" ng-model="view.deliveryPlace" required />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        产品图片
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[4]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab4">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="w80 h80 inline m-r-xs m-b-xs" ng-repeat="i in product.productPics|filter:{picType:2}">
+                                    <button type="button" class="btn btn-danger btn-xs pull-right" style="position:absolute;" ng-click="delImg(2,$index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                    <div>
+                                        <a ng-href="{{i.picUrl|filePath:0}}" target="_blank"><img ng-src="{{i.picUrl|filePath:0:'_70x70'}}" error-src="{{i.picUrl|filePath:0}}" class="w80 h80" /></a>
+                                        <a href="javascript:void(0)" class="text-xs" ng-if="$index" style="color:blue" ng-click="setPrimaryImg(2,$index)">设为首图</a>
+                                        <span ng-if="!$index" class="text-xs" ng-if="$index" ng-click="setPrimaryImg(2,$index)">首图</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input id="mainImg" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" base-sixty-four base-sixty-four-success="mainImgSuccess(file, data, formData)" file-max-size="1" img-min-width="400" img-min-height="400" style="display:none;" />
+                                <button type="button" class="btn btn-info btn-sm" onclick="$('#mainImg').click()" ng-disabled="!canAddImg(2)">
+                                    添加
+                                    <i class="fa fa-spin fa-spinner m-l-2" ng-if="view.mainImgUploading" ng-cloak></i>
+                                </button>
+                                <label class="control-label">
+                                    <span class="text ml10">注：请上传800×800尺寸的图片，最多5张</span>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        细节图
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[5]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab5">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <div class="w80 h80 inline m-r-xs m-b-xs" ng-repeat="i in product.productPics|filter:{picType:4}">
+                                    <button type="button" class="btn btn-danger btn-xs pull-right" style="position:absolute;" ng-click="delImg(4,$index)">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                    <a ng-href="{{i.picUrl|filePath:0}}" target="_blank"><img ng-src="{{i.picUrl|filePath:0:'_70x70'}}" error-src="{{i.picUrl|filePath:0}}" class="w80 h80" /></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input id="detailImg" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" base-sixty-four base-sixty-four-success="detailImgSuccess(file, data, formData)" file-max-size="1" img-min-width="400" img-min-height="400" style="display:none;" />
+                                <button type="button" class="btn btn-info btn-sm" onclick="$('#detailImg').click()" ng-disabled="!canAddImg(4)">
+                                    添加
+                                    <i class="fa fa-spin fa-spinner m-l-2" ng-if="view.detailImgUploading" ng-cloak></i>
+                                </button>
+                                <label class="control-label">
+                                    <span class="text ml10">注：最多支持上传25张细节图</span>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        产品资质
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[6]" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab6">
+                        <div class="form-group">
+                            <table class="table table-striped m-b-none">
+                                <tbody>
+                                    <tr ng-repeat="i in product.productPics|filter:{picType:6}">
+                                        <td class="w80">
+                                            <button type="button" class="btn btn-danger btn-xs pull-right" style="position:absolute;" ng-click="delImg(6,$index)">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                            <a ng-href="{{i.picUrl|filePath:0}}" target="_blank"><img ng-src="{{i.picUrl|filePath:0:'_70x70'}}" error-src="{{i.picUrl|filePath:0}}" class="w80 h80" /></a>
+                                        </td>
+                                        <td>
+                                            <textarea maxlength="200" placeholder="资质证明文件的说明" class="form-control h80" ng-model="i.description"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input id="modelImg" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" base-sixty-four base-sixty-four-success="qualificationImgSuccess(file,data,formData)" file-max-size="1" img-min-width="400" img-min-height="400" style="display:none;" />
+                                <button type="button" class="btn btn-info btn-sm" onclick="$('#modelImg').click()" ng-disabled="!canAddImg(6)">
+                                    添加
+                                    <i class="fa fa-spin fa-spinner m-l-2" ng-if="view.qualificationImgUploading" ng-cloak></i>
+                                </button>
+                                <label class="control-label">
+                                    <span class="text ml10">注：最多支持上传10张详情图</span>
+                                </label>
+                            </div>
+                        </div>
+                    </ng-form>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        细分SKU
+                        <i class="fa fa-exclamation-circle text-danger" ng-if="view.submitted&&view.tabsError[7]" ng-cloak></i>
+                        <i class="fa fa-spin fa-spinner m-l-xs" ng-if="view.attrLoading" ng-cloak></i>
+                    </tab-heading>
+                    <ng-form name="tab7">
+                        <div class="form-group" ng-repeat="item in product.customAttributeList|filter:{standard:1}">
+                            <label class="col-sm-2 control-label">
+                                {{item.attributeName||item.attributeEnName}}
+                            </label>
+                            <div class="col-sm-10">
+                                <span ng-repeat="subItem in item.attributeVal" class="btn btn-xs btn-default m-t-xs m-r-xs">{{subItem.cnValue||subItem.enValue}}{{item.suffix}}<i class="fa fa-times m-l-xs text-danger" ng-click="delSpecAttrVal(item,$index);" ng-if="subItem.isCustom" ng-cloak></i></span>
+                                <div class="m-t-xs">
+                                    <button type="button" class="btn btn-info btn-xs" ng-click="addSpecAttrVal(item)" ng-disabled="!canAddSpecAttrVal(item)" ng-cloak>
+                                        添加值
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="delSpecAttr(item)" ng-cloak>
+                                        删除
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                <button type="button" class="btn btn-info btn-sm" ng-click="addSpecAttr()" ng-disabled="view.specAttrs.length>=4">新增规格属性
+                                </button>
+                            </label>
+                        </div>
+                        <div class="line line-dashed b-b pull-in"></div>
+                        <div class="form-group">
+                            <table class="table table-striped m-b-none">
+                                <thead>
+                                    <tr>
+                                        <th class="p-r-none" ng-repeat="item in product.customAttributeList|filter:{standard:1}"><i class="text-danger m-r-xs">*</i>{{item.attributeName||item.attributeEnName}}</th>
+                                        <th class="p-r-none"><i class="text-danger m-r-xs">*</i>SKU名称</th>
+                                        <th class="p-r-none"><i class="text-danger m-r-xs">*</i>货号</th>
+                                        <th class="p-r-none">自定义属性</th>
+                                        <th class="p-r-none w60">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sku in product.skus">
+                                        <td class="p-r-none" ng-repeat="item in product.customAttributeList|filter:{standard:1}">
+                                            <div ng-class="{'has-error':esinform.tab7['specAttrVal_'+$parent.$index+'_'+$index].$invalid&&(view.submitted||esinform.tab7['specAttrVal_'+$parent.$index+'_'+$index].$dirty)}">
+                                                <select class="form-control input-sm" ng-model="sku.productAttrss[$index].attributeVal" name="{{'specAttrVal_'+$parent.$index+'_'+$index}}" ng-change="editSkuAttr(item,$parent.$index,$index)" required>
+                                                    <option value="" default>- 请选择 -</option>
+                                                    <option ng-repeat="subItem in item.attributeVal" value="{{subItem.enValue}}">{{subItem.cnValue||subItem.enValue}}{{item.suffix}}</option>
+                                                </select>
+                                            </div>
+                                        </td>
+                                        <td class="p-r-none">
+                                            <div ng-class="{'has-error':esinform.tab7['skuName'+$index].$invalid&&(view.submitted||esinform.tab7['skuName'+$index].$dirty)}">
+                                                <input type="text" autocomplete="off" class="form-control input-sm" name="skuName{{$index}}" ng-model="sku.enName" required>
+                                            </div>
+                                        </td>
+                                        <td class="p-r-none">
+                                            <div ng-class="{'has-error':esinform.tab7['supplierSku'+$index].$invalid&&(view.submitted||esinform.tab7['supplierSku'+$index].$dirty)}">
+                                                <input type="text" autocomplete="off" maxlength="50" class="form-control input-sm" name="supplierSku{{$index}}" ng-model="sku.supplierSku" required>
+                                            </div>
+                                        </td>
+                                        <td class="p-r-none">
+                                            <div>
+                                                <span ng-if="sku.hasCustom" ng-cloak>
+                                                    自定义
+                                                    <button type="button" class="btn btn-info btn-xs" ng-click="editSku(sku)"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="resetSku(sku)" title="恢复默认"><i class="fa fa-reply"></i></button>
+                                                </span>
+                                                <span ng-if="!sku.hasCustom" ng-cloak>
+                                                    默认
+                                                    <button type="button" class="btn btn-info btn-xs" ng-click="editSku(sku)" title="自定义SKU信息"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                                <span ng-if="sku.hasError">
+                                                    <i class="fa fa-exclamation-circle text-danger" ng-cloak></i>
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td class="p-r-none">
+                                            <button type="button" class="btn btn-danger btn-sm" ng-click="removeSku($index,sku)">
+                                                <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <span class="col-sm-2 control-label">
+                            <button type="button" class="btn btn-info btn-sm" ng-click="addSku()">新增SKU</button>
+                        </span>
+                        </div>
+                    </ng-form>
+                </tab>
+            </tabset>
+            <div class="form-group m-t">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="button" class="btn btn-default m-l-sm" ng-click="cacheEsin(esinform.$invalid)" ng-disabled="view.caching||view.submitting" ng-if="canCacheEsin()" ng-cloak>
+                        暂存
+                        <i class="fa fa-spin fa-spinner m-l-2" ng-if="view.caching" ng-cloak></i>
+                    </button>
+                    <button type="submit" class="btn btn-primary m-l-sm" ng-disabled="view.caching||view.submitting" ng-click="submitEsin(esinform.$invalid)">
+                        提交
+                        <i class="fa fa-spin fa-spinner m-l-2" ng-if="view.submitting" ng-cloak></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+.tight-table > thead > tr > th,
+.tight-table > tbody > tr > td {
+  padding: 3px 6px;
+  vertical-align: middle;
+  border-top: 1px solid #eaeff0;
+}
+
+.tight-table > tbody > tr > td > .editLink, .editLink:visited {
+    text-decoration: underline;
+    color: blue;
+}
+
+.input-group > .form-control-w {
+  width: 60%;
+  position: relative;
+  white-space: nowrap;
+}
+.input-group > .form-control-l {
+  width: 40%;
+  position: relative;
+  white-space: nowrap;
+}

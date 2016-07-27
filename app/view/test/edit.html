@@ -1,0 +1,64 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        Form elements
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" method="get">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">树</label>
+                <div class="col-sm-10">
+                    <select ui-jq="chosen" class="form-control m-b-xs">
+                        <option value="">- 请选择 -</option>
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                            <option value="AK">Alaska</option>
+                            <option value="HI">Hawaii</option>
+                        </optgroup>
+                        <optgroup label="Pacific Time Zone">
+                            <option value="CA">California</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                        </optgroup>
+                        <optgroup label="Mountain Time Zone">
+                            <option value="AZ">Arizona</option>
+                            <option value="CO">Colorado</option>
+                            <option value="ID">Idaho</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="UT">Utah</option>
+                            <option value="WY">Wyoming</option>
+                        </optgroup>
+                    </select>
+                    <div class="input-group" style="width:100% !important;">
+                        <label ng-bind="terminalVM.category" class="form-control dropdown-toggle" data-toggle="dropdown"></label>
+                        <span class="input-group-btn" ng-if="terminalVM.category" ng-cloak>
+                            <button type="button" ng-click="terminalVM.category=''" class="btn btn-default no-border-l">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                        <ul stop-propagation class="dropdown-menu ztree" z-nodes="treeData.zNodes" setting="treeData.setting" z-tree style="width:100%;"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">With help</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control">
+                    <span class="help-block m-b-none">
+                        A block of help text that breaks onto a new line and may extend beyond one line.
+                    </span>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Rounded</label>
+                <div class="col-sm-10">
+                    <div class="ueditor" ng-model="terminalVM.content"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

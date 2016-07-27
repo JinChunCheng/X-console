@@ -1,0 +1,52 @@
+<form name="terminalForm" class="bs-example form-horizontal" ng-submit="ok(terminalForm.$valid)" novalidate>
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="terminalVM.title"></h3>
+    </div>
+    <div class="modal-body p-r">
+        <div class="form-group">
+            <label class="col-lg-2 control-label text-danger">终端编号</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" ng-model="terminalVM.data.code" maxlength="30" required readonly="readonly">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label text-danger">终端名称</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" ng-model="terminalVM.data.name" maxlength="30" required ng-blur="validName(terminalVM.data.name)">
+            </div>
+            <div class="col-lg-10" ng-show="nameInValid">
+            	<span class="text-danger">名称已存在</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">业务渠道</label>
+            <div class="col-lg-10">
+                <select class="form-control" ng-model="terminalVM.data.channel" ng-options="item.value as item.text for item in terminalVM.channelList" required>
+                    <option value="">- 请选择 -</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-lg-2 control-label">备注</label>
+            <div class="col-lg-10">
+                <textarea class="form-control" ng-model="terminalVM.data.remarks" maxlength="100"></textarea>
+            </div>
+        </div>
+        <div class="form-group" ng-show="terminalVM.data.createTime!=null">
+             <label class="col-lg-2 control-label">创建时间</label>
+            <div class="col-lg-10" >
+            	<input class="form-control" ng-value="terminalVM.data.createTime | date" readonly="readonly"/>
+            </div>       	
+        </div>
+        <div class="form-group" ng-show="terminalVM.data.createUserName!=null">
+             <label class="col-lg-2 control-label">创建人</label>
+            <div class="col-lg-10" >
+            	<input class="form-control"  ng-value="terminalVM.data.createUserName"  readonly="readonly"/>
+            </div>       	
+        </div>        
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-disabled="terminalVM.processing||terminalForm.$invalid || nameInValid">保存</button>
+        <button class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>
+</form>

@@ -1,0 +1,201 @@
+<div class="panel form-horizontal">
+    <div class="panel-heading">
+        <i class="menu-icon fa fa-sitemap mr5"></i><span class="panel-title">运费费率修改</span>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body">
+          <div class="tab-content tab-content-bordered" >
+            <div class="tab-pane fade active in" id="interTransportRateInfo">
+                <div class="row">
+                    <form id="interTransportRateFrom" name="interTransportRateFrom" class="form-horizontal" method="post" ng-submit="updateInterTranRateInfo()" novalidate>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">物流供应商</span>
+                                    <select class="form-control" ng-model="transportRateInfo.vendorCode" 
+                                        ng-options="vendorInfo.vendorCode as vendorInfo.vendorName for vendorInfo in vendorsInfo" required>
+                                        <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">运输方式</span>
+                                    <select class="form-control" ng-model="transportRateInfo.transportMode" ng-change="loadStatesInfoBychange()"
+                                        ng-options="transportationMode.value as transportationMode.label for transportationMode in transportationModes" required>
+                                        <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">服务类型</span>
+                                     <select class="form-control" ng-model="transportRateInfo.serviceType" ng-change="loadStatesInfoBychange()"
+                                        ng-options="serviceTypeInfo.value as serviceTypeInfo.label for serviceTypeInfo in serviceTypesInfo" required>
+                                        <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>起运地/港:</span>
+                                    <select class="form-control" ng-model="transportRateInfo.originCountryCode"  
+                                    ng-change="loadStatesInfo(transportRateInfo.originCountryCode,'origin')"
+                                    ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                                        <option value="">国家</option>
+                                    </select>
+                                    <select class="form-control" ng-model="transportRateInfo.originStateCode" ng-change="loadPortInfo('origin')"
+                                    ng-options="originStatesInfo.stateCode as originStatesInfo.stateName for originStatesInfo in originStatessInfo" >
+                                        <option value="">州</option>
+                                    </select>
+                                     <select class="form-control" ng-model="transportRateInfo.originCityCode" 
+                                     ng-options="originCityInfo.portCode as originCityInfo.portEnName for originCityInfo in originCitysInfo" >
+                                        <option value="">城市/港</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>目的地/港:</span>
+                                    <select class="form-control" ng-model="transportRateInfo.destCountryCode" 
+                                    ng-change="loadStatesInfo(transportRateInfo.destCountryCode,'dest')"
+                                    ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                                        <option value="">国家</option>
+                                    </select>
+                                    <select class="form-control" ng-model="transportRateInfo.destStateCode" ng-change="loadPortInfo('dest')"
+                                    ng-options="destStatesInfo.stateCode as destStatesInfo.stateName for destStatesInfo in destStatessInfo">
+                                        <option value="">州</option>
+                                    </select>
+                                    <select class="form-control" ng-model="transportRateInfo.destCityCode"
+                                    ng-options="destCityInfo.portCode as destCityInfo.portEnName for destCityInfo in destCitysInfo" >
+                                        <option value="">城市/港</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-10">
+                                <button type="submit" class="btn btn-primary" ng-disabled="isSaving">
+                                    <span ng-bind="isSaving? '保存中':'保存'"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="back()">
+                                    <span ng-bind="'取消'"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                        <div class="panel-heading">
+                           
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped tight-table b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th class="pointer">
+                                           重量区间
+                                        </th>
+                                        <th class="pointer">
+                                           计费单位
+                                        </th>
+                                        <th class="pointer">
+                                           费率币种
+                                        </th>
+                                        <th class="pointer">
+                                           普通货物
+                                        </th>
+                                        <th class="pointer">
+                                           冷藏货物
+                                        </th>
+                                        <th class="pointer">
+                                           冷冻货物
+                                        </th>
+                                        <th class="pointer">
+                                           液体普货
+                                        </th>
+                                        <th class="pointer">
+                                           危险品
+                                        </th>
+                                        <th class="pointer">
+                                           医疗用品
+                                        </th>
+                                        <th class="pointer">
+                                           瓶装运输
+                                        </th>
+                                        <th class="pointer">
+                                           活体运输
+                                        </th>
+                                        <th class="pointer">
+                                           项目运输
+                                        </th>
+                                        <th class="pointer">
+                                           其他
+                                        </th>
+                                        <th class="pointer">
+                                           运输时效
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                         <td ng-bind="transportRateInfo.wgtintervalCode">
+                                         </td>
+                                         <td>
+                                            <select class="form-control" ng-model="transportRateInfo.calUnit" 
+                                                ng-options="calUnitInfo.value as calUnitInfo.label for calUnitInfo in calUnitInfos">
+                                                    <option value="">-- 请选择 --</option>
+                                            </select>
+                                         </td>
+                                         <td>
+                                             <select class="form-control" ng-model="transportRateInfo.currency" 
+                                                ng-options="currencyInfo.value as currencyInfo.label for currencyInfo in currencyInfos">
+                                                    <option value="">-- 请选择 --</option>
+                                            </select>
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price001" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price002" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price003" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price004" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price005" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price006" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price007" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price008" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price009" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" maxlength="20" ng-model="transportRateInfo.price010" />
+                                         </td>
+                                         <td>
+                                             <input type="text" class="form-control" ng-model="transportRateInfo.transitDays" />
+                                         </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div> 
+             </div>
+          </div>
+        </div>
+    </div>
+</div>

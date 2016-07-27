@@ -1,0 +1,142 @@
+<div class="panel form-horizontal">
+    <div class="panel-heading">
+        <i class="menu-icon fa fa-sitemap mr5"></i><span class="panel-title">重量区间设置</span>
+    </div>
+    <div class="panel-body">
+        <div style="float:right;">
+            <button type="button" class="btn btn-default ml5" ng-click="back()">
+                返回列表
+            </button>
+        </div>
+        <div class="clear-fix"></div>
+
+        <div class="panel-body">
+          <ul id="saleOrder-tabs" class="nav nav-tabs">
+                <li class="active">
+                    <a  data-toggle="tab"><span>重量区间信息</span></a>
+                </li>
+          </ul>
+          <div class="tab-content tab-content-bordered" >
+            <div class="tab-pane fade active in" id="weightIntervalInfo">
+                <div class="row">
+                    <form id="weithtIntervalFrom" name="weithtIntervalFrom" class="form-horizontal" method="post" ng-submit="saveWeightInterval()" novalidate>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">费率区间代码</span>
+                                <input  type="text"  class="form-control" ng-model="weightIntervalInfo.wgtintervalCode" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">费率区间描述</span>
+                                <input  type="text"  class="form-control" ng-model="weightIntervalInfo.intervalName" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">物流供应商</span>
+                                 <select class="form-control" ng-model="weightIntervalInfo.vendorCode">
+                                    <option  ng-bind="item.vendorCode" ng-repeat="item in vendorCode.Items">{{item.vendorName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">运输方式</span>
+                                <select class="form-control" ng-model="weightIntervalInfo.transportMode">
+                                    <option value="AIR">AIR</option>
+                                    <option value="EXPRESS">EXPRESS</option>
+                                    <option value="GLAND">GLAND</option>
+                                    <option value="OCEAN">OCEAN</option>
+                                    <option value="POST">POST</option>
+                                    <option value="SEXPR">SEXPR</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">最小重量</span>
+                                <input type="test" class="form-control" ng-model="weightIntervalInfo.minWeight"  />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">最大重量</span>
+                                 <input  type="text"  class="form-control" ng-model="weightIntervalInfo.maxWeight" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">首重</span>
+                                 <input  type="text" class="form-control" ng-model="weightIntervalInfo.firstWeight" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">续重</span>
+                                 <input  type="text"  class="form-control" ng-model="weightIntervalInfo.addedWeight" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">发货城市</span>
+                                 <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.departurecityCode" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">排序</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.sortSeq" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">是否有效</span>
+                                <!-- <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.enabled" /> -->
+                                <select class="form-control input-sm" ng-model="weightIntervalInfo.enabled">
+                                    <option value="0" >无效</option>
+                                    <option value="1" >有效</option>
+                                </select>
+                            </div>
+                        </div>
+                       <!--  <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">创建时间</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.customerAddr" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">创建人</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.consigneeName" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">修改时间</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.consigneeContacter"/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">修改人</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="weightIntervalInfo.consigneeContactNo" />
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <div class="col-sm-offset-10">
+                                <button type="submit" class="btn btn-primary" >
+                                    <span ng-bind="isSaving? '保存中':'保存'"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="back()">
+                                    <span ng-bind="'取消'"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

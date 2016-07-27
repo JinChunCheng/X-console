@@ -1,0 +1,90 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        物流参数
+        <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="loading" ng-cloak></i>
+    </div>
+    <div class="panel-body" ng-form="logisticsForm">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">重抛比系数</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.weightVolumeRatio.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.weightVolumeRatio" name="weightVolumeRatio"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">KG/m³</span>
+                </div>
+                <p ng-show="logisticsForm.weightVolumeRatio.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+            <span class="help-block m-b-none">单位体积下的重量边界</span>
+        </div>
+        <div class="form-group">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label class="col-sm-2 control-label">单位物流体积</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.unitLogisticsVolume.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.unitLogisticsVolume" name="unitLogisticsVolume"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">m³</span>
+                </div>
+                <p ng-show="logisticsForm.unitLogisticsVolume.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+            <span class="help-block m-b-none">单个物流配送单位的体积</span>
+        </div>
+        <div class="form-group">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label class="col-sm-2 control-label">Sample物流费用</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.sampleLogisticsCost.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.sampleLogisticsCost" name="sampleLogisticsCost"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">元</span>
+                </div>
+                <p ng-show="logisticsForm.sampleLogisticsCost.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+            <span class="help-block m-b-none">样品的配送费用</span>
+        </div>
+        <div class="form-group">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label class="col-sm-2 control-label">起运港默认初始费用</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.defaultInitalCost.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.defaultInitalCost" name="defaultInitalCost"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">元</span>
+                </div>
+                <p ng-show="logisticsForm.defaultInitalCost.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+        </div>
+        <div class="form-group">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label class="col-sm-2 control-label">起运港默认操作费（体积）</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.defaultVolumeCost.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.defaultVolumeCost" name="defaultVolumeCost"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">元/m³</span>
+                </div>
+                <p ng-show="logisticsForm.defaultVolumeCost.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+        </div>
+        <div class="form-group">
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+            <label class="col-sm-2 control-label">起运港默认操作费（重量）</label>
+            <div class="col-sm-4" ng-class="{ 'has-error': logisticsForm.defaultweightCost.$invalid }">
+                <div class="input-group m-b">
+                    <input type="text" class="form-control" ng-model="logistics.defaultweightCost" name="defaultweightCost"
+                           ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required>
+                    <span class="input-group-addon">元/KG</span>
+                </div>
+                <p ng-show="logisticsForm.defaultweightCost.$invalid" class="help-block">如输入小数，精确到小数点后两位！</p>
+            </div>
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-primary" ng-disabled="saving" ng-click="saveLogisticsParameter()">
+                    <span>保存</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

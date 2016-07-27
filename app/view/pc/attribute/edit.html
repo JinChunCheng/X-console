@@ -1,0 +1,94 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        <span ng-bind="attrVM.title"></span>
+        <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="attrVM.loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <form name="attrform" class="form-horizontal" ng-submit="save(attrform.$valid)" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">中文名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" required maxlength="50" ng-model="attrVM.data.name">
+                </div>
+            </div>
+            <div class="line line-dashed b-b line pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">英文名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" required maxlength="50" ng-model="attrVM.data.enName">
+                </div>
+            </div>
+            <div class="line line-dashed b-b line pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">标签</label>
+                <div class="col-sm-10">
+                    <i class="fa fa-spin fa-spinner text-lg m-t-sm" ng-if="attrVM.tagListLoading" ng-cloak></i>
+                    <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r" ng-repeat="item in attrVM.tagsList">
+                        <input type="checkbox" checklist-model="attrVM.data.checkTags" checklist-value="item.contentEn" /><i></i> {{item.contentEn}}
+                    </label>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">字段类型</label>
+                <div class="col-sm-10">
+                    <select class="form-control" required ng-options="item.value as item.text for item in attrVM.fieldTypeList" ng-change="changeFieldType()" ng-model="attrVM.data.fieldType">
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="enName">属性单位</label>
+                <div class="col-sm-10">
+                    <input type="text" maxlength="50" class="form-control" ng-model="attrVM.data.suffix" />
+                </div>
+            </div>
+            <div ng-if="attrVM.data.fieldType>2" ng-cloak>
+                <div class="line line-dashed b-b line pull-in"></div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">属性值</label>
+                    <div class="col-sm-10">
+                        <table class="table table-striped m-b-none">
+                            <thead>
+                                <tr>
+                                    <th class="w150">中文</th>
+                                    <th class="w150">英文</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in attrVM.attributeValueList track by $index">
+                                    <td>
+                                        <input type="text" class="form-control input-sm" ng-model="item.cnValue">
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control input-sm" ng-model="item.enValue">
+                                    </td>
+                                    <td class="p-l-none">
+                                        <button type="button" class="btn btn-primary btn-sm" ng-click="add()" ng-disabled="searching" ng-if="$index==0" ng-cloak>
+                                            添加
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-sm" ng-click="remove($index)" ng-if="$index!=0" ng-cloak>
+                                            删除
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line pull-in"></div>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary" ng-disabled="attrform.$invalid||attrVM.saving">
+                        <span class="w2em" ng-if="!attrVM.saving" ng-cloak>保存</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="attrVM.saving" ng-cloak></i>
+                    </button>
+                    <button type="button" class="btn btn-default m-l-xs" ng-click="back()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

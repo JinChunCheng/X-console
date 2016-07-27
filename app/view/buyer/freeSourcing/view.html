@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h3 class="modal-title">附件列表</h3>
+</div>
+<div class="modal-body">
+    <div class="wrapper-md" ng-repeat="item in files">
+        <a href="{{item.fileId}}"  class="fa fa-file">  附件{{$index+1}}:点击下载</a>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

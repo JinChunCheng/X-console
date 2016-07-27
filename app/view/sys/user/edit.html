@@ -1,0 +1,110 @@
+<div class="panel panel-default m-b-none">
+    <form name="userform" method="post" ng-submit="ok(userform.$valid)" novalidate>
+        <div class="panel-heading font-bold">
+            <span ng-bind="userVM.title"></span> <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="userVM.loading" ng-cloak></i>
+        </div>
+        <div class="panel-body">
+            <div ng-if="userVM.type==3" ng-cloak>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">用户名</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.loginName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">姓名</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.userName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">部门</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.deptName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">岗位</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.roleName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">E-MAIL</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.email"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">手机</div>
+                    <div class="col-sm-10" ng-bind="userVM.data.mobile"></div>
+                </div>
+            </div>
+            <div ng-if="userVM.type!=3" ng-cloak>
+                <div class="row" ng-class="{true:'has-error'}[(userform.loginname.$dirty||userVM.submitted)&&userform.loginname.$error.required]">
+                    <div class="col-sm-2 text-right font-bold text-danger">用户名</div>
+                    <div class="col-sm-10">
+                        <input type="text" name="loginname" required autocomplete="off" class="form-control" maxlength="50" ng-model="userVM.data.loginName" />
+                    </div>
+                </div>
+                <div ng-if="userVM.type==1" ng-cloak>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold text-danger">密码</div>
+                        <div class="col-sm-10">
+                            <input type="password" required autocomplete="off" class="form-control" ng-model="userVM.data.password" />
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">确认密码</div>
+                        <div class="col-sm-10">
+                            <input type="password" required autocomplete="off" class="form-control" ng-model="userVM.data.confirmPassword" />
+                        </div>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">人员姓名</div>
+                    <div class="col-sm-10">
+                        <input type="text"  required autocomplete="off" class="form-control" maxlength="50" ng-model="userVM.data.userName" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">部门</div>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="userVM.data.departmentId" ng-options="o.id as o.deptName for o in userVM.departmentList">
+                            <option value="" default>- 请选择 -</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">岗位</div>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="userVM.data.roleID" ng-options="o.id as o.roleName for o in userVM.roleList" required>
+                            <option value="" default>- 请选择 -</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">E-MAIL</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" class="form-control" maxlength="50" ng-model="userVM.data.email" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">手机</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" class="form-control" maxlength="50" ng-model="userVM.data.mobile" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="submit" class="btn btn-primary m-r-sm" ng-disabled="userVM.saving||userform.$invalid" ng-if="userVM.type!=3" ng-cloak>
+                <span class="w2em" ng-if="!userVM.saving" ng-cloak>保存</span>
+                <i class="fa fa-spin fa-spinner w2em" ng-if="userVM.saving" ng-cloak></i>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">返回</button>
+        </div>
+    </form>
+</div>

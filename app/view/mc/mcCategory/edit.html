@@ -1,0 +1,196 @@
+<div class="panel form-horizontal">
+    <div class="panel-heading font-bold">
+        修改品类<i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="loading" ng-cloak></i>
+    </div>
+    <div class="panel-body" ng-form="categoryForm">
+        <tabset class="tab-container m-b-none">
+            <tab>
+                <tab-heading>
+                    基本信息
+                </tab-heading>
+                <div class="form-group">
+                    <label for="name" class="col-sm-2 control-label text-danger">
+                        名称
+                    </label>
+                    <div class="col-sm-4" ng-class="{ 'has-error' : categoryForm.name.$invalid && !categoryForm.name.$pristine }">
+                        <input type="text" autocomplete="off" class="form-control" name="name" id="name" required maxlength="50" ng-model="category.name" />
+                        <p ng-show="categoryForm.name.$invalid && !categoryForm.name.$pristine" class="help-block">必填项！</p>
+                    </div>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error' : demoform.name.$invalid && !demoform.name.$pristine }">
+                    <label for="cnName" class="col-sm-2 control-label">
+                        中文名称
+                    </label>
+                    <div class="col-sm-4">
+                        <input type="text" autocomplete="off" class="form-control" name="cnName" id="cnName" maxlength="50" ng-model="category.cnName" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label  class="col-sm-2 control-label text-danger">
+                        上级类目
+                    </label>
+                    <div class="col-sm-4">
+                        <div class="input-group m-b" style="width:100% !important;">
+                            <span class="form-control btn btn-default tl" data-toggle="dropdown">
+                                <span ng-bind="category.parentName"></span>
+                                <i class="caret pull-right"></i>
+                            </span>
+                            <div class="dropdown-menu" style="width:100%;max-height:300px;overflow:auto;">
+                                <span class="p-5" ng-show="treeData.loading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                                <ul id="parentTree" ng-show="!treeData.loading" ng-cloak stop-propagation class="ztree" setting="treeData.settings" z-tree></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="seq" class="col-sm-2 control-label">
+                        排序
+                    </label>
+                    <div class="col-sm-4"  ng-class="{ 'has-error' : categoryForm.seq.$invalid  && !categoryForm.seq.$pristine }">
+                        <input type="text" autocomplete="off" class="form-control" name="seq" id="seq" ng-pattern="/^[1-9]\d*$/" maxlength="50" ng-model="category.seq" />
+                        <p ng-show="categoryForm.seq.$invalid  && !categoryForm.seq.$pristine" class="help-block">请输入正整数！</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="leaf" class="col-sm-2 control-label">
+                        是否叶子节点
+                    </label>
+                    <div class="col-sm-10">
+                        <div class="radio-inline" style="padding-left:0px !important;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" id="leaf" name="leaf" ng-model="category.leaf" ng-value="true"  required>
+                                <i></i> 是
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio"  name="leaf" ng-model="category.leaf"  ng-value="false">
+                                <i></i> 否
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="isValid" class="col-sm-2 control-label">
+                        是否显示
+                    </label>
+                    <div class="col-sm-10">
+                        <div class="radio-inline" style="padding-left:0px !important;">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio" id="isValid" name="isValid" ng-model="category.isValid" ng-value="true" required>
+                                <i></i> 显示
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label class="i-checks i-checks-sm">
+                                <input type="radio"  name="isValid" ng-model="category.isValid"  ng-value="false">
+                                <i></i> 隐藏
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="des" class="col-sm-2 control-label">
+                        说明
+                    </label>
+                    <div class="col-sm-4">
+                        <textarea id="des" name="des" class="form-control" rows="5" ng-model="category.des" maxlength="200"></textarea>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    关联品类
+                </tab-heading>
+                <div class="form-group" ng-repeat="item in proCategorys">
+                    <label class="col-sm-2 control-label text-danger" ng-if="$index==0">
+                        关联产品品类
+                    </label>
+                    <label class="col-sm-2 control-label text-danger" ng-if="$index>0">
+                    </label>
+                    <div class="col-sm-4" >
+                        <div class="input-group m-b" style="width:100% !important;">
+                            <span class="form-control btn btn-default tl" data-toggle="dropdown">
+                                <span ng-bind="item.name"></span>
+                                <i class="caret pull-right"></i>
+                            </span>
+                            <div class="dropdown-menu" style="width:100%;max-height:300px;overflow:auto;">
+                                <span class="p-5" ng-show="" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                                <ul id="pcTree{{$index}}"  ng-cloak stop-propagation class="ztree" setting="proTreeData.settings" z-tree></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="delProCategory($index)" ng-if="$index>0">删除</button>
+                    <button type="submit" class="btn btn-default" ng-click="addProCategory()" ng-if="$index==0">添加</button>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    品类模板图
+                </tab-heading>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="w80 h80 inline m-r-xs m-b-xs" ng-repeat="i in mainImgs">
+                            <button type="button" class="btn btn-danger btn-xs pull-right" style="position:absolute;" ng-click="delImg($index)">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            <a ng-href="{{i.url}}" target="_blank">
+                                <img ng-src="{{i.url}}" error-src="{{i.url}}" class="w80 h80" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-10">
+                        <input id="mainImg" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" base-sixty-four base-sixty-four-success="mainImgSuccess(file, data, formData)" file-max-size="1" style="display:none;" />
+                        <button type="button" class="btn btn-info btn-sm" onclick="$('#mainImg').click()">选择图片</button>
+                        <label class="control-label">
+                            上传图片<span class="text ml10">注：请上传800×800尺寸的图片，最多支持上传5张主图</span>
+                        </label>
+                        <p ng-show="mainImgs.length <= 0 && sub" class="help-block">必填项！</p>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    SEO设置
+                </tab-heading>
+                <div class="form-group">
+                    <label for="seoTitle" class="col-sm-2 control-label">
+                        title
+                    </label>
+                    <div class="col-sm-4">
+                        <textarea id="seoTitle" name="seoTitle" class="form-control" rows="5" ng-model="category.seoTitle" maxlength="200"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="seoKeyword" class="col-sm-2 control-label">
+                        keyword
+                    </label>
+                    <div class="col-sm-4">
+                        <textarea id="seoKeyword" name="seoKeyword" class="form-control" rows="5" ng-model="category.seoKeyword" maxlength="200"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="seoDescription" class="col-sm-2 control-label">
+                        description
+                    </label>
+                    <div class="col-sm-4">
+                        <textarea id="seoDescription" name="seoDescription" class="form-control" rows="5" ng-model="category.seoDescription" maxlength="200"></textarea>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+
+        <div class="form-group m-t">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" ng-click="update()" class="btn btn-primary" ng-disabled="isSaving">
+                    <span ng-bind="isSaving? '保存中':'保存'"></span>
+                </button>
+                <button type="button" class="btn btn-default m-l" ng-click="back()">
+                    返回列表
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

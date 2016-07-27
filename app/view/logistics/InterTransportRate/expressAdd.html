@@ -1,0 +1,254 @@
+<div class="panel form-horizontal">
+    <div class="panel-heading">
+        <i class="menu-icon fa fa-sitemap mr5"></i><span class="panel-title">运费费率新增</span>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body">
+          <div class="tab-content tab-content-bordered" >
+            <div class="tab-pane fade active in" id="interTransportRateInfo">
+                <div class="row">
+                    <form id="interTransportRateFrom" name="interTransportRateFrom" class="form-horizontal" method="post" ng-submit="addInterExpressTranRateInfo()" novalidate>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">物流供应商</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.vendorCode" ng-change="loadWeightIntervalInfo()"
+                                        ng-options="vendorInfo.vendorCode as vendorInfo.vendorName for vendorInfo in vendorsInfo" required>
+                                        <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">运输方式</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.transportMode"
+                                    ng-change="loadWeightIntervalInfo()" 
+                                        ng-options="transportationMode.value as transportationMode.label for transportationMode in transportationModes" required>
+                                        <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">重量区间</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.wgtintervalCode" ng-options="weight.wgtintervalCode as weight.intervalName  for weight in weightIntervalsInfo" >
+                                                 <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">计费单位</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.calUnit" ng-change="loadWeightIntervalInfo()"
+                                                ng-options="calUnitInfo.value as calUnitInfo.label for calUnitInfo in calUnitInfos">
+                                                    <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>起运地/港:</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.originCountryCode"  
+                                    ng-change="loadStatesInfo(expressTransportRateInfo.originCountryCode,'origin')"
+                                    ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                                        <option value="">国家</option>
+                                    </select>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.originStateCode" ng-change="loadCityInfo('origin')"
+                                    ng-options="originStatesInfo.stateCode as originStatesInfo.stateName for originStatesInfo in originStatessInfo" >
+                                        <option value="">州</option>
+                                    </select>
+                                     <select class="form-control" ng-model="expressTransportRateInfo.originCityCode" 
+                                     ng-options="originCityInfo.portCode as originCityInfo.portEnName for originCityInfo in originCitysInfo" >
+                                        <option value="">城市/港</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon"><i class="text-danger m-r-xs">*</i>目的地/港:</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.destCountryCode" 
+                                    ng-change="loadStatesInfo(expressTransportRateInfo.destCountryCode,'dest')"
+                                    ng-options="countryInfo.countryCode as countryInfo.countryName for countryInfo in countrysInfo" required>
+                                        <option value="">国家</option>
+                                    </select>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.destStateCode" ng-change="loadCityInfo('dest')"
+                                    ng-options="destStatesInfo.stateCode as destStatesInfo.stateName for destStatesInfo in destStatessInfo">
+                                        <option value="">州</option>
+                                    </select>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.destCityCode"
+                                    ng-options="destCityInfo.portCode as destCityInfo.portEnName for destCityInfo in destCitysInfo" >
+                                        <option value="">城市/港</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">费率币种</span>
+                                    <select class="form-control" ng-model="expressTransportRateInfo.currency" 
+                                                ng-options="currencyInfo.value as currencyInfo.label for currencyInfo in currencyInfos">
+                                                    <option value="">-- 请选择 --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">运输时效</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.transitDays" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">有效日期</span>
+
+                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="expressTransportRateInfo.expiryDate" is-open="open" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="关闭" ng-click="openDate($event)" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">普通货物:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice001" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice001" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost001" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">冷藏货物:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice002" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice002" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost002" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">冷冻货物:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice003" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice003" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost003" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">液体货物:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice004" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice004" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost004" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">危险品:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice005" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice005" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost005" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">医疗用品:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice006" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice006" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost006" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">瓶装运输:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice007" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice007" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost007" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">活体运输:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice008" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice008" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost008" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">项目运输:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice009" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice009" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost009" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="input-group m-b">
+                                    <span class="input-group-addon">其他:</span>
+                                    <span class="input-group-addon">首重:</span>
+                                     <input type="text" class="form-control" ng-model="expressTransportRateInfo.basicPrice010" />
+                                    <span class="input-group-addon">续重:</span>
+                                    <input type="text" class="form-control" ng-model="expressTransportRateInfo.addedPrice010" />
+                                    <span class="input-group-addon">最低成本:</span>
+                                      <input type="text" class="form-control" ng-model="expressTransportRateInfo.minCost010" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-10">
+                                <button type="submit" class="btn btn-primary" ng-disabled="isSaving">
+                                    <span ng-bind="isSaving? '保存中':'保存'"></span>
+                                </button>
+                                <button type="button" class="btn btn-primary" ng-click="back()">
+                                    <span ng-bind="'取消'"></span>
+                                </button>
+                            </div>
+                        </div>
+                       
+                    </form>
+                </div> 
+             </div>
+          </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">媒介</span>
+                    <select class="form-control" placeholder="aaa" ng-model="listVM.condition.source" ng-options="item.contentCn as item.contentEn for item in listVM.source">
+                        <option value="">- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">来源</span>
+                    <select class="form-control" placeholder="aaa" ng-model="listVM.condition.medium" ng-options="item.contentCn as item.contentEn for item in listVM.medium">
+                        <option value="">- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.processing">
+                    查询
+                    <i class="fa fa-spin fa-spinner m-l-xs" ng-if="listVM.processing" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a ui-sref="mc.campaign.add" class="btn btn-primary btn-xs">新增</a>
+            <button type="button" ng-click="open()" class="btn btn-primary btn-xs m-l-xs">修改运营时间</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>Tracking ID</th>
+                        <th>来源</th>
+                        <th>媒介</th>
+                        <th>广告系列</th>
+                        <th>广告组</th>
+                        <th>创意</th>
+                        <th>关键词</th>
+                        <th>来源链接</th>
+                        <th>生成日期</th>
+                        <th>发布日期</th>
+                        <th>结束日期</th>
+                        <th style="width:80px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.searching" ng-cloak>
+                        <td class="text-center" colspan="12"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="listVM.items.length == 0" ng-cloak>
+                        <td class="text-center" colspan="10">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td ng-bind="item.id"></td>
+                        <td ng-bind="item.source"></td>
+                        <td ng-bind="item.medium"></td>
+                        <td ng-bind="item.campaign"></td>
+                        <td ng-bind="item.adGroup"></td>
+                        <td ng-bind="item.ads"></td>
+                        <td ng-bind="item.keyword"></td>
+                        <td ng-if="item.sourceUrl.indexOf('?') > 0" ng-bind="item.sourceUrl+'&leadsource='+item.id"></td>
+                        <td ng-if="item.sourceUrl.indexOf('?') < 0" ng-bind="item.sourceUrl+'?leadsource='+item.id"></td>
+                        <td ng-bind="item.createTime|exDate:'yyyy-MM-dd'"></td>
+                        <td ng-bind="item.startDate|exDate:'yyyy-MM-dd'"></td>
+                        <td ng-bind="item.endDate|exDate:'yyyy-MM-dd'"></td>
+                        <td>
+                            <a ui-sref="mc.campaign.edit({id:item.id})" class="fa fa-edit m-r-xs" title="修改"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber" is-paging="listVM.searching" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

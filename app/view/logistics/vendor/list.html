@@ -1,0 +1,152 @@
+<div class="wrapper-md">
+    <div class="row">
+        <form ng-submit="page(1)">
+            <div class="row">
+                <div class="col-xs-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">供应商代码:</span>
+                        <input type="text" class="form-control" ng-model="condition.vendorCode" />
+                    </div>
+                </div>
+                 <div class="col-xs-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">供应商名称:</span>
+                        <input type="text" class="form-control" ng-model="condition.vendorName" />
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">供应商地址:</span>
+                        <input type="text" class="form-control" ng-model="condition.vendorAddr" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.processing">
+                        <span class="w2em" ng-if="!loading" ng-cloak>查询</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="loading" ng-cloak></i>
+                    </button>
+                    <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+                </div>
+                <div class="col-xs-2">
+                    <span>&nbsp;</span>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>物流供应商列表</span>
+            <div class="btn-group pull-right">
+                <a ui-sref="" class="btn btn-primary btn-xs" ng-click="addVendor()" >
+                     <span ng-bind="'添加'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped tight-table b-t b-light">
+                <thead>
+                    <tr>
+                        <th>
+                            序号
+                        </th>
+                        <th class="pointer" ng-click="reSort('vendorcode')">
+                            供应商代码
+                            <span class="fa m-l-2 text-sm {{sortClass('vendorcode')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('vendorname')">
+                            英文名称
+                            <span class="fa m-l-2 text-sm {{sortClass('vendorname')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('vendor_cnname')">
+                            中文名称
+                            <span class="fa m-l-2 text-sm {{sortClass('vendor_cnname')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('vendortype')">
+                            业务类型
+                            <span class="fa m-l-2 text-sm {{sortClass('vendortype')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('business_scope')">
+                            服务范围
+                            <span class="fa m-l-2 text-sm {{sortClass('business_scope')}}">
+                        </th>
+
+                        <th class="pointer" ng-click="reSort('contactperson1')">
+                            联系人
+                            <span class="fa m-l-2 text-sm {{sortClass('contactperson1')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('contactno1')">
+                            联系电话
+                            <span class="fa m-l-2 text-sm {{sortClass('contactno1')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('contactemail1')">
+                            联系邮件
+                            <span class="fa m-l-2 text-sm {{sortClass('contactemail1')}}">
+                        </th>
+
+                        <th class="pointer" ng-click="reSort('cooperation')">
+                            状态
+                            <span class="fa m-l-2 text-sm {{sortClass('cooperation')}}">
+                        </th>
+
+                        <th style="width:80px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="loading" ng-cloak>
+                        <td class="text-center" colspan="13"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="!loading&&(!queryResult.Items||queryResult.Items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="13">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in queryResult.Items">
+                        <td>
+                            {{(queryResult.pageNo-1)*10+$index+1}}
+                        </td>
+                        <td nowrap>
+                            <a href ng-click="editVendor(item.id)" class="editLink" title="编辑">{{item.vendorCode}}</a>
+                        </td>
+                        <td>
+                            {{item.vendorName}}
+                        </td>
+                        <td>
+                            {{item.vendorCnName}}
+                        </td>
+                        <td>
+                            {{item.vendorTypeCnDesc}}
+                        </td>
+                        <td>
+                            {{item.businessScope}}
+                        </td>
+
+                        <td>
+                            {{item.contactPerson1}}
+                        </td>                        
+                        <td>
+                            {{item.contactNo1}}
+                        </td>
+                        <td>
+                            {{item.contactEmail1}}
+                        </td>
+
+                        <td>
+                            {{item.cooperationCnDesc}}
+                        </td>
+
+                        <td class="text-bg">
+                            <a href ng-click="editVendor(item.id)"  class="fa fa-edit" title="编辑"></a>
+                            <a href ng-click="deleteVendor(item)"  class="fa fa-trash-o" title="删除"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="queryResult.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="queryResult.TotalCount" items-per-page="queryResult.PageSize" ng-change="pageChanged()" ng-model="queryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

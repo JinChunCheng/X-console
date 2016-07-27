@@ -1,0 +1,101 @@
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+.pointer{cursor:pointer;}
+.noborder{border:0px !important;}
+
+/* Styling for the ngProgress itself */
+#ngProgress {
+    margin: 0;
+    padding: 0;
+    z-index: 99998;
+    background-color: green;
+    color: green;
+    box-shadow: 0 0 10px 0; /* Inherits the font color */
+    height: 2px;
+    opacity: 0;
+
+    /* Add CSS3 styles for transition smoothing */
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Styling for the ngProgress-container */
+#ngProgress-container {
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+}
+
+.pointer{cursor: pointer;}
+.black{color:black !important;}
+
+/*width*/
+.w02em,.w05em,.w1em,.w1d5em,.w2em,.w3em,.w4em{display:inline-block}
+.w02em{width:0.2em}.w05em{width:0.5em}.w1em{width:1em}.w1d5em{width:19px}.w2em{width:2em}.w3em{width:3em}.w4em{width:4em}
+.w30{width:30px !important;}
+
+.h28{height:28px !important;} .h1{height:1px !important;}.h70{height:70px !important;}.h80{height:80px !important;}
+.h100{height:100px !important;}
+
+.no-padding{padding:0px !important;}
+.p-r-none{padding-right: 0px !important;}
+.p-l-none{padding-left: 0px !important;}
+.p-t-none{padding-top: 0px !important;}
+.p-b-none{padding-bottom: 0px !important;}
+.p-t-4{padding-top: 4px !important;}
+.p-t-5{padding-top: 5px !important;}
+.p-5{padding:5px;}
+.p-b-7{padding-bottom: 7px !important;}
+.p-l-3-o-0{padding:0px 0px 0px 3px !important;}
+
+.m-b-none{margin-bottom: 0px !important;}
+.m-l-none{margin-left:0px !important;}
+
+.mt12{margin-top: 12px;}.mt8{margin-top: 8px;}.mt3{margin-top:3px;}.mt1{margin-top:1px;}
+.m-l-1{margin-left:1px;}.m-l-2{margin-left:2px;}
+.m-r-1{margin-right:1px;}
+
+.signin-form .list-group input[type=text] {
+    font-size: 15px;
+    padding-left: 45px;
+}
+.signin-form .list-group input[type=password] {
+    font-size: 15px;
+    padding-left: 45px;
+}
+
+.signin-form-icon {
+    border-right: 1px solid #d6d6d6;
+    bottom: 10px;
+    display: block;
+    font-size: 14px;
+    left: 0;
+    line-height: 27px;
+    position: absolute;
+    text-align: center;
+    width: 40px;
+    z-index: 1002;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.no-border-l{border-left-width: 0px !important;}
+.no-border-r{border-right-width: 0px !important;}
+
+.form-control .caret{position: absolute; height: 10px; top: 50%; right: 10px; margin-top: -2px;}
+.tl{text-align: left !important;}
+
+.bk-sd-none{-webkit-box-shadow: none !important; box-shadow: none !important;}
+
+.w40{width:40px;}.w45{width:45px !important;}.w50{width:50px;}.w55{width:55px;}.w60{width:60px;}.w65{width:65px;}.w70{width:70px}.w75{width:75px;}.w80{width:80px;}.w90{width:90px;}
+.w100{width:100px;}.w115{width:115px;}.w120{width:120px;}.w130{width:130px;}.w150{width:150px;}
+.m-w100{min-width:100px;}.m-w85{min-width:85px;}.m-w75{min-width:75px;}.m-w60{min-width:60px;}
+.txt-ro{background-color:#fff !important; cursor: text !important;}
+.list-img{width:50px;height:50px;}
+
+

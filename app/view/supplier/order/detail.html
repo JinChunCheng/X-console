@@ -1,0 +1,226 @@
+
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        <span class="panel-title" ng-bind="view.title"></span>
+        <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="view.loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab>
+                <tab-heading>
+                    订单详情
+                </tab-heading>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">订单状态</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.orderStatus"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">订单编号</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.orderNum"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">出单时间</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.orderTime|date:'yyyy-MM-dd HH:mm:ss'"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">签署时间</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.signOffDate==null?'未签署':purchaseOrder.signOffDate|date:'yyyy-MM-dd HH:mm:ss'"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">贸易条款</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.fob"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">付款条件</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.settlementType"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">运输方式</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecPoDeliveryMode"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">交货地点</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecReceiveAddress"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">保险</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecInsure"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">发票要求</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.poInvoiceRequire"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">文件要求</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecPoDocRequest"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">溢短装</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecPoBufferrate"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">质量保证</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecPoQualityGuarantee"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">其他约定</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.poOtherTerms"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">合计数量</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.ecPoQuantityTotal"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">合计税额</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.taxtotal"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">合计含税金额</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.orderStatus"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">汇总价稅合计</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.orderStatus"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">备注</div>
+                    <div class="col-sm-10" ng-bind="purchaseOrder.memo"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <form id="purchaseOrderform" name="purchaseOrderform" method="post">
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t b-light">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                序号
+                                            </th>
+                                            <th>
+                                                产品中文名称
+                                            </th>
+                                            <th>
+                                                SKU编号
+                                            </th>
+                                            <th>
+                                                货号
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-show="purchaseOrder.itemList.length==0">
+                                            <td colspan="4" class="text-center">
+                                                未找到相关数据
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="item in purchaseOrder.itemList">
+                                            <td>
+                                                <a ng-click="showItemDetail(item)">{{$index + 1}}</a>
+                                            </td>
+                                            <td>
+                                                {{item.item}}
+                                            </td>
+                                            <td>
+                                                {{item.exiaoProductCode}}
+                                            </td>
+                                            <td>
+                                                {{item.supplierSku}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">产品名称</div>
+                        <div class="col-sm-10" ng-bind="detail.name"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">货号</div>
+                        <div class="col-sm-10" ng-bind="detail.supplierSku"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">SKU编号</div>
+                        <div class="col-sm-10" ng-bind="detail.exiaoProductCode"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">包装类型</div>
+                        <div class="col-sm-10" ng-bind="detail.packunit"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">交货时间</div>
+                        <div class="col-sm-10" ng-bind="detail.expectedReceiptDate|date:'yyyy-MM-dd HH:mm:ss'"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">数量</div>
+                        <div class="col-sm-10" ng-bind="detail.quantity"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">实收数量</div>
+                        <div class="col-sm-10" ng-bind="detail.quantityReceived"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">已开票数量</div>
+                        <div class="col-sm-10" ng-bind="detail.quantityBilled"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">订货单位</div>
+                        <div class="col-sm-10" ng-bind="detail.units"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">不含税单价</div>
+                        <div class="col-sm-10" ng-bind="detail.price|number:2"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">增值税税率</div>
+                        <div class="col-sm-10" ng-bind="detail.rate"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">税额</div>
+                        <div class="col-sm-10" ng-bind="detail.taxAmount"></div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in"></div>
+
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold">
+                            <button type="button" class="btn btn-primary mr5" ng-click="back()">
+                                返回列表
+                            </button>
+                        </div>
+                    </div>
+                </form>
+    </div>
+</div>
+<!--<ex-loading show-model="loading"></ex-loading>-->
+<!--</div>-->

@@ -1,0 +1,88 @@
+
+<div class="wrapper-md">
+    <div class="row">
+        <form ng-submit="page(1)">            
+            <div class="col-md-5 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">订单状态</span>
+                    <select class="form-control" placeholder="aaa" ng-model="condition.orderStatus"
+                            ng-options="item.value as item.text for item in orderStatus">
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary" ng-disabled="view.loading">
+                    查询
+                </button>
+                <button type="button" class="btn btn-default m-l-xs" ng-click="reset()">
+                    重置
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>订单编号</th>
+                        <th>包含产品数</th>
+                        <th>签约日期</th>
+                        <!--<th>供应商货号</th>-->
+                        <th>总价</th>
+                        <!--<th>执行人员</th>-->
+                        <th>订单状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>               
+                    <tbody>
+                        <tr ng-if="view.loading" ng-cloak>
+                            <td class="text-center" colspan="9">
+                                <i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...
+                            </td>
+                        </tr>
+                        <tr ng-if="!view.loading&&(!queryResult.Items||queryResult.Items.length==0)" ng-cloak>
+                            <td class="text-center" colspan="9">未找到相关数据</td>
+                        </tr>
+                        <tr ng-repeat="item in queryResult.Items">
+                            <td>
+                                {{$index + 1+(queryResult.PageIndex-1) * queryResult.PageSize}}
+                            </td>
+                            <td>{{item.orderNum}}
+                            </td>
+                            <td>{{item.lineItemNum}}</td>
+                            <td>{{item.orderTime|date:'yyyy-MM-dd HH:mm:ss'}}
+                            </td>                            
+                            <td>{{item.total|number:2|CurrencyFilter:item.currency}}
+                            </td>
+                            <!--<td>{{item.employee}}
+                            </td>-->
+                            <td>
+                                <!--<div ng-repeat="obj in defaultOrderStatus | filter:(obj.Id=item.orderStatus)">-->
+                                    <!--{{obj.Name}}-->
+                                <!--</div>-->
+                                {{item.orderStatus}}
+                            </td>
+                            <td class="text-center text-bg">
+                                <!--<a ng-click='gotoPage("supplier.order.detail",item.id)' class="btn" title="查看">查看</a>-->
+                                <a ng-click='gotoPage("so.info.view",item.id)' class="btn" title="查看">查看</a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+               
+        </div>
+        <footer class="panel-footer" ng-show="queryResult.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="queryResult.TotalCount" items-per-page="queryResult.PageSize" ng-change="pageChanged()" ng-model="queryResult.PageIndex" is-paging="view.loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+

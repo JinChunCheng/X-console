@@ -1,0 +1,138 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)" novalidate>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">编号</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.code" />
+                </div>
+            </div>
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">名称</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.name" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">标签</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.tags" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">类型</span>
+                    <select class="form-control" ng-model="listVM.condition.fieldType">
+                        <option value="" default>- 请选择 -</option>
+                        <option value="1">短文本</option>
+                        <option value="2">长文本</option>
+                        <option value="3">单项选择</option>
+                        <option value="4">多项选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-6 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">属性值</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.attributeVal" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.searching">
+                    <span class="w2em" ng-if="!listVM.searching" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="listVM.searching" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a ui-sref="pc.attribute.add" class="btn btn-primary btn-xs">新增</a>
+            <button type="button" class="btn btn-primary btn-xs m-l-xs" ng-click="import()">导入</button>
+            <div class="pull-right">
+                <button type="button" ng-click="batchProcess(3)" ng-disabled="listVM.checkedAttributeCodes.length==0" class="btn m-b-xs btn-xs btn-danger"><i class="fa fa-trash-o"></i> 批量删除<span ng-bind="'('+listVM.checkedAttributeCodes.length+')'" ng-if="listVM.checkedAttributeCodes.length>0" ng-cloak></span></button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th class="w40">
+                                <label class="checkbox-inline i-checks i-checks-sm">
+                                    <input type="checkbox" ng-click="selectAll()" ng-checked="listVM.items.length >0 && listVM.checkedAttributeCodes.length == listVM.items.length" /><i></i>
+                                </label>
+                        </th>
+                        <th class="pointer w80" ng-click="reSort('code')"> 编号<span class="fa m-l-2 text-sm {{sortClass('code')}}"></span></th>
+                        <th class="pointer w80" ng-click="reSort('name')"> 名称<span class="fa m-l-2 text-sm {{sortClass('name')}}"></span></th>
+                        <th class="pointer w130" ng-click="reSort('tags')"> 标签<span class="fa m-l-2 text-sm {{sortClass('tags')}}"></span></th>
+                        <th class="pointer w130" ng-click="reSort('field_type')"> 类型<span class="fa m-l-2 text-sm {{sortClass('field_type')}}"></span></th>
+                        <th class="pointer w130" ng-click="reSort('attribute_val')"> 中文值|英文值<span class="fa m-l-2 text-sm {{sortClass('attribute_val')}}"></span></th>
+                        <th class="w80">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.searching" ng-cloak>
+                        <td class="text-center" colspan="7"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i> 正在查询...
+                        </td>
+                    </tr>
+                    <tr ng-if="!listVM.searching&&listVM.items.length==0" ng-cloak>
+                        <td class="text-center" colspan="7">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td>
+                            <label class="px-single">
+                                <label class="checkbox-inline i-checks i-checks-sm">
+                                    <input type="checkbox" ng-model="item.IsChecked" ng-click="processCheckedItem(item)" /><i></i>
+                                </label>
+                        </td>
+                        <td>
+                            {{item.code}}
+                        </td>
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            {{item.tags}}
+                        </td>
+                        <td>
+                            <div ng-switch on="item.fieldType">
+                                <span ng-switch-when="1">短文本</span>
+                                <span ng-switch-when="2">长文本</span>
+                                <span ng-switch-when="3">单项选择</span>
+                                <span ng-switch-when="4">多项选择</span>
+                            </div>
+                        </td>
+                        <td class="text-bg">
+                            <ng ng-if="item.fieldType>2">
+                                中文值：<span class="text-danger ml6" ng-repeat="item1 in   item.attributeVal  ">
+                                {{item1.cnValue}}<ng ng-if="item.attributeVal.length>1 && $index< item.attributeVal.length-1">、</ng>
+                              </span>
+                                <br/> 英文值：<span class="text-danger ml6" ng-repeat="item1 in   item.attributeVal  ">
+                               {{item1.enValue}}<ng ng-if="item.attributeVal.length>1 && $index< item.attributeVal.length-1">、</ng>
+                              </span>
+                            </ng>
+                            <ng ng-if="item.fieldType<3">
+                                无属性值
+                            </ng>
+                        </td>
+                        <td class="text-bg">
+                            <a ui-sref="pc.attribute.edit({code:item.code,listVM:listVM})" class="fa fa-edit" title="编辑"></a>
+                            <a href ng-click="delAttribute(item)" class="fa fa-trash-o text-danger m-l-xs" title="删除"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber"
+                                is-paging="listVM.searching" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<div class="panel panel-default m-b-none">
+    <div class="panel-heading font-bold">
+        <span ng-bind="modalVM.title"></span> <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="modalVM.loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <tabset class="tab-container">
+            <tab heading="销售信息">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">订货单位</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.unit"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">最小起订量</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.moq"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">MOQ供货期</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.moqSupplytime"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">结算币种</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.settlementCurrency"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">样品价格</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.samplePrice"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">采购价格</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.price"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">价格是否分梯度</div>
+                    <div class="col-sm-10">
+                        <p>{{modalVM.data.isGrads? '是' : '否'}}</p>
+                        <table ng-if="modalVM.data.isGrads" ng-cloak class="table table-striped m-b-none">
+                            <thead>
+                                <tr>
+                                    <th class="w120">优惠数量</th>
+                                    <th>采购价格</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in modalVM.data.productPrices">
+                                    <td>{{item.startCount}}</td>
+                                    <td>{{item.price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </tab>
+            <tab heading="描述属性">
+                <div ng-repeat="item in modalVM.descAttrValues">
+                    <div class="row">
+                        <div class="col-sm-2 text-right font-bold" ng-bind="item.attributeName"></div>
+                        <div class="col-sm-10">
+                            <span ng-repeat="subItem in item.attributeVal">
+                                {{subItem}} {{item.suffix}}<span ng-if="$index<item.attributeVal.length-1">, </span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b pull-in" ng-if="$index<modalVM.descAttrValues.length-1"></div>
+                </div>
+            </tab>
+            <tab heading="物流属性">
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">单件产品重量</div>
+                    <div class="col-sm-10">
+                        {{modalVM.data.netweight}} {{modalVM.data.netweightUnit}}
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">单件产品尺寸</div>
+                    <div class="col-sm-10">
+                        长：<span ng-bind="modalVM.data.length"></span> {{modalVM.data.sizeUnit}}， 宽：
+                        <span ng-bind="modalVM.data.width"></span> {{modalVM.data.sizeUnit}}， 高：
+                        <span ng-bind="modalVM.data.height"></span> {{modalVM.data.sizeUnit}}
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">单件包装方式</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.skuPackstyle"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">物流包装方式</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.packType"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">物流装箱数</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.packAmount"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">包装后重量</div>
+                    <div class="col-sm-10">
+                        {{modalVM.data.packWeight}} {{modalVM.data.packWeightUnit}}
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">包装后尺寸</div>
+                    <div class="col-sm-10">
+                        长：<span ng-bind="modalVM.data.packLength"></span> {{modalVM.data.packSizeUnit}}， 宽：
+                        <span ng-bind="modalVM.data.packWidth"></span> {{modalVM.data.packSizeUnit}}， 高：
+                        <span ng-bind="modalVM.data.packHeight"></span> {{modalVM.data.packSizeUnit}}
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">特殊配送标记</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.deliveryFlag"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">交货地点</div>
+                    <div class="col-sm-10" ng-bind="modalVM.data.deliveryPlace"></div>
+                </div>
+            </tab>
+            <tab heading="产品图片">
+                <div class="m-r-xs m-b-xs inline" ng-repeat="item in modalVM.data.productPics|filter:{picType:2}">
+                    <a ng-href="{{item.picUrl|filePath:0}}" target="_blank"><img ng-src="{{item.picUrl|filePath:0:'_70x70'}}" error-src="{{item.picUrl|filePath:0}}" class="w80 h80" /></a>
+                </div>
+            </tab>
+            <tab heading="细节图">
+                <div class="m-r-xs m-b-xs inline" ng-repeat="item in modalVM.data.productPics|filter:{picType:4}">
+                    <a ng-href="{{item.picUrl|filePath:0}}" target="_blank"><img ng-src="{{item.picUrl|filePath:0:'_70x70'}}" error-src="{{item.picUrl|filePath:0}}" class="w80 h80" /></a>
+                </div>
+            </tab>
+            <tab heading="产品资质">
+                <table class="table table-striped m-b-none">
+                    <tbody>
+                        <tr ng-repeat="item in modalVM.data.productPics|filter:{picType:6}">
+                            <td class="w80">
+                                <a ng-href="{{item.picUrl|filePath:0}}" target="_blank">
+                                    <img ng-src="{{item.picUrl|filePath:0:'_70x70'}}" error-src="{{item.picUrl|filePath:0}}" class="w80 h80">
+                                </a>
+                            </td>
+                            <td class="v-bottom" ng-bind="item.description"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </tab>
+        </tabset>
+        <button type="button" class="btn btn-primary" ng-click="cancel()">关闭</button>
+    </div>
+</div>

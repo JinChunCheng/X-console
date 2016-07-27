@@ -1,0 +1,254 @@
+<div class="panel panel-default form-horizontal m-b-none">
+    <div class="panel-heading font-bold">
+        <span class="panel-title" ng-bind="skuVM.title"></span>
+        <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="skuVM.loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <form id="skuform" name="skuform" method="post" ng-submit="save(skuform.$invalid)" novalidate>
+            <tabset class="tab-container m-b-none">
+                <tab>
+                    <tab-heading>
+                        销售信息
+                    </tab-heading>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>最小起订量
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':(skuform.moq.$invalid && skuVM.submitted)|| (skuform.moq.$invalid && skuform.moq.$dirty)}">
+                            <input type="text" ng-pattern="/^[1-9]\d*$/" autocomplete="off" class="form-control" name="moq" id="moq" required maxlength="20" ng-model="skuVM.sku.moq" />
+                            <span class="help-block m-b-none text-xs" ng-show="skuform.moq.$invalid && skuVM.submitted">必填项！</span>
+                            <span class="help-block m-b-none text-xs" ng-show="skuform.moq.$invalid && skuform.moq.$dirty">请输入正整数！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>MOQ供货期
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':skuform.moqSupplytime.$invalid&&(skuVM.submitted||skuform.moqSupplytime.$dirty)}">
+                            <div class="input-group">
+                                <input type="text" autocomplete="off" ng-pattern="/^[1-9]\d*$/" class="form-control" name="moqSupplytime" id="moqSupplytime" required maxlength="20" ng-model="skuVM.sku.moqSupplytime" />
+                                <span class="input-group-addon">天</span>
+                            </div>
+                            <span ng-show="skuform.moqSupplytime.$invalid&&(skuVM.submitted||skuform.moqSupplytime.$dirty)" class="help-block m-b-none">请输入正整数！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>结算币种
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':skuform.settlementCurrency.$invalid&&(skuVM.submitted||skuform.settlementCurrency.$dirty)}">
+                            <select class="form-control form-group-margin" name="settlementCurrency" ng-model="skuVM.sku.settlementCurrency" required>
+                                <option value="" default>- 请选择 -</option>
+                                <option ng-repeat="item in skuVM.currencyList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>样品价格
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':skuform.samplePrice.$invalid&&(skuVM.submitted||skuform.samplePrice.$dirty)}">
+                            <input type="text" autocomplete="off" class="form-control" name="samplePrice" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required maxlength="10" ng-model="skuVM.sku.samplePrice" />
+                            <span ng-show="skuform.samplePrice.$invalid  && skuVM.submitted" class="help-block m-b-none text-xs">必填项！</span>
+                            <span ng-show="skuform.samplePrice.$error.pattern&&(skuVM.submitted||skuform.samplePrice.$dirty)" class="help-block m-b-none"> 输入小数，精确到小数点后两位！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>采购价格
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':skuform.price.$invalid&&(skuVM.submitted||skuform.price.$dirty)}">
+                            <input type="text" autocomplete="off" class="form-control" name="price" id="price" required ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="10" ng-model="skuVM.sku.price" />
+                            <span ng-show="skuform.price.$error.pattern&&(skuVM.submitted||skuform.price.$dirty)" class="help-block text-xs"> 输入小数，精确到小数点后两位！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label ">
+                            价格是否分梯度
+                        </label>
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r-sm">
+                                <input type="checkbox" ng-model="skuVM.sku.isGrads" ng-true-value="1" ng-false-value="0"><i></i>
+                            </label>
+                            <table class="table table-striped m-b-none" ng-show="skuVM.sku.isGrads">
+                                <thead>
+                                    <tr>
+                                        <th class="w150">优惠数量</th>
+                                        <th class="w150">优惠价格</th>
+                                        <th class="w50"></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in skuVM.sku.productPrices">
+                                        <td>
+                                            <input type="text" autocomplete="off" class="form-control input-sm" ng-model="item.startCount" placeholder="请输入数字" ng-blur="validSkuPrice(item,$index)" maxlength="10" ng-pattern="/^[1-9]\d*$/" required />
+                                        </td>
+                                        <td>
+                                            <input type="text" autocomplete="off" class="form-control input-sm" ng-model="item.price" placeholder="请输入数字" maxlength="10" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" required />
+                                        </td>
+                                        <td>
+                                            <button ng-if="$index" type="button" class="btn btn-danger btn-sm" ng-click="delSkuPrice($index)" ng-cloak>
+                                                删除
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <span>{{item.error}}</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <button type="button" class="btn btn-info btn-sm" ng-click="addSkuPrice()" ng-disabled="skuVM.sku.productPrices.length>=2">
+                                                添加
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        物流属性
+                    </tab-heading>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>单件产品重量
+                        </label>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-9 p-r-none" ng-class="{'has-error':skuform.netweight.$invalid&&(skuVM.submitted||skuform.netweight.$dirty)}">
+                                    <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,4})?$/" maxlength="20" class="form-control" name="netweight" ng-model="skuVM.sku.netweight" required>
+                                    <p ng-show="skuform.netweight.$invalid&&(skuVM.submitted||skuform.netweight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后4位！</p>
+                                </div>
+                                <div class="col-sm-3" ng-class="{'has-error':skuform.netweightUnit.$invalid&&(skuVM.submitted||skuform.netweightUnit.$dirty)}">
+                                    <select class="form-control form-group-margin" name="netweightUnit" ng-model="skuVM.sku.netweightUnit" required>
+                                        <option value="" default>- 请选择 -</option>
+                                        <option ng-repeat="item in skuVM.netweightUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label text">
+                            单件产品尺寸
+                        </label>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-3 p-r-none">
+                                    <select class="form-control form-group-margin" ng-model="skuVM.sku.sizeUnit" required>
+                                        <option value="" default>- 请选择 -</option>
+                                        <option ng-repeat="item in skuVM.sizeUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 p-r-none">
+                                    <input type="text" autocomplete="off" maxlength="20" class="form-control" placeholder="长" id="length" name="length" ng-model="skuVM.sku.length">
+                                </div>
+                                <div class="col-sm-3 p-r-none">
+                                    <input type="text" autocomplete="off" maxlength="20" class="form-control" placeholder="宽" id="width" name="width" ng-model="skuVM.sku.width">
+                                </div>
+                                <div class="col-sm-3">
+                                    <input type="text" autocomplete="off" maxlength="20" class="form-control" placeholder="高" id="height" name="height" ng-model="skuVM.sku.height">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>物流装箱数
+                        </label>
+                        <div class="col-sm-10" ng-class="{'has-error':skuform.packAmount.$invalid&&(skuVM.submitted||skuform.packAmount.$dirty)}">
+                            <input type="text" autocomplete="off" ng-pattern="/^[1-9]\d*$/" maxlength="20" class="form-control" placeholder="" id="packAmount" name="packAmount" ng-model="skuVM.sku.packAmount" required>
+                            <p ng-show="skuform.packAmount.$invalid&&(skuVM.submitted||skuform.packAmount.$dirty)" class="help-block text-xs">请输入正整数！</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>包装后重量
+                        </label>
+                        <div class="col-xs-10">
+                            <div class="row">
+                                <div class="col-sm-9 p-r-none" ng-class="{'has-error':skuform.packWeight.$invalid&&(skuVM.submitted||skuform.packWeight.$dirty)}">
+                                    <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,4})?$/" maxlength="20" class="form-control" placeholder="" id="packWeight" name="packWeight" ng-model="skuVM.sku.packWeight" required>
+                                    <p ng-show="skuform.packWeight.$invalid&&(skuVM.submitted||skuform.packWeight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后4位！</p>
+                                </div>
+                                <div class="col-sm-3" ng-class="{'has-error':skuform.packWeightUnit.$invalid&&(skuVM.submitted||skuform.packWeightUnit.$dirty)}">
+                                    <select class="form-control form-group-margin" name="packWeightUnit" ng-model="skuVM.sku.packWeightUnit" required>
+                                        <option value="" default>- 请选择 -</option>
+                                        <option ng-repeat="item in skuVM.packWeightUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            <i class="text-danger m-r-xs">*</i>包装后尺寸
+                        </label>
+                        <div class="col-sm-10">
+                            <div class="row">
+                                <div class="col-sm-3 p-r-none" ng-class="{'has-error':skuform.packSizeUnit.$invalid&&(skuVM.submitted||skuform.packSizeUnit.$dirty)}">
+                                    <select class="form-control form-group-margin" name="packSizeUnit" ng-model="skuVM.sku.packSizeUnit" required>
+                                        <option value="" default>- 请选择 -</option>
+                                        <option ng-repeat="item in skuVM.packSizeUnitList" value="{{item.contentEn}}">{{item.contentCn||item.contentEn}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3 p-r-none" ng-class="{'has-error':skuform.packLength.$invalid&&(skuVM.submitted||skuform.packLength.$dirty)}">
+                                    <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="20" class="form-control" placeholder="长" id="packLength" name="packLength" ng-model="skuVM.sku.packLength" required>
+                                    <p ng-show="skuform.packLength.$error.pattern&&(skuVM.submitted||skuform.packLength.$dirty)" class="help-block text-xs">输入小数，精确到小数点后两位！</p>
+                                </div>
+                                <div class="col-sm-3 p-r-none" ng-class="{'has-error':skuform.packWidth.$invalid&&(skuVM.submitted||skuform.packWidth.$dirty)}">
+                                    <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="20" class="form-control" placeholder="宽" id="packWidth" name="packWidth" ng-model="skuVM.sku.packWidth" required>
+                                    <p ng-show="skuform.packWidth.$error.pattern&&(skuVM.submitted||skuform.packWidth.$dirty)" class="help-block text-xs">输入小数，精确到小数点后两位！</p>
+                                </div>
+                                <div class="col-sm-3" ng-class="{'has-error':skuform.packHeight.$invalid&&(skuVM.submitted||skuform.packHeight.$dirty)}">
+                                    <input type="text" autocomplete="off" ng-pattern="/^(0|[1-9][0-9]{0,9})(\.[0-9]{1,2})?$/" maxlength="20" class="form-control" placeholder="高" id="packHeight" name="packHeight" ng-model="skuVM.sku.packHeight" required>
+                                    <p ng-show="skuform.packHeight.$error.pattern&&(skuVM.submitted||skuform.packHeight.$dirty)" class="help-block text-xs">输入小数，精确到小数点后两位！</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        产品图片
+                    </tab-heading>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="w80 h80 inline m-r-xs m-b-xs" ng-repeat="i in skuVM.sku.productPics|filter:{picType:2}">
+                                <button type="button" class="btn btn-danger btn-xs pull-right" style="position:absolute;" ng-click="delSkuImg($index)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                                <a ng-href="{{i.picUrl|filePath:0}}" target="_blank">
+                                    <img ng-src="{{i.picUrl|filePath:0:'_70x70'}}" error-src="{{i.picUrl|filePath:0}}" class="w80 h80" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input id="skuImg" type="file" accept="image/jpg,image/jpeg,image/png,image/gif" base-sixty-four base-sixty-four-success="skuImgSuccess(file, data, formData)" file-max-size="1" img-min-width="400" img-min-height="400" style="display:none;" />
+                            <button type="button" class="btn btn-info btn-sm" onclick="$('#skuImg').click()" ng-disabled="skuVM.mainImgUploading">
+                                添加
+                                <i class="fa fa-spin fa-spinner m-l-xs" ng-if="skuVM.mainImgUploading" ng-cloak></i>
+                            </button>
+                            <label class="control-label">
+                                <span class="text ml10">注：请上传800×800尺寸的图片，最多支持上传5张主图</span>
+                            </label>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </form>
+    </div>
+    <div class="panel-footer text-right">
+        <button type="button" class="btn btn-default m-l-sm" ng-click="cancel()">
+            <span>取消</span>
+        </button>
+        <button type="submit" class="btn btn-primary m-l-xs" ng-click="save(skuform.$invalid)">
+            保存
+        </button>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="wrapper-md">
+    <div class="row">
+        <form ng-submit="page(1)">
+            <div class="col-md-3">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">物流供应商</span>
+                    <select class="form-control input-sm" ng-model="condition.vendorCode">
+                        <option value="" >全部</option>
+                        <option  ng-bind="item.vendorCode" ng-repeat="item in vendorCode.Items">{{item.vendorName}}</option>
+                    </select>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">运输方式</span>
+                    <select class="form-control input-sm" ng-model="condition.transportMode">
+                        <option value="" >全部</option>
+                        <option value="AIR">AIR</option>
+                        <option value="EXPRESS">EXPRESS</option>
+                        <option value="GLAND">GLAND</option>
+                        <option value="OCEAN">OCEAN</option>
+                        <option value="POST">POST</option>
+                        <option value="SEXPR">SEXPR</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.processing">
+                    <span class="w2em" ng-if="!loading" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="loading" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>重量区间列表</span>
+            <div class="btn-group pull-right">
+                <a  class="btn btn-primary btn-xs" ng-click="addWeightInterval()" >
+                     <span ng-bind="'新增费率'"></span>
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped tight-table b-t b-light">
+                <thead>
+                    <tr>
+                        <th>
+                            序号
+                        </th>
+                        <th >
+                            物流供应商
+                        </th>
+                        <th>
+                            运输方式
+                        </th>
+                        <th>
+                            费率区间代码
+                        </th>
+                        <th>
+                            费率区间描述
+                        </th>
+                        <th>
+                            最小重量
+                        </th>
+                        <th>
+                            最大重量
+                        </th>
+                        <th>
+                            首重
+                        </th>
+                        <th>
+                            续重
+                        </th>
+                        <th >
+                            发货城市
+                        </th>
+                        <th style="width:80px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="loading" ng-cloak>
+                        <td class="text-center" colspan="11"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="!loading&&(!queryResult.Items||queryResult.Items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="11">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in queryResult.Items">
+                        <td>
+                            {{(queryResult.pageNo-1)*10+$index+1}}
+                        </td>
+                        <td>
+                            {{item.vendorCode}}
+                        </td>
+                        <td>
+                            {{item.transportMode}}
+                        </td>
+                        <td>
+                            {{item.wgtintervalCode}}
+                        </td>
+                        <td>
+                            {{item.intervalName}}
+                        </td>
+                        <td>
+                            {{item.minWeight}}
+                        </td>
+                        <td>
+                            {{item.maxWeight}}
+                        </td>
+                        <td>
+                            {{item.firstWeight}}
+                        </td>
+                        <td>
+                            {{item.addedWeight}}
+                        </td>
+                        <td>
+                            {{item.departurecityCode}}
+                        </td>
+                        <td class="text-bg">
+                            <a href ng-click="editWeightInterval(item.id)" class="fa fa-edit" title="编辑"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="queryResult.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="queryResult.TotalCount" items-per-page="queryResult.PageSize" ng-change="pageChanged()" ng-model="queryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

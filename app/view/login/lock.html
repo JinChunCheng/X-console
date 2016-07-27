@@ -1,0 +1,18 @@
+<div class="modal-over bg-black">
+  <div class="modal-center animated fadeInUp text-center" style="width:200px;margin:-100px 0 0 -100px;">
+    <div class="thumb-lg">
+      <img src="img/a0.jpg" class="img-circle">
+    </div>
+    <p class="h4 m-t m-b" ng-bind="curUser.name"></p>
+    <form name="form" class="form-validation" ng-submit="unlock(form.$valid)" novalidate>
+      <div class="input-group">
+        <input type="password" name="password" class="form-control text-sm btn-rounded no-border" ng-model="lockVM.password" placeholder="输入密码" required>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success btn-rounded no-border" ng-disabled="form.$invalid||lockVM.processing">
+            <i class="fa" ng-class="{true:'fa-spin fa-spinner',false:'fa-arrow-right'}[lockVM.processing]"></i>
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+</div>

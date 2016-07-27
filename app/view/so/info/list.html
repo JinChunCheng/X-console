@@ -1,0 +1,294 @@
+<div class="wrapper-md">
+    <div class="row">
+        <form ng-submit="page(1)">
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">订单号</span>
+                    <input type="text" class="form-control" placeholder="订单号" ng-model="view.condition.orderNo" />
+                </div>
+                <div class="input-group m-b">
+                    <span class="input-group-addon">日期&nbsp&nbsp&nbsp&nbsp从</span>
+                    <input type="text" readonly class="form-control txt-ro" datepicker-popup="{{format}}"
+                           ng-model="view.condition.dateFrom" is-open="listVM.beginDateOpened" min-date="minDate"
+                           datepicker-options="dateOptions" close-text="关闭" ng-click="openBeginDate($event)" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default no-border-l no-border-r" ng-click="openBeginDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                </div>
+            </div>
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">客户邮箱</span>
+                    <input type="text" class="form-control" placeholder="客户邮箱" ng-model="view.condition.email" />
+
+                </div>
+                <div class="input-group m-b">
+                    <span class="input-group-addon">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp至&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                    <input type="text" readonly class="form-control txt-ro" datepicker-popup="{{format}}"
+                           ng-model="view.condition.dateTo" is-open="listVM.endDateOpened" min-date="minDate"
+                           datepicker-options="dateOptions" close-text="关闭" ng-click="openEndDate($event)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default no-border-l no-border-r" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">客户名字</span>
+                    <input type="text" class="form-control" placeholder="客户名字" ng-model="view.condition.buyerName" />
+                </div>
+                <div class="input-group m-b">
+                    <span class="input-group-addon">状态</span>
+                    <select name="searchOrderStatus" class="form-control"  ng-model="view.condition.orderStatus"
+                            ng-options="item.value as item.text for item in view.orderStatus" >
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">国家</span>
+                    <!--
+                    <select name="searchCountry" class="form-control"  ng-model="view.condition.countryCode"
+                            ng-options="item.value as item.text for item in view.countryCode" >
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                    -->
+                    <select class="form-control" ng-model="view.condition.countryCodeInDB">
+                        <option value="" default>- 请选择国家 -</option>
+                        <option ng-repeat="item in countryList" value="{{item.countryName}}">
+                            {{item.countryName}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-group m-b">
+                    <span class="input-group-addon">Incoterm</span>
+                    <select name="searchIncoterm" class="form-control"  ng-model="view.condition.incoterm"
+                            ng-options="item.value as item.text for item in view.incoterm" >
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">来源</span>
+                    <select name="campaignSource" class="form-control"  ng-model="view.condition.campaignSource"
+                            ng-options="item.contentEn as item.contentEn for item in view.campaignSourceList" >
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="input-group m-b">
+                    <span class="input-group-addon">媒介</span>
+                    <select name="campaignMedium" class="form-control"  ng-model="view.condition.campaignMedium"
+                            ng-options="item.contentEn as item.contentEn for item in view.campaignMediumList" >
+                        <option value=''>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+<!--            <div class="col-md-2 p-r-none">
+                &nbsp;
+            </div>-->
+            <div class="col-md-2 p-r-none">
+                <div class="input-group m-b-xs">
+                    <button type="submit" class="btn btn-primary" ng-disabled="view.loading">
+                        查询
+                    </button>
+                    <button type="button" class="btn btn-default m-l-xs" ng-click="reset()">
+                        重置
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-12 p-r-none">
+                    <button type="button" class="btn btn-primary"  ng-click="refund()">
+                        refund
+                    </button>
+                    <button type="button" class="btn btn-primary"  ng-click="downloadSummary()">
+                        Download Summary
+                    </button>
+                    <button type="button" class="btn btn-primary"  ng-click="downloadDetail()">
+                        Download Detail
+                    </button>
+                    &nbsp;&nbsp;&nbsp;
+                    <label class="i-checks i-checks-sm m-b-none">
+                    <input  type="checkbox" ng-model="view.downloadAllCheckBox"/><i></i>
+                    </label>
+                Download All
+            </div>
+            <div class="col-md-12 p-r-none">
+                &nbsp;
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-default">
+        <div ng-class="{'table-responsive':view.result.Items.length==10}">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <!--<th><input type="radio"></th>-->
+                        <th>
+                            <label class="i-checks i-checks-sm m-b-none">
+                            <input type="checkbox" ng-model="view.checkedAll"  ng-change="checkAll()"><i></i></label></th>
+                        <!--<th>序号</th>-->
+                        <th>订单日期</th>
+                        <th>SO No</th>
+                        <th>Inco<br/>term</th>
+                        <th>运输方式</th>
+                        <th>客户名称</th>
+                        <th>国家</th>
+                        <th>客户邮箱</th>
+                        <th>订单总金额（USD）</th>
+                        <th>订金金额（USD）</th>
+                        <th>订金方式</th>
+                        <th>尾款方式</th>
+                        <th>风控状态</th>
+                        <th>SO状态</th>
+                        <th>SO维护</th>
+                        <!--<th>操作</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="view.loading" ng-cloak>
+                        <td class="text-center" colspan="9">
+                            <i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...
+                        </td>
+                    </tr>
+                    <tr ng-if="!view.loading && (!view.result.Items||view.result.Items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="9">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in view.result.Items">
+                        <!--<td><input type="radio" ng-model="view.selectedRowRadioValue" ng-value="item"></td>-->
+                        <td>
+                        <label class="i-checks i-checks-sm m-b-none">
+                            <input type="checkbox" checklist-model="view.so_selectedList"
+                                   checklist-value="item.orderNo"/><i></i></label>
+                        </td>
+                            <!--<td>{{($index+1)+view.result.PageSize*(view.result.PageIndex-1)}}</td>-->
+                        <td>
+                            {{item.createDate| exDate:'yyyy-MM-dd HH:mm:ss'}}
+                        </td>
+                        <td>
+                            <a ng-click='getOrderDetail(item.id)' class="btn-link"  title="查看">{{item.orderNo}}</a>
+                        </td>
+                        <td>
+                            {{item.incoterm}}
+                        </td>
+                        <td>
+                            {{item.deliveryMode}}
+                        </td>
+                        <td>
+                            {{item.buyerName?(item.buyerName.indexOf(' ')!=-1?item.buyerName.split(' ')[0]:''):''}}<br/>
+                            {{item.buyerName?(item.buyerName.indexOf(' ')!=-1?item.buyerName.split(' ')[1]:''):''}}<br/>
+                        </td>
+                        <td>
+                            {{item.buyerCountry}}
+                        </td>
+                        <td class="so_text_wrap">
+                            {{item.buyerEmail}}
+                        </td>
+                        <td>
+                            {{item.orderTotal}}
+                        </td>
+                        <td>
+                            {{item.payAmount}}
+                        </td>
+                        <td>
+                            {{item.payMethodFirst}}
+                        </td>
+                        <td>
+                            {{item.payMethodFinal}}
+                        </td>
+                        <td>
+                            <div class="btn-group"
+                                 ng-if="item.financeConfirmStatus != null && item.financeConfirmStatus == 'REVIEW'">
+                                <a class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" href="#">
+                                    {{item.financeConfirmStatus}}
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="min-width: 100px;">
+                                    <li>
+                                        <button type="button"  class="btn btn-link"  ng-click='updateFinanceConfirmStatus(item.orderNo,"ACCEPT")'  ng-style="item.orderStatus=='PENDING APPROVAL'?{'color': 'blue'}:{'color': 'grey'}"  title="Accept"
+                                                ng-disabled="item.orderStatus!='PENDING APPROVAL'">Accept</button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-link"  ng-click='updateFinanceConfirmStatus(item.orderNo,"REJECT")'
+                                                ng-style="item.orderStatus=='PENDING APPROVAL'?{'color': 'blue'}:{'color': 'grey'}"   title="Reject"
+                                                      ng-disabled="item.orderStatus!='PENDING APPROVAL'">Reject</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            {{item.financeConfirmStatus|handleFinanceConfirmStatus:item.orderStatus:item.payStatus}}
+                        </td>
+                        <td>
+                            {{item.orderStatus|handleOrder:item.payStatus}}
+                            <br/>
+                            {{item.orderStatus|handleOrderMemo:item.payStatus}}
+                        </td>
+
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-primary  dropdown-toggle" data-toggle="dropdown" href="#">
+                                    操作
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" style="min-width: 100px;">
+                                    <li>
+                                        <button type="button"  class="btn btn-link"  ng-click='approve(item)'
+                                            ng-style="getApproveStyle(item)"  title="Approve"
+                                            ng-disabled="getApproveDisable(item)">Approve
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-link"  ng-click='cancel(item)'
+                                            ng-style="getCancelStyle(item)"   title="Cancel"
+                                            ng-disabled="getCancelDisable(item)">Cancel
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-link" ng-click='updateOrderStatus(item.orderNo,1)'
+                                            ng-style="getCloseStyle(item)"  title="Close"
+                                            ng-disabled="getCloseDisable(item)">Close
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-link" ng-click='updateOrderStatus(item.orderNo,2)'
+                                            ng-style="getFullfillStyle(item)"    title="Fulfill"
+                                            ng-disabled="getFullfillDisable(item)">Fulfill
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button type="button" class="btn btn-link" ng-click='updateOrderStatus(item.orderNo,3)'
+                                            ng-style="getBillStyle(item)"   title="Bill"
+                                            ng-disabled="getBillDisable(item)">Bill
+                                        </button>
+                                    </li>
+                                    </ul>
+                                </div>
+                        </td>
+<!--                        <td>
+                            <a ng-href='http://admin.exiao.com/mgr-so/saleorders/export/{{item.orderNo}}'   class="btn-link" title="Bill"
+                               ng-disabled="">下载</a>
+                        </td>-->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="view.result.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+<!--                    <sl-page-size-changer class="m-r-xs" total-items="view.result.TotalCount" ng-model="view.condition.pageSize" ng-change="page(view.result.PageIndex)">
+                    </sl-page-size-changer>-->
+
+                    <pagination total-items="view.result.TotalCount" items-per-page="view.result.PageSize"
+                                ng-change="page(view.result.PageIndex)" ng-model="view.result.PageIndex"
+                                is-paging="view.loading"
+                                max-size="5" boundary-links="true" rotate="false">
+
+                    </pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

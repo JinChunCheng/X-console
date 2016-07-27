@@ -1,0 +1,82 @@
+<div class="">
+    <div class="col-md-4 bg-light lter b-r b-b" full-height>
+        <div class="wrapper b-b b-light">商品品类树
+            <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="treeData.loading" ng-cloak></i>
+        </div>
+        <div class="row-row">
+            <ul id="tree" z-tree class="ztree" z-nodes="treeData.zNodes" setting="treeData.settings" style="margin-right:30px;"></ul>
+        </div>
+    </div>
+    <div class="col-md-8 no-padding">
+        <div class="panel panel-default m-sm">
+            <div class="panel-heading">
+                <a ui-sref="mc.mcCategory.add" class="btn btn-primary btn-xs">添加品类</a>
+                <button type="button" ng-click="open()" class="btn btn-primary btn-xs m-l-xs" ng-disabled="checkCategoryCodes.length==0">移动品类<span ng-bind="'('+checkCategoryCodes.length+')'" ng-if="checkCategoryCodes.length>0" ng-cloak></span></button>
+                <button type="button" ng-click="batchDelete()" class="btn btn-primary btn-xs m-l-xs" ng-disabled="checkCategoryCodes.length==0">删除品类<span ng-bind="'('+checkCategoryCodes.length+')'" ng-if="checkCategoryCodes.length>0" ng-cloak></span></button>
+                <button type="button" ng-click="batchDisplay()" class="btn btn-primary btn-xs m-l-xs" ng-disabled="checkCategoryCodes.length==0">显示<span ng-bind="'('+checkCategoryCodes.length+')'" ng-if="checkCategoryCodes.length>0" ng-cloak></span></button>
+                <button type="button" ng-click="batchHide()" class="btn btn-primary btn-xs m-l-xs" ng-disabled="checkCategoryCodes.length==0">隐藏<span ng-bind="'('+checkCategoryCodes.length+')'" ng-if="checkCategoryCodes.length>0" ng-cloak></span></button>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width:80px;">
+                            <label class="checkbox-inline i-checks i-checks-sm">
+                                <input type="checkbox" ng-click="selectAll()" ng-checked="queryResult.length >0 && checkCategoryCodes.length == queryResult.length" /><i></i>
+                            </label>
+                        </th>
+                        <th>
+                            序号
+                        </th>
+                        <th>
+                            品类编号
+                        </th>
+                        <th>
+                            名称
+                        </th>
+                        <th>
+                            是否显示
+                        </th>
+                        <th style="width:80px;">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="queryResult.length==0" ng-cloak>
+                        <td colspan="6" class="text-center">
+                            无子品类
+                        </td>
+                    </tr>
+                    <tr ng-show="searching" ng-cloak>
+                        <td colspan="6" class="text-center text-lg">
+                            <i class="fa fa-spin fa-spinner" ng-cloak></i>
+                        </td>
+                    </tr>
+                    <tr ng-repeat="item in queryResult" class="valign-middle">
+                        <td>
+                            <label class="checkbox-inline i-checks i-checks-sm">
+                                <input type="checkbox" ng-model="item.IsChecked" ng-click="processCheckedItem(item)" /><i></i>
+                            </label>
+                        </td>
+                        <td>
+                            {{$index+1}}
+                        </td>
+                        <td>
+                            {{item.code}}
+                        </td>
+                        <td>
+                            {{item.name}}
+                        </td>
+                        <td>
+                            <a ng-class="{true: 'fa fa-check text-success text', false: 'fa fa-times text-danger text'}[item.isValid]" ng-click="hideOrDisplay(item)"></a>
+                        </td>
+                        <td class="text-bg">
+                            <span class="text-danger ml5">
+                            <a ui-sref="mc.mcCategory.edit({code:item.code})" class="fa fa-edit m-r-xs" title="修改"></a>
+                            <a ng-href="" ng-click="deleteByCode(item)" class="fa fa-trash-o" title="删除"></a>
+                        </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

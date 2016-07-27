@@ -1,0 +1,111 @@
+<div class="panel panel-default m-b-none">
+    <form name="metaform" method="post" ng-submit="ok(metaform.$valid)" novalidate>
+        <div class="panel-heading font-bold">
+            <span ng-bind="metaVM.title"></span> <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="metaVM.loading" ng-cloak></i>
+        </div>
+        <div class="panel-body">
+            <div ng-if="metaVM.type==3" ng-cloak>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">名称</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.dataName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">编码</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.dataCode"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">数据内容(中文)</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.contentCn"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">数据内容(英文)</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.contentEn"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">顺序</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.position"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">单位</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.unit"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">备注信息</div>
+                    <div class="col-sm-10" ng-bind="metaVM.data.remarks"></div>
+                </div>
+            </div>
+            <div ng-if="metaVM.type!=3" ng-cloak>
+                <div class="row" ng-class="{'has-error': metaform.dataname.$invalid && !metaform.dataname.$pristine }">
+                    <div class="col-sm-2 text-right font-bold text-danger">名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" class="form-control" name="dataname" required maxlength="50" ng-model="metaVM.data.dataName" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row" ng-class="{'has-error':metaform.datacode.$invalid&&!metaform.datacode.$pristine}">
+                    <div class="col-sm-2 text-right font-bold text-danger">编码</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" name="datacode" class="form-control" maxlength="50" ng-model="metaVM.data.dataCode" required />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">数据内容(中文)</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="contentCn" class="form-control" maxlength="50" ng-model="metaVM.data.contentCn" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">数据内容(英文)</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="contentEn" class="form-control" maxlength="50" ng-model="metaVM.data.contentEn" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">顺序</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="position" class="form-control" maxlength="50" ng-model="metaVM.data.position" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">单位</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="unit" class="form-control" maxlength="50" ng-model="metaVM.data.unit" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">是否可用</div>
+                    <div class="col-sm-10">
+                        <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r-sm">
+                            <input type="checkbox" ng-model="metaVM.data.enable" ng-true-value="1" ng-false-value="0"><i></i>
+                        </label>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">备注</div>
+                    <div class="col-sm-10">
+                        <input type="text" autocomplete="off" id="remarks" class="form-control" maxlength="50" ng-model="metaVM.data.remarks" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="submit" class="btn btn-primary m-r-sm" ng-disabled="metaVM.saving||metaform.$invalid" ng-if="metaVM.type!=3" ng-cloak>
+                <span class="w2em" ng-if="!metaVM.saving" ng-cloak>保存</span>
+                <i class="fa fa-spin fa-spinner w2em" ng-if="metaVM.saving" ng-cloak></i>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">返回</button>
+        </div>
+    </form>
+</div>

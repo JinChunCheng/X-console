@@ -1,0 +1,73 @@
+<div class="panel panel-default m-b-none">
+    <form name="trackDocForm" method="post" ng-submit="ok()" novalidate>
+        <div class="panel-heading font-bold">
+            <span ng-bind="trackDoc.title"></span> <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="trackDoc.loading" ng-cloak></i>
+        </div>
+        <div class="panel-body">
+            <div  ng-cloak>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">运单文件</div>
+                    <div class="col-sm-10" >
+                         <input valid-file class="form-control" required name="files" type="file"  ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">费用明细</div>
+                    <div class="col-sm-10" >
+                        <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">通知书文件</div>
+                    <div class="col-sm-10" >
+                         <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">委托书文件</div>
+                    <div class="col-sm-10">
+                         <input valid-file class="form-control" required name="files" type="file"  ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">发货照片</div>
+                    <div class="col-sm-10">
+                         <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">破损证明</div>
+                    <div class="col-sm-10">
+                         <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">签收单</div>
+                    <div class="col-sm-10">
+                         <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">其他文件</div>
+                    <div class="col-sm-10" >
+                         <input valid-file class="form-control" required name="files" type="file" ng-disabled="saving"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+             <button type="submit" class="btn btn-primary m-r-sm" ng-disabled="saving"  ng-cloak>
+                <span class="w2em" ng-if="!saving" ng-cloak>保存</span>
+                <i class="fa fa-spin fa-spinner w2em" ng-if="saving" ng-cloak></i>
+            </button>
+            <button type="button" class="btn btn-default" ng-disabled="saving" ng-click="cancel()">返回</button>
+        </div>
+    </form>
+</div>

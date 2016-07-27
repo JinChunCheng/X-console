@@ -1,0 +1,100 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)" novalidate>
+        <div class="row">
+
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">创建类型</span>
+                    <select class="form-control" required ng-model="listVM.type">
+                        <option value="" default>- 请选择 -</option>
+                        <option value="1" selected>增量</option>
+                        <option value="0">全量</option>
+                    </select>
+
+                </div>
+            </div>
+            <!--
+           <div class="col-md-4 p-r-none">
+               <div class="input-group m-b">
+                   <span class="input-group-addon">任务组</span>
+                   <input type="text" class="form-control" ng-model="listVM.condition.jobGroup" />
+               </div>
+           </div>
+           -->
+            <div class="col-md-4">
+                <!--
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.searching">
+                    <span class="w2em" ng-if="!listVM.searching" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="listVM.searching" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="buildIndex()">创建索引</button>
+                -->
+                <button type="button" class="btn btn-success m-l-xs m-b pull-right" ng-click="buildIndex()">创建索引</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <!--
+            <table class="table table-striped b-t b-light">
+                <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>任务编号</th>
+                    <th>任务名称</th>
+                    <th>任务分组</th>
+                    <th>任务状态</th>
+                    <th>任务表达式</th>
+                    <th>任务描述</th>
+                    <th>创建时间</th>
+                    <th class="w120">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-if="listVM.searching" ng-cloak>
+                    <td class="text-center" colspan="10"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i> 正在查询...
+                    </td>
+                </tr>
+                <tr ng-if="!listVM.searching&&listVM.items.length==0" ng-cloak>
+                    <td class="text-center" colspan="10">暂无数据</td>
+                </tr>
+                <tr ng-repeat="item in listVM.items">
+                    <td ng-bind="item.id"></td>
+                    <td ng-bind="item.jobId"></td>
+                    <td ng-bind="item.jobName"></td>
+                    <td ng-bind="item.jobGroup"></td>
+                    <td >
+                        <span ng-if="item.jobStatus == 0">
+                                启用
+                        </span>
+                        <span ng-if="item.jobStatus ==1">
+                                禁用
+                        </span>
+                    </td>
+                    <td ng-bind="item.cronExpression"></td>
+                    <td ng-bind="item.remark"></td>
+                    <td ng-bind="item.createTime|exDate:'yyyy-MM-dd HH:mm:ss'"></td>
+                    <td>
+                        <a href ng-click="view(item.id)" class="fa fa-file-text-o text-sm" title="查看"></a>
+                        <a href ng-click="edit(item.id)" class="fa fa-edit text-sm m-l-xs" title="修改"></a>
+
+                          <span ng-if="item.jobStatus == 0">
+                        <a href ng-click="forbid(item)" class="icon-ban" title="禁用"></a>
+                         </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber" is-paging="listVM.searching" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+          -->
+    </div>
+</div>

@@ -1,0 +1,441 @@
+<div class="panel panel-default form-horizontal">
+    <div class="panel-heading font-bold">
+        <span class="panel-title">  审核认证 - {{view.showDataBeforeAudit?'修改认证':'首次认证'}} </span>
+        <span ng-if="loading" style="margin-left: 20px;"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</span>
+
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        基本信息
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" method="get">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">公司名称</label>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-model="supplierAuth.supplierName" placeholder="" disabled="" type="text">
+                </div>
+                <div class="col-sm-5">
+                    <input ng-model="supplierAuthlog.supplierName" class="form-control" placeholder="" disabled="" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">发票相关</label>
+                <div class="col-sm-5">
+                    <!--<input class="form-control" ng-model='metaData.vatInvoiceAbilityData|filter:{value:supplierAuth.vatInvoiceAbility}|getProValue:"text"'-->
+                           <!--placeholder="" disabled="" type="text">-->
+                    <select ng-disabled="true"  class="form-control"
+                            ng-model="supplierAuth.vatInvoiceAbility"
+                            ng-options="item.value as item.text for item in metaData.vatInvoiceAbilityData" required>
+                        <option value="">- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <!--<input ng-bind='metaData.vatInvoiceAbilityData|filter:{value:supplierAuthlog.vatInvoiceAbility}|getProValue:"text"'-->
+                           <!--class="form-control" placeholder="" disabled="" type="text">-->
+                    <select ng-disabled="true"  class="form-control"
+                            ng-model="supplierAuthlog.vatInvoiceAbility"
+                            ng-options="item.value as item.text for item in metaData.vatInvoiceAbilityData" required>
+                        <option value="">- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">供应商类别</label>
+                <div class="col-sm-5">
+                    <select ng-disabled="true"  class="form-control" ng-model="supplierAuth.supplierCategory"
+                            ng-options="item.value as item.text for item in supllierCategary" required>
+                        <option value="" >- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select ng-disabled="true"  class="form-control" ng-model="supplierAuthlog.supplierCategory"
+                            ng-options="item.value as item.text for item in supllierCategary" required>
+                        <option value="" >- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">注册所在省份</label>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-model="supplierAuth.regProvince" placeholder="" disabled="" type="text">
+                </div>
+                <div class="col-sm-5">
+                    <input ng-model='supplierAuthlog.regProvince'
+                           class="form-control" placeholder="" disabled="" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否有进出口权</label>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuth.importExportPermit"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuthlog.importExportPermit"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">企业办公地址</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-model="supplierAuth.companyAddress" placeholder="" disabled="" type="text">
+                </div>
+                <div class="col-sm-5">
+                    <input ng-model='supplierAuthlog.companyAddress'
+                           class="form-control" placeholder="" disabled="" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">纳税人资格</label>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuth.taxpayerQualification"
+                             ng-options="item.value as item.text for item in defaultTaxpayerQualification" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuthlog.taxpayerQualification"
+                             ng-options="item.value as item.text for item in defaultTaxpayerQualification" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">店铺链接</label>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-model="supplierAuth.shopAddress" placeholder="" disabled="" type="text">
+                </div>
+                <div class="col-sm-5">
+                    <input ng-model='supplierAuthlog.shopAddress'
+                           class="form-control" placeholder="" disabled="" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        资质信息
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" method="get">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">税务登记证</label>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuth.taxRegistrationNumberUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuth.taxRegistrationNumberUrl)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuthlog.taxRegistrationNumberUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuthlog.taxRegistrationNumberUrl)">
+                        </div>
+                    </div>
+                     </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">组织机构代码证</label>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuth.organizationCodeUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuth.organizationCodeUrl)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuthlog.organizationCodeUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuthlog.organizationCodeUrl)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">营业执照 </label>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuth.businessLicenseNumberUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuth.businessLicenseNumberUrl)">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="inline bg-white wrapper-sm b-a">
+                        <div class="bg-light">
+                            <img ng-src="{{getPicUrl(supplierAuthlog.businessLicenseNumberUrl)}}"
+                                 width="100" height="100"
+                                 ng-click="viewOriginalPic(supplierAuthlog.businessLicenseNumberUrl)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">自定义资质 </label>
+                <div class="col-sm-5">
+                    <div ng-repeat="item in supplierAuth.otherQualifications">
+                        <div class="inline bg-white wrapper-sm b-a" >
+                            <div class="bg-light" >
+                                <img ng-src="{{getPicUrl(item.imgurl)}}"
+                                     width="100" height="100"
+                                     ng-click="viewOriginalPic(item.imgurl)">
+                            </div>
+
+                        </div>
+                        <input ng-model="item.title" class="form-control" placeholder="" disabled="" type="text">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                    </div>
+
+                </div>
+                <div class="col-sm-5">
+                    <div ng-repeat="item in supplierAuthlog.otherQualifications">
+                        <div class="inline bg-white wrapper-sm b-a" >
+                            <div class="bg-light" >
+                                <img ng-src="{{getPicUrl(item.imgurl)}}"
+                                     width="100" height="100"
+                                     ng-click="viewOriginalPic(item.imgurl)">
+                            </div>
+                        </div>
+                        <input ng-model="item.title" class="form-control" placeholder="" disabled="" type="text">
+                        <div class="line line-dashed b-b line-lg pull-in"></div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        联系信息
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled" method="get">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">联系人</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"
+                           ng-model="supplierAuth.contactPerson" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"  ng-model="supplierAuthlog.contactPerson" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电话</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"
+                            ng-model="supplierAuth.contactPhone" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"  ng-model="supplierAuthlog.contactPhone" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">QQ</label>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"
+                            ng-model="supplierAuth.contactQQ" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"  ng-model="supplierAuthlog.contactQQ" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">邮件地址</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"
+                            ng-model="supplierAuth.contactEmail" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"  ng-model="supplierAuthlog.contactEmail" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">手机</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"
+                            ng-model="supplierAuth.contactMobilephone" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"  ng-model="supplierAuthlog.contactMobilephone" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">账户名称</label>
+                <div class="col-sm-5">
+                    <input  class="form-control" ng-disabled="true"
+                            ng-model="supplierAuth.bankName" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"  ng-model="supplierAuthlog.bankName" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">供应商对公账户账号</label>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"
+                            ng-model="supplierAuth.bankAccount" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"  ng-model="supplierAuthlog.bankAccount" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">供应商对公账户开户行</label>
+                <div class="col-sm-5">
+                    <input class="form-control" ng-disabled="true"
+                            ng-model="supplierAuth.branchBankName" type="text"/>
+                </div>
+                <div class="col-sm-5">
+                    <input class="form-control"  ng-disabled="true"  ng-model="supplierAuthlog.branchBankName" type="text"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">结算币种</label>
+                <div class="col-sm-5">
+                    <select ng-disabled="true" class="form-control" ng-model="supplierAuth.currency"
+                            ng-options="item.Id as item.Name for item in defaultCurrency" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <!--<div ng-repeat='obj in defaultCurrency | filter:{Id:(supplierAuthlog.currency==null?"null":supplierAuthlog.currency)}:true'>-->
+                        <!--<input class="form-control"  ng-disabled="true"  ng-model="obj.Name" type="text"/>-->
+                    <!--</div>-->
+                    <select ng-disabled="true" class="form-control" ng-model="supplierAuthlog.currency"
+                            ng-options="item.Id as item.Name for item in defaultCurrency" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">结算方式</label>
+                <div class="col-sm-5">
+                    <select ng-disabled="true" class="form-control" ng-model="supplierAuth.settlementMethod"
+                            ng-options="item.value as item.text for item in defaultSettlementMethod" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select ng-disabled="true" class="form-control" ng-model="supplierAuthlog.settlementMethod"
+                            ng-options="item.value as item.text for item in defaultSettlementMethod" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否接受先货后款</label>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuth.acceptanceFirstShipment"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuthlog.acceptanceFirstShipment"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">是否接受退换货</label>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuth.acceptReturns"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select  ng-disabled="true" class="form-control"
+                             ng-model="supplierAuthlog.acceptReturns"
+                             ng-options="item.value as item.text for item in yesNoMapping" required>
+                        <option value="" default>- 请选择 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">已售市场</label>
+                <div class="col-sm-5">
+                    <label class="checkbox-inline i-checks" ng-repeat="item in soldMarketList">
+                        <input type="checkbox" name="soldMarket" checklist-model="selectSoldMarketList"
+                               checklist-value="item.value" disabled="true"/><i></i> {{item.text}}
+                    </label>
+                </div>
+                <div class="col-sm-5">
+                    <label class="checkbox-inline i-checks" ng-repeat="item in soldMarketList">
+                        <input type="checkbox" name="soldMarket" checklist-model="selectSoldMarketListLog"
+                               checklist-value="item.value" disabled="true"/><i></i> {{item.text}}
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        审核备注
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal ng-pristine ng-valid ng-valid-date ng-valid-required ng-valid-parse ng-valid-date-disabled"
+              id="userform" name="userform" method="post" ng-submit="save(userform.$valid)" novalidate >
+            <div class="form-group">
+                <label class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" rows="6" id="auditComments" name="auditComments"  ng-model="passInfo.auditRemark"
+                              ng-required="true" ng-focus="true" placeholder="请输入信息"></textarea>
+                    <span class="error" ng-show="userform.$dirty && userform.auditComments.$error.required"
+                          style="color:red">备注不能为空</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4 col-sm-offset-2">
+                    <button ng-disabled="view.loading || (userform.$dirty && userform.auditComments.$error.required)||(passInfo.auditRemark==null || passInfo.auditRemark.length<=0) || view.acceptSuc"
+                            type="button" class="btn btn-default " ng-click="accept()">
+                        审核通过
+                    </button>
+                    <button ng-disabled="view.loading || (userform.$dirty && userform.auditComments.$error.required)|| (passInfo.auditRemark==null || passInfo.auditRemark.length<=0) || view.acceptSuc || view.loading"
+                            type="button" class="btn btn-default ml5" ng-click="reject()">
+                        审核不通过
+                    </button>
+                    <button ng-show="false"
+                            ng-disabled="view.loading || !view.acceptSuc && userform.auditComments.$error.required"
+                            type="button" class="btn btn-default ml5" ng-click="regAccount()">
+                        开通供应商虚拟账户
+                    </button>
+                    <button type="button" class="btn btn-default ml5" ng-click="back()">
+                        返回列表
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+

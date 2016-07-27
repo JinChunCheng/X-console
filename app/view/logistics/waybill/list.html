@@ -1,0 +1,229 @@
+<div class="wrapper-md">
+    <div class="row">
+        <form ng-submit="page(1)">
+            <div class="row">
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">运单号:</span>
+                        <input type="text" class="form-control" ng-model="condition.waybillNo" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">订单号:</span>
+                        <input type="text" class="form-control" ng-model="condition.orderNo" />
+                    </div>
+                </div>
+                 <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">订单来源:</span>
+                        <select class="form-control" ng-model="condition.orderType">
+                            <option value="" ng-selected="!condition.isValid">全部</option>
+                            <option value="goExw">goExw</option>
+                            <option value="exiao">exiao</option>
+                            <option value="234plog">234plog</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">客户名称:</span>
+                        <input type="text" class="form-control" ng-model="condition.customerName" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">收 货 人:</span>
+                        <input type="text" class="form-control" ng-model="condition.consigneeName" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <span>&nbsp;</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">创建时间</span>
+                         <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="condition.wbDateBegin" is-open="openB" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="关闭" ng-click="openBegin($event)" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openBegin($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                 <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon"> 至 </span>
+                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="condition.wbDateEnd" is-open="openE" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="关闭" ng-click="openEnd($event)" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">运单状态:</span>
+                        <select class="form-control" ng-model="condition.completeStatus">
+                            <option value="0" ng-selected="!condition.isValid">未完成</option>
+                            <option value="1">完成</option>
+                            <option value="">全部</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">客户电话:</span>
+                        <input type="text" class="form-control"  ng-model="condition.customerContactNo" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <div class="input-group m-b">
+                        <span class="input-group-addon">收货人电话:</span>
+                        <input type="text" class="form-control"  ng-model="condition.consigneeContactNo" />
+                    </div>
+                </div>
+                <div class="col-xs-2">
+                    <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.processing">
+                        <span class="w2em" ng-if="!loading" ng-cloak>查询</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="loading" ng-cloak></i>
+                    </button>
+                    <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+                    <!--<button type="button" class="btn btn-default m-l-xs m-b" ng-click="testCrossDomain()">测试</button>-->
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>物流运单列表</span>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped tight-table b-t b-light" border="0">
+                <thead>
+                    <tr>
+                        <th class="pointer" ng-click="reSort('trackno')">
+                            运单号
+                            <span class="fa m-l-2 text-sm {{sortClass('trackno')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('placedate')" nowrap="true">
+                            运单生</br>成时间
+                            <span class="fa m-l-2 text-sm {{sortClass('placedate')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('externorderno')">
+                            订单号
+                            <span class="fa m-l-2 text-sm {{sortClass('externorderno')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('orderdate')" nowrap="true">
+                            下单时间
+                            <span class="fa m-l-2 text-sm {{sortClass('orderdate')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('ordertype')">
+                            订单来源
+                            <span class="fa m-l-2 text-sm {{sortClass('ordertype')}}">
+                        </th>
+
+                        
+                        <th class="pointer" ng-click="reSort('customer_name')" nowrap="true">
+                            客户</br>名称
+                            <span class="fa m-l-2 text-sm {{sortClass('customer_name')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('customer_contacter')" nowrap="true">
+                            客户</br>联系人
+                            <span class="fa m-l-2 text-sm {{sortClass('customer_contacter')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('customer_contactno')" nowrap="true">
+                            客户联</br>系电话
+                            <span class="fa m-l-2 text-sm {{sortClass('customer_contactno')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('consignee_Name')" nowrap="true">
+                            收货人
+                            <span class="fa m-l-2 text-sm {{sortClass('consignee_Name')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('consignee_Addr')" nowrap="true">
+                            收货地址
+                            <span class="fa m-l-2 text-sm {{sortClass('consignee_Addr')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('consignee_ContactNo')" nowrap="true">
+                            收货人电话
+                            <span class="fa m-l-2 text-sm {{sortClass('consignee_ContactNo')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('ordervalue')" nowrap="true">
+                            订单总价
+                            <span class="fa m-l-2 text-sm {{sortClass('ordervalue')}}">
+                        </th>
+                        <th class="pointer" ng-click="reSort('status')">
+                            状态
+                            <span class="fa m-l-2 text-sm {{sortClass('status')}}">
+                        </th>
+                        <th nowrap="true">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="loading" ng-cloak>
+                        <td class="text-center" colspan="14"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="!loading&&(!queryResult.Items||queryResult.Items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="14">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in queryResult.Items">
+                        <td>
+                            <a href ng-click="viewWaybill(item.trackId, item.orderId)" class="editLink" title="编辑订舱">{{item.waybillNo}}</a>
+                        </td>
+                        <td>
+                            {{item.bookingDate}}
+                        </td>
+                        <td>
+                            {{item.orderNo}}
+                        </td>
+                        <td>
+                            {{item.orderDate}}
+                        </td>
+                        <td>
+                            {{item.orderType}}
+                        </td>
+                        
+                        
+                        <td>
+                            {{item.customerName}}
+                        </td>
+                        <td>
+                            {{item.customerContacter}}
+                        </td>
+                        <td>
+                            {{item.customerContactNo}}
+                        </td>
+                        <td nowrap="true">
+                            {{item.consigneeName}}
+                        </td>
+                         <td>
+                            {{item.consigneeAddr}}
+                        </td>
+                        <td>
+                            {{item.consigneeContactNo}}
+                        </td>
+                        <td>
+                            {{item.orderValue}} {{item.currency}}
+                        </td>
+                        
+                        <td nowrap="true">
+                            {{item.waybillStatusDesc}}
+                        </td>
+                        <td class="text-bg" nowrap="true">
+                            <a href ng-click="viewWaybill(item.trackId, item.orderId)"  class="fa fa-edit" title="订舱编辑">编辑</a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="queryResult.TotalCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="queryResult.TotalCount" items-per-page="queryResult.PageSize" ng-change="pageChanged()" ng-model="queryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

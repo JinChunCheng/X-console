@@ -1,0 +1,536 @@
+<style type="text/css">
+    .red_bt {
+        vertical-align: sub;
+        font-size: 16px;
+        color: red;
+    }
+
+    .mrt10 {
+        margin-right: 10px;
+    }
+</style>
+<div class="panel panel-default form-horizontal">
+    <div class="panel-heading font-bold">
+        <span class="panel-title">供应商信息</span>
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary btn-xs" ng-click="goPoList()">
+                查看订单
+            </button>
+            <button type="button" class="btn btn-primary btn-xs m-l-xs" ng-click="goProdList()">
+                查看产品
+            </button>
+            <button type="button" class="btn btn-default btn-xs m-l-xs" ng-click="back()">
+                返回列表
+            </button>
+        </div>
+    </div>
+    <div class="panel-body">
+        <tabset class="tab-container m-b-none">
+            <tab>
+                <tab-heading>
+                    基本信息
+                    <i class="fa fa-spin fa-spinner m-l-xs" ng-if="loadingBasic" ng-cloak></i>
+                </tab-heading>
+                <form id="registInfoform" name="registInfoform" method="post"
+                      ng-submit="updateRegistInfo(registInfoform.$valid)" novalidate>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : registInfoform.name.$invalid && !registInfoform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>邮箱地址：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="email" autocomplete="off" id="email" class="form-control"
+                                   maxlength="50" ng-model="supplierBaseInfo.email"
+                                   ng-pattern="/\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : registInfoform.name.$invalid && !registInfoform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>公司名：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="companyName"
+                                   class="form-control" maxlength="50" ng-model="supplierBaseInfo.companyName"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : registInfoform.name.$invalid && !registInfoform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>手机号：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="mobilePhone"
+                                   class="form-control" maxlength="50" ng-model="supplierBaseInfo.mobilePhone"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            注册时间：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="regTime" class="form-control"
+                                   maxlength="50" value="{{supplierBaseInfo.regTime | date: 'yyyy-MM-dd HH:mm:ss'}}"
+                                   onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : demoform.name.$invalid && !demoform.name.$pristine }">
+                        <label for="emailVerified" class="col-sm-2 control-label">
+                            验证状态：
+                        </label>
+                        <div class="col-sm-10">
+                            <!--{{authString= supplierBaseInfo.authStatus==0?'未进行出口供应商认证':supplierBaseInfo.authStatus==1?-->
+                            <!--'出口供应商认证审核中':supplierBaseInfo.authStatus==2?'已通过出口供应商认证':supplierBaseInfo.authStatus==3?-->
+                            <!--'未通过出口供应商认证':supplierBaseInfo.authStatus==4?'修改认证信息审核中':'非法状态'-->
+                            <!--}}-->
+                            {{authString}}
+                            <input ng-if="supplierBaseInfo.authStatus==0" ng-disabled="true" type="text"
+                                   autocomplete="off" class="form-control" value="未进行出口供应商认证"/>
+                            <input ng-if="supplierBaseInfo.authStatus==1" ng-disabled="true" type="text"
+                                   autocomplete="off" class="form-control" value="出口供应商认证审核中"/>
+                            <input ng-if="supplierBaseInfo.authStatus==2" ng-disabled="true" type="text"
+                                   autocomplete="off" class="form-control" value="已通过出口供应商认证"/>
+                            <input ng-if="supplierBaseInfo.authStatus==3" ng-disabled="true" type="text"
+                                   autocomplete="off" class="form-control" value="未通过出口供应商认证"/>
+                            <input ng-if="supplierBaseInfo.authStatus==4" ng-disabled="true" type="text"
+                                   autocomplete="off" class="form-control" value="修改认证信息审核中"/>
+                            <!--<ex-singleselect class="select2-container select2-container-disabled form-control" disabled="true" model="authString" options="defaultVatInvoiceAbility" ng-mousedown=""></ex-singleselect>-->
+                            <!--<ex-singleselect class="select2-container select2-container-disabled form-control" disabled="true" model="supplierBaseInfo.emailVerified" options="defaultVatInvoiceAbility" ng-mousedown=""></ex-singleselect>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="validateTime" class="col-sm-2 control-label">
+                            验证时间：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="validateTime"
+                                   class="form-control"
+                                   maxlength="50"
+                                   ng-value="supplierBaseInfo.emailVerifiedTime | date: 'yyyy-MM-dd HH:mm:ss'"
+                                   date-format="yyyy-MM-dd HH:mm:ss"
+                                   onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="authTime" class="col-sm-2 control-label">
+                            认证状态：
+                        </label>
+                        <div class="col-sm-10">
+
+                            <input ng-disabled="true" type="text" id="emailVerified" class="form-control"
+                                   ng-value="supplierBaseInfo.emailVerified==1?'通过邮箱认证':'邮箱未认证'"
+                                  />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="authTime" class="col-sm-2 control-label">
+                            认证时间：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="authTime" class="form-control"
+                                   maxlength="50"
+                                   ng-value="supplierBaseInfo.authTime | date: 'yyyy-MM-dd HH:mm:ss'"
+                                   date-format="yyyy-MM-dd HH:mm:ss"
+                                   onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productNum" class="col-sm-2 control-label">
+                            产品数量：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="productNum"
+                                   class="form-control" maxlength="50" ng-model="productNum"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderNum" class="col-sm-2 control-label">
+                            订单数量：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="true" type="text" autocomplete="off" id="orderNum" class="form-control"
+                                   maxlength="50" ng-model="orderNum"/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>经营品类：
+                        </label>
+                        <div class="col-sm-10">
+                            <!--<label class="checkbox-inline i-checks i-checks-sm m-l-none m-r" ng-repeat="item in view.businessCategoryList">-->
+                            <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r"
+                                   ng-repeat="item in view.businessCategoryList">
+                                <input type="checkbox" name="category" checklist-model="view.selectedBusinessCategory"
+                                       checklist-value="item.value" ng-disabled="true"/><i></i> {{item.text}}
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+            <tab>
+                <tab-heading>
+                    认证信息
+                    <i class="fa fa-spin fa-spinner m-l-xs" ng-if="loadingAuth" ng-cloak></i>
+                </tab-heading>
+                <form id="authform" name="authform" method="post" ng-submit="save(authform.$valid)" novalidate>
+                    <b><i class="fa fa-star m-r-xs"></i>概况信息</b>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>供应商名称：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="supplierName" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.supplierName" required>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>可开增值税发票：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit"  class="form-control"
+                                    ng-model="supplierAuthInfo.vatInvoiceAbility"
+                                    ng-options="item.value as item.text for item in defaultVatInvoiceAbility" required>
+                                <option value="">- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>供应商类别：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit"  class="form-control" ng-model="supplierAuthInfo.supplierCategory"
+                                    ng-options="item.Id as item.Name for item in defaultSupplierCategory" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>注册所在省份：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit"  name="regProvince" class="form-control"
+                                    ng-model="supplierAuthInfo.regProvince" required>
+                                <option value="" ng-selected="!supplierAuthInfo.regProvince">- 请选择 -</option>
+                                <option ng-repeat="item in view.provinces"
+                                        ng-selected="item.provinceName == supplierAuthInfo.regProvince"
+                                        value="{{item.provinceName}}">{{item.provinceName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>是否有进出口权：
+                        </label>
+                        <div class="col-sm-10">
+                            <select  ng-disabled="isEdit" class="form-control"
+                                    ng-model="supplierAuthInfo.importExportPermit"
+                                    ng-options="item.Id as item.Name for item in defaultImportExportPermit" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>企业办公地址：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" name="companyAddress" id="companyAddress"
+                                   class="form-control" maxlength="50" ng-model="supplierAuthInfo.companyAddress"
+                                   required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>纳税人资格：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit"  class="form-control"
+                                    ng-model="supplierAuthInfo.taxpayerQualification"
+                                    ng-options="item.value as item.text for item in defaultTaxpayerQualification"
+                                    required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            店铺链接：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" name="shopAddress" id="shopAddress"
+                                   class="form-control" maxlength="50" ng-model="supplierAuthInfo.shopAddress"/>
+                        </div>
+                    </div>
+
+                    <b><i class="fa fa-star m-r-xs"></i>资质信息</b>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>税务登记证：
+                        </label>
+                        <div class="col-sm-10">
+                            <img ng-src='{{getPicUrl(supplierAuthInfo.taxRegistrationNumberUrl)}}' class="img-thumbnail"
+                                 alt="" style="width:100px;height:100px !important;"
+                                 ng-click="viewOriginalPic(getPicUrl(supplierAuthInfo.taxRegistrationNumberUrl))">
+                            <input type="file" id="fileTax" style="display:none;" accept="image/*" base-sixty-four
+                                   base-sixty-four-success="taxFileSuccess(file,data,formData)"/>
+                            <button ng-if="!isEdit" type="button" onclick="$('#fileTax').click();"
+                                    class="valign-bottom btn btn-default m-l-xs" ng-disabled="view.loadingTexPic">
+                                <span ng-if="!view.loadingTexPic" ng-cloak>本地上传</span>
+                                <i class="fa fa-spin fa-spinner" ng-if="view.loadingTexPic" ng-cloak></i>
+                            </button>
+                        </div>
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="taxRegistrationNumber" class="form-control"
+                                   maxlength="50" ng-model="supplierAuthInfo.taxRegistrationNumber" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            组织机构代码证：
+                        </label>
+                        <div class="col-sm-10">
+                            <img ng-src="{{getPicUrl(supplierAuthInfo.organizationCodeUrl)}}" class="img-thumbnail"
+                                 alt="" style="width:100px;height:100px !important;"
+                                 ng-click="viewOriginalPic(getPicUrl(supplierAuthInfo.organizationCodeUrl))">
+                            <input ng-if="!isEdit" type="file" id="fileOrgCode" style="display:none;" accept="image/*" base-sixty-four
+                                   base-sixty-four-success="orgCodeFileSuccess(file,data,formData)"/>
+                            <button ng-if="!isEdit" type="button" onclick="$('#fileOrgCode').click();"
+                                    class="valign-bottom btn btn-default m-l-xs" ng-disabled="view.loadingOrgPic">
+                                <span ng-if="!view.loadingOrgPic" ng-cloak>本地上传</span>
+                                <i class="fa fa-spin fa-spinner" ng-if="view.loadingOrgPic" ng-cloak></i>
+                            </button>
+                            <input type="text" autocomplete="off" id="organizationCode" class="form-control"
+                                   maxlength="50" ng-model="supplierAuthInfo.organizationCode"/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>营业执照：
+                        </label>
+                        <div class="col-sm-10">
+                            <img ng-src='{{getPicUrl(supplierAuthInfo.businessLicenseNumberUrl)}}' class="img-thumbnail"
+                                 alt="" style="width:100px;height:100px !important;"
+                                 ng-click="viewOriginalPic(getPicUrl(supplierAuthInfo.businessLicenseNumberUrl))">
+                            <input type="file" id="fileBL" style="display:none;" accept="image/*" base-sixty-four
+                                   base-sixty-four-success="blFileSuccess(file,data,formData)"/>
+                            <button ng-if="!isEdit" type="button" onclick="$('#fileBL').click();"
+                                    class="valign-bottom btn btn-default m-l-xs" ng-disabled="view.loadingPermPic">
+                                <span ng-if="!view.loadingPermPic" ng-cloak>本地上传</span>
+                                <i class="fa fa-spin fa-spinner" ng-if="view.loadingPermPic" ng-cloak></i>
+                            </button>
+                        </div>
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="businessLicenseNumber" class="form-control"
+                                   maxlength="50" ng-model="supplierAuthInfo.businessLicenseNumber" required/>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-repeat="item in supplierAuthInfo.otherQualifications">
+                        <label class="col-sm-2 control-label">
+                           <span ng-if="$index==0">自定义资质：</span>
+                        </label>
+                        <div class="col-sm-10" >
+                            <img ng-src='{{getPicUrl(item.imgurl)}}' class="img-thumbnail" alt=""
+                                 style="width:100px;height:100px !important;"
+                                 ng-click="viewOriginalPic(getPicUrl(item.imgurl))">
+
+                            <input type="file" id="customimg{{$index}}" style="display:none;" accept="image/*"
+                                   base-sixty-four base-sixty-four-success="otherFileSuccess(file,data,formData,item)"/>
+                            <button ng-disabled="isEdit" type="button"   clicktransfer target="customimg{{$index}}"
+                                    class="valign-bottom btn btn-default m-l-xs" ng-disabled="view.loadingPermPic">
+                                <span ng-if="!view.loadingPermPic" ng-cloak>本地上传</span>
+                                <i class="fa fa-spin fa-spinner" ng-if="view.loadingPermPic" ng-cloak></i>
+                            </button>
+                        </div>
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="businessLicenseNumber{{$index}}" class="form-control"
+                                   maxlength="50" ng-model="item.title" required/>
+                        </div>
+                    </div>
+                    <b><i class="fa fa-star m-r-xs"></i>联系信息</b>
+                    <div class="line line-dashed b-b pull-in"></div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>联系人：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="contactPerson" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.contactPerson" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            电话：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="contactPhone" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.contactPhone"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">
+                            QQ：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="contactQQ" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.contactQQ"/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>邮件地址：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="contactEmail" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.contactEmail" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>手机：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="contactMobilephone" class="form-control"
+                                   maxlength="50" ng-model="supplierAuthInfo.contactMobilephone" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>银行账号：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="bankAccount" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.bankAccount" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>开户银行：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="bankName" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.branchBankName" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>账户名称：
+                        </label>
+                        <div class="col-sm-10">
+                            <input ng-disabled="isEdit" type="text" autocomplete="off" id="" class="form-control" maxlength="50"
+                                   ng-model="supplierAuthInfo.bankName" required/>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>结算币种：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit" class="form-control" ng-model="supplierAuthInfo.currency"
+                                    ng-options="item.Id as item.Name for item in defaultCurrency" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>结算方式：
+                        </label>
+                        <div class="col-sm-10">
+                            <select ng-disabled="isEdit" class="form-control" ng-model="supplierAuthInfo.settlementMethod"
+                                    ng-options="item.value as item.text for item in view.settlementMethodList" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>是否接受先货后款：
+                        </label>
+                        <div class="col-sm-10">
+                            <select  ng-disabled="isEdit" class="form-control"
+                                     ng-model="supplierAuthInfo.acceptanceFirstShipment"
+                                     ng-options="item.Id as item.Name for item in defaultImportExportPermit" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            <i class="red_bt mrt10">*</i>是否接受退换货：
+                        </label>
+                        <div class="col-sm-10">
+                            <select  ng-disabled="isEdit" class="form-control"
+                                     ng-model="supplierAuthInfo.acceptReturns"
+                                     ng-options="item.Id as item.Name for item in defaultImportExportPermit" required>
+                                <option value="" default>- 请选择 -</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group"
+                         ng-class="{ 'has-error' : authform.name.$invalid && !authform.name.$pristine }">
+                        <label class="col-sm-2 control-label">
+                            已售市场：
+                        </label>
+                        <div class="col-sm-10">
+                            <!--<label class="checkbox-inline i-checks i-checks-sm m-l-none m-r" ng-repeat="item in view.businessCategoryList">-->
+                            <label class="checkbox-inline i-checks i-checks-sm m-l-none m-r"
+                                   ng-repeat="item in view.soldMarketList">
+                                <input type="checkbox" name="soldMarket" checklist-model="view.selectSoldMarketList"
+                                       checklist-value="item.value" ng-disabled="isEdit"/><i></i> {{item.text}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10" ng-if="!isEdit">
+                            <button  type="submit" class="btn btn-primary"
+                                    ng-disabled="authform.$invalid || isSaving || view.savingSuc ">
+                                <span ng-bind="isSaving? '正在保存':'保存'"></span>
+                            </button>
+                            <button type="button" class="btn btn-default m-l-xs" ng-click="back()">
+                                返回列表
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+        </tabset>
+    </div>
+</div>

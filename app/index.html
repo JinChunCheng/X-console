@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-controller="mainCtrl">
+
+<head>
+    <meta charset="utf-8" />
+    <title ng-bind="app.name"></title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="shortcut icon" href="img/exiao.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="css/base.css?v=@@hash" type="text/css" />
+    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="css/font.css" type="text/css" />
+    <link rel="stylesheet" href="css/app.css" type="text/css" />
+    <link rel="stylesheet" href="css/toaster.css" type="text/css" />
+    <link rel="stylesheet" href="css/select.min.css" type="text/css" />
+    <link rel="stylesheet" href="library/components/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+</head>
+
+<body>
+    <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}">
+        <div ng-if="showAll" data-ng-include="'view/shared/header.html?v=@@hash'" class="app-header navbar" ng-cloak>
+        </div>
+        <div ng-if="showAll" data-ng-include="'view/shared/aside.html?v=@@hash'" class="app-aside hidden-xs {{app.settings.asideColor}}" ng-cloak>
+        </div>
+        <div ng-class="{'app-content':showAll}">
+            <div ui-butterbar></div>
+            <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside"></a>
+            <div class="app-content-body fade-in-up h-full">
+                <div ui-view ng-class="{'animated fadeInUp h-full':!includes('login')}"></div>
+            </div>
+        </div>
+        <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+    </div>
+    <script data-main="index" src="library/require/require-2.1.14.min.js"></script>
+</body>
+
+</html>

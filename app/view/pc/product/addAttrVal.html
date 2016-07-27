@@ -1,0 +1,36 @@
+<div class="panel panel-default form-horizontal m-b-none">
+    <div class="panel-heading font-bold">
+        <span ng-bind="attrValVM.title"></span>
+    </div>
+    <form id="attrvalform" name="attrvalform" method="post" novalidate>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-sm-3 text-right font-bold">属性名</div>
+                <div class="col-sm-9" ng-bind="attrValVM.attr.attributeEnName"></div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label"><i class="text-danger m-r-xs">*</i>英文属性值</label>
+                <div class="col-sm-9" ng-class="{'has-error':attrValVM.errorMsg||(attrvalform.envalue.$invalid&&(attrVM.submitted||attrvalform.envalue.$dirty))}" required>
+                    <div ng-class="{'input-group':attrValVM.attr.suffix}">
+                        <input type="text" name="envalue" class="form-control" maxlength="50" ng-model="attrValVM.data.enValue" ng-keyup="attrValVM.errorMsg=''" required />
+                        <span class="input-group-addon" ng-if="attrValVM.attr.suffix" ng-cloak>{{attrValVM.attr.suffix}}</span>
+                    </div>
+                    <span ng-show="attrValVM.errorMsg&&(attrVM.submitted||attrvalform.envalue.$dirty)" class="help-block text-xs"> {{attrValVM.errorMsg}}</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">中文属性值</label>
+                <div class="col-sm-9">
+                    <div ng-class="{'input-group':attrValVM.attr.suffix}">
+                        <input type="text" class="form-control" maxlength="50" ng-model="attrValVM.data.cnValue" />
+                        <span class="input-group-addon" ng-if="attrValVM.attr.suffix" ng-cloak>{{attrValVM.attr.suffix}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="panel-footer text-right">
+        <button type="submit" class="btn btn-primary m-r-sm" ng-click="save(attrvalform.$invalid)" ng-cloak>保存</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+    <div class="panel-heading font-bold">
+        {{title}} <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="loading" ng-cloak></i>
+    </div>
+    <div class="panel-body">
+        <form id="demoform" name="demoform" class="form-horizontal" method="post" ng-submit="saveWarehouse(demoform.$valid)" novalidate>
+            <div ng-if="!isAdd" class="form-group" ng-class="{ 'has-error' : demoform.name.$invalid && !demoform.name.$pristine }" ng-cloak>
+                <label for="dicId" class="col-sm-2 control-label text-danger">
+                    产品库编号
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" autocomplete="off" class="form-control" name="dicId" id="dicId" required maxlength="50" ng-model="warehouse.code" disabled="disabled" />
+                </div>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error' : demoform.name.$invalid && !demoform.name.$pristine }">
+                <label for="dicName" class="col-sm-2 control-label text-danger">
+                    产品库名称
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" autocomplete="off" class="form-control" name="dicName" id="dicName" required maxlength="50" ng-model="warehouse.name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dicValue" class="col-sm-2 control-label">
+                    贸易模式
+                </label>
+                <div class="col-sm-10">
+                    <div class="radio-inline" style="padding-left:0px !important;">
+                        <label class="i-checks i-checks-sm">
+                            <input type="radio" name="tradeMode" ng-model="warehouse.tradeMode" ng-checked="warehouse.tradeMode==1" value="1">
+                            <i></i> 进口
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="i-checks i-checks-sm">
+                            <input type="radio" name="tradeMode" ng-model="warehouse.tradeMode" ng-checked="warehouse.tradeMode==2" value="2">
+                            <i></i> 出口
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dicValue" class="col-sm-2 control-label">
+                    产品库说明
+                </label>
+                <div class="col-sm-10">
+                    <textarea id="des" name="des" class="form-control" rows="3" ng-model="warehouse.des" maxlength="200"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dicValue" class="col-sm-2 control-label">
+                    启用
+                </label>
+                <div class="col-sm-10">
+                    <div class="radio-inline" style="padding-left:0px !important;">
+                        <label class="i-checks i-checks-sm">
+                            <input type="radio" name="isValid" ng-model="warehouse.isValid" ng-checked="warehouse.isValid==1" value="1">
+                            <i></i> 是
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label class="i-checks i-checks-sm">
+                            <input type="radio" name="isValid" ng-model="warehouse.isValid" ng-checked="warehouse.isValid==0" value="0">
+                            <i></i> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary" ng-disabled="demoform.$invalid || isSaving">
+                        <span ng-bind="isSaving? '保存中':'保存'"></span>
+                    </button>
+                    <button type="button" class="btn btn-default m-l" ng-click="back()">
+                        返回列表
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

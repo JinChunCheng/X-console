@@ -1,0 +1,99 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)" novalidate>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">供应商</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.supplierCompanyName" />
+                </div>
+            </div>
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">品类</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.categoryName" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">名称</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.productName" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">附件</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.zffix" />
+                </div>
+            </div>
+            <div class="col-md-6 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">提交日期</span>
+                    <input type="text" readonly class="form-control txt-ro" datepicker-popup="{{format}}" ng-model="listVM.condition.beginDate" is-open="listVM.beginDateOpened" min-date="minDate" datepicker-options="dateOptions" close-text="关闭" ng-click="openBeginDate($event)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default no-border-l no-border-r" ng-click="openBeginDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                    <span class="input-group-addon no-border-r">到</span>
+                    <input type="text" readonly class="form-control txt-ro" datepicker-popup="{{format}}" ng-model="listVM.condition.endDate" is-open="listVM.endDateOpened" min-date="minDate" datepicker-options="dateOptions" close-text="关闭" ng-click="openEndDate($event)" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default no-border-l" ng-click="openEndDate($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.searching">
+                    <span class="w2em" ng-if="!listVM.searching" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="listVM.searching" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>供应商</th>
+                        <th>品类</th>
+                        <th>名称</th>
+                        <th>附件</th>
+                        <th>提交日期</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.searching" ng-cloak>
+                        <td class="text-center" colspan="5"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i> 正在查询...
+                        </td>
+                    </tr>
+                    <tr ng-if="!listVM.searching&&listVM.items.length==0" ng-cloak>
+                        <td class="text-center" colspan="5">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td ng-bind="item.supplierCompanyName"></td>
+                        <td ng-bind="item.categoryName"></td>
+                        <td>
+                            <p class="m-n" ng-repeat="obj in item.fileName" ng-bind="obj"></p>
+                        </td>
+                        <td>
+                            <p class="m-n" ng-repeat="obj in item.filePath">
+                                <a class="btn btn-link no-padding" ng-href="{{obj|filePath:1}}" target="_blank">
+                                    {{obj}}
+                                </a>
+                            </p>
+                        </td>
+                        <td ng-bind="item.createTime | exDate:'yyyy-MM-dd HH:mm:ss'"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber" is-paging="listVM.searching" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

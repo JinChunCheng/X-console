@@ -1,0 +1,637 @@
+<div class="panel form-horizontal">
+    <div class="panel-heading">
+        <i class="menu-icon fa fa-sitemap mr5"></i><span class="panel-title">运单信息</span>
+    </div>
+    <div class="panel-body">
+        <div style="float:right;">
+            <button type="button" class="btn btn-default ml5" ng-click="back()">
+                返回列表
+            </button>
+        </div>
+        <div class="clear-fix"></div>
+        <div class="panel-body">
+            <ul id="saleOrder-tabs" class="nav nav-tabs">
+                <li class="active">
+                    <a data-target="#swbInfo" data-toggle="tab">订舱列表</span>
+                    <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="swbLoading" ng-cloak></i></a>
+                </li>
+                <li class="">
+                    <a data-target="#soInfo" data-toggle="tab" ng-click="loadSOInfo()">SO详情</span></a>
+                </li>
+                <li class="">
+                    <a data-target="#poInfo" data-toggle="tab" ng-click="loadPoInfo()">PO详情</span></a>
+                </li>
+                <li class="">
+                    <a data-target="#logInfo" data-toggle="tab" ng-click="loadOpergteLogPage()">订舱日志</span></a>
+                </li>
+            </ul>
+            <div class="tab-content tab-content-bordered" >
+
+                <!--订舱详情-->
+                <div class="tab-pane fade active in" id="swbInfo">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>订舱列表明细</span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                            <div class="btn-group">
+                                <a href class="btn btn-primary btn-xs" ng-click="addSubWaybill()"> 新增订舱 </a>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped tight-table b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th> EC运单号  </th>
+                                        <th> EC子单号  </th>
+                                        <th> 物流供应商  </th>
+                                        <th> 运输方式  </th>
+                                        <th> 贸易条款  </th>
+                                        <th> 运单/提单号  </th>
+                                        <th> 船名/航班号  </th>
+                                        <th> 集装箱号      </th>
+                                        <th> 发货地        </th>
+                                        <th> 目的地    </th>
+                                        <th> 总件数    </th>
+                                        <th> 总重量    </th>
+                                        <th> 总体积    </th>
+                                        <th> 状态    </th>
+                                        <th> 操作   </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="swbLoading" ng-cloak>
+                                        <td class="text-center" colspan="13"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                                    </tr>
+                                    <tr ng-if="!swbLoading&&(!subWBQueryResult.Items||subWBQueryResult.Items.length==0)" ng-cloak>
+                                        <td class="text-center" colspan="13">暂无订舱</td>
+                                    </tr>
+                                    <tr ng-repeat="item in subWBQueryResult.Items">
+                                        <td>
+                                            {{item.trackNo}}
+                                        </td>
+                                        <td>
+                                            {{item.subTrackNo}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorCode}}
+                                        </td>
+                                        <td>
+                                            {{item.transportMode}}
+                                        </td>
+                                        <td>
+                                            {{item.incoterm}}
+                                        </td>
+                                        <td>
+                                            {{item.waybillNo}}
+                                        </td>
+                                        <td>
+                                            {{item.intendedVFNo}}
+                                        </td>
+                                        <td>
+                                            {{item.containerNo}}
+                                        </td>
+                                        <td>
+                                            {{item.originCity}}
+                                        </td>
+                                        <td>
+                                            {{item.destCity}}
+                                        </td>
+                                        <td>
+                                            {{item.totalPackage}}
+                                        </td>
+                                        <td>
+                                            {{item.totalWeight}}
+                                        </td>
+                                        <td>
+                                            {{item.totalVolume}}
+                                        </td>
+                                        <td>
+                                            {{item.statusDesc}}
+                                        </td>
+                                        <td class="text-bg">
+                                            <a href ng-click="editSubWaybill(item.trackDetailId)"  class="fa fa-edit" title="编辑">编辑</a>
+                                            <a href ng-click="removeSubWaybill(item)"  class="fa fa-trash-o" title="删除">删除</a>
+                                            <a href ng-click="addSubsection(item.trackDetailId)"  class="fa fa-file-text-o text-sm" title="增加分段">增加</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--SO详情-->
+                <div class="tab-pane fade" id="soInfo">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">订单号</span>
+                                <div class="col-sm-10" ng-bind="saleOrder.externOrderNo" ></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">订单下单时间</span>
+                                <div class="col-sm-10" ng-bind="saleOrder.orderDate | date:'yyyy-MM-dd'"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">订单来源</span>
+                                <div class="col-sm-10" ng-bind="saleOrder.orderType"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">运单号</span>
+                                <div class="col-sm-10" ng-bind="saleOrder.trackNo"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">总重量</span>
+                                <input type="test" class="form-control" ng-model="saleOrder.totalWeight" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">总体积</span>
+                                 <input  type="text"  class="form-control" ng-model="saleOrder.totalVolume" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">总价值</span>
+                                 <input  type="text" class="form-control" ng-model="saleOrder.orderValue" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">总运费</span>
+                                 <input  type="text"  class="form-control" ng-model="saleOrder.shippingCost" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">客户名称</span>
+                                 <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.customerName" >
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">客户联系人</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.customerContacter" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">客户联系电话</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.customerContactNo" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">客户地址</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.customerAddr" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">收件方</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.consigneeName" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">收件联系人</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.consigneeContacter" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">收件人电话</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.consigneeContactNo" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">收件人地址</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.consigneeAddr" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">通知方</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.notifyName" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">通知方联系人</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.notifyContacter" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">通知人联系电话</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.notifyContactNo" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">通知方地址</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.notifyAddr" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">发货地</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.originCityCode" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">运输方式</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.transportMode" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">贸易条款</span>
+                                <input  type="text" class="form-control" maxlength="20" ng-model="saleOrder.incoterm" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group m-b">
+                                <span class="input-group-addon">订单状态</span>
+                                <input  type="text" class="form-control" ng-model="saleOrder.statusDesc" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>订单明细</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            产品编号
+                                        </th>
+                                        <th>
+                                            SKU
+                                        </th>
+                                        <th>
+                                            海关编码
+                                        </th>
+                                        <th>
+                                            货物类型
+                                        </th>
+                                        <th>
+                                            数量
+                                        </th>
+                                        <th>
+                                            包装数量
+                                        </th>
+                                        <th>
+                                            装箱重量
+                                        </th>
+                                        <th>
+                                            装箱体积
+                                        </th>
+                                        <th>
+                                            FOB单位价格
+                                        </th>
+                                        <th>
+                                            销售单价
+                                        </th>
+                                        <th>
+                                            货运成本
+                                        </th>
+                                        <th>
+                                            货币
+                                        </th>
+                                        <th>
+                                            货物状态
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="sodLoading" ng-cloak>
+                                        <td class="text-center" colspan="13"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                                    </tr>
+                                    <tr ng-if="!sodLoading&&(!sodQueryResult.Items||sodQueryResult.Items.length==0)" ng-cloak>
+                                        <td class="text-center" colspan="13">暂无数据</td>
+                                    </tr>
+                                    <tr ng-repeat="item in sodQueryResult.Items">
+                                        <td>
+                                            {{item.orderItemNo}}
+                                        </td>
+                                        <td>
+                                            {{item.sku}}
+                                        </td>
+                                        <td>
+                                            {{item.hscode}}
+                                        </td>
+                                        <td>
+                                            {{item.cargoType}}
+                                        </td>
+                                        <td>
+                                            {{item.orderQty}}
+                                        </td>
+                                        <td>
+                                            {{item.packQty}}
+                                        </td>
+                                        <td>
+                                            {{item.packWeight}}
+                                        </td>
+                                        <td>
+                                            {{item.packVolume}}
+                                        </td>
+                                        <td>
+                                            {{item.fobUnitPrice}}
+                                        </td>
+                                        <td>
+                                            {{item.salesUnitPrice}}
+                                        </td>
+                                        <td>
+                                            {{item.freightPrice}}
+                                        </td>
+                                        <td>
+                                            {{item.currency}}
+                                        </td>
+                                        <td>
+                                            {{item.statusDesc}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <footer class="panel-footer" ng-show="sodQueryResult.TotalCount>0" ng-cloak>
+                            <div class="row">
+                                <div class="col-sm-12 text-right text-center-xs">
+                                    <pagination total-items="sodQueryResult.TotalCount" items-per-page="sodQueryResult.PageSize" ng-change="sodPageChanged()" ng-model="sodQueryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+
+                <!--PO信息-->
+                <div class="tab-pane fade" id="poInfo" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>采购单列表</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            采购单号
+                                        </th>
+                                        <th>
+                                            下单时间
+                                        </th>
+                                        <th>
+                                            供应商名称
+                                        </th>
+                                        <th>
+                                            供应商地址
+                                        </th>
+                                        <th>
+                                            联系人
+                                        </th>
+                                        <th>
+                                            联系电话
+                                        </th>
+                                        <th>
+                                            E-mail
+                                        </th>
+                                        <th>
+                                            状态
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="poLoading" ng-cloak>
+                                        <td class="text-center" colspan="8"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                                    </tr>
+                                    <tr ng-if="!poLoading&&(!poQueryResult.Items||poQueryResult.Items.length==0)" ng-cloak>
+                                        <td class="text-center" colspan="8">暂无数据</td>
+                                    </tr>
+                                    <tr ng-repeat="item in poQueryResult.Items">
+                                        <td>
+                                            {{item.poKey}}
+                                        </td>
+                                        <td>
+                                            {{item.poDate}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorName}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorAddr}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorContacter}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorContactNo}}
+                                        </td>
+                                        <td>
+                                            {{item.vendorEmail}}
+                                        </td>
+                                        <td>
+                                            {{item.poStatus}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <footer class="panel-footer" ng-show="poQueryResult.TotalCount>0" ng-cloak>
+                            <div class="row">
+                                <div class="col-sm-12 text-right text-center-xs">
+                                    <pagination total-items="poQueryResult.TotalCount" items-per-page="poQueryResult.PageSize" ng-change="poPageChanged()" ng-model="poQueryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>采购单明细</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped tight-table b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            采购单号
+                                        </th>
+                                        <th>
+                                            商品编号
+                                        </th>
+                                        <th>
+                                            SKU
+                                        </th>
+                                        <th>
+                                            数量
+                                        </th>
+                                        <th>
+                                            联系人
+                                        </th>
+                                        <th>
+                                            联系电话
+                                        </th>
+                                        <th>
+                                            E-mail
+                                        </th>
+                                        <th>
+                                            发货城市
+                                        </th>
+                                         <th>
+                                            发货地址
+                                        </th>
+                                         <th>
+                                            预计准备日期
+                                        </th>
+                                         <th>
+                                            实际准备日期
+                                        </th>
+                                         <th>
+                                            预计质检日期
+                                        </th>
+                                         <th>
+                                            实际质检日期
+                                        </th>
+                                         <th>
+                                            预计发货日期
+                                        </th>
+                                         <th>
+                                            实际发货日期
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="podLoading" ng-cloak>
+                                        <td class="text-center" colspan="15"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                                    </tr>
+                                    <tr ng-if="!podLoading&&(!podQueryResult.Items||podQueryResult.Items.length==0)" ng-cloak>
+                                        <td class="text-center" colspan="15">暂无数据</td>
+                                    </tr>
+                                    <tr ng-repeat="item in podQueryResult.Items">
+                                        <td>
+                                            {{item.poKey}}
+                                        </td>
+                                        <td>
+                                            {{item.poItemNo}}
+                                        </td>
+                                        <td>
+                                            {{item.sku}}
+                                        </td>
+                                        <td>
+                                            {{item.quantity}}
+                                        </td>
+                                        <td>
+                                            {{item.consignerName}}
+                                        </td>
+                                        <td>
+                                            {{item.consignerContactNo}}
+                                        </td>
+                                        <td>
+                                            {{item.consignerEmail}}
+                                        </td>
+                                        <td>
+                                            {{item.pickUpCityCode}}
+                                        </td>
+                                         <td>
+                                            {{item.pickUpAddr}}
+                                        </td>
+                                        <td>
+                                            {{item.estPreparedDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.actualPreparedDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.estQaDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.actualQaDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.estPickUpDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                        <td>
+                                            {{item.actualPickUpDate | date:'yyyy-MM-dd'}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <footer class="panel-footer" ng-show="podQueryResult.TotalCount>0" ng-cloak>
+                            <div class="row">
+                                <div class="col-sm-12 text-right text-center-xs">
+                                    <pagination total-items="podQueryResult.TotalCount" items-per-page="podQueryResult.PageSize" ng-change="podPageChanged()" ng-model="podQueryResult.PageIndex" is-paging="loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                                </div>
+                            </div>
+                        </footer>
+                    </div>
+                </div>
+                  <!--操作日志-->
+                <div class="tab-pane fade" id="logInfo" >
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span>运单操作日志</span>
+                        </div>
+                        <div class="table-responsive col-sm-10">
+                            <table class="table table-striped b-t b-light">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            操作时间
+                                        </th>
+                                        <th>
+                                            操作人员
+                                        </th>
+                                        <th>
+                                            操作事项
+                                        </th>
+                                        <th>
+                                            备注
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-if="logLoading" ng-cloak>
+                                        <td class="text-center" colspan="5"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                                    </tr>
+                                    <tr ng-if="!logLoading&&(!logQueryResult.Items||logQueryResult.Items.length==0)" ng-cloak>
+                                        <td class="text-center" colspan="5">暂无数据</td>
+                                    </tr>
+                                    <tr ng-repeat="item in logQueryResult.Items">
+                                        <td>
+                                            {{item.logDate | date:'yyyy-MM-dd HH:mm'}}
+                                        </td>
+                                        <td>
+                                            {{item.operator}}
+                                        </td>
+                                        <td>
+                                            {{item.operateDesc}}
+                                        </td>
+                                        <td>
+                                            {{item.remarks}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

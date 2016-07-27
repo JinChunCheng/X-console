@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <h3 class="modal-title">修改运营活动公用有效时间</h3>
+</div>
+<div class="modal-body">
+    <div class="wrapper-md">
+        <div class="form-group">
+            <label for="configValue" class="col-sm-2 control-label text-danger">
+                有效时间
+            </label>
+            <div class="col-sm-4" ng-class="{ 'has-error' : form.name.$invalid && !form.name.$pristine }">
+                <input type="text" autocomplete="off" class="form-control" name="configValue" id="configValue" required maxlength="50" ng-model="config.configValue" />
+                <p ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">必填项！</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

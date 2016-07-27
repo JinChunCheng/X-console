@@ -1,0 +1,407 @@
+<div class="aside-wrap">
+    <!-- if you want to use a custom scroll when aside fixed, use the slimScroll
+    <div class="navi-wrap" ui-jq="slimScroll" ui-options="{height:'100%', size:'8px'}">
+  -->
+    <div class="navi-wrap">
+        <!-- user -->
+        <div class="clearfix">
+            <div class="wrapper hidden-xs">
+                <span class="thumb w-auto-folded avatar">
+                    <img src="img/a0.jpg" alt="">
+                </span>
+                <div class="hidden-folded m-l-sm inline v-middle">
+                    <span class="block">
+                      <strong class="font-bold text-lt" ng-bind="curUser.userName"></strong> 
+                    </span>
+                    <div class="btn-group">
+                        <a ui-sref="my.password" class="btn btn-link btn-xs b-a" style="border-color:#5e5e5e;" title="修改密码">
+                            <i class="fa fa-key"></i>
+                        </a>
+                        <a href class="btn btn-link btn-xs b-a" ng-click='logout()' style="border-color:#5e5e5e;" title="注销">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="line dk hidden-folded h1"></div>
+        </div>
+        <!-- / user -->
+        <!-- nav -->
+        <nav ui-nav class="navi">
+            <!-- list -->
+            <ul class="nav">
+                <li ui-sref-active="active">
+                    <a ui-sref="home">
+                        <i class="icon icon-home"></i>
+                        <span class="font-bold">首页</span>
+                    </a>
+                </li>
+                <li ng-class="{active: includes('pc')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="icon icon-grid"></i>
+                        <span class="font-bold">借款人管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span>借款人管理</span>
+                            </a>
+                        </li>
+                       <li ng-class="{active: includes('pc.product.batch-upload')}">
+                            <a ui-sref="pc.product.batch-upload" ui-sref-opts="{reload:true}">
+                                <span>批量上传</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('pc.warehouse')}">
+                            <a ui-sref="pc.warehouse.list" ui-sref-opts="{reload:true}">
+                                <span>产品库</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('pc.category')}">
+                            <a ui-sref="pc.category.index" ui-sref-opts="{reload:true}">
+                                <span>产品品类</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="pc.product.list({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>产品列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="pc.product.auditList({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>待审核列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="pc.product.newProductList({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>新品列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="pc.supplierfiles.list" ui-sref-opts="{reload:true}">
+                                <span>快速提交产品列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="pc.product.add" ui-sref-opts="{reload:true}">
+                                <span>添加产品</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('pc.attribute')}">
+                            <a ui-sref="pc.attribute.list({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>属性列表</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{active:includes('mc')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="icon icon-users"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">投资人/投资管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a ui-sref="mc">
+                                <span translate="aside.nav.DASHBOARD">投资人及投资管理</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('mc.mcCategory')}">
+                            <a ui-sref="mc.mcCategory.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>商品品类</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('mc.goods')}">
+                            <a ui-sref="mc.goods.list({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>商品列表</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('mc.active')}">
+                            <a ui-sref="mc.active.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>促销活动</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('mc.campaign')}">
+                            <a ui-sref="mc.campaign.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>市场跟踪</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{active:includes('setting')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-stats icon"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">项目管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a ui-sref="mc">
+                                <span translate="aside.nav.DASHBOARD">项目管理</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('setting.logistics')}">
+                            <a ui-sref="setting.logistics.logistics({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>物流参数设置</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('setting.finance')}">
+                            <a ui-sref="setting.finance.finance({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>财务参数设置</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-stats icon"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">资金管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">资金管理</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('supplier.info')}">
+                            <a ui-sref="supplier.info.list" ui-sref-opts="{reload:true}">
+                                <span>供应商列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="supplier.feedback.list" ui-sref-opts="{reload:true}">
+                                <span>供应商反馈</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('supplier.audit')}">
+                            <a ui-sref="supplier.audit.list" ui-sref-opts="{reload:true}">
+                                <span>审核认证</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-stats icon"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">资金账户</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">资金账户</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('buyer.info')}">
+                            <a ui-sref="buyer.info.list({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>买家列表</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('buyer.freeSourcing')}">
+                            <a ui-sref="buyer.freeSourcing.list" ui-sref-opts="{reload:true}">
+                                <span>询盘列表</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('buyer.quote')}">
+                            <a ui-sref="buyer.quote.list({listVM:null})" ui-sref-opts="{reload:true}">
+                                <span>询价列表</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="glyphicon glyphicon-stats icon"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">财务管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">财务管理</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('so.info')}">
+                            <a ui-sref="so.info.list" ui-sref-opts="{reload:true}">
+                                <span>销售订单列表</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li ng-class="{active: includes('logistics')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="icon icon-bar-chart"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">营销管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">营销管理</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.saleOrder')}">
+                            <a ui-sref="logistics.saleOrder.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>订单列表</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.waybill')}">
+                            <a ui-sref="logistics.waybill.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>运单订舱</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.tracking')}">
+                            <a ui-sref="logistics.tracking.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>运单跟踪</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.logisticsTrack')}">
+                            <a ui-sref="logistics.logisticsTrack.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>物流跟踪</span>
+                            </a>
+                        </li>
+                         <li ng-class="{active: includes('logistics.trackDocument')}">
+                            <a ui-sref="logistics.trackDocument.list({condition:null})" ui-sref-opts="{reload:true}">
+                                <span>物流文件</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.weightInterval')}">
+                            <a ui-sref="logistics.weightInterval.list" ui-sref-opts="{reload:true}">
+                                <span>重量区间</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.vendor')}">
+                            <a ui-sref="logistics.vendor.list" ui-sref-opts="{reload:true}">
+                                <span>物流供应商列表</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.InterTransportRate')}">
+                            <a ui-sref="logistics.InterTransportRate.oceanAirList" ui-sref-opts="{reload:true}">
+                                <span>国际海空运费率</span>
+                            </a>
+                        </li>
+                        <li ng-class="{active: includes('logistics.InterTransportRate')}">
+                            <a ui-sref="logistics.InterTransportRate.expressList" ui-sref-opts="{reload:true}">
+                                <span>国际快递费率</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ng-class="{active: includes('cms')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="icon icon-bar-chart"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">报表</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">报表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="terminal.list" ui-sref-opts="{reload:true}">
+                                <span>终端管理</span>
+                            </a>
+                        </li>
+
+                        <li ng-repeat="terminal in app.terminals">
+                            <a ui-sref="page.list({t:terminal.code})" ui-sref-opts="{reload:true}">
+                                <span ng-bind="terminal.name"></span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li ng-class="{active: includes('sys')}">
+                    <a href class="auto">
+                        <span class="pull-right">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                        </span>
+                        <i class="icon icon-settings"></i>
+                        <span class="font-bold" translate="aside.nav.DASHBOARD">系统管理</span>
+                    </a>
+                    <ul class="nav nav-sub dk">
+                        <li class="nav-sub-header">
+                            <a href>
+                                <span translate="aside.nav.DASHBOARD">系统管理</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.role.list" ui-sref-opts="{reload:true}">
+                                <span>岗位列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.user.list" ui-sref-opts="{reload:true}">
+                                <span>用户列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.permission.list" ui-sref-opts="{reload:true}">
+                                <span>权限数据列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.authorize.list" ui-sref-opts="{reload:true}">
+                                <span>授权管理</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.log.list" ui-sref-opts="{reload:true}">
+                                <span>日志列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.meta.list" ui-sref-opts="{reload:true}">
+                                <span>元数据列表</span>
+                            </a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="sys.schedule.list" ui-sref-opts="{reload:true}">
+                                <span>手动创建索引</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="line dk"></li>
+
+            </ul>
+            <!-- / list -->
+        </nav>
+        <!-- nav -->
+        <!-- aside footer -->
+        <div class="wrapper m-t-sm">
+        </div>
+        <!-- / aside footer -->
+    </div>
+</div>

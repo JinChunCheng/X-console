@@ -1,0 +1,151 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)" novalidate>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group m-b" style="width:100% !important;">
+                    <span class="input-group-addon">品类</span>
+                    <span class="form-control btn btn-default tl" data-toggle="dropdown">
+                        <span ng-bind="listVM.condition.categoryName"></span>
+                    <i class="caret pull-right"></i>
+                    </span>
+                    <span class="input-group-btn">
+                        <button type="button" ng-click="clearCategory()" class="btn btn-default no-border-l">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    </span>
+                    <div class="dropdown-menu" style="width:100%;max-height:300px;overflow:auto;">
+                        <span class="p-5" ng-show="treeData.initializing" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                        <ul ng-show="!treeData.initializing" ng-cloak stop-propagation class="ztree" setting="treeData.settings" z-tree></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">供应商</span>
+                    <ui-select ng-model="listVM.condition.selectedSupplier" theme="bootstrap">
+                        <ui-select-match placeholder="">{{listVM.condition.selectedSupplier.companyName}}</ui-select-match>
+                        <ui-select-choices repeat="item in listVM.suppliers | filter: $select.search" refresh="refreshSupplier($select.search)" refresh-delay="500">
+                            <span ng-bind-html="item.companyName | highlight: $select.search"></span>
+                            <small ng-bind-html="item.email | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <span class="input-group-btn">
+                        <button ng-if="!listVM.supplierLoading" ng-cloak type="button" ng-click="listVM.condition.selectedSupplier = undefined" class="btn btn-default">
+                            <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <span class="btn btn-default" ng-if="listVM.supplierLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">ESIN名称</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.name" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">ESIN编号</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.code" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">SKU英文名称</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.skuEnName" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">SKU编号</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.skuCode" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">产品状态</span>
+                    <div class="form-control p-t-4">
+                        <label class="checkbox-inline i-checks i-checks-sm" ng-repeat="item in listVM.esinStatusList">
+                            <input type="checkbox" checklist-model="listVM.condition.statusList" checklist-value="item.value"><i></i>{{item.text}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.loading">
+                    <span class="w2em" ng-if="!listVM.loading" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="listVM.loading" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>图片</th>
+                        <th>ESIN名称</th>
+                        <th class="pointer" ng-click="reSort('code')">ESIN编号<span class="fa m-l-2 text-sm {{sortClass('code')}}"></span></th>
+                        <th class="pointer m-w100" ng-click="reSort('category_code')">产品品类<span class="fa m-l-2 text-sm {{sortClass('category_code')}}"></span></th>
+                        <th class="m-w75">供应商</th>
+                        <th class="w90">细分SKU</th>
+                        <th class="w65">状态</th>
+                        <th>审核人</th>
+                        <th>审核时间</th>
+                        <th class="pointer w130" ng-click="reSort('update_time')">操作时间<span class="fa m-l-2 text-sm {{sortClass('update_time')}}"></span></th>
+                        <th class="w75">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.loading" ng-cloak>
+                        <td class="text-center" colspan="11"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i> 正在查询...
+                        </td>
+                    </tr>
+                    <tr ng-if="!listVM.loading&&listVM.items.length==0" ng-cloak>
+                        <td class="text-center" colspan="11">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td class="v-middle"><img ng-src="{{item.productPics|mainImgPath:'_70x70'}}" error-src="{{item.productPics|mainImgPath}}" alt="" class="list-img"></td>
+                        <td class="v-middle" ng-bind="item.enName"></td>
+                        <td class="v-middle" ng-bind="item.code"></td>
+                        <td class="v-middle" ng-bind="item.categoryName"></td>
+                        <td class="v-middle">
+                            {{item.supplierName}}
+                            <p class="text-danger m-b-none text-xs" ng-if="item.supplierAuthStatus!=2" ng-cloak>{{item.supplierAuthStatus|certifStatus}}</p>
+                        </td>
+                        <td class="v-middle">
+                            <span ng-if="(item.skuCount||0)>0" ng-cloak>含<span class="text-info m-l-1 m-r-1" ng-bind="item.skuCount"></span>SKU</span>
+                            <span ng-if="(item.skuCount||0)==0" ng-cloak>无SKU</span>
+                        </td>
+                        <td class="v-middle" ng-bind="item.status|meta:listVM.esinStatusList"></td>
+                        <td class="v-middle" ng-bind="item.productOptHistoryVO.operator"></td>
+                        <td class="v-middle" ng-bind="item.productOptHistoryVO.operationTime|exDate:'yyyy-MM-dd HH:mm'"></td>
+                        <td class="v-middle" ng-bind="item.updateTime|exDate:'yyyy-MM-dd HH:mm'"></td>
+                        <td class="v-middle">
+                            <a href ng-click="viewSKUs(item.code)" ng-if="item.skuCount>0" class="fa fa-list-ul text-sm" title="查看SKU列表" ng-cloak> SKU</a>
+                            <a href ng-click="viewProduct(item.code)" class="fa fa-file-text-o text-sm" title="查看ESIN详细信息"> 查看</a>
+                            <a href ng-click="editProduct(item.code)" class="fa fa-edit text-sm" title="修改ESIN信息"> 修改</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <sl-page-size-changer class="m-r-xs" total-items="listVM.paginate.totalItemsCount" ng-model="listVM.condition.pageSize" ng-change="pageChanged()">
+                    </sl-page-size-changer>
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.condition.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber" is-paging="listVM.loading" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="panel panel-default m-b-none">
+    <form name="roleform" method="post" ng-submit="ok(roleform.$valid)" novalidate>
+        <div class="panel-heading font-bold">
+            <span ng-bind="roleVM.title"></span> <i class="fa fa-spin fa-spinner m-r-xs text-lg" ng-if="roleVM.loading" ng-cloak></i>
+        </div>
+        <div class="panel-body">
+            <div ng-if="roleVM.type==3" ng-cloak>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">岗位名称</div>
+                    <div class="col-sm-10" ng-bind="roleVM.data.roleName"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">岗位人数</div>
+                    <div class="col-sm-10" ng-bind="roleVM.data.personNum"></div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">备注</div>
+                    <div class="col-sm-10" ng-bind="roleVM.data.remark"></div>
+                </div>
+            </div>
+            <div ng-if="roleVM.type!=3" ng-cloak>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold text-danger">岗位名称</div>
+                    <div class="col-sm-10">
+                        <input type="text" required class="form-control" maxlength="50" ng-model="roleVM.data.roleName" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold text-danger">岗位人数</div>
+                    <div class="col-sm-10" >
+                        <input type="number" name="personNum" id="personNum"   required class="form-control" ng-model="roleVM.data.personNum" ng-readonly="true" />
+                    </div>
+                </div>
+                <div class="line line-dashed b-b pull-in"></div>
+                <div class="row">
+                    <div class="col-sm-2 text-right font-bold">备注</div>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" maxlength="50" ng-model="roleVM.data.remark" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-right">
+            <button type="submit" class="btn btn-primary m-r-sm" ng-disabled="roleVM.saving||roleform.$invalid" ng-if="roleVM.type!=3" ng-cloak>
+                <span class="w2em" ng-if="!roleVM.saving" ng-cloak>保存</span>
+                <i class="fa fa-spin fa-spinner w2em" ng-if="roleVM.saving" ng-cloak></i>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="cancel()">返回</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,117 @@
+<div class="wrapper-md">
+    <form ng-submit="search()">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="input-group m-b" style="width:100% !important;">
+                    <span class="input-group-addon">品类</span>
+                    <div class="input-group">
+                        <span class="form-control btn btn-default tl" data-toggle="dropdown">
+                                <span name="categoryName" ng-bind="listVM.condition.categoryName"></span>
+                        <i class="caret pull-right"></i>
+                        </span>
+                        <div class="dropdown-menu" style="width:100%;max-height:300px;overflow:auto;">
+                            <span class="p-5" ng-show="treeData.loading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                            <ul ng-show="!treeData.loading" ng-cloak stop-propagation class="ztree" setting="treeData.settings" z-tree  id="ztree"></ul>
+                        </div>
+                        <span class="input-group-btn">
+                                <button type="button" ng-click="clearCategory()" class="btn btn-default no-border-l">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">编号</span>
+                    <input class="form-control" type="text" ng-model="listVM.condition.itemCode">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">名称</span>
+                    <input class="form-control" type="text" ng-model="listVM.condition.itemName">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">促销活动</span>
+                    <select class="form-control" placeholder="aaa" ng-model="listVM.condition.promotionId" ng-options="item.id as item.name for item in listVM.promotions">
+                        <option value="">- 全部 -</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.processing">
+                    查询
+                    <i class="fa fa-spin fa-spinner m-l-xs" ng-if="listVM.processing" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <span>商品列表</span>
+            <div class="btn-group pull-right">
+                <button type="button" class="btn btn-xs btn-info m-r-xs" ng-disabled="!listVM.selectedList.length > 0" ng-click="importProduct()">
+                    <span class="w2em" ng-cloak>导入</span>
+                </button>
+                <button type="button" class="btn btn-xs btn-info m-r-xs" ng-click="back()">
+                    <span class="w2em" ng-cloak>返回</span>
+                </button>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th style="width:20px;">
+                            <label class="i-checks i-checks-sm m-b-none">
+                                <input type="checkbox" ng-model="listVM.checkedAll" ng-change="checkAll()"><i></i>
+                            </label>
+                        </th>
+                        <th>主图</th>
+                        <th>编号</th>
+                        <th>英文名称</th>
+                        <th>价格</th>
+                        <th>最小起订量</th>
+                        <th>审核时间</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.processing" ng-cloak>
+                        <td class="text-center" colspan="7"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i>正在查询...</td>
+                    </tr>
+                    <tr ng-if="!listVM.processing && (!listVM.items || listVM.items.length==0)" ng-cloak>
+                        <td class="text-center" colspan="7">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td>
+                            <label class="i-checks i-checks-sm m-b-none">
+                                <input type="checkbox" checklist-model="listVM.selectedList" checklist-value="item"><i></i>
+                            </label>
+                        </td>
+                        <td>
+							<img style="width:100px; height:100px;" ng-src="{{listVM.imagePrefix + '/' + item.pic}}"/>
+                        </td>
+                        <td ng-bind="item.code"></td>
+                        <td ng-bind="item.name"></td>
+                        <td ng-bind="item.priceInfo.fobPrice"></td>
+                        <td ng-bind="item.moq"></td>
+                        <td ng-bind="item.createTime | date"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItems" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.currentPage" is-paging="listVM.processing" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

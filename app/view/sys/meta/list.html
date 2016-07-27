@@ -1,0 +1,78 @@
+<div class="wrapper-md">
+    <form ng-submit="page(1)" novalidate>
+        <div class="row">
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">名称</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.dataName" />
+                </div>
+            </div>
+            <div class="col-md-4 p-r-none">
+                <div class="input-group m-b">
+                    <span class="input-group-addon">编码</span>
+                    <input type="text" class="form-control" ng-model="listVM.condition.dataCode" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-primary m-b" ng-disabled="listVM.searching">
+                    <span class="w2em" ng-if="!listVM.searching" ng-cloak>查询</span>
+                    <i class="fa fa-spin fa-spinner w2em" ng-if="listVM.searching" ng-cloak></i>
+                </button>
+                <button type="button" class="btn btn-default m-l-xs m-b" ng-click="reset()">重置</button>
+                <button type="button" class="btn btn-success m-l-xs m-b pull-right" ng-click="add()">新增</button>
+            </div>
+        </div>
+    </form>
+    <div class="panel panel-default">
+        <div class="table-responsive">
+            <table class="table table-striped b-t b-light">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>名称</th>
+                        <th>编码</th>
+                        <th>数据内容(中文)</th>
+                        <th>数据内容(英文)</th>
+                        <th>顺序</th>
+                        <th>单位</th>
+                        <th>是否可用</th>
+                        <th>备注</th>
+                        <th class="w90">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-if="listVM.searching" ng-cloak>
+                        <td class="text-center" colspan="10"><i class="fa fa-spin fa-spinner m-r-xs text-lg"></i> 正在查询...
+                        </td>
+                    </tr>
+                    <tr ng-if="!listVM.searching&&listVM.items.length==0" ng-cloak>
+                        <td class="text-center" colspan="10">暂无数据</td>
+                    </tr>
+                    <tr ng-repeat="item in listVM.items">
+                        <td ng-bind="item.id"></td>
+                        <td ng-bind="item.dataName"></td>
+                        <td ng-bind="item.dataCode"></td>
+                        <td ng-bind="item.contentCn"></td>
+                        <td ng-bind="item.contentEn"></td>
+                        <td ng-bind="item.position"></td>
+                        <td ng-bind="item.unit"></td>
+                        <td ng-bind="item.enable?'不可用':'可用'"></td>
+                        <td ng-bind="item.remarks"></td>
+                        <td>
+                            <a href ng-click="view(item.id)" class="fa fa-file-text-o text-sm" title="查看"></a>
+                            <a href ng-click="edit(item.id)" class="fa fa-edit text-sm m-l-xs" title="修改"></a>
+                            <a href ng-click="del(item)" class="fa fa-trash-o text-sm m-l-xs" title="删除"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <footer class="panel-footer" ng-show="listVM.paginate.totalItemsCount>0" ng-cloak>
+            <div class="row">
+                <div class="col-sm-12 text-right text-center-xs">
+                    <pagination total-items="listVM.paginate.totalItemsCount" items-per-page="listVM.paginate.pageSize" ng-change="pageChanged()" ng-model="listVM.paginate.pageNumber" is-paging="listVM.searching" max-size="5" boundary-links="true" rotate="false"></pagination>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>

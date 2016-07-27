@@ -1,0 +1,15 @@
+<form name="pageForm" class="bs-example form-horizontal">
+    <div class="modal-header">
+        <h4 class="modal-title">确认操作</h4>
+    </div>
+    <div class="modal-body p-r">
+        <div ng-bind="confirmData.text"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="confirmData.processing">
+            <span class="w2em" ng-if="!confirmData.processing" ng-cloak>确定</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="confirmData.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>
+</form>
