@@ -1,19 +1,19 @@
-﻿'use strict';
+'use strict';
 
 define([
         'angular',
         'resource',
         'sanitize',
+        'animate',
         'ui-router',
-        'module/common',
-        'components/ui-bootstrap-tpls',
-        'controller/main',
+        'controller/mainCtrl',
         'lazy-load',
-        'common/session',
-        'components/select.min'
+        'module/common',
+        'bootstrap-table-ng',
+        'icheck'
     ],
-    function(angular, resource, sanitize, uiRouter, commonModule, uiBootstrap, mainCtrl, lazyLoad, session, select) {
-        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ui.router', 'mgr.bootstrap', 'ui.bootstrap', 'ui.select'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
+    function(angular, resource, sanitize, animate, uiRouter, mainCtrl, lazyLoad) {
+        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
             lazyLoad.init(arguments);
         });
 
@@ -22,7 +22,7 @@ define([
                 //允许传入cookie值到服务端
                 $httpProvider.defaults.withCredentials = true;
 
-                $httpProvider.interceptors.push(['$rootScope', '$q', '$injector', 'toaster', function($rootScope, $q, $injector, toaster) {
+                $httpProvider.interceptors.push(['$rootScope', '$q', '$injector', function($rootScope, $q, $injector) {
                     return {
                         response: function(response) {
                             // //统一处理401未授权问题，清cookie并返回首页登录

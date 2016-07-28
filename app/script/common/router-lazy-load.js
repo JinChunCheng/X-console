@@ -25,7 +25,7 @@
 
             var defer, result = {};
             result.url = url;
-            result.templateUrl = templatePath.replace("../", "") + "?t=" + (new Date()).getTime();
+            result.templateUrl = templatePath.replace("../", "") + '?r=' + (new Date()).getTime();
             result.controller = controllerPath.substring(controllerPath.lastIndexOf("/") + 1);
             result.params = lazyResources ? lazyResources.params : null;
             result.abstract = abstract;

@@ -1,7 +1,0 @@
-<div class="container">
-    <div class="row">
-        <p>
-            <a ng-repeat="item in listVM.positionList" href class="btn btn-default btn-sm m-r-xs {{item.code == listVM.condition.recommendCode ? 'active' : '1'}}" ui-sref="recommend.{{(item.type == 1 || item.type == 5) ? 'picture' : 'product'}}({r: item.code,p: listVM.condition.pageCode})" ng-bind="item.name"></a>
-        </p>
-    </div>
-</div>

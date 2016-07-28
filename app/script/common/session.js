@@ -1,4 +1,4 @@
-﻿define(['cookie'], function() {
+﻿define([], function() {
     var ticket = "rememberMe";
     var userInfo = "loginedUserInfo";
     var session = {

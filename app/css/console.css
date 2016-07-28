@@ -1,0 +1,36 @@
+
+.main-content .page-content .header-right {
+    position: absolute;
+    right: 0;
+    top: 23px;
+}
+.main-content .page-content {
+	padding: 0 10px;
+}
+.todo-list li .todo-right {
+    display: inline;
+    font-family: "Open Sans";
+    left: auto;
+    position: absolute;
+    right: 9px;
+    top: 9px;
+}
+.builder:before {
+    height: 30px;
+    left: -30px;
+    top: 47px;
+    width: 30px;
+}
+.builder .builder-toggle {
+    height: 30px;
+    left: -28px;
+    line-height: 30px;
+    top: 48px;
+    width: 30px;
+}
+.main-content .page-content .panel-content {
+    padding-top: 0px;
+}
+.fixed-table-loading {
+    padding-top: 10px;
+}

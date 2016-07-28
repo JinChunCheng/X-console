@@ -1,43 +1,98 @@
-<!DOCTYPE html>
-<html ng-controller="mainCtrl">
+<!doctype html>
+<html class="no-js" ng-controller="mainCtrl">
 
 <head>
-    <meta charset="utf-8" />
-    <title ng-bind="app.name"></title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <link rel="shortcut icon" href="img/exiao.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/base.css?v=@@hash" type="text/css" />
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-    <link rel="stylesheet" href="css/animate.css" type="text/css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-    <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
-    <link rel="stylesheet" href="css/font.css" type="text/css" />
-    <link rel="stylesheet" href="css/app.css" type="text/css" />
-    <link rel="stylesheet" href="css/toaster.css" type="text/css" />
-    <link rel="stylesheet" href="css/select.min.css" type="text/css" />
-    <link rel="stylesheet" href="library/components/zTree_v3/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="admin-themes-lab">
+    <meta name="author" content="themes-lab">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <title ng-bind="appView.title"></title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/theme.css" rel="stylesheet">
+    <!-- <link href="css/ui.css" rel="stylesheet"> -->
+    <!-- <link href="assets/global/plugins/font-awesome-animation/font-awesome-animation.min.css" rel="stylesheet" /> -->
+    <link href="css/angular-theme.css" rel="stylesheet">
+    <link href="css/layout.css" rel="stylesheet">
+    <link href="lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table-fixed-columns.css" rel="stylesheet">
+    <link href="css/console.css" rel="stylesheet">
 </head>
 
-<body>
-    <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}">
-        <div ng-if="showAll" data-ng-include="'view/shared/header.html?v=@@hash'" class="app-header navbar" ng-cloak>
-        </div>
-        <div ng-if="showAll" data-ng-include="'view/shared/aside.html?v=@@hash'" class="app-aside hidden-xs {{app.settings.asideColor}}" ng-cloak>
-        </div>
-        <div ng-class="{'app-content':showAll}">
-            <div ui-butterbar></div>
-            <a href class="off-screen-toggle hide" ui-toggle-class="off-screen" data-target=".app-aside"></a>
-            <div class="app-content-body fade-in-up h-full">
-                <div ui-view ng-class="{'animated fadeInUp h-full':!includes('login')}"></div>
-            </div>
-        </div>
-        <toaster-container toaster-options="{'position-class': 'toast-bottom-right', 'close-button':true}"></toaster-container>
+<body class="fixed-topbar fixed-sidebar theme-sdtl color-default">
+    <!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please upgrade your browser to improve your experience.</p>
+        <![endif]-->
+    <!-- BEGIN PAGE SPINNER -->
+    <div ng-spinner-loader class="page-spinner-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
     </div>
-    <script data-main="index" src="library/require/require-2.1.14.min.js"></script>
+    <!-- END PAGE SPINNER -->
+    <section>
+        <!-- BEGIN SIDEBAR -->
+        <div ng-include="'view/partial/sidebar.html'"></div>
+        <!-- END SIDEBAR -->
+        <div class="main-content">
+            <!-- BEGIN TOPBAR -->
+            <div class="topbar">
+                <div class="header-left">
+                    <div class="topnav">
+                        <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
+                        <ul class="nav nav-icons">
+                            <li><a href="#" class="toggle-sidebar-top"><span class="icon-user-following"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <ul class="header-menu nav navbar-nav">
+                        <!-- BEGIN USER DROPDOWN -->
+                        <li class="dropdown" id="user-header">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img src="img/avatars/user1.png" alt="user image">
+                                <span class="username">Hi, 尤海洋</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a data-target="#"><i class="icon-user"></i><span>个人信息</span></a>
+                                </li>
+                                <li>
+                                    <a data-target="#"><i class="icon-calendar"></i><span>我的日历</span></a>
+                                </li>
+                                <li>
+                                    <a data-target="#"><i class="icon-settings"></i><span>账户设置</span></a>
+                                </li>
+                                <li>
+                                    <a data-target="#"><i class="icon-logout"></i><span>注销</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- END USER DROPDOWN -->
+                    </ul>
+                </div>
+                <!-- header-right -->
+            </div>
+            <!-- END TOPBAR -->
+            <!-- BEGIN PAGE CONTENT -->
+            <div ui-view class="at-view-slide-in-left page-content">
+            </div>
+            <!-- END PAGE CONTENT -->
+        </div>
+        <!-- END MAIN CONTENT -->
+        <!-- BEGIN BUILDER -->
+        <div ng-include="'view/partial/builder.html'"></div>
+        <!-- END BUILDER -->
+    </section>
+    <div class="loader-overlay">
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </div>
+    <script data-main="index" src="lib/require/require.min.js"></script>
 </body>
 
 </html>

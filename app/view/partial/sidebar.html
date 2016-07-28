@@ -1,0 +1,155 @@
+<div class="sidebar">
+    <div class="logopanel">
+        <h1>
+            <a href="#/"></a>
+        </h1>
+    </div>
+    <div class="sidebar-inner">
+        <div class="sidebar-top">
+            <div class="userlogged clearfix">
+                <i class="icon icons-faces-users-01"></i>
+                <div class="user-details">
+                    <h4>尤海洋</h4>
+                    <div class="dropdown user-login">
+                        <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
+                            <i class="online"></i><span>在线</span><i class="fa fa-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="busy"></i><span>忙碌</span></a></li>
+                            <li><a href="#"><i class="turquoise"></i><span>隐身</span></a></li>
+                            <li><a href="#"><i class="away"></i><span>离开</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-title">
+            菜单导航
+        </div>
+        <ul class="nav nav-sidebar">
+            <li ng-class="{active: appView.isActive('dashboard')}">
+                <a ui-sref="dashboard"><i class="icon-home"></i><span>控制台</span></a>
+            </li>
+            <li class="nav-parent" ng-class="{active: appView.isActive(['borrower-*'])}">
+                <a href="" class="submenu-root">
+                    <i class="icon-screen-desktop"></i>
+                    <span>借款人管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['borrower-*'])}}">
+                    <li ng-class="{active: appView.isActive('borrower-list')}">
+                        <a ui-sref="borrower-list"> 借款人列表</a>
+                    </li>
+                    <li ng-class="{active: appView.isActive('borrower-repayments')}"><a ui-sref="borrower-repayments"> 借款人还款列表</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-note"></i><span>投资人及投资管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/forms-elements')}"><a href="#forms-elements"> Forms Elements</a></li>
+                    <li ng-class="{ active  : isActive('/forms-validation')}"><a href="#forms-validation"> Forms Validation</a></li>
+                    <li ng-class="{ active  : isActive('/forms-plugins')}"><a href="#forms-plugins"> Advanced Plugins</a></li>
+                    <li ng-class="{ active  : isActive('/forms-wizard')}">
+                        <a href="#forms-wizard"> <span class="pull-right badge badge-danger">low</span>
+                            <span>Form Wizard</span></a>
+                    </li>
+                    <li ng-class="{ active  : isActive('/forms-sliders')}"><a href="#forms-sliders"> Sliders</a></li>
+                    <li ng-class="{ active  : isActive('/forms-editors')}"><a href="#forms-editors"> Text Editors</a></li>
+                    <li ng-class="{ active  : isActive('/forms-input-masks')}"><a href="#forms-input-masks"> Input Masks</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="fa fa-table"></i><span>项目管理</span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/tables-styling')}"><a href="#tables-styling"> Tables Styling</a></li>
+                    <li ng-class="{ active  : isActive('/tables-dynamic')}"><a href="#tables-dynamic"> Tables Dynamic</a></li>
+                    <li ng-class="{ active  : isActive('/tables-filter')}"><a href="#tables-filter"> Tables Filter</a></li>
+                    <li ng-class="{ active  : isActive('/tables-editable')}"><a href="#tables-editable"> Tables Editable</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-bar-chart"></i><span>资金管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/charts')}"><a href="#/charts"> Charts</a></li>
+                    <li ng-class="{ active  : isActive('/financial-charts')}"><a href="#/financial-charts"> Financial Charts</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-picture"></i><span>资金账户</span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/medias-croping')}"><a href="#medias-croping"> Images Croping</a></li>
+                    <li ng-class="{ active  : isActive('/medias-sortable')}"><a href="#medias-sortable"> Gallery Sortable</a></li>
+                    <li ng-class="{ active  : isActive('/medias-hover')}">
+                        <a href="#medias-hover"> <span class="pull-right badge badge-primary">12</span> Hover Effects</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-docs"></i><span>财务管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/pages-timeline')}"><a href="#pages-timeline"> Timeline</a></li>
+                    <li ng-class="{ active  : isActive('/pages-blank')}"><a href="#pages-blank"> Blank Page</a></li>
+                    <li ng-class="{ active  : isActive('/pages-contact')}"><a href="#pages-contact"> Contact</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-user"></i><span>营销管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/user-profile')}">
+                        <a href="#user-profile"> <span class="pull-right badge badge-danger">Hot</span> Profile</a>
+                    </li>
+                    <li ng-class="{ active  : isActive('/user-sessionTimeout')}"><a href="#user-sessionTimeout"> Session Timeout</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-bar-chart"></i><span>报表 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/ecom-cart')}"><a href="#ecom-cart"> Shopping Cart</a></li>
+                    <li ng-class="{ active  : isActive('/ecom-invoice')}"><a href="#ecom-invoice"> Invoice</a></li>
+                </ul>
+            </li>
+            <li class="nav-parent">
+                <a href=""><i class="icon-settings"></i><span>系统管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse">
+                    <li ng-class="{ active  : isActive('/extra-fullCalendar')}"><a href="#extra-fullCalendar"><span class="pull-right badge badge-primary">New</span> Fullcalendar</a></li>
+                    <li ng-class="{ active  : isActive('/extra-widgets')}"><a href="#extra-widgets"> Widgets</a></li>
+                    <li ng-class="{ active  : isActive('/extra-slider')}"><a href="#extra-slider"> Sliders</a></li>
+                    <li ng-class="{ active  : isActive('/extra-google')}"><a href="#extra-google"> Google Maps</a></li>
+                    <li ng-class="{ active  : isActive('/extra-vector')}"><a href="#extra-vector"> Vector Maps</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- SIDEBAR WIDGET FOLDERS -->
+        <div class="sidebar-widgets">
+            <p class="menu-title widget-title">Folders <span class="pull-right"><a href="#" class="new-folder"> <i class="icon-plus"></i></a></span></p>
+            <ul class="folders">
+                <li>
+                    <a href="#"><i class="icon-doc c-primary"></i>My documents</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-picture"></i>My images</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-lock"></i>Secure data</a>
+                </li>
+                <li class="add-folder">
+                    <input type="text" placeholder="Folder's name..." class="form-control input-sm">
+                </li>
+            </ul>
+        </div>
+        <div class="sidebar-footer clearfix">
+            <a class="pull-left footer-settings" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Settings">
+                <i class="icon-settings"></i>
+            </a>
+            <a class="pull-left toggle_fullscreen" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Fullscreen">
+                <i class="icon-size-fullscreen"></i>
+            </a>
+            <a class="pull-left" href="../../user-lockscreen.html" data-rel="tooltip" data-placement="top" data-original-title="Lockscreen">
+                <i class="icon-lock"></i>
+            </a>
+            <a class="pull-left btn-effect" href="../../user-login-v1.html" data-modal="modal-1" data-rel="tooltip" data-placement="top" data-original-title="Logout">
+                <i class="icon-power"></i>
+            </a>
+        </div>
+    </div>
+</div>

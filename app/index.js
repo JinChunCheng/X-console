@@ -1,31 +1,39 @@
-﻿'use strict';
+'use strict';
 requirejs.config({
     paths: {
-        'angular': 'library/angular/angular.min',
-        'animate': 'library/angular/angular-animate.min',
-        'sanitize': 'library/angular/angular-sanitize.min',
-        'ui-router': 'library/angular/angular-ui-router.min',
-        'resource': 'library/angular/angular-resource.min',
-        'jquery': 'library/jquery/jquery-1.11.3.min',
-        'cookie': 'library/jquery/jquery.cookie',
-        'text': 'library/require/text-2.0.12',
+        'angular': 'lib/angular/angular.min',
+        'animate': 'lib/angular/angular-animate.min',
+        'sanitize': 'lib/angular/angular-sanitize.min',
+        'resource': 'lib/angular/angular-resource.min',
+        'ui-router': 'lib/ui-router/angular-ui-router',
+        'jquery': 'lib/jquery/jquery-1.11.1.min',
+        'cookie': 'lib/jquery/jquery.cookies.min',
+        'text': 'lib/require/text',
         'app': 'script/app/app',
         'router': 'script/app/router',
         'lazy-load': 'script/common/router-lazy-load',
         'controller': 'script/controller',
+        'service': 'script/service',
         'directive': 'script/directive',
         'filter': 'script/filter',
         'common': 'script/common',
-        'service': 'script/service',
-        'components': 'library/components',
-        'ztree': 'library/components/zTree_v3/js',
         'module': 'script/module',
-        'zh-cn': 'library/angular/i18n/angular-locale_zh-cn'
+        'bootstrap': 'lib/bootstrap/js/bootstrap.min',
+        'bootstrap-dropdown': 'lib/bootstrap-dropdown/bootstrap-hover-dropdown.min',
+        'bootstrap-table': 'lib/bootstrap-table/bootstrap-table.min',
+        'bootstrap-table-fixed-column': 'lib/bootstrap-table/bootstrap-table-fixed-columns',
+        'bootstrap-table-ng': 'lib/bootstrap-table/extensions/angular/bootstrap-table-angular.min',
+        'bootstrap-table-zh-cn': 'lib/bootstrap-table/locale/bootstrap-table-zh-CN.min',
+        'scrollbar': 'lib/scrollbar/jquery.mCustomScrollbar.concat.min',
+        'icheck': 'lib/icheck/icheck.min'
     },
     shim: {
         'angular': {
             exports: 'angular',
             deps: ['jquery']
+        },
+        'ui-router': {
+            deps: ['angular']
         },
         'animate': {
             deps: ['angular']
@@ -33,48 +41,38 @@ requirejs.config({
         'sanitize': {
             deps: ['angular']
         },
-        'ui-router': {
-            deps: ['angular']
-        },
         'resource': {
             deps: ['angular']
         },
-        'components/ocLazyload': {
-            deps: ['angular']
-        },
-        'module/common': {
-            deps: ['angular']
-        },
-        'components/ui-bootstrap-tpls': {
-            deps: ['angular']
-        },
-        'components/angular-ueditor.min': {
-            deps: ['angular', 'components/ueditor/ueditor.config', 'components/ueditor/ueditor.all.min']
-        },
-        'components/waitingDialog': {
-            deps: ['components/bootstrap.min']
-        },
-        'components/bootstrap.min': {
+        'cookie': {
             deps: ['jquery']
         },
-        'components/select.min': {
-            deps: ['angular']
+        'icheck': {
+            deps: ['jquery']
         },
-        'directive/ztree': {
-            deps: ['angular']
+        'module/common': {
+            deps: ['angular', 'cookie', 'scrollbar', 'bootstrap', 'bootstrap-dropdown']
         },
-        'zh-cn': {
-            deps: ['angular']
+        'bootstrap-table': {
+            deps: ['jquery']
+        },
+        'bootstrap-table-zh-cn': {
+            deps: ['bootstrap-table']
+        },
+        'bootstrap-table-fixed-column': {
+            deps: ['bootstrap-table']
+        },
+        'bootstrap-table-ng': {
+            deps: ['angular', 'bootstrap-table-fixed-column', 'bootstrap-table-zh-cn']
         }
     },
-    urlArgs: "v=@@hash"
+    urlArgs: "v=" + (new Date()).getTime()
 });
 requirejs([
         'angular',
         'jquery',
         'app',
-        'router',
-        'zh-cn'
+        'router'
     ],
     function(angular, $) {
         $(function() {

@@ -1,7 +1,0 @@
-<ul class="breadcrumb" style="padding:0px;margin:0px;background-color:inherit;">
-    <li><a ui-sref='home'><i class="fa fa-home"></i> 首页</a></li>
-    <li ng-repeat="item in crumbs" ng-class="{active:$index==crumbs.length-1}">
-        <a ng-if="$index!=crumbs.length-1" ng-click="breadGo(item)" ng-bind="item.title" ng-cloak></a>
-        <span ng-if="$index==crumbs.length-1" ng-bind="item.title" ng-cloak></span>
-    </li>
-</ul>
