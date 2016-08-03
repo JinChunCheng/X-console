@@ -300,6 +300,7 @@
         method: 'get',
         url: undefined,
         ajax: undefined,
+        autoLoad: false, //auto get data when table init
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
@@ -312,6 +313,7 @@
             return res;
         },
         pagination: false,
+        pageLoop: false, // last page to first page or first page to last page
         onlyInfoPagination: false,
         sidePagination: 'client', // client or server
         totalRows: 0, // server side need to set
@@ -572,9 +574,11 @@
         this.initFooter();
         this.initToolbar();
         this.initPagination();
-        this.initBody();
+        this.initBody(false, true);
         this.initSearchText();
-        this.initServer();
+        if (this.options.autoLoad) {
+            this.initServer();
+        }
     };
 
     BootstrapTable.prototype.initLocale = function () {
@@ -1391,11 +1395,14 @@
 
             html.push(this.options.formatRecordsPerPage(pageNumber.join('')));
             html.push('</span>');
-
+            var preHtml = '';
+            if (this.options.pageNumber > 1 || this.options.pageLoop) {
+                preHtml = '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>';
+            }
             html.push('</div>',
                 '<div class="pull-' + this.options.paginationHAlign + ' pagination">',
                 '<ul class="pagination' + sprintf(' pagination-%s', this.options.iconSize) + '">',
-                '<li class="page-pre"><a href="javascript:void(0)">' + this.options.paginationPreText + '</a></li>');
+                preHtml);
 
             if (this.totalPages < 5) {
                 from = 1;
@@ -1472,9 +1479,12 @@
                         '</li>');
                 }
             }
-
+            var nextHtml = '';
+            if (this.options.pageNumber < this.totalPages || this.options.pageLoop) {
+                nextHtml = '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>';
+            }
             html.push(
-                '<li class="page-next"><a href="javascript:void(0)">' + this.options.paginationNextText + '</a></li>',
+                nextHtml,
                 '</ul>',
                 '</div>');
         }
@@ -1578,7 +1588,7 @@
         this.updatePagination(event);
     };
 
-    BootstrapTable.prototype.initBody = function (fixedScroll) {
+    BootstrapTable.prototype.initBody = function (fixedScroll, firstTime) {
         var that = this,
             html = [],
             data = this.getData();
@@ -1778,7 +1788,7 @@
         }
 
         // show no records
-        if (!html.length) {
+        if (!html.length && !firstTime) {
             html.push('<tr class="no-records-found">',
                 sprintf('<td colspan="%s">%s</td>',
                     this.$header.find('th').length, this.options.formatNoMatches()),
@@ -1963,6 +1973,10 @@
             this.$tableLoading.show();
         }
         request = $.extend({}, calculateObjectValue(null, this.options.ajaxOptions), {
+            paginate: {
+                pageNum: this.options.pageNumber,
+                pageSize: this.options.pageSize
+            },
             type: this.options.method,
             url:  url || this.options.url,
             data: this.options.contentType === 'application/json' && this.options.method === 'post' ?
@@ -2717,9 +2731,10 @@
     };
 
     BootstrapTable.prototype.refresh = function (params) {
-        if (params && params.url) {
+        //reset page number while refresh
+        //if (params && params.url) {
             this.options.pageNumber = 1;
-        }
+        //}
         this.initServer(params && params.silent,
             params && params.query, params && params.url);
         this.trigger('refresh', params);
@@ -2811,6 +2826,7 @@
     };
 
     BootstrapTable.prototype.prevPage = function () {
+        console.log(this.options.pageNumber);
         if (this.options.pageNumber > 1) {
             this.options.pageNumber--;
             this.updatePagination();

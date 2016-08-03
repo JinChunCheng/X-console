@@ -1,6 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', 'applicationService', function($scope, $http, $timeout, applicationService) {
-
+    return ['$scope', '$http', '$timeout', '$modal', 'applicationService', function($scope, $http, $timeout, $modal, applicationService) {
 
         /**
          * the default search condition
@@ -8,13 +7,24 @@ define([], function() {
          */
         var defaultCondition = {
             sorting: 'update_time desc',
-            pageNo: 1,
+            pageNum: 1,
             pageSize: 10
         };
 
         $scope.listView = {
-            condition: angular.copy(defaultCondition)
+            condition: angular.copy(defaultCondition),
+            table: null
         };
+
+        /**
+         * do something after view loaded
+         * @param  {string}     event type                       
+         * @param  {function}   callback function
+         */
+        $scope.$on('$viewContentLoaded', function() {
+            $scope.listView.table = $('#borrowerTable');
+        });
+
 
         var getData = function(params) {
             $http({
@@ -33,12 +43,15 @@ define([], function() {
                             total: 98,
                             rows: data
                         });
-                    }, 1000);
+                    }, 200);
                 })
-                .error(function(err) {});
+                .error(function(err) {
+
+                });
         };
 
         (function init() {
+
             $scope.bsTableControl = {
                 options: {
                     //data: rows,
@@ -48,20 +61,22 @@ define([], function() {
                     // fixedColumns: true,
                     // fixedNumber: 2,
                     cache: false,
-                    height: getHeight(),
-                    striped: true,
+                    //height: getHeight(),
+                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
+                    //autoLoad: true,
+                    onPageChange: pageChange,
                     sidePagination: "server",
                     //search: true,
-                    showColumns: true,
+                    //showColumns: true,
                     //showRefresh: false,
                     //minimumCountColumns: 2,
                     //clickToSelect: false,
                     //showToggle: true,
-                    maintainSelected: true,
+                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -146,26 +161,41 @@ define([], function() {
                         valign: 'middle',
                         clickToSelect: false,
                         formatter: flagFormatter,
-                        // events: flagEvents
+                        events: {
+                            'click .btn': function(e, value, row, index) {
+                                var text = "确定删除此记录？"
+                                //text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+                                $modal.open({
+                                    templateUrl: 'view/shared/confirm.html',
+                                    size: 'sm',
+                                    //backdrop: true,
+                                    controller: function($scope, $modalInstance) {
+                                        $scope.confirmData = {
+                                            text: text,
+                                            processing: false
+                                        };
+                                        $scope.cancel = function() {
+                                            $modalInstance.dismiss();
+                                            return false;
+                                        }
+
+                                        $scope.ok = function() {
+                                            delUser(item.id, $scope, $modalInstance);
+                                            return true;
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
                     }]
                 }
             };
-
-            function getHeight() {
-                var tb = $('#borrowerTable');
-                return $(window).height() - tb.offset().top;
-            }
 
             function flagFormatter(value, row, index) {
                 return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>'
             }
 
-
-            // $(window).resize(function() {
-            //     $('#borrowerTable').bootstrapTable('resetView', {
-            //         height: getHeight()
-            //     });
-            // });
         })();
 
         $scope.del = function() {
@@ -173,11 +203,15 @@ define([], function() {
         };
 
         $scope.search = function() {
-            $('#borrowerTable').bootstrapTable('refresh');
+            $scope.listView.table.bootstrapTable('refresh');
         };
 
         $scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
+        };
+
+        var pageChange = function(num, size) {
+            console.log(num + ' - ' + size);
         };
     }];
 });

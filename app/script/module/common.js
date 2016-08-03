@@ -2427,4 +2427,32 @@ angular.module('bootModule', [])
                 });
             }
         };
+    }]).directive('tableFullSize', ['$timeout', function($timeout) {
+        /**
+         * bootstrap table fill full page
+         */
+        return {
+            restrict: 'A',
+            link: function(scope, iElement, iAttrs) {
+
+                function getHeight() {
+                    var tb = $(iElement);
+                    return $(window).height() - tb.offset().top;
+                }
+
+                function resetView() {
+                    $(iElement).bootstrapTable('resetView', {
+                        height: getHeight()
+                    });
+                }
+
+                $timeout(function() {
+                    resetView();
+
+                    $(window).resize(function() {
+                        resetView();
+                    });
+                });
+            }
+        };
     }]);

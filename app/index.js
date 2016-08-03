@@ -20,12 +20,13 @@ requirejs.config({
         'module': 'script/module',
         'bootstrap': 'lib/bootstrap/js/bootstrap.min',
         'bootstrap-dropdown': 'lib/bootstrap-dropdown/bootstrap-hover-dropdown.min',
-        'bootstrap-table': 'lib/bootstrap-table/bootstrap-table.min',
+        'bootstrap-table': 'lib/bootstrap-table/bootstrap-table',
         'bootstrap-table-fixed-column': 'lib/bootstrap-table/bootstrap-table-fixed-columns',
-        'bootstrap-table-ng': 'lib/bootstrap-table/extensions/angular/bootstrap-table-angular.min',
+        'bootstrap-table-ng': 'lib/bootstrap-table/extensions/angular/bootstrap-table-angular',
         'bootstrap-table-zh-cn': 'lib/bootstrap-table/locale/bootstrap-table-zh-CN.min',
         'scrollbar': 'lib/scrollbar/jquery.mCustomScrollbar.concat.min',
-        'icheck': 'lib/icheck/icheck.min'
+        'icheck': 'lib/icheck/icheck.min',
+        'ui-bootstrap': 'lib/ui-bootstrap/ui-bootstrap-tpls'
     },
     shim: {
         'angular': {
@@ -64,6 +65,9 @@ requirejs.config({
         },
         'bootstrap-table-ng': {
             deps: ['angular', 'bootstrap-table-fixed-column', 'bootstrap-table-zh-cn']
+        },
+        'ui-bootstrap': {
+            deps: ['angular']
         }
     },
     urlArgs: "v=" + (new Date()).getTime()

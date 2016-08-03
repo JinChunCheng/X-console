@@ -10,10 +10,11 @@ define([
         'lazy-load',
         'module/common',
         'bootstrap-table-ng',
-        'icheck'
+        'icheck',
+        'ui-bootstrap'
     ],
     function(angular, resource, sanitize, animate, uiRouter, mainCtrl, lazyLoad) {
-        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
+        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
             lazyLoad.init(arguments);
         });
 
