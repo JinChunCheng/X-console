@@ -300,7 +300,7 @@
         method: 'get',
         url: undefined,
         ajax: undefined,
-        autoLoad: false, //auto get data when table init
+        autoLoad: true, //auto get data when table init
         cache: true,
         contentType: 'application/json',
         dataType: 'json',
