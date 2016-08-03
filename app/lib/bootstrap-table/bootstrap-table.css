@@ -235,7 +235,7 @@
 }
 
 .table th, .table td {
-    vertical-align: middle;
+    vertical-align: middle !important;
     box-sizing: border-box;
 }
 
