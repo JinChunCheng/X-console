@@ -69,7 +69,6 @@ define([
                 // session.refreshTicket();
                 //如果cookie失效，跳到login页
                 // if (toState.name != 'login' && !session.checkIsLogged()) {
-                console.log(session.getLoginUserInfo());
                 if (toState.name != 'login' && !session.getLoginUserInfo()) {
                     //apply with $timeout
                     //i do not know why...

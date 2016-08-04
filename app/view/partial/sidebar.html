@@ -10,15 +10,10 @@
                 <i class="icon icons-faces-users-01"></i>
                 <div class="user-details">
                     <h4 ng-bind="appView.user.name"></h4>
-                    <div class="dropdown user-login">
-                        <button class="btn btn-xs dropdown-toggle btn-rounded" type="button" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" data-delay="300">
-                            <i class="online"></i><span>在线</span><i class="fa fa-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a href="#"><i class="busy"></i><span>忙碌</span></a></li>
-                            <li><a href="#"><i class="turquoise"></i><span>隐身</span></a></li>
-                            <li><a href="#"><i class="away"></i><span>离开</span></a></li>
-                        </ul>
+                    <div class="btn-group">
+                        <a ui-sref="info" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-user"></i></a>
+                        <a ui-sref="settings" class="btn btn-xs btn-primary btn-outline dark"><i class="fa fa-cog"></i></a>
+                        <a href="" ng-click="logout()" class="btn btn-xs btn-danger btn-outline dark"><i class="fa fa-power-off" title="注销"></i></a>
                     </div>
                 </div>
             </div>

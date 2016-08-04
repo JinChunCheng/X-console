@@ -101,4 +101,12 @@
 #page-signin-bg img {
     width: 100%;
 }
-
+.sidebar .user-details .btn-outline {
+    border-color: #2e333b;
+    color: #808b9c;
+}
+.btn-group>.btn.btn-outline, .btn-group>.btn.btn-outline.btn-flat, .btn-group>.btn.btn-outline.btn-flat.btn-primary, .btn-group>.btn.btn-outline.btn-flat.btn-primary:focus, .btn-group>.btn.btn-outline.btn-flat:focus, .btn-group>.btn.btn-outline.btn-primary, .btn-group>.btn.btn-outline.btn-primary:focus, .btn-group>.btn.btn-outline:focus, .btn.btn-outline, .btn.btn-outline.btn-flat, .btn.btn-outline.btn-flat.btn-primary, .btn.btn-outline.btn-flat.btn-primary:focus, .btn.btn-outline.btn-flat:focus, .btn.btn-outline.btn-primary, .btn.btn-outline.btn-primary:focus, .btn.btn-outline:focus, .input-group-btn>.btn.btn-outline, .input-group-btn>.btn.btn-outline.btn-flat, .input-group-btn>.btn.btn-outline.btn-flat.btn-primary, .input-group-btn>.btn.btn-outline.btn-flat.btn-primary:focus, .input-group-btn>.btn.btn-outline.btn-flat:focus, .input-group-btn>.btn.btn-outline.btn-primary, .input-group-btn>.btn.btn-outline.btn-primary:focus, .input-group-btn>.btn.btn-outline:focus {
+    background: 0 0;
+    border-color: #e0e0e0;
+    border-color: rgba(0,0,0,.12);
+}
