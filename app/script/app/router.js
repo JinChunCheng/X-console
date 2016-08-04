@@ -12,7 +12,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('borrower-repayments', lazyLoad.config('/borrower/repayments', '/view/borrower/repayments.html', 'controller/borrower/repayments', { directives: [], services: [], filters: [] }))
                 .state('investor-investorList', lazyLoad.config('/investor/investorList', '/view/investor/investorList.html', 'controller/investor/investorList', { directives: [], services: [], filters: [] }))
                 .state('investor-investorCheck', lazyLoad.config('/investor/investorCheck', '/view/investor/investorCheck.html', 'controller/investor/investorCheck', { directives: [], services: [], filters: [] }))
-
+                .state('investor-newTender', lazyLoad.config('/investor/newTender', '/view/investor/newTender.html', 'controller/investor/newTender', { directives: [], services: [], filters: [] }))
             $locationProvider.html5Mode(true);
         }
     ]);
