@@ -40,16 +40,16 @@
                     <li ng-class="{active: appView.isActive('borrower-list')}">
                         <a ui-sref="borrower-list"> 借款人列表</a>
                     </li>
-                    <li ng-class="{active: appView.isActive('borrower-repayments')}"><a ui-sref="borrower-repayments"> 借款人还款列表</a></li>
+                    <li ng-class="{active:appView.isActive('borrower-repayments')}"><a ui-sref="borrower-repayments"> 借款人还款列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
-                <a href=""><i class="icon-note"></i><span>投资人及投资管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/forms-elements')}"><a href="#forms-elements"> Forms Elements</a></li>
-                    <li ng-class="{ active  : isActive('/forms-validation')}"><a href="#forms-validation"> Forms Validation</a></li>
-                    <li ng-class="{ active  : isActive('/forms-plugins')}"><a href="#forms-plugins"> Advanced Plugins</a></li>
-                    <li ng-class="{ active  : isActive('/forms-wizard')}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['investor-*'])}">
+                <a href="" class="submenu-root"><i class="icon-screen-desktop"></i><span>投资人及投资管理 </span><span class="fa arrow"></span></a>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['investor-*'])}}">
+                    <li ng-class="{ active:isActive('investor-investorList')}"><a ui-sref="investor-investorList">投资人列表</a></li>
+                    <li ng-class="{ active:isActive('/forms-validation')}"><a href="#forms-validation"> Forms Validation</a></li>
+                    <li ng-class="{ active:isActive('/forms-plugins')}"><a href="#forms-plugins"> Advanced Plugins</a></li>
+                    <li ng-class="{ active:isActive('/forms-wizard')}">
                         <a href="#forms-wizard"> <span class="pull-right badge badge-danger">low</span>
                             <span>Form Wizard</span></a>
                     </li>

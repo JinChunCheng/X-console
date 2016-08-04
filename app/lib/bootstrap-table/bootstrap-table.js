@@ -337,7 +337,7 @@
         showRefresh: false,
         showToggle: false,
         buttonsAlign: 'right',
-        smartDisplay: true,
+        smartDisplay: false,
         escape: false,
         minimumCountColumns: 1,
         idField: undefined,
