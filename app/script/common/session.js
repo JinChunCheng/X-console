@@ -48,14 +48,17 @@
         logout: function() {
             //清ticket
             this.deleteTicket();
-            ////清userInfo
-            //$.removeCookie(userInfo);
+            //清userInfo
+            $.removeCookie(userInfo);
         },
         setCookie: function(key, value) {
             $.cookie(key, value);
         },
         getCookie: function(key) {
             return $.cookie(key);
+        },
+        removeCookie: function(key) {
+            $.removeCookie(key);
         }
     };
     return session;

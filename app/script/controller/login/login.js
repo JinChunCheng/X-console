@@ -1,7 +1,9 @@
-define([], function() {
+define(['common/session'], function(session) {
     return ['$scope', '$state', '$location', '$timeout', function($scope, $state, $location, $timeout) {
+
         $scope.loginVM = {
-        	processing: false
+        	processing: false,
+            name: session.getCookie('username') || ''
         };
 
         $scope.$on('$viewContentLoaded', function() {
@@ -29,9 +31,12 @@ define([], function() {
         $scope.login = function() {
             $scope.loginVM.processing = true;
             $timeout(function() {
-                $state.go('dashboard');
+                session.setCookie('username', $scope.loginVM.name);
+            	var user = {id: 1, name: $scope.loginVM.name };
+            	session.rememberLoginUser(user);
                 //广播到父级控制器做相关处理
-                $scope.$emit('login', {});
+                $scope.$emit('login', user);
+                $state.go('dashboard');
             }, 500);
         };
     }];

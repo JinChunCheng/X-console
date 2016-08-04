@@ -18,6 +18,7 @@
          */
         $scope.appView = {
             title: '汇和金服运营管理平台',
+            user: null,
             isFull: false,
             isActive: function(states) {
                 return isStateActive(states);
@@ -60,7 +61,7 @@
         }
 
         $scope.$on('login', function(event, userInfo) {
-            
+            $scope.appView.user = userInfo;
         });
 
         $scope.logout = function() {
@@ -79,6 +80,7 @@
                     }
 
                     $scope.ok = function() {
+                        session.logout();
                         $modalInstance.dismiss();
                         $state.go('login')
                         return true;

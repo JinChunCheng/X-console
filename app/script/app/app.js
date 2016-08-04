@@ -8,12 +8,13 @@ define([
         'ui-router',
         'controller/mainCtrl',
         'lazy-load',
+        'common/session',
         'module/common',
         'bootstrap-table-ng',
         'icheck',
         'ui-bootstrap'
     ],
-    function(angular, resource, sanitize, uiRouter, mainCtrl, lazyLoad) {
+    function(angular, resource, sanitize, uiRouter, mainCtrl, lazyLoad, session) {
         var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
             lazyLoad.init(arguments);
         });
@@ -64,20 +65,22 @@ define([
         //启动应用程序
         app.run(['$rootScope', '$location', '$state', '$timeout', function($rootScope, $location, $state, $timeout) {
             $rootScope.$on("$stateChangeStart", function(evt, toState, toParams, fromState, fromParams) {
-                // // //刷新cookie过期时间
-                // // session.refreshTicket();
-                // //如果cookie失效，跳到login页
+                // //刷新cookie过期时间
+                // session.refreshTicket();
+                //如果cookie失效，跳到login页
                 // if (toState.name != 'login' && !session.checkIsLogged()) {
-                //     //apply with $timeout
-                //     //i do not know why...
-                //     $timeout(function() {
-                //         $state.go('login', {
-                //             r: location.hash
-                //         }, {
-                //             reload: true
-                //         });
-                //     });
-                // }
+                console.log(session.getLoginUserInfo());
+                if (toState.name != 'login' && !session.getLoginUserInfo()) {
+                    //apply with $timeout
+                    //i do not know why...
+                    $timeout(function() {
+                        $state.go('login', {
+                            r: location.hash
+                        }, {
+                            reload: true
+                        });
+                    });
+                }
             });
             $rootScope.$on("$stateChangeSuccess", function(evt, toState, toParams, fromState, fromParams) {
                 if (toState.name == 'login') {
