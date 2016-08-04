@@ -18,7 +18,7 @@
          */
         $scope.appView = {
             title: '汇和金服运营管理平台',
-            user: null,
+            user: session.getLoginUserInfo(),
             isFull: false,
             isActive: function(states) {
                 return isStateActive(states);
