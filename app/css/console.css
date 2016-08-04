@@ -1,3 +1,7 @@
+[ng\:cloak], [ng-cloak], .ng-cloak { display: none; }
+
+.m-b-20 {margin-bottom: 20px !important;}
+.m-r-5 {margin-right:5px;}
 
 .main-content .page-content .header-right {
     position: absolute;
@@ -34,3 +38,67 @@
 .fixed-table-loading {
     padding-top: 10px;
 }
+.append-icon {
+  position: relative;
+}
+.append-icon input {
+  padding-right: 36px;
+}
+.append-icon i {
+  color: #1b1e25;
+  color: rgba(27, 30, 37, 0.3);
+  font-size: 14px;
+  height: 34px;
+  left: auto;
+  line-height: 34px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 36px;
+}
+.append-icon .input-lg ~ i {
+  font-size: 20px;
+  height: 46px;
+  line-height: 46px;
+  width: 46px;
+}
+.append-icon .form-dark ~ i {
+  color: #C3C3C3;
+}
+
+.append-icon i {
+    color: #1b1e25;
+    color: rgba(27, 30, 37, 0.3);
+    font-size: 14px;
+    height: 34px;
+    left: auto;
+    line-height: 34px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 36px;
+}
+
+#page-signin-bg {
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+#page-signin-bg .bg-overlay {
+    background: rgba(0,0,0,.5);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#page-signin-bg img {
+    width: 100%;
+}
+

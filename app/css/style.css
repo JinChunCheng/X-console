@@ -1659,7 +1659,7 @@ body:not(.sidebar-collapsed) .topbar .header-left .topnav .menutoggle:hover .men
   padding: 10px 0;
 }
 .sidebar .sidebar-inner .nav-sidebar {
-  margin-bottom: 30px;
+  margin-bottom: 37px;
 }
 .sidebar .sidebar-inner .nav-sidebar .arrow {
   font-size: 14px !important;
@@ -6445,13 +6445,13 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 /****  404 and 500 Error Page  ****/
 .error-page {
-  background: -moz-radial-gradient(center, ellipse cover, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
+  /*background: -moz-radial-gradient(center, ellipse cover, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
   background: -ms-radial-gradient(center, ellipse cover, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
   background: -o-radial-gradient(center, ellipse cover, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(2%, #dfe5e9), color-stop(2%, #dfe5e9), color-stop(100%, #b2c0ca));
   background: -webkit-radial-gradient(center, ellipse cover, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
   background: radial-gradient(ellipse at center, #dfe5e9 2%, #dfe5e9 2%, #b2c0ca 100%);
-  background: #dfe5e9;
+  background: #dfe5e9;*/
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfe5e9', endColorstr='#b2c0ca', GradientType=1);
   overflow: hidden;
   padding: 0;
@@ -6524,13 +6524,13 @@ body:not(.fixed-topbar) .main-content .page-content {
 }
 /****  Login Page, Sign Up Page, Password Recover Page, Lockscreen Page  ****/
 .account {
-  background: #1f3649;
+  /*background: #1f3649;
   background: -moz-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
   background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #1f3649), color-stop(44%, #17253d), color-stop(100%, #040d11));
   background: -webkit-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
   background: -o-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
   background: -ms-radial-gradient(center, ellipse cover, #1f3649 0%, #17253d 44%, #040d11 100%);
-  background: radial-gradient(ellipse at center, #1f3649 0%, #17253d 44%, #040d11 100%);
+  background: radial-gradient(ellipse at center, #1f3649 0%, #17253d 44%, #040d11 100%);*/
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@account-color-dark', endColorstr='#040d11', GradientType=1);
 }
 .account a {
@@ -6561,12 +6561,12 @@ body:not(.fixed-topbar) .main-content .page-content {
   margin-bottom: -1px;
 }
 .account .form-signin input[type="password"] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin-bottom: 10px;
+  /*border-top-left-radius: 0;
+  border-top-right-radius: 0;*/
+  margin-bottom: 8px;
 }
 .account .account-wall {
-  margin-top: 160px;
+  margin-top: 200px;
   padding: 20px 20px 10px;
   position: relative;
 }
@@ -6853,8 +6853,8 @@ body:not(.fixed-topbar) .main-content .page-content {
   margin-bottom: 8px;
 }
 .account.separate-inputs .form-signin input[type="password"] {
-  border-top-left-radius: 2px;
-  border-top-right-radius: 2px;
+  /*border-top-left-radius: 2px;
+  border-top-right-radius: 2px;*/
 }
 .account.separate-inputs .form-signup input[type="text"] {
   border-bottom-left-radius: 2px;

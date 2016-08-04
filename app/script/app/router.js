@@ -5,6 +5,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             $urlRouterProvider.otherwise('/404');
             $stateProvider
                 .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
+                .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', { directives: [], services: [], filters: [] }))
+                .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', { directives: [], services: [], filters: [] }))
                 //.state('borrower', lazyLoad.config('/borrower', '', 'controller/borrower/borrower', { directives: [], services: [], filters: [] }, true))
                 .state('borrower-list', lazyLoad.config('/borrower/list', '/view/borrower/list.html', 'controller/borrower/list', { directives: [], services: [], filters: [] }))
                 .state('borrower-repayments', lazyLoad.config('/borrower/repayments', '/view/borrower/repayments.html', 'controller/borrower/repayments', { directives: [], services: [], filters: [] }));

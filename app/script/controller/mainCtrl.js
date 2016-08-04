@@ -1,5 +1,5 @@
 ﻿define(['common/session', 'common/path-helper'], function(session, ph) {
-    return ['$scope', '$state', '$timeout', 'pluginsService', 'applicationService', 'builderService', function($scope, $state, $timeout, pluginsService, applicationService, builderService) {
+    return ['$scope', '$state', '$timeout', '$modal', 'pluginsService', 'applicationService', 'builderService', function($scope, $state, $timeout, $modal, pluginsService, applicationService, builderService) {
 
         $scope.$on('$viewContentLoaded', function() {
             $timeout(function() {
@@ -12,12 +12,13 @@
             applicationService.init();
             builderService.init();
         });
-        
+
         /**
          * data used in html pages
          */
         $scope.appView = {
             title: '汇和金服运营管理平台',
+            isFull: false,
             isActive: function(states) {
                 return isStateActive(states);
             },
@@ -57,6 +58,34 @@
             }
             return false;
         }
+
+        $scope.$on('login', function(event, userInfo) {
+            
+        });
+
+        $scope.logout = function() {
+            $modal.open({
+                templateUrl: 'view/shared/confirm.html',
+                size: 'sm',
+                //backdrop: true,
+                controller: function($scope, $modalInstance) {
+                    $scope.confirmData = {
+                        text: '确定注销？',
+                        processing: false
+                    };
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss();
+                        return false;
+                    }
+
+                    $scope.ok = function() {
+                        $modalInstance.dismiss();
+                        $state.go('login')
+                        return true;
+                    }
+                }
+            });
+        };
 
     }];
 });
