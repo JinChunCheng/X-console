@@ -164,7 +164,7 @@ define([], function() {
                         events: {
                             'click .btn': function(e, value, row, index) {
                                 var text = "确定删除此记录？"
-                                //text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+                                //text = JSON.stringify($scope.listView.table.bootstrapTable('getSelections'));
                                 $modal.open({
                                     templateUrl: 'view/shared/confirm.html',
                                     size: 'sm',
@@ -193,7 +193,7 @@ define([], function() {
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>'
+                return '<button type="button" class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>'
             }
 
         })();

@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="description" content="admin-themes-lab">
     <meta name="author" content="themes-lab">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" media="screen" />
     <title ng-bind="appView.title"></title>
     <link href="css/style.css" rel="stylesheet">
     <link href="css/theme.css" rel="stylesheet">
     <!-- <link href="css/ui.css" rel="stylesheet"> -->
-    <!-- <link href="assets/global/plugins/font-awesome-animation/font-awesome-animation.min.css" rel="stylesheet" /> -->
+    <link href="css/font-awesome-animation.min.css" rel="stylesheet" />
     <link href="css/angular-theme.css" rel="stylesheet">
     <link href="css/layout.css" rel="stylesheet">
     <link href="lib/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
@@ -33,11 +33,11 @@
     <!-- END PAGE SPINNER -->
     <section>
         <!-- BEGIN SIDEBAR -->
-        <div ng-include="'view/partial/sidebar.html'"></div>
+        <div ng-include="'view/partial/sidebar.html'" ng-show="!isFull" ng-cloak></div>
         <!-- END SIDEBAR -->
-        <div class="main-content">
+        <div ng-class="{'main-content':!isFull}">
             <!-- BEGIN TOPBAR -->
-            <div class="topbar">
+            <div class="topbar" ng-show="!isFull" ng-cloak>
                 <div class="header-left">
                     <div class="topnav">
                         <a class="menutoggle" href="#" data-toggle="sidebar-collapsed"><span class="menu__handle"><span>Menu</span></span></a>
@@ -65,7 +65,7 @@
                                     <a data-target="#"><i class="icon-settings"></i><span>账户设置</span></a>
                                 </li>
                                 <li>
-                                    <a data-target="#"><i class="icon-logout"></i><span>注销</span></a>
+                                    <a href="" ng-click="logout()"><i class="icon-logout"></i><span>注销</span></a>
                                 </li>
                             </ul>
                         </li>

@@ -4,7 +4,7 @@ define([
         'angular',
         'resource',
         'sanitize',
-        'animate',
+        // 'animate',
         'ui-router',
         'controller/mainCtrl',
         'lazy-load',
@@ -13,8 +13,8 @@ define([
         'icheck',
         'ui-bootstrap'
     ],
-    function(angular, resource, sanitize, animate, uiRouter, mainCtrl, lazyLoad) {
-        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
+    function(angular, resource, sanitize, uiRouter, mainCtrl, lazyLoad) {
+        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
             lazyLoad.init(arguments);
         });
 
@@ -82,9 +82,9 @@ define([
             $rootScope.$on("$stateChangeSuccess", function(evt, toState, toParams, fromState, fromParams) {
                 if (toState.name == 'login') {
                     $rootScope.isRedirectingToLogin = false;
-                    $rootScope.showAll = false;
+                    $rootScope.isFull = true;
                 } else {
-                    $rootScope.showAll = true;
+                    $rootScope.isFull = false;
                 }
             });
             $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
