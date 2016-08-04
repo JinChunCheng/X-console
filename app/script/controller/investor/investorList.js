@@ -22,7 +22,7 @@ define([], function() {
          * @param  {function}   callback function
          */
         $scope.$on('$viewContentLoaded', function() {
-            $scope.listView.table = $('#borrowerRepaymentsTable');
+            $scope.listView.table = $('#investorTable');
         });
 
 
@@ -58,7 +58,7 @@ define([], function() {
 
         (function init() {
 
-            $scope.bsRepaymentsTableControl = {
+            $scope.bsInvestorTableControl = {
                 options: {
                     //data: rows,
                     // rowStyle: function(row, index) {
@@ -90,73 +90,109 @@ define([], function() {
                         valign: 'middle'
                     }, {
                         field: 'id',
-                        title: '借款人编号',
+                        title: '编号',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'name',
-                        title: '姓名',
+                        title: '登录名',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace',
-                        title: '身份证号码',
+                        title: '真实姓名',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace2',
-                        title: '手机',
+                        title: '身份证号码',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace3',
-                        title: '固定电话',
+                        title: '手机号',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace4',
-                        title: '邮箱',
+                        title: '固话',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace5',
-                        title: '省份',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace6',
-                        title: '城市',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace7',
-                        title: '开户行',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace8',
-                        title: '银行账号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace9',
                         title: '状态',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
+                        field: 'workspace6',
+                        title: '理财客户经理编号',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace7',
+                        title: '理财客户经理代码',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace8',
+                        title: '理财客户经理姓名',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace9',
+                        title: '理财渠道代码',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
                         field: 'workspace10',
-                        title: '创建时间',
+                        title: '理财渠道名称',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '注册类型',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '是否本公司员工',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '邮编',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '地址',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '是否新手',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '试投金状态',
                         align: 'left',
                         valign: 'top',
                         sortable: true
