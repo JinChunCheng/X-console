@@ -1,0 +1,69 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>新增投标列表</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">用户名</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.userName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">手机号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.mobile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i><stronger>投资人</stronger></div>
+    <div class="panel-body">
+        <table id="newTenderTable1" bs-table-control="bsNewTenderTable1Control"></table>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i><stronger>以下项目可代投资人投标</stronger></div>
+    <div class="panel-body">
+        <table id="newTenderTable2" bs-table-control="bsNewTenderTable2Control"></table>
+    </div>
+</div>
