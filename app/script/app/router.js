@@ -13,6 +13,9 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor-investorList', lazyLoad.config('/investor/investorList', '/view/investor/investorList.html', 'controller/investor/investorList', { directives: [], services: [], filters: [] }))
                 .state('investor-investorCheck', lazyLoad.config('/investor/investorCheck', '/view/investor/investorCheck.html', 'controller/investor/investorCheck', { directives: [], services: [], filters: [] }))
                 .state('investor-newTender', lazyLoad.config('/investor/newTender', '/view/investor/newTender.html', 'controller/investor/newTender', { directives: [], services: [], filters: [] }))
+                .state('investor-tenderList', lazyLoad.config('/investor/tenderList', '/view/investor/tenderList.html', 'controller/investor/tenderList', { directives: [], services: [], filters: [] }))
+                .state('investor-investmentList', lazyLoad.config('/investor/investmentList', '/view/investor/investmentList.html', 'controller/investor/investmentList', { directives: [], services: [], filters: [] }))
+                
             $locationProvider.html5Mode(true);
         }
     ]);
