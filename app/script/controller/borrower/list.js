@@ -27,7 +27,7 @@ define([], function() {
 
 
         var getData = function(params) {
-            borrowerService.getAll(params).then(function(res) {
+            borrowerService.getAll($scope.listView.condition).then(function(res) {
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
                         item.id = parseInt(Math.random() * 100);
