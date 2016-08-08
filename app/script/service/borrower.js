@@ -10,10 +10,10 @@ define([], function() {
              * get borrower list
              * @param  {string} data 
              */
-            get: function(data) {
+            query: function(data) {
                 return $http({
-                        url: config.pc_domain + '/esin/cacheEsin',
-                        method: 'POST',
+                        url: 'script/data/data1.json',
+                        method: 'GET',
                         data: data
                     })
                     .then(function(res) {
@@ -22,7 +22,15 @@ define([], function() {
                         return $q.reject(res);
                     });
             },
-
+            getAll: function(params) {
+                var res = $resource('script/data/data1.json', {}, { 'query': { method: 'GET', isArray: false } });
+                return res.query(params).$promise
+                    .then(function(res) {
+                        return res ? res : serverErrorData;
+                    }, function(res) {
+                        return $q.reject(res);
+                    });
+            }
         }
     }]]
 });

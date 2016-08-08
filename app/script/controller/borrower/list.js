@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'applicationService', function($scope, $http, $timeout, $modal, applicationService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -27,27 +27,20 @@ define([], function() {
 
 
         var getData = function(params) {
-            $http({
-                    url: 'script/data/data1.json',
-                    type: 'get'
-                })
-                .success(function(data) {
-                    $timeout(function() {
-                        data.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        data.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: 98,
-                            rows: data
-                        });
-                    }, 200);
-                })
-                .error(function(err) {
-
-                });
+            borrowerService.getAll(params).then(function(res) {
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
         };
 
         (function init() {
@@ -164,7 +157,7 @@ define([], function() {
                         events: {
                             'click .btn': function(e, value, row, index) {
                                 var text = "确定删除此记录？"
-                                //text = JSON.stringify($scope.listView.table.bootstrapTable('getSelections'));
+                                    //text = JSON.stringify($scope.listView.table.bootstrapTable('getSelections'));
                                 $modal.open({
                                     templateUrl: 'view/shared/confirm.html',
                                     size: 'sm',
