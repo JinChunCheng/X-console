@@ -1,5 +1,5 @@
 define([], function() {
-    return ['borrowerService', ['$http', '$resource', '$q', function($http, $resource, $q) {
+    return ['borrowerService', ['$http', '$q', function($http, $q) {
         var serverErrorData = {
             status: 500,
             msg: '服务器连接失败，请检查服务是否可用或联系管理员！'
@@ -10,10 +10,10 @@ define([], function() {
              * get borrower list
              * @param  {string} data 
              */
-            get: function(data) {
+            query: function(data) {
                 return $http({
-                        url: config.pc_domain + '/esin/cacheEsin',
-                        method: 'POST',
+                        url: 'script/data/data1.json',
+                        method: 'GET',
                         data: data
                     })
                     .then(function(res) {
