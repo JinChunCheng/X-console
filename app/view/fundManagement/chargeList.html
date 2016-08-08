@@ -1,0 +1,148 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>充值列表</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">充值编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.chargeCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">充值类型</span>
+                                <select class="form-control form-white" ng-model="listView.condition.chargeType">
+                                    <option>网银</option>
+                                    <option>委托扣款</option>
+                                    <option>POS收款</option>
+                                    <option>调账处理</option>
+                                    <option>奖励</option>
+                                    <option>其他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.status">
+                                    <option>待支付</option>
+                                    <option>成功</option>
+                                    <option>取消</option>
+                                    <option>失败</option>
+                                    <option>在途</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">外部参考号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.referenceNum">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                         <div class="input-group">
+                            <span class="input-group-addon">创建时间</span>
+                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                <input type="date" class="input-sm form-control" ng-model="listView.condition.buildStartDate">
+                                <span class="input-group-addon">~</span>
+                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.buildEndDate">
+                            </div>
+                        </div>
+                        </div>
+                    </div>     
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                         <div class="input-group">
+                            <span class="input-group-addon">充值完成日期</span>
+                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                <input type="date" class="input-sm form-control" ng-model="listView.condition.chargeStartDate">
+                                <span class="input-group-addon">~</span>
+                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.chargeEndDate">
+                            </div>
+                        </div>
+                        </div>
+                    </div>     
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">支付序号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.paymentNum">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">充值渠道</span>
+                                <select class="form-control form-white" ng-model="listView.condition.chargeChannel">
+                                    <option>POS刷卡</option>
+                                    <option>银联转账</option>
+                                    <option>其他</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-md-offset-5">
+                    <div class="form-group col-md-4">
+                        <button class="btn btn-info">查找</button>
+                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
+    <div class="panel-body">
+        <table id="chargeListTable" bs-table-control="bsChargeListTableControl"></table>
+    </div>
+</div>

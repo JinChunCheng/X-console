@@ -4355,7 +4355,7 @@ body:not(.fixed-sidebar):not(.fixed-topbar):not(.sidebar-top) .sidebar .logopane
   padding-right: 0;
 }
 .main-content .page-content .panel .panel-header[class*="bg-"] h2 {
-  color: #ffffff;
+  color: #333;
 }
 .main-content .page-content .panel .panel-header {
   display: block;

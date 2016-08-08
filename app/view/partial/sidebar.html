@@ -48,36 +48,38 @@
                     <li ng-class="{ active:isActive('investor-investmentList')}"><a ui-sref="investor-investmentList">投资列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['projectManagement-*'])}">
                 <a href=""><i class="fa fa-table"></i><span>项目管理</span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/tables-styling')}"><a href="#tables-styling"> Tables Styling</a></li>
-                    <li ng-class="{ active  : isActive('/tables-dynamic')}"><a href="#tables-dynamic"> Tables Dynamic</a></li>
-                    <li ng-class="{ active  : isActive('/tables-filter')}"><a href="#tables-filter"> Tables Filter</a></li>
-                    <li ng-class="{ active  : isActive('/tables-editable')}"><a href="#tables-editable"> Tables Editable</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['projectManagement-*'])}}">
+                    <li ng-class="{ active:isActive('projectManagement-projectList')}"><a ui-sref="projectManagement-projectList">项目列表</a></li>
+                    <li ng-class="{ active:isActive('projectManagement-newProject')}"><a ui-sref="projectManagement-newProject">新增项目</a></li>
+                    <li ng-class="{ active:isActive('projectManagement-releaseCheck')}"><a ui-sref="projectManagement-releaseCheck">发布审核</a></li>
+                    <li ng-class="{ active:isActive('projectManagement-endTenderCheck')}"><a ui-sref="projectManagement-endTenderCheck">结标审核</a></li>
+                    <li ng-class="{ active:isActive('projectManagement-repaymentList')}"><a ui-sref="projectManagement-repaymentList">项目还款计划列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['fundManagement-*'])}">
                 <a href=""><i class="icon-bar-chart"></i><span>资金管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/charts')}"><a href="#/charts"> Charts</a></li>
-                    <li ng-class="{ active  : isActive('/financial-charts')}"><a href="#/financial-charts"> Financial Charts</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['fundManagement-*'])}}">
+                    <li ng-class="{ active:isActive('fundManagement-chargeList')}"><a ui-sref="fundManagement-chargeList">充值列表</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-withdrawCheck')}"><a ui-sref="fundManagement-withdrawCheck">提现审核</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-withdrawList')}"><a ui-sref="fundManagement-withdrawList">提现列表</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-ratePreserve')}"><a ui-sref="fundManagement-ratePreserve">费率维护</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-fallbackCheck')}"><a ui-sref="fundManagement-fallbackCheck">回退审核</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-chargeQuery')}"><a ui-sref="fundManagement-chargeQuery">充值查询(客服)</a></li>
+                    <li ng-class="{ active:isActive('fundManagement-withdrawQuery')}"><a ui-sref="fundManagement-withdrawQuery">提现查询(客服)</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['fundAccount-*'])}">
                 <a href=""><i class="icon-picture"></i><span>资金账户</span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/medias-croping')}"><a href="#medias-croping"> Images Croping</a></li>
-                    <li ng-class="{ active  : isActive('/medias-sortable')}"><a href="#medias-sortable"> Gallery Sortable</a></li>
-                    <li ng-class="{ active  : isActive('/medias-hover')}">
-                        <a href="#medias-hover"> <span class="pull-right badge badge-primary">12</span> Hover Effects</a>
-                    </li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['fundAccount-*'])}}">
+                    <li ng-class="{ active : isActive('fundAccount-fundAccountList')}"><a ui-sref="fundAccount-fundAccountList">资金账户列表</a></li>
                 </ul>
             </li>
             <li class="nav-parent">
                 <a href=""><i class="icon-docs"></i><span>财务管理 </span><span class="fa arrow"></span></a>
                 <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/pages-timeline')}"><a href="#pages-timeline"> Timeline</a></li>
+                    <li ng-class="{ active  : isActive('/pages-timeline')}"><a ui-sref="fundAccount-fundAccountList"> Timeline</a></li>
                     <li ng-class="{ active  : isActive('/pages-blank')}"><a href="#pages-blank"> Blank Page</a></li>
                     <li ng-class="{ active  : isActive('/pages-contact')}"><a href="#pages-contact"> Contact</a></li>
                 </ul>

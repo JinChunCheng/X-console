@@ -1,0 +1,51 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>回退审核</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                         <div class="input-group">
+                            <span class="input-group-addon">申请时间</span>
+                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
+                                <span class="input-group-addon">~</span>
+                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
+                            </div>
+                        </div>
+                        </div>
+                    </div>     
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.status">
+                                    <option>申请</option>
+                                    <option>批准</option>
+                                    <option>拒绝</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group col-md-4">
+                        <button class="btn btn-info">查找</button>
+                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
+    <div class="panel-body">
+        <table id="fallbackCheckTable" bs-table-control="bsFallbackCheckTableControl"></table>
+    </div>
+</div>
