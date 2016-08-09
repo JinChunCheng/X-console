@@ -29,6 +29,18 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('fundAccount-fundAccountList', lazyLoad.config('/fundAccount/fundAccountList', '/view/fundAccount/fundAccountList.html', 'controller/fundAccount/fundAccountList', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('fundAccount-fundAccountQuery', lazyLoad.config('/fundAccount/fundAccountQuery', '/view/fundAccount/fundAccountQuery.html', 'controller/fundAccount/fundAccountQuery', { directives: [], services: ['service/borrower'], filters: [] }))
                 
+
+                .state('statement-dashboard', lazyLoad.config('/statment/dashboard', '/view/statment/dashboard.html', 'controller/statment/dashboard', { directives: [], services: ['service/borrower'], filters: [] }))
+                
+
+                .state('systemManagement-usersList', lazyLoad.config('/systemManagement/usersList', '/view/systemManagement/usersList.html', 'controller/systemManagement/usersList', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-roleList', lazyLoad.config('/systemManagement/roleList', '/view/systemManagement/roleList.html', 'controller/systemManagement/roleList', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-departmentMaintains', lazyLoad.config('/systemManagement/departmentMaintains', '/view/systemManagement/departmentMaintains.html', 'controller/systemManagement/departmentMaintains', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-regularJobLog', lazyLoad.config('/systemManagement/regularJobLog', '/view/systemManagement/regularJobLog.html', 'controller/systemManagement/regularJobLog', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-onlineMonitoring', lazyLoad.config('/systemManagement/onlineMonitoring', '/view/systemManagement/onlineMonitoring.html', 'controller/systemManagement/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-staticParameters', lazyLoad.config('/systemManagement/staticParameters', '/view/systemManagement/staticParameters.html', 'controller/systemManagement/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
+
+
             $locationProvider.html5Mode(true);
         }
     ]);
