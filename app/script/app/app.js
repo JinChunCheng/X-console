@@ -27,6 +27,7 @@ define([
                 $httpProvider.interceptors.push(['$rootScope', '$q', '$injector', function($rootScope, $q, $injector) {
                     return {
                         response: function(response) {
+                            console.log(response);
                             // //统一处理401未授权问题，清cookie并返回首页登录
                             // if (response && response.data && response.data.status == 401) {
                             //     //不能直接注入，有循环引用问题
