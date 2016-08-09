@@ -1,7 +1,7 @@
 <div class="header">
     <h2><i class="fa fa-dashboard"></i>借款人列表</h2>
 </div>
-<div class="row" id="toolbar">
+<div class="row">
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">借款人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerCode">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.borrowerCode">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerName">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.borrowerName">
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">身份证</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.idCard">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.idCard">
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">手机号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.mobile">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.mobile">
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.status">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.status">
                             </div>
                         </div>
                     </div>
@@ -64,5 +64,10 @@
             </div>
         </div>
     </form>
+</div>
+<div class="row">
+    <div class="col-md-12 m-b-5">
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+    </div>
 </div>
 <table id="borrowerTable" table-full-size bs-table-control="bsBorrowerTableControl"></table>
