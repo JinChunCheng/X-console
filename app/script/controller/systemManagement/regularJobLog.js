@@ -1,6 +1,5 @@
-
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -14,9 +13,9 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null，
-            arrayState:["运行中","完成","异常"]，
-            arrayName:["充值定单状态更新","合同生成","账户稽核","投标截止项目状态更新","短信发送","日报","月报","转债合同生成","自动取消超时的债权转让","重新计算转让数据","检查投资是否可以转让","定时检查清退过期微信红包","定时发布项目"]
+            table: null,
+            arrayState: ["运行中", "完成", "异常"],
+            arrayName: ["充值定单状态更新", "合同生成", "账户稽核", "投标截止项目状态更新", "短信发送", "日报", "月报", "转债合同生成", "自动取消超时的债权转让", "重新计算转让数据", "检查投资是否可以转让", "定时检查清退过期微信红包", "定时发布项目"]
         };
 
 
@@ -30,9 +29,9 @@ define([], function() {
         });
 
 
-var getData = function(params) {
+        var getData = function(params) {
             //query: {where: JSON.stringify($scope.listView.condition)}
-            borrowerService.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function(res) {
+            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                 //debugger
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
@@ -47,7 +46,7 @@ var getData = function(params) {
                     });
                 }, 500);
             });
-
+        };
 
         (function init() {
 

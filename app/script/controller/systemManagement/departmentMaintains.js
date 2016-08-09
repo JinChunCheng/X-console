@@ -44,7 +44,7 @@ var getData = function(params) {
                     });
                 }, 500);
             });
-
+        };
 
         (function init() {
 

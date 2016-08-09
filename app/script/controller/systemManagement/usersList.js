@@ -1,6 +1,5 @@
-
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -15,7 +14,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            array:["汇和金服","研发部","财务部","客服部","运维部","测试部","test"]
+            array: ["汇和金服", "研发部", "财务部", "客服部", "运维部", "测试部", "test"]
         };
 
         /**
@@ -28,9 +27,9 @@ define([], function() {
         });
 
 
-var getData = function(params) {
+        var getData = function(params) {
             //query: {where: JSON.stringify($scope.listView.condition)}
-            borrowerService.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function(res) {
+            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                 //debugger
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
@@ -45,7 +44,7 @@ var getData = function(params) {
                     });
                 }, 500);
             });
-
+        };
 
         (function init() {
 
