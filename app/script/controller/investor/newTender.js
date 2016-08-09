@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'applicationService', function($scope, $http, $timeout, $modal, applicationService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
 
         /**
          * the default search condition
@@ -28,33 +28,20 @@ define([], function() {
 
 
         var getData = function(params) {
-            $http({
-                    url: 'script/data/repaymentList.json',
-                    type: 'get'
-                })
-                .success(function(data) {
-                   var tm = $timeout(function() {
-                        //给每一条数据随机加上一个1-100的ID
-                        data.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                            item.name = "jjaj";
-
-                        });
-                        //随机排序
-                        data.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        //bootstrap-table加载成功后将数据填充进去
-                        params.success({
-                            total: 10,
-                            rows: data
-                        });
-                    }, 200);
-                    // $timeout.cancel(tm);
-                })
-                .error(function(err) {
-
-                });
+            borrowerService.getAll($scope.listView.condition).then(function(res) {
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
         };
 
         (function init() {
