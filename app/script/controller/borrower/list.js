@@ -45,7 +45,7 @@ define([], function() {
 
         (function init() {
 
-            $scope.bsTableControl = {
+            $scope.bsBorrowerTableControl = {
                 options: {
                     //data: rows,
                     // rowStyle: function(row, index) {

@@ -22,7 +22,7 @@ define([], function() {
          * @param  {function}   callback function
          */
         $scope.$on('$viewContentLoaded', function() {
-            $scope.listView.table = $('#chargeListTable');
+            $scope.listView.table = $('#fundAccountQueryTable');
         });
 
 
@@ -45,7 +45,7 @@ define([], function() {
 
         (function init() {
 
-            $scope.bsChargeListTableControl = {
+            $scope.bsFundAccountQueryTableControl = {
                 options: {
                     //data: rows,
                     // rowStyle: function(row, index) {
@@ -54,7 +54,7 @@ define([], function() {
                     // fixedColumns: true,
                     // fixedNumber: 2,
                     cache: false,
-                    height: 500,
+                    height: 650,
                     //striped: true,
                     pagination: true,
                     pageSize: 10,

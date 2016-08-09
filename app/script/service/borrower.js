@@ -31,6 +31,6 @@ define([], function() {
                         return $q.reject(res);
                     });
             }
-        }
-    }]]
+        };
+    }]];
 });
