@@ -98,7 +98,10 @@
                 <a href=""><i class="icon-bar-chart"></i><span>报表 </span><span class="fa arrow"></span></a>
                 <ul class="children collapse" style="{{appView.getSubMenuStyle(['statement-*'])}}">
                     <li ng-class="{ active  : isActive('statement-dashboard')}"><a ui-sref="statement-dashboard">Dashboard</a></li>
-                    <li ng-class="{ active  : isActive('/ecom-invoice')}"><a href="#ecom-invoice"> Invoice</a></li>
+                    <li ng-class="{ active  : isActive('statement-earnedValue')}"><a ui-sref="statement-earnedValue">利润报表</a></li>
+                    <li ng-class="{ active  : isActive('statement-lendingStatement')}"><a ui-sref="statement-lendingStatement">借贷统计报表</a></li>
+                    <li ng-class="{ active  : isActive('statement-projectStatement')}"><a ui-sref="statement-projectStatement">项目报表</a></li>
+                    <li ng-class="{ active  : isActive('statement-dueRepayment')}"><a ui-sref="statement-dueRepayment">到期还款报表 </a></li>
                 </ul>
             </li>
             <li class="nav-parent" ng-class="{active: appView.isActive(['systemManagement-*'])}">
