@@ -13,23 +13,23 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            depositType:['æ‰˜ç®¡æˆ·=>ç›’å­æ”¯ä»˜','å‡†å¤‡é‡‘=>æ’ä¸°é“¶è¡Œ','æ‰˜ç®¡æˆ·=>å‡†å¤‡é‡‘','æ‰˜ç®¡æˆ·=>æ”¶ç›Šæˆ·','æ”¶ç›Šæˆ·=>ç»“ç®—æˆ·æ‰“æ¬¾','æ‰˜ç®¡æˆ·=>æ’ä¸°ç»“ç®—æˆ·','æ‰˜ç®¡æˆ·=>ç›’å­ç»“ç®—æˆ·','ç›’å­è¿˜æ¬¾æˆ·=>æ‰˜ç®¡æˆ·']
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
+
+            /**
+             * do something after view loaded
+             * @param  {string}     event type                       
+             * @param  {function}   callback function
+             */
         $scope.$on('$viewContentLoaded', function() {
-            $scope.listView.table = $('#roleListTable');
+            $scope.listView.table = $('#withdrawCashReconTable');
         });
 
 
         var getData = function(params) {
-            //query: {where: JSON.stringify($scope.listView.condition)}
-            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
+            borrowerService.getAll($scope.listView.condition).then(function(res) {
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
                         item.id = parseInt(Math.random() * 100);
@@ -45,10 +45,9 @@ define([], function() {
             });
         };
 
-
         (function init() {
 
-            $scope.bsRoleListTableControl = {
+            $scope.bsWithdrawCashReconTableControl = {
                 options: {
                     //data: rows,
                     // rowStyle: function(row, index) {
@@ -80,122 +79,122 @@ define([], function() {
                         valign: 'middle'
                     }, {
                         field: 'id',
-                        title: '±àºÅ',
+                        title: 'ç¼–å·',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'name',
-                        title: 'µÇÂ¼Ãû',
+                        title: 'ç™»å½•å',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace',
-                        title: 'ÕæÊµĞÕÃû',
+                        title: 'çœŸå®å§“å',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace2',
-                        title: 'Éí·İÖ¤ºÅÂë',
+                        title: 'èº«ä»½è¯å·ç ',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace3',
-                        title: 'ÊÖ»úºÅ',
+                        title: 'æ‰‹æœºå·',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace4',
-                        title: '¹Ì»°',
+                        title: 'å›ºè¯',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace5',
-                        title: '×´Ì¬',
+                        title: 'çŠ¶æ€',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace6',
-                        title: 'Àí²Æ¿Í»§¾­Àí±àºÅ',
+                        title: 'ç†è´¢å®¢æˆ·ç»ç†ç¼–å·',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace7',
-                        title: 'Àí²Æ¿Í»§¾­Àí´úÂë',
+                        title: 'ç†è´¢å®¢æˆ·ç»ç†ä»£ç ',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace8',
-                        title: 'Àí²Æ¿Í»§¾­ÀíĞÕÃû',
+                        title: 'ç†è´¢å®¢æˆ·ç»ç†å§“å',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace9',
-                        title: 'Àí²ÆÇşµÀ´úÂë',
+                        title: 'ç†è´¢æ¸ é“ä»£ç ',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'Àí²ÆÇşµÀÃû³Æ',
+                        title: 'ç†è´¢æ¸ é“åç§°',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '×¢²áÀàĞÍ',
+                        title: 'æ³¨å†Œç±»å‹',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'ÊÇ·ñ±¾¹«Ë¾Ô±¹¤',
+                        title: 'æ˜¯å¦æœ¬å…¬å¸å‘˜å·¥',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'ÓÊ±à',
+                        title: 'é‚®ç¼–',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'µØÖ·',
+                        title: 'åœ°å€',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'ÊÇ·ñĞÂÊÖ',
+                        title: 'æ˜¯å¦æ–°æ‰‹',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: 'ÊÔÍ¶½ğ×´Ì¬',
+                        title: 'è¯•æŠ•é‡‘çŠ¶æ€',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'flag',
-                        title: '²Ù×÷',
+                        title: 'æ“ä½œ',
                         align: 'center',
                         valign: 'middle',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
                             'click .btn': function(e, value, row, index) {
-                                var text = "È·¶¨É¾³ı´Ë¼ÇÂ¼£¿";
+                                var text = "ç¡®å®šåˆ é™¤æ­¤è®°å½•ï¼Ÿ";
                                 // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
                                 $modal.open({
                                     templateUrl: 'view/shared/confirm.html',
