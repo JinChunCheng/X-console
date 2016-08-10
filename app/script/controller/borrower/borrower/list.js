@@ -132,73 +132,73 @@ define([], function() {
                             valign: 'middle'
                         }, {
                             field: 'id',
-                            title: 'ID',
+                            title: '编号',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
                             field: 'name',
-                            title: 'Item Name',
+                            title: '姓名',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace',
-                            title: 'Workspace',
+                            title: '身份证号码',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace2',
-                            title: 'Workspace2',
+                            title: '手机',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace3',
-                            title: 'Workspace3',
+                            title: '固定电话',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace4',
-                            title: 'Workspace4',
+                            title: '邮箱',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace5',
-                            title: 'Workspace5',
+                            title: '省份',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace6',
-                            title: 'Workspace6',
+                            title: '城市',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace7',
-                            title: 'Workspace7',
+                            title: '开户行',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace8',
-                            title: 'Workspace8',
+                            title: '银行账号',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace9',
-                            title: 'Workspace9',
+                            title: '状态',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace10',
-                            title: 'Workspace10',
+                            title: '创建时间',
                             align: 'left',
                             valign: 'top',
                             sortable: true

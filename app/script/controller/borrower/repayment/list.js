@@ -11,7 +11,7 @@ define([], function() {
             pageSize: 10
         };
 
-        $scope.listView = {
+        $scope.listVM = {
             condition: angular.copy(defaultCondition),
             table: null
         };
@@ -22,7 +22,7 @@ define([], function() {
          * @param  {function}   callback function
          */
         $scope.$on('$viewContentLoaded', function() {
-            $scope.listView.table = $('#borrowerRepaymentsTable');
+            $scope.listVM.table = $('#borrowerRepaymentsTable');
         });
 
 
@@ -201,7 +201,7 @@ define([], function() {
                         events: {
                             'click .btn': function(e, value, row, index) {
                                 var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+                                // var text = JSON.stringify($scope.listVM.table.bootstrapTable('getAllSelections'));
                                 $modal.open({
                                     templateUrl: 'view/shared/confirm.html',
                                     size: 'sm',
@@ -240,12 +240,12 @@ define([], function() {
         };
 
         $scope.search = function() {
-            $scope.listView.table.bootstrapTable('refresh');
+            $scope.listVM.table.bootstrapTable('refresh');
             console.log('aaa');
         };
 
         $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
+            $scope.listVM.condition = angular.copy(defaultCondition);
             console.log('aaa');
         };
 
