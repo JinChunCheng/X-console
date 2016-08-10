@@ -7,9 +7,9 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
                 .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', { directives: [], services: [], filters: [] }))
                 .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', { directives: [], services: [], filters: [] }))
-                .state('borrower-edit', lazyLoad.config('/borrower/edit', '/view/borrower/edit.html', 'controller/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
-                
                 .state('borrower-list', lazyLoad.config('/borrower/list', '/view/borrower/list.html', 'controller/borrower/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('borrower-add', lazyLoad.config('/borrower/add', '/view/borrower/edit.html', 'controller/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('borrower-edit', lazyLoad.config('/borrower/edit/:id', '/view/borrower/edit.html', 'controller/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('borrower-repayments', lazyLoad.config('/borrower/repayments', '/view/borrower/repayments.html', 'controller/borrower/repayments', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('investor-investorList', lazyLoad.config('/investor/investorList', '/view/investor/investorList.html', 'controller/investor/investorList', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('investor-investorCheck', lazyLoad.config('/investor/investorCheck', '/view/investor/investorCheck.html', 'controller/investor/investorCheck', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -49,7 +49,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('marketingManagement-mailLog', lazyLoad.config('/marketingManagement/mailLog', '/view/marketingManagement/mailLog.html', 'controller/marketingManagement/mailLog', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('marketingManagement-systemNoticeList', lazyLoad.config('/marketingManagement/systemNoticeList', '/view/marketingManagement/systemNoticeList.html', 'controller/marketingManagement/systemNoticeList', { directives: [], services: ['service/borrower'], filters: [] }))
 
-
+                .state('statement-dashboard', lazyLoad.config('/statment/dashboard', '/view/statment/dashboard.html', 'controller/statment/dashboard', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-earnedValue', lazyLoad.config('/statment/earnedValue', '/view/statment/earnedValue.html', 'controller/statment/earnedValue', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-lendingStatement', lazyLoad.config('/statment/lendingStatement', '/view/statment/lendingStatement.html', 'controller/statment/lendingStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-projectStatement', lazyLoad.config('/statment/projectStatement', '/view/statment/projectStatement.html', 'controller/statment/projectStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-dueRepayment', lazyLoad.config('/statment/dueRepayment', '/view/statment/dueRepayment.html', 'controller/statment/dueRepayment', { directives: [], services: ['service/borrower'], filters: [] }))
+                
 
                 .state('systemManagement-usersList', lazyLoad.config('/systemManagement/usersList', '/view/systemManagement/usersList.html', 'controller/systemManagement/usersList', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('systemManagement-roleList', lazyLoad.config('/systemManagement/roleList', '/view/systemManagement/roleList.html', 'controller/systemManagement/roleList', { directives: [], services: ['service/borrower'], filters: [] }))

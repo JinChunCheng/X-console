@@ -3,13 +3,13 @@
         <h3 ng-bind="vm.title"></h3>
     </div>
     <div class="panel-body">
-        <form role="form" class="form-horizontal form-validation" novalidate="novalidate">
+        <form role="form" class="form-horizontal form-validation" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
                     姓名
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.name">
                 </div>
             </div>
             <div class="form-group">
@@ -17,7 +17,7 @@
                     身份证号码
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.idNo">
                 </div>
             </div>
             <div class="form-group">
@@ -25,7 +25,7 @@
                     手机
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.mobile">
                 </div>
             </div>
             <div class="form-group">
@@ -33,7 +33,7 @@
                     固定电话
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.telephone">
                 </div>
             </div>
             <div class="form-group">
@@ -41,7 +41,7 @@
                     邮箱
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.email">
                 </div>
             </div>
             <div class="form-group">
@@ -49,7 +49,7 @@
                     开户行
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankName">
                 </div>
             </div>
             <div class="form-group">
@@ -57,7 +57,7 @@
                     开户行省份
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankProvinceName">
                 </div>
             </div>
             <div class="form-group">
@@ -65,7 +65,7 @@
                     开户行城市
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankCityName">
                 </div>
             </div>
             <div class="form-group">
@@ -73,7 +73,7 @@
                     银行账户名
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccountName">
                 </div>
             </div>
             <div class="form-group">
@@ -81,7 +81,7 @@
                     银行账户号
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.accountNo">
                 </div>
             </div>
             <div class="form-group">
@@ -89,7 +89,7 @@
                     地址
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.address">
                 </div>
             </div>
             <div class="form-group">
@@ -97,7 +97,7 @@
                     邮编
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.zipCode">
                 </div>
             </div>
             <div class="form-group">
@@ -105,13 +105,13 @@
                     备注
                 </label>
                 <div class="col-sm-10">
-                    <textarea name="comment" rows="3" class="form-control"></textarea>
+                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
-                        <button type="submit" class="btn btn-primary m-r-10">保存</button>
-                        <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">取消</button>
+                    <button type="submit" class="btn btn-primary m-r-10">保存</button>
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
                 </div>
             </div>
         </form>
