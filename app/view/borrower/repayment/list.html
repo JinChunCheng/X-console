@@ -1,0 +1,50 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>借款人还款列表</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">借款人编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.code">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                	<div class="form-group">
+                		<div class="col-sm-12">
+                		 <div class="input-group">
+                            <span class="input-group-addon">日期</span>
+                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                <input type="date" class="input-sm form-control" ng-model="listVM.condition.startDate">
+                                <span class="input-group-addon">~</span>
+                                <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.endDate">
+                            </div>
+                        </div>
+                        </div>
+                    </div>     
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<table id="borrowerRepaymentsTable" table-full-size bs-table-control="bsRepaymentsTableControl"></table>
