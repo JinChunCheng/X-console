@@ -49,6 +49,20 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('marketingManagement-mailLog', lazyLoad.config('/marketingManagement/mailLog', '/view/marketingManagement/mailLog.html', 'controller/marketingManagement/mailLog', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('marketingManagement-systemNoticeList', lazyLoad.config('/marketingManagement/systemNoticeList', '/view/marketingManagement/systemNoticeList.html', 'controller/marketingManagement/systemNoticeList', { directives: [], services: ['service/borrower'], filters: [] }))
 
+                .state('statement-dashboard', lazyLoad.config('/statment/dashboard', '/view/statment/dashboard.html', 'controller/statment/dashboard', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-earnedValue', lazyLoad.config('/statment/earnedValue', '/view/statment/earnedValue.html', 'controller/statment/earnedValue', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-lendingStatement', lazyLoad.config('/statment/lendingStatement', '/view/statment/lendingStatement.html', 'controller/statment/lendingStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-projectStatement', lazyLoad.config('/statment/projectStatement', '/view/statment/projectStatement.html', 'controller/statment/projectStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('statement-dueRepayment', lazyLoad.config('/statment/dueRepayment', '/view/statment/dueRepayment.html', 'controller/statment/dueRepayment', { directives: [], services: ['service/borrower'], filters: [] }))
+                
+
+                .state('systemManagement-usersList', lazyLoad.config('/systemManagement/usersList', '/view/systemManagement/usersList.html', 'controller/systemManagement/usersList', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-roleList', lazyLoad.config('/systemManagement/roleList', '/view/systemManagement/roleList.html', 'controller/systemManagement/roleList', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-departmentMaintains', lazyLoad.config('/systemManagement/departmentMaintains', '/view/systemManagement/departmentMaintains.html', 'controller/systemManagement/departmentMaintains', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-regularJobLog', lazyLoad.config('/systemManagement/regularJobLog', '/view/systemManagement/regularJobLog.html', 'controller/systemManagement/regularJobLog', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-onlineMonitoring', lazyLoad.config('/systemManagement/onlineMonitoring', '/view/systemManagement/onlineMonitoring.html', 'controller/systemManagement/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('systemManagement-staticParameters', lazyLoad.config('/systemManagement/staticParameters', '/view/systemManagement/staticParameters.html', 'controller/systemManagement/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
+
             $locationProvider.html5Mode(true);
         }
     ]);
