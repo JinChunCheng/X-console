@@ -75,40 +75,53 @@
                 <ul class="children collapse" style="{{appView.getSubMenuStyle(['fundAccount-*'])}}">
                     <li ng-class="{ active : isActive('fundAccount-fundAccountList')}"><a ui-sref="fundAccount-fundAccountList">资金账户列表</a></li>
                     <li ng-class="{ active : isActive('fundAccount-fundAccountQuery')}"><a ui-sref="fundAccount-fundAccountQuery">资金账户流水查询</a></li>
+                    <li ng-class="{ active : isActive('fundAccount-fundRatePreserve')}"><a ui-sref="fundAccount-fundRatePreserve">资金费率维护</a></li>
+                    <li ng-class="{ active : isActive('fundAccount-profitDraw')}"><a ui-sref="fundAccount-profitDraw">利润提取</a></li>
+                    <li ng-class="{ active : isActive('fundAccount-profitDrawList')}"><a ui-sref="fundAccount-profitDrawList">利润提取列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['financialManagement-*'])}">
                 <a href=""><i class="icon-docs"></i><span>财务管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/pages-timeline')}"><a ui-sref="fundAccount-fundAccountList"> Timeline</a></li>
-                    <li ng-class="{ active  : isActive('/pages-blank')}"><a href="#pages-blank"> Blank Page</a></li>
-                    <li ng-class="{ active  : isActive('/pages-contact')}"><a href="#pages-contact"> Contact</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['financialManagement-*'])}}">
+                    <li ng-class="{ active  : isActive('financialManagement-withdrawCash')}"><a ui-sref="financialManagement-withdrawCash">提现出款</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-endBiddingCash')}"><a ui-sref="financialManagement-endBiddingCash">满标出款</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-cashDirectiveList')}"><a ui-sref="financialManagement-cashDirectiveList">出款指令列表</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-transferCashPrint')}"><a ui-sref="financialManagement-transferCashPrint">划款打印</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-withdrawCashMonitor')}"><a ui-sref="financialManagement-withdrawCashMonitor">提现出款监控</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-promptList')}"><a ui-sref="financialManagement-promptList">催款单列表</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-promptCheck')}"><a ui-sref="financialManagement-promptCheck">催款单审核</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-POSchargeRecon')}"><a ui-sref="financialManagement-POSchargeRecon">POS充值对账</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-withdrawCashRecon')}"><a ui-sref="financialManagement-withdrawCashRecon">提现出款对账</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-fileInterfaceLog')}"><a ui-sref="financialManagement-fileInterfaceLog">文件接口日志</a></li>
+                    <li ng-class="{ active:isActive('financialManagement-ERPinterface')}"><a ui-sref="financialManagement-ERPinterface">ERP接口</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['marketingManagement-*'])}">
                 <a href=""><i class="icon-user"></i><span>营销管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/user-profile')}">
-                        <a href="#user-profile"> <span class="pull-right badge badge-danger">Hot</span> Profile</a>
-                    </li>
-                    <li ng-class="{ active  : isActive('/user-sessionTimeout')}"><a href="#user-sessionTimeout"> Session Timeout</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['marketingManagement-*'])}}">
+                    <li ng-class="{ active:isActive('marketingManagement-messageList')}"><a ui-sref="marketingManagement-messageList">短信列表</a></li>
+                    <li ng-class="{ active:isActive('marketingManagement-SMSchannel')}"><a ui-sref="marketingManagement-SMSchannel">短信渠道</a></li>
+                    <li ng-class="{ active:isActive('marketingManagement-mailLog')}"><a ui-sref="marketingManagement-mailLog">邮件日志</a></li>
+                    <li ng-class="{ active:isActive('marketingManagement-systemNoticeList')}"><a ui-sref="marketingManagement-systemNoticeList">系统公告列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['statement-*'])}">
                 <a href=""><i class="icon-bar-chart"></i><span>报表 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/ecom-cart')}"><a href="#ecom-cart"> Shopping Cart</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['statement-*'])}}">
+                    <li ng-class="{ active  : isActive('statement-dashboard')}"><a ui-sref="statement-dashboard">Dashboard</a></li>
                     <li ng-class="{ active  : isActive('/ecom-invoice')}"><a href="#ecom-invoice"> Invoice</a></li>
                 </ul>
             </li>
-            <li class="nav-parent">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['systemManagement-*'])}">
                 <a href=""><i class="icon-settings"></i><span>系统管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse">
-                    <li ng-class="{ active  : isActive('/extra-fullCalendar')}"><a href="#extra-fullCalendar"><span class="pull-right badge badge-primary">New</span> Fullcalendar</a></li>
-                    <li ng-class="{ active  : isActive('/extra-widgets')}"><a href="#extra-widgets"> Widgets</a></li>
-                    <li ng-class="{ active  : isActive('/extra-slider')}"><a href="#extra-slider"> Sliders</a></li>
-                    <li ng-class="{ active  : isActive('/extra-google')}"><a href="#extra-google"> Google Maps</a></li>
-                    <li ng-class="{ active  : isActive('/extra-vector')}"><a href="#extra-vector"> Vector Maps</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['systemManagement-*'])}}">
+                    <li ng-class="{ active  : isActive('systemManagement-usersList')}"><a ui-sref="systemManagement-usersList"> 用户列表</a></li>
+                    <li ng-class="{ active  : isActive('systemManagement-roleList')}"><a ui-sref="systemManagement-roleList"> 角色列表 </a></li>
+                    <li ng-class="{ active  : isActive('systemManagement-departmentMaintains')}"><a ui-sref="systemManagement-departmentMaintains"> 部门维护 </a></li>
+                    <li ng-class="{ active  : isActive('systemManagement-regularJobLog')}"><a ui-sref="systemManagement-regularJobLog"> 定时任务日志 </a></li>
+                    <li ng-class="{ active  : isActive('systemManagement-onlineMonitoring')}"><a ui-sref="systemManagement-onlineMonitoring"> 在线投资人监控 </a></li>
+                    <li ng-class="{ active  : isActive('systemManagement-staticParameters')}"><a ui-sref="systemManagement-staticParameters"> 静态参数维护 </a></li>
+
                 </ul>
             </li>
         </ul>

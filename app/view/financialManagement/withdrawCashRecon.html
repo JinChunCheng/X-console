@@ -1,0 +1,68 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>提现出款对账</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">批次号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.batchCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">出款编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.cashCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">对账状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.reconStatus" ng-options='Type for Type in listView.depositType'>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">创建日期</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4  col-md-offset-5">
+                <div class="form-group col-md-4">
+                    <button class="btn btn-info">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
+    <div class="panel-body">
+        <table id="withdrawCashReconTable" bs-table-control="bsWithdrawCashReconTableControl"></table>
+    </div>
+</div>
