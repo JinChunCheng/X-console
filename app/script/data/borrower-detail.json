@@ -1,0 +1,42 @@
+{
+    "code": 200,
+    "msg": "",
+    "data": {
+        "borrowerId": "39",
+        "idNo": "130666198808081234",
+        "name": "张三丰",
+        "mobile": "13716833201",
+        "telephone": "68814512",
+        "address": "",
+        "zipCode": "",
+        "email": "404969602@qq.com|zhipengfei@iboxpay.com",
+        "bankAccountName": "张三丰",
+        "bankAccount": "6222020200074988888",
+        "bankName": "中国工商银行",
+        "bankProvince": "11",
+        "bankProvinceName": "北京市",
+        "bankCity": "1100",
+        "bankCityName": "北京市",
+        "bankCode": "102100099996",
+        "memo": "",
+        "accountNo": "000000000729",
+        "status": "O",
+        "statusName": "正常",
+        "createDatetime": "2015-07-31 11:53:04",
+        "updateDatetime": "2015-08-03 15:16:06",
+        "op": "汇和金服",
+        "effDate": "2015-08-03 15:16:06",
+        "borrowerAccountVo": {
+            "borrowerAccountId": "33",
+            "borrowerAccountNo": "000000000729",
+            "accountSubjectCodeName": "",
+            "balance": "0.00",
+            "frozenBalance": "0.00",
+            "freeBalance": "0.00",
+            "freeBalanceAlias": null,
+            "status": "",
+            "createDatetime": "",
+            "updateDatetime": ""
+        }
+    }
+}

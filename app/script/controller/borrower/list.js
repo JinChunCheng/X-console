@@ -210,41 +210,51 @@ define([], function() {
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {
-                                'click .btn': function(e, value, row, index) {
-                                    var text = "确定删除此记录？";
-                                    //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
-                                    $modal.open({
-                                        templateUrl: 'view/shared/confirm.html',
-                                        size: 'sm',
-                                        //backdrop: true,
-                                        controller: function($scope, $modalInstance) {
-                                            $scope.confirmData = {
-                                                text: text,
-                                                processing: false
-                                            };
-                                            $scope.cancel = function() {
-                                                $modalInstance.dismiss();
-                                                return false;
-                                            }
-
-                                            $scope.ok = function() {
-                                                delUser(item.id, $scope, $modalInstance);
-                                                return true;
-                                            }
-                                        }
-                                    });
-
-                                }
+                                'click .btn-danger': deleteRow,
+                                'click .btn-primary': editRow
                             }
                         }]
                     }
                 };
 
                 function flagFormatter(value, row, index) {
-                    return '<button type="button" class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>'
+                    var btnHtml = [
+                        '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
+                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
+                    ];
+                    return btnHtml.join('');
                 }
 
             })();
+
+            function deleteRow(e, value, row, index) {
+                var text = "确定删除此记录？";
+                //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
+                $modal.open({
+                    templateUrl: 'view/shared/confirm.html',
+                    size: 'sm',
+                    //backdrop: true,
+                    controller: function($scope, $modalInstance) {
+                        $scope.confirmData = {
+                            text: text,
+                            processing: false
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        $scope.ok = function() {
+                            delUser(item.id, $scope, $modalInstance);
+                            return true;
+                        }
+                    }
+                });
+            };
+
+            function editRow(e, value, row, index) {
+                $state.go('borrower-edit', { id: row.id });
+            }
 
             $scope.del = function() {
 
