@@ -25,14 +25,14 @@
             <li ng-class="{active: appView.isActive('dashboard')}">
                 <a ui-sref="dashboard"><i class="icon-home"></i><span>控制台</span></a>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['borrower-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['borrowerManagement-*'])}">
                 <a href="" class="submenu-root">
                     <i class="icon-screen-desktop"></i>
                     <span>借款人管理</span>
                     <span class="fa arrow"></span>
                 </a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['borrower-*'])}}">
-                    <li ng-class="{active: appView.isActive('borrower-list')}">
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['borrowerManagement-*'])}}">
+                    <li ng-class="{active: appView.isActive('borrowerManagement-borrowerList-list')}">
                         <a ui-sref="borrower-list"> 借款人列表</a>
                     </li>
                     <li ng-class="{active:appView.isActive('borrower-repayments')}"><a ui-sref="borrower-repayments"> 借款人还款列表</a></li>

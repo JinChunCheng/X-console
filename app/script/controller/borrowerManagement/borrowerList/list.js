@@ -253,6 +253,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
+                console.log(row.id)
                 $state.go('borrower-edit', { id: row.id });
             }
 

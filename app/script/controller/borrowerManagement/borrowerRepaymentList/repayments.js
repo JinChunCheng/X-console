@@ -28,7 +28,7 @@ define([], function() {
 
                     var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {

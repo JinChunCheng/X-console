@@ -1,3 +1,4 @@
+//JS 严格模式
 'use strict';
 define(['app', 'lazy-load'], function(app, lazyLoad) {
     return app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$controllerProvider',
@@ -7,9 +8,10 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
                 .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', { directives: [], services: [], filters: [] }))
                 .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', { directives: [], services: [], filters: [] }))
-                .state('borrower-list', lazyLoad.config('/borrower/list', '/view/borrower/list.html', 'controller/borrower/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('borrower-add', lazyLoad.config('/borrower/add', '/view/borrower/edit.html', 'controller/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('borrower-edit', lazyLoad.config('/borrower/edit/:id', '/view/borrower/edit.html', 'controller/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('borrower-list', lazyLoad.config('/borrowerManagement/borrowerList/list', '/view/borrowerManagement/borrowerList/list.html', 'controller/borrowerManagement/borrowerList/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('borrower-add', lazyLoad.config('/borrowerManagement/borrowerList/add', '/view/borrowerManagement/borrowerList/add.html', 'controller/borrowerManagement/borrowerList/add', { directives: [], services: ['service/borrower'], filters: [] }))
+                
+                .state('borrower-edit', lazyLoad.config('/borrowerManagement/borrowerList/edit/:id', '/view/borrowerManagement/borrowerList/edit.html', '/view/borrowerManagement/borrowerList/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('borrower-repayments', lazyLoad.config('/borrower/repayments', '/view/borrower/repayments.html', 'controller/borrower/repayments', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('investor-investorList', lazyLoad.config('/investor/investorList', '/view/investor/investorList.html', 'controller/investor/investorList', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('investor-investorCheck', lazyLoad.config('/investor/investorCheck', '/view/investor/investorCheck.html', 'controller/investor/investorCheck', { directives: [], services: ['service/borrower'], filters: [] }))
