@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http, $resource, $timeout, $modal, $state, borrowerService) {
 
             /**
              * the default search condition
@@ -55,11 +55,11 @@ define([], function() {
                     }, 500);
                 });
 
-                //post: 
+                // //post: 
                 // var project = {};
                 // project.borrowerId = 1;
                 // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
+                // project.projectName="console-前台添加222";
                 // project.requestAmount=100000.00;
                 // project.repaymentType="IOP";
                 // project.duration=12;
@@ -93,7 +93,11 @@ define([], function() {
                 // project.memo="";
                 // project.creditChannelId=1;
 
-                // borrowerService.get(project).then(function(res) {
+
+                // $resource('http://172.21.1.12:8080/hzq/project', null, { update: { method: 'PUT' } }).update(project).$promise.then(function(data) {
+                //     console.log(data);
+                //     debugger
+                // }, function(err) {
                 //     debugger
                 // });
             };

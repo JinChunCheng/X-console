@@ -1,0 +1,28 @@
+{
+    "code": 200,
+    "msg": "",
+    "data": {
+        "paginate": {
+            "pageNum": 1,
+            "pageSize": 1000,
+            "totalCount": 1000
+        },
+        "items": [{
+            "text": "控制台",
+            "icon": "icon-home",
+            "state": "dashboard",
+            "subMenus": []
+        }, {
+            "text": "借款人管理",
+            "icon": "icon-screen-desktop",
+            "state": "borrower",
+            "subMenus": [{
+                "text": "借款人列表",
+                "state": "borrower.info.list"
+            }, {
+                "text": "借款人还款列表",
+                "state": "borrower.repayment.list"
+            }]
+        }]
+    }
+}

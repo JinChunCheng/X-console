@@ -951,7 +951,7 @@ angular.module('bootModule', [])
             }
         }
 
-    }]).factory('applicationService', ['pluginsService', function(pluginsService) {
+    }]).factory('applicationService', ['$resource', 'pluginsService', function($resource, pluginsService) {
 
         // $(window).load(function() {
         //     "use strict";
@@ -1674,6 +1674,7 @@ angular.module('bootModule', [])
             $('.sidebar').off('click', '.nav-sidebar li.nav-parent > a');
             $('.sidebar').on('click', '.nav-sidebar li.nav-parent > a', function(e) {
                 e.preventDefault();
+
                 if ($('body').hasClass('sidebar-collapsed') && !$('body').hasClass('sidebar-hover')) return;
                 if ($('body').hasClass('submenu-hover')) return;
                 var parent = $(this).parent().parent();
@@ -1688,11 +1689,12 @@ angular.module('bootModule', [])
                 var sub = $(this).next();
                 if (sub.is(":visible")) {
                     sub.children().addClass('hidden-item')
-                    $(this).parent().removeClass("active");
+                    //$(this).parent().removeClass("active");
                     sub.slideUp(200, function() {
                         sub.children().removeClass('hidden-item')
                     });
                 } else {
+                    console.log('not visible')
                     $(this).find('.arrow').addClass('active');
                     sub.children().addClass('is-hidden');
                     setTimeout(function() {
@@ -2075,7 +2077,7 @@ angular.module('bootModule', [])
         applicationService.toggleTopbar = toggleTopbar;
         applicationService.handlePanelAction = handlePanelAction;
         applicationService.toggleSidebarMenu = toggleSidebarMenu;
-
+        applicationService.menuResource = $resource('/script/data/menus.json', {}, { 'query': {isArray: false}});
         return applicationService;
 
     }]).factory('builderService', ['applicationService', function(applicationService) {
