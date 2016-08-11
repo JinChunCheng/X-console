@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $resource, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http, $timeout, $modal, $state, borrowerService) {
 
             /**
              * the default search condition
@@ -18,12 +18,8 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                add: function() {
-                    console.log('add');
-                    $state.go('borrower.info.add');
-                },
                 edit: function(id) {
-                    $state.go('borrower.info.edit', { id: id });
+                    $state.go('account.list.edit', { id: id });
                 }
             };
 
@@ -33,7 +29,7 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#borrowerTable');
+                $scope.listVM.table = $('#fundAccountListTable');
             });
 
 
@@ -55,11 +51,11 @@ define([], function() {
                     }, 500);
                 });
 
-                // //post: 
+                //post: 
                 // var project = {};
                 // project.borrowerId = 1;
                 // project.contractTemplateId=1;
-                // project.projectName="console-前台添加222";
+                // project.projectName="console-前台添加";
                 // project.requestAmount=100000.00;
                 // project.repaymentType="IOP";
                 // project.duration=12;
@@ -93,18 +89,14 @@ define([], function() {
                 // project.memo="";
                 // project.creditChannelId=1;
 
-
-                // $resource('http://172.21.1.12:8080/hzq/project', null, { update: { method: 'PUT' } }).update(project).$promise.then(function(data) {
-                //     console.log(data);
-                //     debugger
-                // }, function(err) {
+                // borrowerService.get(project).then(function(res) {
                 //     debugger
                 // });
             };
 
             (function init() {
 
-                $scope.bsBorrowerTableControl = {
+                $scope.bsFundAccountListTableControl = {
                     options: {
                         //data: rows,
                         // rowStyle: function(row, index) {
@@ -113,7 +105,7 @@ define([], function() {
                         // fixedColumns: true,
                         // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
+                        height:800,
                         //striped: true,
                         pagination: true,
                         pageSize: 10,
@@ -257,7 +249,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
-                $state.go('borrower.info.edit', { id: row.id });
+                $state.go('account.list.edit', { id: row.id });
             }
 
             $scope.del = function() {

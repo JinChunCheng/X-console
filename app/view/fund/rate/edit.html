@@ -4,92 +4,92 @@
     </div>
     <div class="panel-body">
         <form role="form" class="form-horizontal form-validation" novalidate>
-        <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-show="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
-                    借款人编号
+                    费率标识
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.code">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateMark">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    姓名
+                    费率名称
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.name">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateName">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    费率编码
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateCode">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='add'">
+                <label class="col-sm-2 control-label">
+                    费率编码
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.rateCode" ng-options='rateCode for rateCode in vm.rateCode'></select>
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    费率类型
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateType">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='add'">
+                <label class="col-sm-2 control-label">
+                    费率类型
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.rateType" ng-options='rateType for rateType in vm.rateType'></select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    身份证号码
+                    费率值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.idNo">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateValue">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    手机
+                    封顶值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.mobile">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.capValue">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    固定电话
+                    最低值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.telephone">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.lowestValue">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
-                    邮箱
+                    操作渠道
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.email">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.channel">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-show="vm.action=='add'">
                 <label class="col-sm-2 control-label">
-                    开户行
+                    操作渠道
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.bank" ng-options='bank for bank in vm.bank'></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    开户行省份
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.province" ng-options='province for province in vm.province'></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    开户行城市
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.city" ng-options='city for city in vm.city'></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    银行账户名
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccountName">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    银行账户号
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.accountNo">
+                    <select class="form-control" ng-model="vm.data.channel" ng-options='channel for channel in vm.channel'></select>
                 </div>
             </div>
             <div class="form-group" ng-show="vm.action=='edit'">
@@ -98,22 +98,6 @@
                 </label>
                 <div class="col-sm-10">
                     <select class="form-control" ng-model="vm.data.status" ng-options='status for status in vm.status'></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    地址
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.address">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    邮编
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.zipCode">
                 </div>
             </div>
             <div class="form-group">

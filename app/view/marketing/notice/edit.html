@@ -1,0 +1,71 @@
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <h3 ng-bind="vm.title"></h3>
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    公告编号
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.noticeCode">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    公告类型
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.noticeType">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='add'">
+                <label class="col-sm-2 control-label">
+                    公告类型
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.noticeType" ng-options='noticeType for noticeType in vm.noticeType'></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    标题
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.title">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    内容
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.content">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    失效时间
+                </label>
+                <div class="col-sm-10">
+                    <input type="date" class="form-control" ng-model="vm.data.deadTime">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    状态
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.status" ng-options='status for status in vm.status'></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary m-r-10">保存</button>
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
