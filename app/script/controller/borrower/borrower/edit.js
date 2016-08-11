@@ -4,6 +4,7 @@ define([], function() {
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
+            action:action,
             title: $stateParams.id ? '修改借款人信息' : '新增借款人信息',
             data: {},
             cancel: function() {

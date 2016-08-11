@@ -4,6 +4,14 @@
     </div>
     <div class="panel-body">
         <form role="form" class="form-horizontal form-validation" novalidate>
+        <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    借款人编号
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.code">
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
                     姓名
@@ -49,7 +57,7 @@
                     开户行
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankName">
+                    <select class="form-control" ng-model="vm.data.bank" ng-options='bank for bank in vm.bank'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -57,7 +65,7 @@
                     开户行省份
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankProvinceName">
+                    <select class="form-control" ng-model="vm.data.province" ng-options='province for province in vm.province'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -65,7 +73,7 @@
                     开户行城市
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankCityName">
+                    <select class="form-control" ng-model="vm.data.city" ng-options='city for city in vm.city'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -82,6 +90,14 @@
                 </label>
                 <div class="col-sm-10">
                     <input type="text" name="name" class="form-control" ng-model="vm.data.accountNo">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    状态
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.status" ng-options='status for status in vm.status'></select>
                 </div>
             </div>
             <div class="form-group">

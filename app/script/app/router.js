@@ -1,4 +1,3 @@
-//使用JS严格模式
 'use strict';
 define(['app', 'lazy-load'], function(app, lazyLoad) {
     return app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', '$controllerProvider',
@@ -101,14 +100,14 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('account', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //资金账户列表
                 .state('account.list', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('account.list.list', lazyLoad.config('/list', '/view/account/list/list.html', 'controller/account/list/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('account.list.edit', lazyLoad.config('/edit/:id', '/view/account/list/edit.html', 'controller/account/list/edit', { directives: [], services: ['service/borrower'], filters: [] }))  
                 //资金账户流水查询
                 .state('account.query', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.query.query', lazyLoad.config('/query', '/view/account/query/query.html', 'controller/account/query/query', { directives: [], services: ['service/borrower'], filters: [] }))
                 //资金费率维护
                 .state('account.rate', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.rate.rate', lazyLoad.config('/rate', '/view/account/rate/rate.html', 'controller/account/rate/rate', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('account.rate.add', lazyLoad.config('/rate', '/view/account/rate/edit.html', 'controller/account/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('account.rate.edit', lazyLoad.config('/edit/:id', '/view/account/rate/edit.html', 'controller/account/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))       
                 //利润提取
                 .state('account.withdraw', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/account/withdraw/withdraw.html', 'controller/account/withdraw/withdraw', { directives: [], services: ['service/borrower'], filters: [] }))

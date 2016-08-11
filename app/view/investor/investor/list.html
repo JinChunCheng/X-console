@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">是否本公司员工</span>
-                                <select class="form-control form-white" ng-model="listView.condition.employee">
+                                <select class="form-control form-white" ng-model="listVM.condition.employee">
                                     <option>是</option>
                                     <option>否</option>
                                     <option>待定</option>
@@ -54,7 +54,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
+                                <select class="form-control form-white" ng-model="listVM.condition.status">
                                     <option>未发放</option>
                                     <option>已发放</option>
                                     <option>已收回</option>
@@ -68,7 +68,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource">
+                                <select class="form-control form-white" ng-model="listVM.condition.operSource">
                                     <option>管理系统</option>
                                     <option>钱盒</option>
                                 </select>
@@ -81,7 +81,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道代码</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channelCode">
+                                <select class="form-control form-white" ng-model="listVM.condition.channelCode">
                                     <option>钱盒</option>
                                     <option>开通宝</option>
                                     <option>管理系统</option>
@@ -95,7 +95,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金是否已使用</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channelCode">
+                                <select class="form-control form-white" ng-model="listVM.condition.channelCode">
                                     <option>使用</option>
                                     <option>未使用</option>
                                 </select>
@@ -108,7 +108,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">身份证</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.idCard">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.idCard">
                             </div>
                         </div>
                     </div>
@@ -118,7 +118,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">登录名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.loginName">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.loginName">
                             </div>
                         </div>
                     </div>
@@ -129,9 +129,9 @@
                          <div class="input-group">
                             <span class="input-group-addon">日期</span>
                             <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.startDate">
+                                <input type="date" class="input-sm form-control" ng-model="listVM.condition.startDate">
                                 <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.endDate">
+                                <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.endDate">
                             </div>
                         </div>
                         </div>
