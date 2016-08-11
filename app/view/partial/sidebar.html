@@ -38,71 +38,71 @@
                     <li ng-class="{active:appView.isActive('borrower.repayment.list')}"><a ui-sref="borrower.repayment.list"> 借款人还款列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['investor-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['investor.*'])}">
                 <a href="" class="submenu-root"><i class="icon-screen-desktop"></i><span>投资人及投资管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['investor-*'])}}">
-                    <li ng-class="{ active:isActive('investor-investorList')}"><a ui-sref="investor-investorList">投资人列表</a></li>
-                    <li ng-class="{ active:isActive('investor-investorCheck')}"><a ui-sref="investor-investorCheck">投资人修改审核</a></li>
-                    <li ng-class="{ active:isActive('investor-newTender')}"><a ui-sref="investor-newTender">新增投标</a></li>
-                    <li ng-class="{ active:isActive('investor-tenderList')}"><a ui-sref="investor-tenderList">投标列表</a></li>
-                    <li ng-class="{ active:isActive('investor-investmentList')}"><a ui-sref="investor-investmentList">投资列表</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['investor.*'])}}">
+                    <li ng-class="{ active:isActive('investor.investor.list')}"><a ui-sref="investor.investor.list">投资人列表</a></li>
+                    <li ng-class="{ active:isActive('investor.check.list')}"><a ui-sref="investor.check.list">投资人修改审核</a></li>
+                    <li ng-class="{ active:isActive('investor.new.list')}"><a ui-sref="investor.new.list">新增投标</a></li>
+                    <li ng-class="{ active:isActive('tender.tender.list')}"><a ui-sref="investor.tender.list">投标列表</a></li>
+                    <li ng-class="{ active:isActive('investor.info.list')}"><a ui-sref="investor.info.list">投资列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['projectManagement-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['project.*'])}">
                 <a href=""><i class="fa fa-table"></i><span>项目管理</span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['projectManagement-*'])}}">
-                    <li ng-class="{ active:isActive('projectManagement-projectList')}"><a ui-sref="projectManagement-projectList">项目列表</a></li>
-                    <li ng-class="{ active:isActive('projectManagement-newProject')}"><a ui-sref="projectManagement-newProject">新增项目</a></li>
-                    <li ng-class="{ active:isActive('projectManagement-releaseCheck')}"><a ui-sref="projectManagement-releaseCheck">发布审核</a></li>
-                    <li ng-class="{ active:isActive('projectManagement-endTenderCheck')}"><a ui-sref="projectManagement-endTenderCheck">结标审核</a></li>
-                    <li ng-class="{ active:isActive('projectManagement-repaymentList')}"><a ui-sref="projectManagement-repaymentList">项目还款计划列表</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['project.*'])}}">
+                    <li ng-class="{ active:isActive('project.info.info')}"><a ui-sref="project.info.info">项目列表</a></li>
+                    <li ng-class="{ active:isActive('project.new.new')}"><a ui-sref="project.new.new">新增项目</a></li>
+                    <li ng-class="{ active:isActive('project.release.release')}"><a ui-sref="project.release.release">发布审核</a></li>
+                    <li ng-class="{ active:isActive('project.check.check')}"><a ui-sref="project.check.check">结标审核</a></li>
+                    <li ng-class="{ active:isActive('project.repayment.repayment')}"><a ui-sref="project.repayment.repayment">项目还款计划列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['fundManagement-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['fund.*'])}">
                 <a href=""><i class="icon-bar-chart"></i><span>资金管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['fundManagement-*'])}}">
-                    <li ng-class="{ active:isActive('fundManagement-chargeList')}"><a ui-sref="fundManagement-chargeList">充值列表</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-withdrawCheck')}"><a ui-sref="fundManagement-withdrawCheck">提现审核</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-withdrawList')}"><a ui-sref="fundManagement-withdrawList">提现列表</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-ratePreserve')}"><a ui-sref="fundManagement-ratePreserve">费率维护</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-fallbackCheck')}"><a ui-sref="fundManagement-fallbackCheck">回退审核</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-chargeQuery')}"><a ui-sref="fundManagement-chargeQuery">充值查询(客服)</a></li>
-                    <li ng-class="{ active:isActive('fundManagement-withdrawQuery')}"><a ui-sref="fundManagement-withdrawQuery">提现查询(客服)</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['fund.*'])}}">
+                    <li ng-class="{ active:isActive('fund.charge.charge')}"><a ui-sref="fund.charge.charge">充值列表</a></li>
+                    <li ng-class="{ active:isActive('fund.check.check')}"><a ui-sref="fund.check.check">提现审核</a></li>
+                    <li ng-class="{ active:isActive('fund.withdraw.withdraw')}"><a ui-sref="fund.withdraw.withdraw">提现列表</a></li>
+                    <li ng-class="{ active:isActive('fund.rate.rate')}"><a ui-sref="fund.rate.rate">费率维护</a></li>
+                    <li ng-class="{ active:isActive('fund.fallback.fallback')}"><a ui-sref="fund.fallback.fallback">回退审核</a></li>
+                    <li ng-class="{ active:isActive('fund.query.query')}"><a ui-sref="fund.query.query">充值查询(客服)</a></li>
+                    <li ng-class="{ active:isActive('fund.wquery.wquery')}"><a ui-sref="fund.wquery.wquery">提现查询(客服)</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['fundAccount-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['account.*'])}">
                 <a href=""><i class="icon-picture"></i><span>资金账户</span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['fundAccount-*'])}}">
-                    <li ng-class="{ active : isActive('fundAccount-fundAccountList')}"><a ui-sref="fundAccount-fundAccountList">资金账户列表</a></li>
-                    <li ng-class="{ active : isActive('fundAccount-fundAccountQuery')}"><a ui-sref="fundAccount-fundAccountQuery">资金账户流水查询</a></li>
-                    <li ng-class="{ active : isActive('fundAccount-fundRatePreserve')}"><a ui-sref="fundAccount-fundRatePreserve">资金费率维护</a></li>
-                    <li ng-class="{ active : isActive('fundAccount-profitDraw')}"><a ui-sref="fundAccount-profitDraw">利润提取</a></li>
-                    <li ng-class="{ active : isActive('fundAccount-profitDrawList')}"><a ui-sref="fundAccount-profitDrawList">利润提取列表</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['account.*'])}}">
+                    <li ng-class="{ active : isActive('account.list.list')}"><a ui-sref="account.list.list">资金账户列表</a></li>
+                    <li ng-class="{ active : isActive('account.query.query')}"><a ui-sref="account.query.query">资金账户流水查询</a></li>
+                    <li ng-class="{ active : isActive('account.rate.rate')}"><a ui-sref="account.rate.rate">资金费率维护</a></li>
+                    <li ng-class="{ active : isActive('account.withdraw.withdraw')}"><a ui-sref="account.withdraw.withdraw">利润提取</a></li>
+                    <li ng-class="{ active : isActive('account.profitlist.profitlist')}"><a ui-sref="account.profitlist.profitlist">利润提取列表</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['financialManagement-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['financial.*'])}">
                 <a href=""><i class="icon-docs"></i><span>财务管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['financialManagement-*'])}}">
-                    <li ng-class="{ active  : isActive('financialManagement-withdrawCash')}"><a ui-sref="financialManagement-withdrawCash">提现出款</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-endBiddingCash')}"><a ui-sref="financialManagement-endBiddingCash">满标出款</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-cashDirectiveList')}"><a ui-sref="financialManagement-cashDirectiveList">出款指令列表</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-transferCashPrint')}"><a ui-sref="financialManagement-transferCashPrint">划款打印</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-withdrawCashMonitor')}"><a ui-sref="financialManagement-withdrawCashMonitor">提现出款监控</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-promptList')}"><a ui-sref="financialManagement-promptList">催款单列表</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-promptCheck')}"><a ui-sref="financialManagement-promptCheck">催款单审核</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-POSchargeRecon')}"><a ui-sref="financialManagement-POSchargeRecon">POS充值对账</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-withdrawCashRecon')}"><a ui-sref="financialManagement-withdrawCashRecon">提现出款对账</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-fileInterfaceLog')}"><a ui-sref="financialManagement-fileInterfaceLog">文件接口日志</a></li>
-                    <li ng-class="{ active:isActive('financialManagement-ERPinterface')}"><a ui-sref="financialManagement-ERPinterface">ERP接口</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['financial.*'])}}">
+                    <li ng-class="{ active  : isActive('financial.withdraw.withdraw')}"><a ui-sref="financial.withdraw.withdraw">提现出款</a></li>
+                    <li ng-class="{ active:isActive('financial.full.full')}"><a ui-sref="financial.full.full">满标出款</a></li>
+                    <li ng-class="{ active:isActive('financial.directive.directive')}"><a ui-sref="financial.directive.directive">出款指令列表</a></li>
+                    <li ng-class="{ active:isActive('financial.print.print')}"><a ui-sref="financial.print.print">划款打印</a></li>
+                    <li ng-class="{ active:isActive('financial.monitor.monitor')}"><a ui-sref="financial.monitor.monitor">提现出款监控</a></li>
+                    <li ng-class="{ active:isActive('financial.list.list')}"><a ui-sref="financial.list.list">催款单列表</a></li>
+                    <li ng-class="{ active:isActive('financial.check.check')}"><a ui-sref="financial.check.check">催款单审核</a></li>
+                    <li ng-class="{ active:isActive('financial.POS.POS')}"><a ui-sref="financial.POS.POS">POS充值对账</a></li>
+                    <li ng-class="{ active:isActive('financia.recon.recon')}"><a ui-sref="financial.recon.recon">提现出款对账</a></li>
+                    <li ng-class="{ active:isActive('financial.file.file')}"><a ui-sref="financial.file.file">文件接口日志</a></li>
+                    <li ng-class="{ active:isActive('financial.ERP.ERP')}"><a ui-sref="financial.ERP.ERP">ERP接口</a></li>
                 </ul>
             </li>
-            <li class="nav-parent" ng-class="{active: appView.isActive(['marketingManagement-*'])}">
+            <li class="nav-parent" ng-class="{active: appView.isActive(['marketing.*'])}">
                 <a href=""><i class="icon-user"></i><span>营销管理 </span><span class="fa arrow"></span></a>
-                <ul class="children collapse" style="{{appView.getSubMenuStyle(['marketingManagement-*'])}}">
-                    <li ng-class="{ active:isActive('marketingManagement-messageList')}"><a ui-sref="marketingManagement-messageList">短信列表</a></li>
-                    <li ng-class="{ active:isActive('marketingManagement-SMSchannel')}"><a ui-sref="marketingManagement-SMSchannel">短信渠道</a></li>
-                    <li ng-class="{ active:isActive('marketingManagement-mailLog')}"><a ui-sref="marketingManagement-mailLog">邮件日志</a></li>
-                    <li ng-class="{ active:isActive('marketingManagement-systemNoticeList')}"><a ui-sref="marketingManagement-systemNoticeList">系统公告列表</a></li>
+                <ul class="children collapse" style="{{appView.getSubMenuStyle(['marketing.*'])}}">
+                    <li ng-class="{ active:isActive('marketing.message.message')}"><a ui-sref="marketing.message.message">短信列表</a></li>
+                    <li ng-class="{ active:isActive('marketing.channel.channel')}"><a ui-sref="marketing.channel.channel">短信渠道</a></li>
+                    <li ng-class="{ active:isActive('marketing.mail.mail')}"><a ui-sref="marketing.mail.mail">邮件日志</a></li>
+                    <li ng-class="{ active:isActive('marketing.notice.notice')}"><a ui-sref="marketing.notice.notice">系统公告列表</a></li>
                 </ul>
             </li>
             <li class="nav-parent" ng-class="{active: appView.isActive(['statement-*'])}">

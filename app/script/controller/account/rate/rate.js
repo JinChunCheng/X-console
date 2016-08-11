@@ -20,10 +20,10 @@ define([], function() {
                 table: null,
                 add: function() {
                     console.log('add');
-                    $state.go('borrower.info.add');
+                    $state.go('account.rate.add');
                 },
                 edit: function(id) {
-                    $state.go('borrower.info.edit', { id: id });
+                    $state.go('account.rate.edit', { id: id });
                 }
             };
 
@@ -33,7 +33,7 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#borrowerTable');
+                $scope.listVM.table = $('#fundRatePreserveTable');
             });
 
 
@@ -100,7 +100,7 @@ define([], function() {
 
             (function init() {
 
-                $scope.bsBorrowerTableControl = {
+                $scope.bsFundRatePreserveTableControl = {
                     options: {
                         //data: rows,
                         // rowStyle: function(row, index) {
@@ -253,7 +253,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
-                $state.go('borrower.info.edit', { id: row.id });
+                $state.go('account.rate.edit', { id: row.id });
             }
 
             $scope.del = function() {

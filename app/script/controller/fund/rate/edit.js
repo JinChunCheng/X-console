@@ -4,10 +4,10 @@ define([], function() {
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
-            title: $stateParams.id ? '修改借款人信息' : '新增借款人信息',
+            title:"基本信息",
             data: {},
             cancel: function() {
-                $state.go('borrower.info.list');
+                $state.go('fund.rate.rate');
             }
         };
 

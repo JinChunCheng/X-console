@@ -18,12 +18,8 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                add: function() {
-                    console.log('add');
-                    $state.go('borrower.info.add');
-                },
                 edit: function(id) {
-                    $state.go('borrower.info.edit', { id: id });
+                    $state.go('financial.list.edit', { id: id });
                 }
             };
 
@@ -33,7 +29,7 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#borrowerTable');
+                $scope.listVM.table = $('#promptListTable');
             });
 
 
@@ -100,7 +96,7 @@ define([], function() {
 
             (function init() {
 
-                $scope.bsBorrowerTableControl = {
+                $scope.bsPromptListTableControl = {
                     options: {
                         //data: rows,
                         // rowStyle: function(row, index) {
@@ -253,7 +249,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
-                $state.go('borrower.info.edit', { id: row.id });
+                $state.go('financial.list.edit', { id: row.id });
             }
 
             $scope.del = function() {

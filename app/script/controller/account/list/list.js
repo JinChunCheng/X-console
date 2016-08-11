@@ -18,12 +18,8 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                add: function() {
-                    console.log('add');
-                    $state.go('borrower.info.add');
-                },
                 edit: function(id) {
-                    $state.go('borrower.info.edit', { id: id });
+                    $state.go('account.list.edit', { id: id });
                 }
             };
 
@@ -33,7 +29,7 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#borrowerTable');
+                $scope.listVM.table = $('#fundAccountListTable');
             });
 
 
@@ -100,7 +96,7 @@ define([], function() {
 
             (function init() {
 
-                $scope.bsBorrowerTableControl = {
+                $scope.bsFundAccountListTableControl = {
                     options: {
                         //data: rows,
                         // rowStyle: function(row, index) {
@@ -109,7 +105,7 @@ define([], function() {
                         // fixedColumns: true,
                         // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
+                        height:800,
                         //striped: true,
                         pagination: true,
                         pageSize: 10,
@@ -253,7 +249,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
-                $state.go('borrower.info.edit', { id: row.id });
+                $state.go('account.list.edit', { id: row.id });
             }
 
             $scope.del = function() {
