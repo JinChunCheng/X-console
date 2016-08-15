@@ -1,0 +1,592 @@
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <h3 ng-bind="vm.title"></h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-validation" novalidate>
+            <tabset class="tab-fade-in">
+                <tab>
+                    <tab-heading>
+                        基本信息
+                    </tab-heading>
+                    <div>
+                        <div class="row m-t-10">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">姓名</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">性别</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">出生日期</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">婚姻状况</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">户口类型</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">子女数量</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">所在城市</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">手机</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">住宅电话</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">家庭地址</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">教育水平</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">毕业院校</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">居住情况</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">月租金</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">身份证号</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">银行卡号</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">开户行</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">单位名称</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">单位性质</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">企业行业</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">企业规模</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">入职时间</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control" />
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">单位地址</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">年收入</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款类型</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">用途类别</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款用途</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        信用信息
+                    </tab-heading>
+                    <div>
+                        <div class="row m-t-10">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">有无房产</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">有无车产</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">有无企业</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">有无房贷</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">有无车贷</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">信用报告</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款金额</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款时长</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款费率</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款日期</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">还款方式</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">还款来源</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">房屋担保</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">房屋产权人</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">房屋评估价格</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">房屋地址</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆担保</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆产权人</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆价格</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆品牌</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆所在地址</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">风险评估</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">融资资金是否如约使用</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款人经营及财务状况</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">审批文件</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">身份证图片</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">资产证明图片</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">营业执照/抵押/质押/工作证明</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">借款协议</label>
+                                            <div class="append-icon">
+                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class="control-label">调查文件</label>
+                                            <div class="append-icon">
+                                                <input type="text" class="form-control">
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+            <div class="row">
+                <div class="col-sm-12">
+                    <button class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

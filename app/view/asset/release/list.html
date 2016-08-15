@@ -1,5 +1,5 @@
 <div class="header">
-    <h2><i class="fa fa-dashboard m-r-5"></i>借款人列表</h2>
+    <h2><i class="fa fa-dashboard m-r-5"></i>上架管理</h2>
 </div>
 <div class="row">
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
@@ -67,7 +67,7 @@
 </div>
 <div class="row">
     <div class="col-md-12 m-b-10">
-        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>批量上架</button>
     </div>
 </div>
-<table id="borrowerTable" table-full-size bs-table-control="bsBorrowerTableControl"></table>
+<table id="releaseTable" table-full-size bs-table-control="tbControl"></table>

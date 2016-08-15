@@ -26,9 +26,9 @@
                 <a href='{{$state.href(menu.state)}}' ng-class="{'submenu-root': menu.subMenus.length>0}">
                     <i class="{{menu.icon}}"></i>
                     <span ng-bind="menu.text"></span>
-                    <span class="fa arrow" ng-show="menu.subMenus.length>0"></span>
+                    <span class="fa arrow" ng-if="menu.subMenus.length>0"></span>
                 </a>
-                <ul ng-show="menu.subMenus.length>0" class="children collapse" style="{{appView.getSubMenuStyle([menu.state+'*'])}}" ng-cloak>
+                <ul ng-if="menu.subMenus.length>0" class="children collapse" style="{{appView.getSubMenuStyle([menu.state+'*'])}}" ng-cloak>
                     <li ng-repeat="submenu in menu.subMenus" ng-class="{active: appView.isActive(submenu.state)}">
                         <a ui-sref="{{submenu.state}}" ng-bind="submenu.text"></a>
                     </li>

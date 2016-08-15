@@ -17,21 +17,23 @@
         };
 
         $scope.$on('$viewContentLoaded', function() {
+            initMenus();
             $timeout(function() {
                 $('.loader-overlay').addClass('loaded');
                 $('body > section').animate({
                     opacity: 1,
                 }, 200);
             }, 500);
-            //pluginsService.init();
-            applicationService.init();
-            //builderService.init();
-            initMenus();
         });
 
         function initMenus() {
             applicationService.menuResource.query().$promise.then(function(res) {
                 $scope.appView.menus = res.data.items;
+                $timeout(function() {
+                    //pluginsService.init();
+                    applicationService.init();
+                    builderService.init();
+                });
             });
         }
 
