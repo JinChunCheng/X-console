@@ -10,8 +10,18 @@
         "items": [{
             "text": "控制台",
             "icon": "icon-home",
-            "state": "dashboard",
-            "subMenus": []
+            "state": "dashboard"
+        }, {
+            "text": "资产管理",
+            "icon": "fa fa-files-o",
+            "state": "asset",
+            "subMenus": [{
+                "text": "资产管理",
+                "state": "asset.info.list"
+            }, {
+                "text": "上架管理",
+                "state": "asset.release.list"
+            }]
         }, {
             "text": "借款人管理",
             "icon": "icon-screen-desktop",
