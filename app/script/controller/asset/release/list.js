@@ -19,7 +19,6 @@ define([], function() {
                 condition: angular.copy(defaultCondition),
                 table: null,
                 add: function() {
-                    console.log('add');
                     $state.go('asset.release.add');
                 },
                 edit: function(id) {

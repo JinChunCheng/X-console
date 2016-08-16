@@ -1694,7 +1694,6 @@ angular.module('bootModule', [])
                         sub.children().removeClass('hidden-item')
                     });
                 } else {
-                    console.log('not visible')
                     $(this).find('.arrow').addClass('active');
                     sub.children().addClass('is-hidden');
                     setTimeout(function() {

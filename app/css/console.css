@@ -315,7 +315,7 @@
     border-color: #e0e0e0;
     border-color: rgba(0,0,0,.12);
 }
-.panel .panel-header {
+.panel .panel-header.header-line {
   border-bottom: 1px solid rgba(12, 12, 12, 0.07);
 }
 

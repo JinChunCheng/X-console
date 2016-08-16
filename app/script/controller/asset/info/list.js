@@ -189,7 +189,7 @@ define([], function() {
             };
 
             var pageChange = function(num, size) {
-            	console.log('page change');
+                console.log('page change');
             };
         }
     ];
