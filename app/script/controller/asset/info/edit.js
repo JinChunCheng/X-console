@@ -4,7 +4,7 @@ define([], function() {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
-            $scope.vm = {
+            $scope.assetVM = {
                 action: action,
                 title: $stateParams.id ? '修改资产信息' : '新增资产信息',
                 data: {},
@@ -12,13 +12,11 @@ define([], function() {
                     $state.go('asset.info.list');
                 },
                 provinceChange: function() {
-                    $scope.vm.data.city = null;
-                    $scope.vm.data.area = null;
-                    console.log($scope.vm.data.province);
+                    $scope.assetVM.data.city = null;
+                    $scope.assetVM.data.area = null;
                 },
                 cityChange: function() {
-                    $scope.vm.data.area = null;
-                    console.log($scope.vm.data.city);
+                    $scope.assetVM.data.area = null;
                 }
             };
 
@@ -28,51 +26,49 @@ define([], function() {
                     return;
                 }
                 borrowerService.get({ id: id }).$promise.then(function(res) {
-                    $scope.vm.data = res.data;
-                }, function(err) {
-
-                });
+                    $scope.assetVM.data = res.data;
+                }, function(err) {});
             })($stateParams.id);
 
             function initMetaData() {
+                metaService.getMeta('XB', function(data) {
+                    $scope.assetVM.genderList = data;
+                });
+                metaService.getMeta('SF', function(data) {
+                    $scope.assetVM.ynList = data;
+                });
+                metaService.getMeta('ZCLX', function(data) {
+                    $scope.assetVM.assetTypeList = data;
+                });
+                metaService.getMeta('HYZK', function(data) {
+                    $scope.assetVM.marriageList = data;
+                });
                 metaService.getProvinces(function(res) {
-                    $scope.vm.provinces = res;
-                    // var p_list = $.grep(res, function(n, i) {
-                    //     return n.level == 1;
-                    // });
-
-                    // p_list.forEach(function(p) {
-                    //     var c_list = $.grep(res, function(n, i) {
-                    //         return n.sheng == p.sheng && n.level == 2;
-                    //     });
-
-                    //     c_list.forEach(function(c) {
-                    //         var a_list = $.grep(res, function(n, i) {
-                    //             return n.sheng == p.sheng && n.di == c.di && n.level == 3;
-                    //         });
-                    //         if (a_list && a_list.length > 0) {
-                    //             a_list.forEach(function(a) {
-                    //                 delete a.sheng;
-                    //                 delete a.di;
-                    //                 delete a.xian;
-                    //                 delete a.level;
-                    //             });
-                    //             c.children = a_list;
-                    //         }
-                    //         delete c.sheng;
-                    //         delete c.di;
-                    //         delete c.xian;
-                    //         delete c.level;
-                    //     });
-                    //     if (c_list && c_list.length > 0) {
-                    //         p.children = c_list;
-                    //     }
-                    //     delete p.sheng;
-                    //     delete p.di;
-                    //     delete p.xian;
-                    //     delete p.level;
-                    // });
-                    // console.log(JSON.stringify(p_list));
+                    $scope.assetVM.provinces = res;
+                });
+                metaService.getMeta('HKLX', function(data) {
+                    $scope.assetVM.hukouTypeList = data;
+                });
+                metaService.getMeta('JYSP', function(data) {
+                    $scope.assetVM.educationList = data;
+                });
+                metaService.getMeta('JZQK', function(data) {
+                    $scope.assetVM.livingList = data;
+                });
+                metaService.getMeta('DWXZ', function(data) {
+                    $scope.assetVM.corpPropList = data;
+                });
+                metaService.getMeta('QYHY', function(data) {
+                    $scope.assetVM.industryList = data;
+                });
+                metaService.getMeta('QYGM', function(data) {
+                    $scope.assetVM.corpScaleList = data;
+                });
+                metaService.getMeta('JKLX', function(data) {
+                    $scope.assetVM.borrowTypeList = data;
+                });
+                metaService.getMeta('YTLB', function(data) {
+                    $scope.assetVM.useTypeList = data;
                 });
             }
         }
