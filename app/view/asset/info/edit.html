@@ -369,7 +369,9 @@
                                         <div class="form-group">
                                             <label class="control-label">有无房产</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <select class="form-control" ng-model="assetVM.data.hasHouse" ng-options="item.value as item.text for item in assetVM.ywList">
+                                                    <option value="">- 选择有无 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -377,8 +379,8 @@
                                         <div class="form-group">
                                             <label class="control-label">有无车产</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
+                                                <select class="form-control" ng-model="assetVM.data.hasCar" ng-options="item.value as item.text for item in assetVM.ywList">
+                                                    <option value="">- 选择有无 -</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -386,9 +388,10 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">有无企业</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                            <div>
+                                                <select class="form-control" ng-model="assetVM.data.hasCorp" ng-options="item.value as item.text for item in assetVM.ywList">
+                                                    <option value="">- 选择有无 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -398,7 +401,9 @@
                                         <div class="form-group">
                                             <label class="control-label">有无房贷</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <select class="form-control" ng-model="assetVM.data.hasHouseLoan" ng-options="item.value as item.text for item in assetVM.ywList">
+                                                    <option value="">- 选择有无 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -406,8 +411,8 @@
                                         <div class="form-group">
                                             <label class="control-label">有无车贷</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
+                                                <select class="form-control" ng-model="assetVM.data.hasCarLoan" ng-options="item.value as item.text for item in assetVM.ywList">
+                                                    <option value="">- 选择有无 -</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -416,8 +421,9 @@
                                         <div class="form-group">
                                             <label class="control-label">信用报告</label>
                                             <div>
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                                <select class="form-control" ng-model="assetVM.data.credit" ng-options="item.value as item.text for item in assetVM.creditList">
+                                                    <option value="">- 选择信用级别 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -426,18 +432,18 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">借款金额</label>
-                                            <div>
-                                                <input type="text" class="form-control">
+                                            <div class="input-group">
+                                                <input type="number" class="form-control">
+                                                <span class="input-group-addon">元</span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">借款时长</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control">
+                                                <span class="input-group-addon">天</span>
                                             </div>
                                         </div>
                                     </div>
@@ -445,7 +451,7 @@
                                         <div class="form-group">
                                             <label class="control-label">借款费率</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <input type="number" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -454,7 +460,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">借款日期</label>
-                                            <div>
+                                            <div class="append-icon">
                                                 <input type="text" class="form-control">
                                                 <i class="icon-calendar"></i>
                                             </div>
@@ -464,8 +470,8 @@
                                         <div class="form-group">
                                             <label class="control-label">还款方式</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
+                                                <select class="form-control" ng-model="assetVM.data.repaymentType" ng-options="item.value as item.text for item in assetVM.repaymentTypeList">
+                                                    <option value="">- 选择还款方式 -</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -473,9 +479,10 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">还款来源</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                            <div>
+                                                <select class="form-control" ng-model="assetVM.data.repaymentFrom" ng-options="item.value as item.text for item in assetVM.repaymentFromList">
+                                                    <option value="">- 选择还款来源 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -484,18 +491,19 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">房屋担保</label>
-                                            <div>
-                                                <input type="text" class="form-control">
+                                            <div class="checkbox checkbox-info">
+                                                <input id="chkHouseDB" class="styled" type="checkbox" ng-model="assetVM.data.houseDB">
+                                                <label for="chkHouseDB" ng-bind="assetVM.data.houseDB?'是':'否'"></label>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row" ng-if="assetVM.data.houseDB">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">房屋产权人</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
+                                                <input type="text" class="form-control" />
                                             </div>
                                         </div>
                                     </div>
@@ -508,9 +516,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">房屋地址</label>
                                             <div>
@@ -523,33 +529,32 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">车辆担保</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆产权人</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆价格</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                            <div class="checkbox checkbox-info">
+                                                <input id="chkCarDB" class="styled" type="checkbox" ng-model="assetVM.data.carDB">
+                                                <label for="chkCarDB" ng-bind="assetVM.data.carDB?'是':'否'"></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
+                                <div class="row" ng-if="assetVM.data.carDB">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆产权人</label>
+                                            <div>
+                                                <input type="text" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label class="control-label">车辆价格</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control">
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label class="control-label">车辆品牌</label>
                                             <div>
@@ -557,13 +562,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label class="control-label">车辆所在地址</label>
+                                            <label class="control-label">车辆所在地</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
+                                                <input type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -583,7 +586,9 @@
                                         <div class="form-group">
                                             <label class="control-label">融资资金是否如约使用</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <select class="form-control" ng-model="assetVM.data.fundUsed" ng-options="item.value as item.text for item in assetVM.ynList">
+                                                    <option value="">- 选择性别 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -591,8 +596,8 @@
                                         <div class="form-group">
                                             <label class="control-label">借款人经营及财务状况</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
+                                                <select class="form-control" ng-model="assetVM.data.fundStat" ng-options="item.value as item.text for item in assetVM.creditList">
+                                                    <option value="">- 选择财务状况 -</option>
                                                 </select>
                                             </div>
                                         </div>
