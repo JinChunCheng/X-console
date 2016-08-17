@@ -24,9 +24,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource">
-                                    <option>管理系统</option>
-                                    <option>钱盒</option>
+                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='operSource for operSource in listView.operSource'>
                                 </select>
                             </div>
                         </div>
@@ -37,11 +35,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">安全等级</span>
-                                <select class="form-control form-white" ng-model="listView.condition.securityLevel">
-                                    <option>未计算</option>
-                                    <option>安全</option>
-                                    <option>待详查</option>
-                                    <option>危险</option>
+                                <select class="form-control form-white" ng-model="listView.condition.securityLevel" ng-options='securityLevel for securityLevel in listView.securityLevel'>
                                 </select>
                             </div>
                         </div>
@@ -60,6 +54,9 @@
 <div class="panel panel-default">
     <div class="panel-header"><i class="icon icon-user"></i>提现审核列表</div>
     <div class="panel-body">
+            <div class="col-md-12 m-b-12">
+            <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+        </div>
         <table id="withdrawCheckTable" bs-table-control="bsWithdrawCheckTableControl"></table>
     </div>
 </div>

@@ -40,10 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">是否本公司员工</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.employee">
-                                    <option>是</option>
-                                    <option>否</option>
-                                    <option>待定</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.isEmployee" ng-options='i as i.title for i in listVM.isEmployee'>
                                 </select>
                             </div>
                         </div>
@@ -54,10 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.status">
-                                    <option>未发放</option>
-                                    <option>已发放</option>
-                                    <option>已收回</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
                                 </select>
                             </div>
                         </div>
@@ -68,9 +62,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.operSource">
-                                    <option>管理系统</option>
-                                    <option>钱盒</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.operSource" ng-options='o as o.title for o in listVM.operSource'>
                                 </select>
                             </div>
                         </div>
@@ -81,10 +73,18 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道代码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.channelCode">
-                                    <option>钱盒</option>
-                                    <option>开通宝</option>
-                                    <option>管理系统</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.channel" ng-options='c as c.title for c in listVM.channel'>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">理财客户经理</span>
+                                <select class="form-control form-white" ng-model="listVM.condition.manager" ng-options='m as m.label for m in listVM.condition.channel.content'>
                                 </select>
                             </div>
                         </div>
@@ -95,9 +95,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金是否已使用</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.channelCode">
-                                    <option>使用</option>
-                                    <option>未使用</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.isUsed" ng-options='i as i.title for i in listVM.isUsed'>
                                 </select>
                             </div>
                         </div>
@@ -126,40 +124,46 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listVM.condition.startDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.endDate">
-                            </div>
-                        </div>
-                        </div>
-                    </div>     
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">绑定钱盒商户</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.biddingName">
+                                <span class="input-group-addon">日期</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listVM.condition.startDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.endDate">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+            </div>
+            <div class="col-md-4 row">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">绑定钱盒商户</span>
+                            <input type="text" class="form-control form-white" ng-model="listView.condition.biddingName">
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-5">
+                <div class="form-group col-md-4">
+                    <button class="btn btn-info">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<div class="row">
+<div class="panel panel-default">
+    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
+    <div class="panel-body">
+    <div class="row">
     <div class="col-md-12 m-b-10">
         <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
     </div>
 </div>
-<table id="investorTable" table-full-size bs-table-control="bsInvestorTableControl"></table>
+        <table id="investorTable" bs-table-control="bsInvestorTableControl"></table>
+    </div>
+</div>
+

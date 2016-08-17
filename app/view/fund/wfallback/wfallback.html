@@ -1,0 +1,122 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>提现回退</h2>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <i class="icon icon-user"></i>提现回退申请
+    </div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">
+                    提现编号
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="listView.condition.withdrawCode">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">
+                    提现信息
+                </label>
+                <div class="col-md-10 portlets">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        投资人
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.investor">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        银行
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.bank">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        账号
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.account">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        申请金额
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.applyAmount">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        服务费
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.serviceFee">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        到账金额
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.receiveAmount">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        提现时间
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.withdrawTime">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        状态
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.status">
+                                    </div>
+                                </td>
+                                <td>
+                                    <label class="col-sm-3 control-label">
+                                        批准时间
+                                    </label>
+                                    <div class="col-sm-8">
+                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.approvalTime">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-1 control-label">
+                    备注
+                </label>
+                <div class="col-sm-10">
+                    <textarea type="text" name="name" class="form-control" ng-model="listView.condition.remark"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <button type="submit" class="btn btn-primary m-r-10">提交申请</button>
+                </div>
+            </div>
+    </div>
+    </form>
+</div>

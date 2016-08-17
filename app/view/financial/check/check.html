@@ -39,8 +39,8 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">提现渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.withdrawChannel" ng-options='Type for Type in listView.depositType'>
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>

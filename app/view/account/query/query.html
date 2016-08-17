@@ -10,15 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">资金账户类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.fundAccountType">
-                                    <option>汇和托管户</option>
-                                    <option>汇和准备金户</option>
-                                    <option>汇和收益户</option>
-                                    <option>恒丰托管费</option>
-                                    <option>恒丰移动金融部</option>
-                                    <option>盒子资金户</option>
-                                    <option>盒子结算户</option>
-                                    <option>盒子还款户</option>
+                                <select class="form-control form-white" ng-model="listView.condition.accountType" ng-options='a as a.title for a in listView.accountType'>
                                 </select>
                             </div>
                         </div>
@@ -30,7 +22,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">日志类型</span>
                                 <!-- TODO select里面的option需根据父级select的ng-change   -->
-                                <select class="form-control form-white" ng-model="listView.condition.logType" ng-options=''>
+                                <select class="form-control form-white" ng-model="listView.condition.logType" ng-options='l as l.label for l in listView.condition.accountType.content'>
                                 </select>
                             </div>
                         </div>
@@ -39,16 +31,16 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">申请时间</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
+                            <div class="input-group">
+                                <span class="input-group-addon">申请时间</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4 col-md-offset-5">
                     <div class="form-group col-md-4">

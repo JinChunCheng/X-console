@@ -10,9 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率编码</span>
-                                <select class="form-control form-white" ng-model="listView.condition.rateCode">
-                                    <option>充值</option>
-                                    <option>提现</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='rateCode for rateCode in listVM.rateCode'>
                                 </select>
                             </div>
                         </div>
@@ -23,9 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.rateType">
-                                    <option>绝对值</option>
-                                    <option>百分比</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='rateType for rateType in listVM.rateType'>
                                 </select>
                             </div>
                         </div>
@@ -34,23 +30,19 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">费率名称</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="text" class="input-sm form-control" ng-model="listView.condition.rateName">
+                            <div class="input-group">
+                                <span class="input-group-addon">费率名称</span>
+                                <input type="text" class="input-sm form-control" ng-model="listVM.condition.rateName">
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>正常</option>
-                                    <option>关闭</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='status for status in listVM.status'>
                                 </select>
                             </div>
                         </div>
@@ -70,8 +62,8 @@
     <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
         <div class="col-md-12 m-b-12">
-        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
-    </div>
+            <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+        </div>
         <table id="ratePreserveTable" bs-table-control="bsRatePreserveTableControl"></table>
     </div>
 </div>

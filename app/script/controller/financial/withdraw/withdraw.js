@@ -13,7 +13,8 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}]
         };
 
         /**

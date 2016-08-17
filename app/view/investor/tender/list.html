@@ -30,10 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>待结标</option>
-                                    <option>取消</option>
-                                    <option>结标完成</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -44,10 +41,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">投标方式</span>
-                                <select class="form-control form-white" ng-model="listView.condition.tenderWay">
-                                    <option>手动投标</option>
-                                    <option>自动投标</option>
-                                    <option>管理系统</option>
+                                <select class="form-control form-white" ng-model="listView.condition.tenderWay" ng-options='tenderWay for tenderWay in listView.tenderWay'>
                                 </select>
                             </div>
                         </div>
@@ -72,9 +66,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource">
-                                    <option>管理系统</option>
-                                    <option>钱盒</option>
+                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='operSource for operSource in listView.operSource'>
                                 </select>
                             </div>
                         </div>
@@ -85,9 +77,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">是否包含试投金</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channelCode">
-                                    <option>使用</option>
-                                    <option>未使用</option>
+                                <select class="form-control form-white" ng-model="listView.condition.isUsed" ng-options='isUsed for isUsed in listView.isUsed'>
                                 </select>
                             </div>
                         </div>
