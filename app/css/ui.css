@@ -758,10 +758,10 @@ i.bg-gray-light::before {
   background-color: #fafafa !important;
   color: #5B5B5B !important;
 }*/
-.modal-footer.bg-gray-light:not(i) {
+/*.modal-footer.bg-gray-light:not(i) {
   background-color: #EFEFEF !important;
   color: #5B5B5B !important;
-}
+}*/
 .bg-red:not(i) {
   background-color: #C9625F !important;
   color: #fff !important;
@@ -1515,7 +1515,7 @@ h4.alert-title {
 .progress.progress-bar-large .progress-bar {
   line-height: 20px;
 }
-.modal-open .modal {
+/*.modal-open .modal {
   z-index: 2000;
 }
 .modal-full {
@@ -1807,7 +1807,7 @@ ul.list-unstyled {
   .basic-modal-img {
     width: 40%;
   }
-}
+}*/
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset !important;
@@ -6070,7 +6070,7 @@ div,
 section,
 textarea {
   float: none;
-  text-align: left;
+  /*text-align: left;*/
 }
 .z2 {
   z-index: 2;

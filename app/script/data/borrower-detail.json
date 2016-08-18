@@ -37,6 +37,14 @@
             "status": "",
             "createDatetime": "",
             "updateDatetime": ""
-        }
+        },
+        "files": [
+            { "name": "审批文件01", "url": "/data/files/shenpi01.doc" },
+            { "name": "身份证", "url": "/data/files/shenpi01.doc" },
+            { "name": "资产证明", "url": "/data/files/shenpi01.doc" },
+            { "name": "营业执照", "url": "/data/files/shenpi01.doc" },
+            { "name": "借款协议", "url": "/data/files/shenpi01.doc" },
+            { "name": "调查文件", "url": "/data/files/shenpi01.doc" }
+        ]
     }
 }

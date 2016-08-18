@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', 'metaService',
-        function($scope, $timeout, $state, $stateParams, borrowerService, metaService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'borrowerService', 'metaService',
+        function($scope, $timeout, $state, $stateParams, $modal, borrowerService, metaService) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -17,6 +17,9 @@ define([], function() {
                 },
                 cityChange: function() {
                     $scope.assetVM.data.area = null;
+                },
+                showFiles: function(type, title) {
+                    showFiles(type, title);
                 }
             };
 
@@ -25,7 +28,7 @@ define([], function() {
                 if (!id) {
                     return;
                 }
-                borrowerService.get({ id: id }).$promise.then(function(res) {
+                borrowerService.resource.get({ id: id }).$promise.then(function(res) {
                     $scope.assetVM.data = res.data;
                 }, function(err) {});
             })($stateParams.id);
@@ -81,6 +84,33 @@ define([], function() {
                 });
                 metaService.getMeta('HKLY', function(data) {
                     $scope.assetVM.repaymentFromList = data;
+                });
+            }
+
+
+            function showFiles(type, title) {
+                title = title || '文件列表';
+                $modal.open({
+                    templateUrl: 'view/asset/info/files.html',
+                    size: 'lg',
+                    controller: function($scope, $modalInstance) {
+                        $scope.filesVM = {
+                            title: title,
+                            processing: false,
+                            files: [
+                                { "name": "审批文件01", "url": "/data/files/shenpi01.doc" },
+                                { "name": "身份证", "url": "/data/files/shenpi01.doc" },
+                                { "name": "资产证明", "url": "/data/files/shenpi01.doc" },
+                                { "name": "营业执照", "url": "/data/files/shenpi01.doc" },
+                                { "name": "借款协议", "url": "/data/files/shenpi01.doc" },
+                                { "name": "调查文件", "url": "/data/files/shenpi01.doc" }
+                            ]
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+                    }
                 });
             }
         }

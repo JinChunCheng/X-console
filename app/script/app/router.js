@@ -23,7 +23,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             .state('borrower', lazyLoad.config('/borrower', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //借款人列表
                 .state('borrower.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('borrower.info.list', lazyLoad.config('/list', '/view/borrower/info/list.html', 'controller/borrower/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('borrower.info.list', lazyLoad.config('/list', '/view/borrower/borrower/list.html', 'controller/borrower/borrower/list', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('borrower.info.add', lazyLoad.config('/add', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('borrower.info.edit', lazyLoad.config('/edit/:id', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 //借款人还款列表
