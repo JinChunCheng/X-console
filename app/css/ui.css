@@ -6666,4 +6666,6 @@ textarea.parsley-error {
 .modal-header .close {
   opacity: .3;
   text-shadow: none;
+  margin-top: -20px;
+  font-size: 15px;
 }
