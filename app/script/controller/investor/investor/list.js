@@ -19,11 +19,11 @@ define([], function() {
                 condition: angular.copy(defaultCondition),
                 table: null,
                 channel: [{ id: 1, title: '钱盒', content: [{ code: 1, label: '钱盒' }] }, { id: 2, title: '开通宝', content: [{ code: 1, label: '开通宝' }] }, { id: 3, title: '管理系统', content: [{ code: 1, label: '管理系统' }] }],
-            isEmployee:[{id:1,title:'待定'},{id:2,title:'否'},{id:3,title:'是'}],
-            status:[{id:1,title:'未发放'},{id:2,title:'已发放'},{id:3,title:'已回收'}],
-            operSource:[{id:1,title:'管理系统'},{id:2,title:'钱盒'}],
-            
-                isUsed:[{id:1,title:'使用'},{id:2,title:'未使用'}],
+                isEmployee: [{ id: 1, title: '待定' }, { id: 2, title: '否' }, { id: 3, title: '是' }],
+                status: [{ id: 1, title: '未发放' }, { id: 2, title: '已发放' }, { id: 3, title: '已回收' }],
+                operSource: [{ id: 1, title: '管理系统' }, { id: 2, title: '钱盒' }],
+
+                isUsed: [{ id: 1, title: '使用' }, { id: 2, title: '未使用' }],
                 add: function() {
                     console.log('add');
                     $state.go('investor.investor.add');
@@ -208,19 +208,19 @@ define([], function() {
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace11',
                             title: '注册类型',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace12',
                             title: '是否本公司员工',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace13',
                             title: '邮编',
                             align: 'left',
@@ -232,55 +232,55 @@ define([], function() {
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace15',
                             title: '是否新手',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace16',
                             title: '试投金状态',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace17',
                             title: '试投金是否已使用',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace18',
                             title: '试投金金额',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace19',
                             title: '操作来源',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace20',
                             title: '绑定钱盒商户',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace21',
                             title: '创建时间',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'workspace22',
                             title: '更新时间',
                             align: 'left',
                             valign: 'top',
                             sortable: true
-                        },{
+                        }, {
                             field: 'flag',
                             title: '操作',
                             align: 'center',
@@ -320,23 +320,19 @@ define([], function() {
                         $scope.cancel = function() {
                             $modalInstance.dismiss();
                             return false;
-                        }
+                        };
 
                         $scope.ok = function() {
                             delUser(item.id, $scope, $modalInstance);
                             return true;
-                        }
+                        };
                     }
                 });
-            };
+            }
 
             function editRow(e, value, row, index) {
                 $state.go('investor.investor.edit', { id: row.id });
             }
-
-            $scope.del = function() {
-
-            };
 
             $scope.search = function() {
                 $scope.listVM.table.bootstrapTable('refresh');
