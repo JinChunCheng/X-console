@@ -12,8 +12,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="file in filesVM.files">
-                    <td ng-bind="$index"></td>
-                    <td ng-bind="file.url"></td>
+                    <td ng-bind="$index+1"></td>
+                    <td><a ng-href="{{file.url}}" ng-bind="file.url"></a></td>
                     <td><a href="" class="m-r-5">下载</a><a href="">删除</a></td>
                 </tr>
             </tbody>

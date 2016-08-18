@@ -6661,3 +6661,9 @@ textarea.parsley-error {
   left: 15px;
   right: auto;
 }
+
+
+.modal-header .close {
+  opacity: .3;
+  text-shadow: none;
+}

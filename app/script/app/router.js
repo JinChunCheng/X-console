@@ -11,11 +11,16 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //asset module start
             .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.info.list', lazyLoad.config('/list', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
                 .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                
                 .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.release.list', lazyLoad.config('/list', 'view/asset/release/list.html', 'controller/asset/release/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { directives: [], services: ['service/borrower'], filters: [] }))
                 //asset module end 
 
             // borrower module start

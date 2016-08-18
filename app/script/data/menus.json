@@ -16,11 +16,23 @@
             "icon": "fa fa-files-o",
             "state": "asset",
             "subMenus": [{
-                "text": "资产管理",
-                "state": "asset.info.list"
+                "text": "草稿",
+                "state": "asset.info.draft"
             }, {
-                "text": "上架管理",
-                "state": "asset.release.list"
+                "text": "未评审资产库",
+                "state": "asset.info.todo"
+            }, {
+                "text": "优质资产库",
+                "state": "asset.info.better"
+            }, {
+                "text": "风险资产库",
+                "state": "asset.info.risk"
+            }, {
+                "text": "待上架产品库",
+                "state": "asset.release.todo"
+            }, {
+                "text": "已上架产品库",
+                "state": "asset.release.done"
             }]
         }, {
             "text": "借款人管理",
@@ -80,7 +92,7 @@
             "subMenus": [{
                 "text": "充值列表",
                 "state": "fund.charge.charge"
-            },{
+            }, {
                 "text": "提现",
                 "state": "fund.withdraw.withdraw"
             }, {
@@ -180,6 +192,6 @@
                 "text": "系统公告列表",
                 "state": "marketing.notice.notice"
             }]
-        }
-    ]}
+        }]
+    }
 }
