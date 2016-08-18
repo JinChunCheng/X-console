@@ -1,7 +1,7 @@
 <div class="header">
     <h2><i class="fa fa-dashboard"></i>提现出款</h2>
 </div>
-<div class="row" id="toolbar">
+<div class="row">
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
@@ -42,9 +42,10 @@
         </div>
     </form>
 </div>
-<div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>等待出款列表</div>
-    <div class="panel-body">
-        <table id="withdrawCashTable" bs-table-control="bsWithdrawCashTableControl"></table>
+<div class="row">
+    <div class="col-md-12 m-b-10">
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>出款确认</button>
     </div>
 </div>
+<table id="withdrawCashTable" bs-table-control="bsWithdrawCashTableControl"></table>
+
