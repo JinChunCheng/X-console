@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$state','$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http, $state,$timeout, $modal, $state, borrowerService) {
 
             /**
              * the default search condition
@@ -105,7 +105,7 @@ define([], function() {
                         // fixedColumns: true,
                         // fixedNumber: 2,
                         cache: false,
-                        height: 800,
+                        // height: 800,
                         //striped: true,
                         pagination: true,
                         pageSize: 10,
@@ -207,7 +207,9 @@ define([], function() {
                             formatter: flagFormatter,
                             events: {
                                 'click .btn-danger': deleteRow,
-                                'click .btn-primary': editRow
+                                'click .btn-primary': editRow,
+                                'click .btn-info': detail
+
                             }
                         }]
                     }
@@ -216,13 +218,16 @@ define([], function() {
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
+                        '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
                         '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
                     ];
                     return btnHtml.join('');
                 }
 
             })();
-
+            function detail() {
+                $state.go('account.list.detail');
+            }
             function deleteRow(e, value, row, index) {
                 var text = "确定删除此记录？";
                 //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));

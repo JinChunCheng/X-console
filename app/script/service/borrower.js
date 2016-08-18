@@ -7,7 +7,7 @@ define([], function(config) {
 
         //config.BORROWER_CONSOLE + '/hzq/project/:id'
         var borrowerRes = $resource('script/data/borrower-list.json', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //return borrowerRes;
+        return borrowerRes;
 
         return {
             resource: borrowerRes,

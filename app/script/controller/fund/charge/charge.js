@@ -286,7 +286,7 @@ define([], function() {
         function detail() {
             console.log('detail')
             $state.go('fund.charge.detail');
-        };
+        }
         $scope.del = function() {
             console.log('del');
         };

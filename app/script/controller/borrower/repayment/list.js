@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService', function($scope, $http, $state, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -26,66 +26,66 @@ define([], function() {
         });
 
 
-                    var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
+        var getData = function(params) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                //debugger
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
 
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
+            //post: 
+            // var project = {};
+            // project.borrowerId = 1;
+            // project.contractTemplateId=1;
+            // project.projectName="console-前台添加";
+            // project.requestAmount=100000.00;
+            // project.repaymentType="IOP";
+            // project.duration=12;
+            // project.durationUnit="Y";
+            // project.periodCount=10;
+            // project.interestRate=0.8;
+            // project.interestRateTerm="Y";
+            // project.serviceFeeRate=0;
+            // project.serviceFeeRateTerm="Y";
+            // project.latePaymentFeeRateTerm="D";
+            // project.purpose="前端测试";
+            // project.mortgageFlag="N";
+            // project.mortgage="无";
+            // project.guaranteeFlag="N";
+            // project.guarantee="无";
+            // project.description="这是一个通过controller添加进来的project";
+            // project.biddingDeadline=new Date();
+            // project.biddingStartAmount=5000;
+            // project.biddingStepAmount=1000;
+            // project.biddingAmount=100000.00;
+            // project.status = "IRP";
+            // project.totalDays=100;
+            // project.totalInterest=100;
+            // project.totalServiceFee=0.0;
+            // project.debtStartDate=new Date();
+            // project.debtEndDate=new Date();
+            // project.principalPaid=0;
+            // project.PrincipalBalance=100;
+            // project.interestPaid=1;
+            // project.serviceFeePaid=0;
+            // project.memo="";
+            // project.creditChannelId=1;
 
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
-            };
+            // borrowerService.get(project).then(function(res) {
+            //     debugger
+            // });
+        };
 
         (function init() {
 
@@ -98,7 +98,7 @@ define([], function() {
                     // fixedColumns: true,
                     // fixedNumber: 2,
                     cache: false,
-                    //height: getHeight(),
+                    // height: 600,
                     //striped: true,
                     pagination: true,
                     pageSize: 10,
@@ -199,45 +199,53 @@ define([], function() {
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listVM.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn-danger': deleteRow,
+                            'click .btn-info': detail
                         }
                     }]
                 }
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                var btnHtml = [
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
+                    '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
+                ];
+                return btnHtml.join('');
             }
+
 
         })();
 
-        $scope.del = function() {
-            console.log('del');
-        };
+        function detail() {
+            $state.go('borrower.repayment.detail');
+        }
+
+        function deleteRow(e, value, row, index) {
+            var text = "确定删除此记录？";
+            // var text = JSON.stringify($scope.listVM.table.bootstrapTable('getAllSelections'));
+            $modal.open({
+                templateUrl: 'view/shared/confirm.html',
+                size: 'sm',
+                // backdrop: true,
+                controller: function($scope, $modalInstance) {
+                    $scope.confirmData = {
+                        text: text,
+                        processing: false
+                    };
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss();
+                        return false;
+                    };
+
+                    $scope.ok = function() {
+                        delUser(item.id, $scope, $modalInstance);
+                        return true;
+                    };
+                }
+            });
+
+        }
 
         $scope.search = function() {
             $scope.listVM.table.bootstrapTable('refresh');

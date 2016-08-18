@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $resource, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$state', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http, $state, $resource, $timeout, $modal, $state, borrowerService) {
 
             /**
              * the default search condition
@@ -18,7 +18,7 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                status:['正常','关闭'],
+                status: ['正常', '关闭'],
                 add: function() {
                     console.log('add');
                     $state.go('borrower.info.add');
@@ -114,7 +114,7 @@ define([], function() {
                         // fixedColumns: true,
                         // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
+                        // height: 620,
                         //striped: true,
                         pagination: true,
                         pageSize: 10,
@@ -216,7 +216,9 @@ define([], function() {
                             formatter: flagFormatter,
                             events: {
                                 'click .btn-danger': deleteRow,
-                                'click .btn-primary': editRow
+                                'click .btn-primary': editRow,
+                                'click .btn-info': detail
+
                             }
                         }]
                     }
@@ -225,12 +227,17 @@ define([], function() {
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
+                        '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
                         '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
                     ];
                     return btnHtml.join('');
                 }
 
             })();
+
+            function detail() {
+                $state.go('borrower.info.detail');
+            }
 
             function deleteRow(e, value, row, index) {
                 var text = "确定删除此记录？";

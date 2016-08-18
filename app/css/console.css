@@ -6,7 +6,12 @@
 
 /*width*/
 .w-100{width:100px;}
-
+.w-120{width:120px;}
+.w-140{width:140px;}
+/*table-th text-align:right*/
+table.th-right th{
+  text-align:right !important;
+}
 .main-content .page-content .header-right {
     position: absolute;
     right: 0;
