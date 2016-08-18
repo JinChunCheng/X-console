@@ -1,5 +1,5 @@
 <div class="header">
-    <h2><i class="fa fa-dashboard"></i>项目还款计划列表</h2>
+    <h2><i class="fa fa-dashboard"></i>提现列表</h2>
 </div>
 <div class="row" id="toolbar">
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
@@ -9,18 +9,8 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">借款人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerCode">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">项目编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.projectCode">
+                                <span class="input-group-addon">审核人</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.auditor">
                             </div>
                         </div>
                     </div>
@@ -39,12 +29,32 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
                          <div class="input-group">
-                            <span class="input-group-addon">投标时间</span>
+                            <span class="input-group-addon">申请时间</span>
                             <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.startDate">
+                                <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
                                 <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.endDate">
+                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
                             </div>
                         </div>
                         </div>
@@ -54,8 +64,9 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">期数</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.periodNum">
+                                <span class="input-group-addon">操作来源</span>
+                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='operSource for operSource in listView.operSource'>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -73,6 +84,6 @@
 <div class="panel panel-default">
     <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
-        <table id="repaymentListTable" bs-table-control="bsRepaymentListTableControl"></table>
+        <table id="withdrawListTable" bs-table-control="bsWithdrawListTableControl"></table>
     </div>
 </div>

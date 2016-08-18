@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal','borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
 
         /**
          * the default search condition
@@ -14,17 +14,17 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            type:['网银','委托扣款','POS收款','调账处理','奖励','其他'],
-            status:['待支付','成功','取消','失败','在途'],
-            channel:['POS刷卡','银联转账','其他']
+            status:['申请','批准','拒绝','执行完成','回退'],
+            operSource:['管理系统','钱盒']
         };
+
         /**
          * do something after view loaded
          * @param  {string}     event type                       
          * @param  {function}   callback function
          */
         $scope.$on('$viewContentLoaded', function() {
-            $scope.listView.table = $('#chargeListTable');
+            $scope.listView.table = $('#withdrawListTable');
         });
 
 
@@ -91,7 +91,7 @@ define([], function() {
 
         (function init() {
 
-            $scope.bsChargeListTableControl = {
+            $scope.bsWithdrawListTableControl = {
                 options: {
                     //data: rows,
                     // rowStyle: function(row, index) {
@@ -100,7 +100,7 @@ define([], function() {
                     // fixedColumns: true,
                     // fixedNumber: 2,
                     cache: false,
-                    height: 500,
+                    height: 650,
                     //striped: true,
                     pagination: true,
                     pageSize: 10,
@@ -123,115 +123,109 @@ define([], function() {
                         valign: 'middle'
                     }, {
                         field: 'id',
-                        title: '充值编号',
+                        title: '编号',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'name',
-                        title: '投资人编号',
+                        title: '登录名',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace',
-                        title: '投资人姓名',
+                        title: '真实姓名',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace2',
-                        title: '注册来源',
+                        title: '身份证号码',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace3',
-                        title: '充值金额',
+                        title: '手机号',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace4',
-                        title: '服务费',
+                        title: '固话',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace5',
-                        title: '结算金额',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace6',
-                        title: '账户科目',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace7',
                         title: '状态',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
+                        field: 'workspace6',
+                        title: '理财客户经理编号',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
+                        field: 'workspace7',
+                        title: '理财客户经理代码',
+                        align: 'left',
+                        valign: 'top',
+                        sortable: true
+                    }, {
                         field: 'workspace8',
-                        title: '充值类型',
+                        title: '理财客户经理姓名',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace9',
-                        title: '充值渠道',
+                        title: '理财渠道代码',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '银行名称',
+                        title: '理财渠道名称',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '银行卡号',
+                        title: '注册类型',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '支付序号',
+                        title: '是否本公司员工',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '外部参考编号',
+                        title: '邮编',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '创建时间',
+                        title: '地址',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '完成时间',
+                        title: '是否新手',
                         align: 'left',
                         valign: 'top',
                         sortable: true
                     }, {
                         field: 'workspace10',
-                        title: '操作员',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '备注',
+                        title: '试投金状态',
                         align: 'left',
                         valign: 'top',
                         sortable: true
@@ -243,46 +237,41 @@ define([], function() {
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn': del
                         }
                     }]
                 }
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                return '<button class="btn btn-sm btn-danger"><i class="fa fa-remove"></i></button>';
             }
 
         })();
+        function del(e, value, row, index) {
+                var text = "确定删除此记录？";
+                //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
+                $modal.open({
+                    templateUrl: 'view/shared/confirm.html',
+                    size: 'lg',
+                    //backdrop: true,
+                    controller: function($scope, $modalInstance) {
+                        $scope.confirmData = {
+                            text: text,
+                            processing: false
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
 
-        $scope.del = function() {
-            console.log('del');
-        };
-
+                        $scope.ok = function() {
+                            delUser(item.id, $scope, $modalInstance);
+                            return true;
+                        }
+                    }
+                });
+            };
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
             console.log('aaa');

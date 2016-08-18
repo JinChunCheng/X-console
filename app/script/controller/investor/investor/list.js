@@ -18,6 +18,12 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
+                channel: [{ id: 1, title: '钱盒', content: [{ code: 1, label: '钱盒' }] }, { id: 2, title: '开通宝', content: [{ code: 1, label: '开通宝' }] }, { id: 3, title: '管理系统', content: [{ code: 1, label: '管理系统' }] }],
+            isEmployee:[{id:1,title:'待定'},{id:2,title:'否'},{id:3,title:'是'}],
+            status:[{id:1,title:'未发放'},{id:2,title:'已发放'},{id:3,title:'已回收'}],
+            operSource:[{id:1,title:'管理系统'},{id:2,title:'钱盒'}],
+            
+                isUsed:[{id:1,title:'使用'},{id:2,title:'未使用'}],
                 add: function() {
                     console.log('add');
                     $state.go('investor.investor.add');
@@ -138,71 +144,143 @@ define([], function() {
                             sortable: true
                         }, {
                             field: 'name',
-                            title: '姓名',
+                            title: '登录名',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace',
-                            title: '身份证号码',
+                            title: '真实姓名',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace2',
-                            title: '手机',
+                            title: '身份证号码',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace3',
-                            title: '固定电话',
+                            title: '手机号',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace4',
-                            title: '邮箱',
+                            title: '固话',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
                             field: 'workspace5',
-                            title: '省份',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
-                            field: 'workspace6',
-                            title: '城市',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
-                            field: 'workspace7',
-                            title: '开户行',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
-                            field: 'workspace8',
-                            title: '银行账号',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
-                            field: 'workspace9',
                             title: '状态',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace10',
-                            title: '创建时间',
+                            field: 'workspace6',
+                            title: '理财客户经理编号',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
+                            field: 'workspace7',
+                            title: '理财客户经理代码',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        }, {
+                            field: 'workspace8',
+                            title: '理财客户经理姓名',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        }, {
+                            field: 'workspace9',
+                            title: '理财渠道代码',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
+                            title: '理财渠道名称',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace11',
+                            title: '注册类型',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace12',
+                            title: '是否本公司员工',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace13',
+                            title: '邮编',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        }, {
+                            field: 'workspace14',
+                            title: '地址',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace15',
+                            title: '是否新手',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace16',
+                            title: '试投金状态',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace17',
+                            title: '试投金是否已使用',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace18',
+                            title: '试投金金额',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace19',
+                            title: '操作来源',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace20',
+                            title: '绑定钱盒商户',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace21',
+                            title: '创建时间',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
+                            field: 'workspace22',
+                            title: '更新时间',
+                            align: 'left',
+                            valign: 'top',
+                            sortable: true
+                        },{
                             field: 'flag',
                             title: '操作',
                             align: 'center',

@@ -105,7 +105,7 @@ define([], function() {
                         // fixedColumns: true,
                         // fixedNumber: 2,
                         cache: false,
-                        height:800,
+                        height: 800,
                         //striped: true,
                         pagination: true,
                         pageSize: 10,
@@ -251,6 +251,7 @@ define([], function() {
             function editRow(e, value, row, index) {
                 $state.go('account.list.edit', { id: row.id });
             }
+
 
             $scope.del = function() {
 

@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">提现渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.withdrawChannel" ng-options='Type for Type in listView.depositType'>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='c as c.title for c in listView.channel'>
                                 </select>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">发送状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.sendStatus" ng-options='Type for Type in listView.depositType'>
+                                <select class="form-control form-white" ng-model="listView.condition.sendStatus" ng-options='s as s.title for s in listView.sendStatus'>
                                 </select>
                             </div>
                         </div>
@@ -42,39 +42,39 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">回执状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.receiptStatus" ng-options='Type for Type in listView.depositType'>
+                                <select class="form-control form-white" ng-model="listView.condition.receiptStatus" ng-options='r as r.title for r in listView.receiptStatus'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-            <div class="col-md-4">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">创建日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                            <div class="input-group">
+                                <span class="input-group-addon">创建日期</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">回执日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                            <div class="input-group">
+                                <span class="input-group-addon">回执日期</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4  col-md-offset-5">
                     <div class="form-group col-md-4">

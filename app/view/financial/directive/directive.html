@@ -20,9 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">出款类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.cashType">
-                                    <option>提现出款</option>
-                                    <option>项目出款</option>
+                                <select class="form-control form-white" ng-model="listView.condition.cashType" ng-options='c as c.title for c in listView.cashType'>
                                 </select>
                             </div>
                         </div>
@@ -47,10 +45,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>待出款</option>
-                                    <option>出款确认</option>
-                                    <option>出款完成</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>

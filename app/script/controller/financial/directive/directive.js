@@ -13,7 +13,9 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            cashType:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
+            status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}]
         };
 
         /**

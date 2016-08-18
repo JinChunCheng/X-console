@@ -1,11 +1,14 @@
 define([], function() {
     return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', function($scope, $timeout, $state, $stateParams, borrowerService) {
 
+        var action = $stateParams.id ? 'edit' : 'add';
+
         $scope.vm = {
-            title: "资金账户信息",
+            action:action,
+            title: $stateParams.id ? '修改费率信息' : '新增费率信息',
             data: {},
             cancel: function() {
-                $state.go('account.list.list');
+                $state.go('account.rate.rate');
             }
         };
 

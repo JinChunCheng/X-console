@@ -30,10 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>待结标</option>
-                                    <option>取消</option>
-                                    <option>结标完成</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -44,10 +41,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.financeChannel">
-                                    <option>钱盒</option>
-                                    <option>开通宝</option>
-                                    <option>管理系统</option>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='channel for channel in listView.channel'>
                                 </select>
                             </div>
                         </div>
@@ -66,35 +60,33 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">投资开始日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.startDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.endDate">
-                            </div>
-                        </div>
-                        </div>
-                    </div>     
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">是否包含试投金</span>
-                                <select class="form-control form-white" ng-model="listView.condition.freeMoney">
-                                    <option>包含</option>
-                                    <option>不包含</option>
-                                </select>
+                                <span class="input-group-addon">投资开始日期</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.startDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.endDate">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+            </div>
+            <div class="col-md-4 row">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">是否包含试投金</span>
+                            <select class="form-control form-white" ng-model="listView.condition.isUsed" ng-options='isUsed for isUsed in listView.isUsed'>
+                            </select>
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-md-offset-5">
+                <div class="form-group col-md-4">
+                    <button class="btn btn-info">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                 </div>
             </div>
         </div>

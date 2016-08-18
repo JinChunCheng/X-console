@@ -14,8 +14,10 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            depositType:['托管户=>盒子支付','准备金=>恒丰银行','托管户=>准备金','托管户=>收益户','收益户=>结算户打款','托管户=>恒丰结算户','托管户=>盒子结算户','盒子还款户=>托管户']
+            depositType:[{id:1,title:'托管户=>盒子支付'},{id:2,title:'准备金=>恒丰银行'},{id:3,title:'托管户=>准备金'},{id:4,title:'托管户=>收益户'},{id:5,title:'收益户=>结算户打款'},{id:6,title:'托管户=>恒丰结算户'},{id:7,title:'托管户=>盒子结算户'},{id:8,title:'盒子还款户=>托管户'}],
+            status:[{id:1,title:'未打印'},{id:2,title:'已打印'}]
         };
+
 
 
             /**

@@ -18,6 +18,9 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
+                rateType:['百分比','绝对值'],
+                rateCode:['充值','提现'],
+                status:['正常','关闭'],
                 add: function() {
                     console.log('add');
                     $state.go('fund.rate.add');

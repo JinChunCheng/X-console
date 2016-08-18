@@ -4,9 +4,9 @@
     </div>
     <div class="panel-body">
         <form role="form" class="form-horizontal form-validation" novalidate>
-            <div class="form-group" ng-show="vm.action=='edit'">
+        <div class="form-group" ng-show="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
-                    编号
+                    借款人编号
                 </label>
                 <div class="col-sm-10">
                     <input type="text" name="name" class="form-control" ng-model="vm.data.code">
@@ -14,18 +14,10 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    登录名
+                    姓名
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.loginName">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    真实姓名
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.realName">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.name">
                 </div>
             </div>
             <div class="form-group">
@@ -33,29 +25,12 @@
                     身份证号码
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.IdNo">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.idNo">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    身份认证标识
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.IDmark" ng-options='i as i.title for i in vm.IDmark'>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    邮箱
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.Email">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    手机号
+                    手机
                 </label>
                 <div class="col-sm-10">
                     <input type="text" name="name" class="form-control" ng-model="vm.data.mobile">
@@ -63,7 +38,7 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    固话
+                    固定电话
                 </label>
                 <div class="col-sm-10">
                     <input type="text" name="name" class="form-control" ng-model="vm.data.telephone">
@@ -71,10 +46,58 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    邮编
+                    邮箱
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.postCode">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    开户行
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.bank" ng-options='bank for bank in vm.bank'></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    开户行省份
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.province" ng-options='province for province in vm.province'></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    开户行城市
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.city" ng-options='city for city in vm.city'></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    银行账户名
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccountName">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    银行账户号
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.accountNo">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    状态
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.data.status" ng-options='status for status in vm.status'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -87,52 +110,19 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    理财渠道
+                    邮编
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.channel" ng-options='c as c.title for c in vm.channel'>
-                    </select>
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.zipCode">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">
-                    理财客户经理
+                    备注
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.manager" ng-options='m as m.label for m in vm.data.channel.content'>
-                    </select>
+                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    是否本公司员工
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.isEmployee" ng-options='i as i.title for i in vm.isEmployee'>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    状态
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.status" ng-options='s as s.title for s in vm.status'>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    绑定钱盒商户
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.boxBidding">
-                </div>
-            </div>
-            <div class="form-group" ng-show="vm.action=='add'">
-                <label class="col-sm-7  col-sm-offset-2">
-                    注意：注册成功后，投资人的登录密码和资金密码由系统随机生成6位字符数字组合，并以短信的方式 通知！！
-                </label>
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">

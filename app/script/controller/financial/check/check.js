@@ -14,8 +14,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            depositType:['托管户=>盒子支付','准备金=>恒丰银行','托管户=>准备金','托管户=>收益户','收益户=>结算户打款','托管户=>恒丰结算户','托管户=>盒子结算户','盒子还款户=>托管户']
-        };
+            status:[{id:1,title:'待审核'},{id:2,title:'已到账'},{id:3,title:'已转账'}]};
 
 
             /**

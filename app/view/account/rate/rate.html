@@ -10,9 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率编码</span>
-                                <select class="form-control form-white" ng-model="listView.condition.rateCode">
-                                    <option>项目出款</option>
-                                    <option>提现出款</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='c as c.title for c in listVM.rateCode'>
                                 </select>
                             </div>
                         </div>
@@ -23,9 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.rateType">
-                                    <option>项目出款</option>
-                                    <option>提现出款</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='t as t.title for t in listVM.rateType'>
                                 </select>
                             </div>
                         </div>
@@ -36,7 +32,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率名称</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.rateName">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.rateName">
                             </div>
                         </div>
                     </div>
@@ -46,9 +42,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>正常</option>
-                                    <option>关闭</option>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
                                 </select>
                             </div>
                         </div>

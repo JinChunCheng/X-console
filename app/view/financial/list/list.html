@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">借款人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerCode">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.borrowerCode">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.name">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.name">
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">邮箱</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.mail">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.mail">
                             </div>
                         </div>
                     </div>
@@ -39,8 +39,8 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">提现渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.withdrawChannel" ng-options='Type for Type in listView.depositType'>
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">手机号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.phoneNum">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.phoneNum">
                             </div>
                         </div>
                     </div>
@@ -62,9 +62,9 @@
                             <div class="input-group">
                                 <span class="input-group-addon">日期</span>
                                 <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                    <input type="date" class="input-sm form-control" ng-model="listVM.condition.StartDate">
                                     <span class="input-group-addon">~</span>
-                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.EndDate">
                                 </div>
                             </div>
                         </div>

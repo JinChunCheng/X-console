@@ -12,10 +12,15 @@ define([], function() {
         };
 
         $scope.listView = {
+            //TODO manager内容需要channel内容来确定
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            channel: ['汇合金服'],
+            type: ['普通推荐'],
+            status: ['新建', '发布审核拒绝', '发布中', '投标完成', '结标审核拒绝', '还款中', '逾期', '正常关闭', '待发布', '异常关闭', '已重新发布', '投标逾期关闭'],
+            displayChannel: ['后台管理系统', '全部渠道', '机构1', '机构2', '机构3', '钱盒公共', '钱盒内部', 'TEST', '测试机构0000001'],
+            manager: [],
         };
-
         /**
          * do something after view loaded
          * @param  {string}     event type                       

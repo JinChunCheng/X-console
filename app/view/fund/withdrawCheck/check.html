@@ -1,0 +1,59 @@
+<form name="pageForm" class="bs-example form-horizontal">
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()"><i class="icons-office-52"></i></button><h4 class="modal-title">确认操作</h4>
+
+    </div>
+    <div class="modal-body p-r">
+        <div class="form-group">
+            <div class="col-md-12 portlets">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="col-sm-4 control-label">
+                                    提现笔数
+                                </label>
+                                <div class="col-sm-8">
+                                    <label type="text" name="name" class="form-control" ng-model="listView.condition.withdrawNum"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <label class="col-sm-4 control-label">
+                                    提现金额
+                                </label>
+                                <div class="col-sm-8">
+                                    <label type="text" name="name" class="form-control" ng-model="listView.condition.withdrawAmount"></label>
+                                </div>
+                            </td>
+                            <td>
+                                <label class="col-sm-5 control-label">
+                                    提现服务费
+                                </label>
+                                <div class="col-sm-7">
+                                    <label type="text" name="name" class="form-control" ng-model="listView.condition.withdrawFee"></label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <label class="col-sm-1 control-label">
+                                    审批意见
+                                </label>
+                                <div class="col-sm-11">
+                                    <textarea type="text" name="name" class="form-control" ng-model="listView.condition.suggest"></textarea>
+                                </div>
+                        </div>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="confirmData.processing">
+            <span class="w2em" ng-if="!confirmData.processing" ng-cloak>批准</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="confirmData.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">拒绝</button>
+    </div>
+</form>
