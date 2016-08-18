@@ -1,8 +1,8 @@
 <div class="header">
-    <h2><i class="fa fa-dashboard"></i>基本信息</h2>
+    <h2><i class="fa fa-dashboard"></i>借款人信息</h2>
 </div>
 <div class="panel m-t-10">
-    <div class="panel-header"><i class="icon icon-user"></i>申请人信息</div>
+    <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
     <div class="panel-body">
         <form role="form" class="form-horizontal form-validation" novalidate>
             <div class="form-group">
@@ -11,198 +11,27 @@
                         <tbody>
                             <tr>
                                 <th class='w-120'>
-                                    申请人
+                                    借款人编号
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.applier"></label>
+                                        <label type="text" name="name" ng-model="vm.data.borrowerCode"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
-                                    手机
+                                    姓名
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.mobile"></label>
+                                        <label type="text" name="name" ng-model="vm.data.name"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
-                                    身份证
+                                    身份证号码
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
                                         <label type="text" name="name" ng-model="vm.data.IDcard"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class='w-120'>
-                                    资金账号
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.fundAccount"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    省份
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.province"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    城市
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.city"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class='w-120'>
-                                    银行名称
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.bankName"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    开户支行名称
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.branchName"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    银行卡号
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.bankCardNum"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class='w-120'>
-                                    账户余额
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.accountBalance"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    可用余额
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.availableBalance"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    冻结余额
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.freezeBalance"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="panel m-t-10">
-    <div class="panel-header"><i class="icon icon-user"></i>提现申请描述</div>
-    <div class="panel-body">
-        <form role="form" class="form-horizontal form-validation" novalidate>
-            <div class="form-group">
-                <div class="col-md-12 portlets">
-                    <table class="table table-bordered th-right">
-                        <tbody>
-                            <tr>
-                                <th class='w-120'>
-                                    编号
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.code"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    申请金额
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.applyAmount"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    服务费
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.serviceFee"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class='w-120'>
-                                    到账金额
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.receiptAmount"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    申请时间
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.withdrawTime"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    提现渠道
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.withdrawChannel"></label>
-                                    </div>
-                                </th>
-                            </tr>
-                            <tr>
-                                <th class='w-120'>
-                                    批准时间
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.approvalTime"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    审核人
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.reviewer"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    执行日期
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.performTime"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -216,11 +45,115 @@
                                     </div>
                                 </th>
                                 <th class='w-120'>
-                                    操作来源
+                                    手机
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.operSource"></label>
+                                        <label type="text" name="name" ng-model="vm.data.mobile"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    固定电话
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.phone"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    邮箱
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.mail"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    开户行
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.bank"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    开户行省份
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.bankProvince"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    开户行城市
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.bankCity"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    内部账户编号
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.innerCode"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    银行账户名
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.bankAccountName"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    银行账户
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.bankAccount"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    地址
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.address"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    邮编
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.postCode"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    创建时间
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.buildTime"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    更新时间
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.refreshTime"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -232,13 +165,62 @@
                                     </div>
                                 </th>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header"><i class="icon icon-user"></i>账户信息</div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group">
+                <div class="col-md-12 portlets">
+                    <table class="table table-bordered th-right">
+                        <tbody>
                             <tr>
                                 <th class='w-120'>
-                                    安全级别描述
+                                    账户科目
                                 </th>
-                                <th colspan="5">
+                                <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-model="vm.data.security"></label>
+                                        <label type="text" name="name" ng-model="vm.data.accountSubject"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    余额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.balance"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    冻结余额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.freezeBalance"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    可用余额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.availableBalance"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    创建时间
+                                </th>
+                                <th colspan="3">
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-model="vm.data.buildTime"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -247,6 +229,12 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header"><i class="icon icon-user"></i>账户余额变动日志</div>
+    <div class="panel-body">
+        <table id="borrowDetailTable" bs-table-control="bsBorrowDetailTableControl"></table>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-5">
                 <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
