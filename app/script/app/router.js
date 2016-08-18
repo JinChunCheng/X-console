@@ -21,6 +21,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.release.edit', lazyLoad.config('/edit/:id', 'view/asset/release/edit.html', 'controller/asset/release/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
                 //asset module end 
 
             // borrower module start

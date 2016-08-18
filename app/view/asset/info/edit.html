@@ -504,7 +504,9 @@
                                         <div class="form-group">
                                             <label class="control-label">房屋产权人</label>
                                             <div>
-                                                <input type="text" class="form-control" />
+                                                <select class="form-control" ng-model="assetVM.data.houseOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
+                                                    <option value="">- 请选择产权人 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -542,7 +544,9 @@
                                         <div class="form-group">
                                             <label class="control-label">车辆产权人</label>
                                             <div>
-                                                <input type="text" class="form-control" />
+                                                <select class="form-control" ng-model="assetVM.data.carOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
+                                                    <option value="">- 请选择产权人 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>

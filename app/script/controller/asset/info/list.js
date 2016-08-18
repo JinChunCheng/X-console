@@ -10,6 +10,7 @@ define([], function() {
             var title = '资产列表';
             var buttons = [];
             var optColWidth = 120;
+            var showAddBtn = false;
             switch ($state.current.name) {
                 case 'asset.info.draft':
                     action = 'draft';
@@ -21,6 +22,7 @@ define([], function() {
                         '<a href="" name="btn-delete" class="m-r-5 text-danger">删除</button>'
                     ];
                     optColWidth = 120;
+                    showAddBtn = true;
                     break;
                 case 'asset.info.todo':
                     action = 'todo';
@@ -33,6 +35,7 @@ define([], function() {
                         '<a href="" name="btn-delete" class="m-r-5 text-danger">删除</button>'
                     ];
                     optColWidth = 220;
+                    showAddBtn = true;
                     break;
                 case 'asset.info.better':
                     action = 'better';
@@ -73,6 +76,7 @@ define([], function() {
             $scope.listVM = {
                 title: title,
                 condition: angular.copy(defaultCondition),
+                action: action,
                 table: null,
                 add: function() {
                     console.log('add');

@@ -6,10 +6,10 @@ define([], function() {
 
             $scope.assetVM = {
                 action: action,
-                title: $stateParams.id ? '修改资产信息' : '新增资产信息',
+                title: '产品上架信息',
                 data: {},
                 cancel: function() {
-                    $state.go('asset.info.list');
+                    $state.go('asset.release.todo');
                 },
                 provinceChange: function() {
                     $scope.assetVM.data.city = null;
@@ -31,7 +31,49 @@ define([], function() {
                 borrowerService.resource.get({ id: id }).$promise.then(function(res) {
                     $scope.assetVM.data = res.data;
                 }, function(err) {});
+
+
+
+                $scope.tbControl = {
+                    options: {
+                        cache: false,
+                        pagination: true,
+                        pageSize: 20,
+                        pageList: [10, 25, 50, 100, 200],
+                        height: 500,
+                        ajax: getBorrowerList,
+                        sidePagination: "server",
+                        columns: [
+                            { field: 'id', title: '投资编号', align: 'center', valign: 'middle' },
+                            { field: 'workspace3', title: '投资人ID', align: 'left', valign: 'top' },
+                            { field: 'name', title: '投资人姓名', align: 'center', valign: 'middle' },
+                            { field: 'workspace', title: '投资金额', align: 'left', valign: 'top' },
+                            { field: 'workspace2', title: '投资时间', align: 'left', valign: 'top' },
+                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }
+                        ]
+                    }
+                };
+
             })($stateParams.id);
+
+
+            function getBorrowerList(params) {
+                borrowerService.resource.query({ where: "" }).$promise.then(function(res) {
+                    //debugger
+                    $timeout(function() {
+                        res.data.items.forEach(function(item) {
+                            item.id = parseInt(Math.random() * 100);
+                        });
+                        res.data.items.sort(function(a, b) {
+                            return Math.random() > .5 ? -1 : 1;
+                        });
+                        params.success({
+                            total: res.data.paginate.totalCount,
+                            rows: res.data.items
+                        });
+                    }, 500);
+                });
+            };
 
             function initMetaData() {
                 metaService.getMeta('XB', function(data) {

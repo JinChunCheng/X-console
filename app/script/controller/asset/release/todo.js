@@ -97,7 +97,7 @@ define([], function() {
                 }
 
                 function release(e, value, row, index) {
-                    $state.go('asset.release.edit', {id: value})
+                    $state.go('asset.release.edit', { id: row.id })
                     e.stopPropagation();
                     e.preventDefault();
                 }

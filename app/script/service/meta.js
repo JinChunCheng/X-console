@@ -134,6 +134,13 @@ define(['common/config'], function(config) {
                 { value: '2', text: '工资收入' },
                 { value: '3', text: '投资收入' }
             ]
+        }, {
+            key: 'CQR',
+            value: [
+                { value: '1', text: '本人' },
+                { value: '2', text: '配偶' },
+                { value: '3', text: '亲属' },
+            ]
         }];
 
         //获取某项元数据列表
