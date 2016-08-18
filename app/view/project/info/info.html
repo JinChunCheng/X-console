@@ -20,19 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>新建</option>
-                                    <option>发布审核拒绝</option>
-                                    <option>发布中</option>
-                                    <option>投标完成</option>
-                                    <option>结标审核拒绝</option>
-                                    <option>还款中</option>
-                                    <option>逾期</option>
-                                    <option>正常关闭</option>
-                                    <option>待发布</option>
-                                    <option>异常关闭</option>
-                                    <option>已重新发布</option>
-                                    <option>投标逾期关闭</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -43,8 +31,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">项目类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.projectType">
-                                    <option>普通推荐</option>
+                                <select class="form-control form-white" ng-model="listView.condition.type" ng-options='type for type in listView.type'>
                                 </select>
                             </div>
                         </div>
@@ -55,16 +42,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">显示渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.displayChannel">
-                                    <option>后台管理系统</option>
-                                    <option>全部渠道</option>
-                                    <option>机构1</option>
-                                    <option>机构2</option>
-                                    <option>机构3</option>
-                                    <option>钱盒公共</option>
-                                    <option>钱盒内部</option>
-                                    <option>TEST</option>
-                                    <option>测试机构0000001</option>
+                                <select class="form-control form-white" ng-model="listView.condition.displayChannel" ng-options='displayChannel for displayChannel in listView.displayChannel'>
                                 </select>
                             </div>
                         </div>
@@ -95,8 +73,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">授信渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.creditChannel">
-                                    <option>汇合金服</option>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='channel for channel in listView.channel'>
                                 </select>
                             </div>
                         </div>
@@ -107,7 +84,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">授信客户经理</span>
-                                <select class="form-control form-white" ng-model="listView.condition.customerManager">
+                                <select class="form-control form-white" ng-model="listView.condition.manager" ng-options='manager for manager in listView.manager'>
                                 </select>
                             </div>
                         </div>

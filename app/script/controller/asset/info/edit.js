@@ -37,6 +37,9 @@ define([], function() {
                 metaService.getMeta('SF', function(data) {
                     $scope.assetVM.ynList = data;
                 });
+                metaService.getMeta('YW', function(data) {
+                    $scope.assetVM.ywList = data;
+                });
                 metaService.getMeta('ZCLX', function(data) {
                     $scope.assetVM.assetTypeList = data;
                 });
@@ -69,6 +72,15 @@ define([], function() {
                 });
                 metaService.getMeta('YTLB', function(data) {
                     $scope.assetVM.useTypeList = data;
+                });
+                metaService.getMeta('XYJB', function(data) {
+                    $scope.assetVM.creditList = data;
+                });
+                metaService.getMeta('HKFS', function(data) {
+                    $scope.assetVM.repaymentTypeList = data;
+                });
+                metaService.getMeta('HKLY', function(data) {
+                    $scope.assetVM.repaymentFromList = data;
                 });
             }
         }

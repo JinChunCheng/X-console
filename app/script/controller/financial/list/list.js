@@ -18,6 +18,7 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
+                status:[{id:1,title:'等待处理'},{id:2,title:'失败'},{id:3,title:'成功'}],
                 edit: function(id) {
                     $state.go('financial.list.edit', { id: id });
                 }

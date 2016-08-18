@@ -80,15 +80,21 @@
             "subMenus": [{
                 "text": "充值列表",
                 "state": "fund.charge.charge"
+            },{
+                "text": "提现",
+                "state": "fund.withdraw.withdraw"
             }, {
                 "text": "提现审核",
-                "state": "fund.check.check"
+                "state": "fund.withdrawCheck.withdrawCheck"
             }, {
                 "text": "提现列表",
-                "state": "fund.withdraw.withdraw"
+                "state": "fund.withdrawlist.withdrawlist"
             }, {
                 "text": "费率维护",
                 "state": "fund.rate.rate"
+            }, {
+                "text": "提现回退",
+                "state": "fund.wfallback.wfallback"
             }, {
                 "text": "回退审核",
                 "state": "fund.fallback.fallback"
@@ -140,7 +146,7 @@
                 "state": "financial.monitor.monitor"
             }, {
                 "text": "催款单列表",
-                "state": "financial.repayment.list"
+                "state": "financial.list.list"
             }, {
                 "text": "催款单审核",
                 "state": "financial.check.check"

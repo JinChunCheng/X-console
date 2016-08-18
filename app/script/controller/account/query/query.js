@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -13,9 +13,10 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            accountType: [{ id: 1, title: '汇和托管户', content: [{code:1,label:'充值'}, {code:2,label:'提现'}, {code:3,label:'放款'},{code:4,label:'还款'},{code:5,label:'沉淀利润'}, {code:6,label:'风险准备金'}, {code:7,label:'提现手续费'}, {code:8,label:'提现手续费'}, {code:9,label:'手工调增'}, {code:10,label:'手工调减'}] }, { id: 2, title: '汇和准备金户', content: [{code:1,label:'补充'}, {code:2,label:'手工调增'}, {code:3,label:'手工调减'}] }, { id: 3, title: '汇和收益户', content: [{code:1,label:'沉淀利润'}, {code:2,label:'提现手续费'}, {code:3,label:'托管费'}, {code:4,label:'手工调增'}, {code:5,label:'手工调减'}] }, { id: 4, title: '恒丰托管费', content: [{code:1,label:'充值'}, {code:2,label:'手工调增'}, {code:3,label:'手工调减'}] }, { id: 5, title: '恒丰移动金融部', content: [{code:1,label:'提现'}, {code:2,label:'手工调增'}, {code:3,label:'手工调减'}] }, { id: 6, title: '盒子资金户', content: [{code:1,label:'充值'}, {code:2,label:'放款'}, {code:3,label:'手工调增'}, {code:4,label:'手工调减'}] }, { id: 7, title: '盒子结算户', content: [] }, { id: 8, title: '盒子还款户', content: [] }]
         };
-
+ 
         /**
          * do something after view loaded
          * @param  {string}     event type                       
@@ -26,66 +27,66 @@ define([], function() {
         });
 
 
-                   var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
+        var getData = function(params) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                //debugger
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
 
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
+            //post: 
+            // var project = {};
+            // project.borrowerId = 1;
+            // project.contractTemplateId=1;
+            // project.projectName="console-前台添加";
+            // project.requestAmount=100000.00;
+            // project.repaymentType="IOP";
+            // project.duration=12;
+            // project.durationUnit="Y";
+            // project.periodCount=10;
+            // project.interestRate=0.8;
+            // project.interestRateTerm="Y";
+            // project.serviceFeeRate=0;
+            // project.serviceFeeRateTerm="Y";
+            // project.latePaymentFeeRateTerm="D";
+            // project.purpose="前端测试";
+            // project.mortgageFlag="N";
+            // project.mortgage="无";
+            // project.guaranteeFlag="N";
+            // project.guarantee="无";
+            // project.description="这是一个通过controller添加进来的project";
+            // project.biddingDeadline=new Date();
+            // project.biddingStartAmount=5000;
+            // project.biddingStepAmount=1000;
+            // project.biddingAmount=100000.00;
+            // project.status = "IRP";
+            // project.totalDays=100;
+            // project.totalInterest=100;
+            // project.totalServiceFee=0.0;
+            // project.debtStartDate=new Date();
+            // project.debtEndDate=new Date();
+            // project.principalPaid=0;
+            // project.PrincipalBalance=100;
+            // project.interestPaid=1;
+            // project.serviceFeePaid=0;
+            // project.memo="";
+            // project.creditChannelId=1;
 
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
-            };
+            // borrowerService.get(project).then(function(res) {
+            //     debugger
+            // });
+        };
         (function init() {
 
             $scope.bsFundAccountQueryTableControl = {

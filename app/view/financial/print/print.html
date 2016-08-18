@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">划账类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.depositType" ng-options='Type for Type in listView.depositType'>
+                                <select class="form-control form-white" ng-model="listView.condition.depositType" ng-options='d as d.title for d in listView.depositType'>
                                 </select>
                             </div>
                         </div>
@@ -51,9 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>未打印</option>
-                                    <option>已打印</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>

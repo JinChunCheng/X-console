@@ -13,7 +13,9 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            operSource:['管理系统','钱盒'],
+            securityLevel:['未计算','安全','待详查','危险']
         };
 
         /**
@@ -227,50 +229,31 @@ define([], function() {
                         align: 'left',
                         valign: 'top',
                         sortable: true
-                    }, {
-                        field: 'flag',
-                        title: '操作',
-                        align: 'center',
-                        valign: 'middle',
-                        clickToSelect: false,
-                        formatter: flagFormatter,
-                        events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
-                        }
                     }]
                 }
             };
 
-            function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
-            }
-
         })();
+        $scope.checkRow = function(e, value, row, index) {
+            // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+            $modal.open({
+                templateUrl: 'view/fund/fallback/check.html',
+                size: 'lg',
+                // backdrop: true,
+                controller: function($scope, $modalInstance) {
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss();
+                        return false;
+                    };
 
+                    $scope.ok = function() {
+                        delUser(item.id, $scope, $modalInstance);
+                        return true;
+                    };
+                }
+            });
+
+        };
         $scope.del = function() {
             console.log('del');
         };

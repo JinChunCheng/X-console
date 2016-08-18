@@ -14,80 +14,80 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            depositType:['托管户=>盒子支付','准备金=>恒丰银行','托管户=>准备金','托管户=>收益户','收益户=>结算户打款','托管户=>恒丰结算户','托管户=>盒子结算户','盒子还款户=>托管户']
+            status: [{ id: 1, title: '对账成功' }, { id: 2, title: '对账失败' }]
         };
 
 
-            /**
-             * do something after view loaded
-             * @param  {string}     event type                       
-             * @param  {function}   callback function
-             */
+        /**
+         * do something after view loaded
+         * @param  {string}     event type                       
+         * @param  {function}   callback function
+         */
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#POSchargeReconTable');
         });
 
 
-                    var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
+        var getData = function(params) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                //debugger
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
 
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
+            //post: 
+            // var project = {};
+            // project.borrowerId = 1;
+            // project.contractTemplateId=1;
+            // project.projectName="console-前台添加";
+            // project.requestAmount=100000.00;
+            // project.repaymentType="IOP";
+            // project.duration=12;
+            // project.durationUnit="Y";
+            // project.periodCount=10;
+            // project.interestRate=0.8;
+            // project.interestRateTerm="Y";
+            // project.serviceFeeRate=0;
+            // project.serviceFeeRateTerm="Y";
+            // project.latePaymentFeeRateTerm="D";
+            // project.purpose="前端测试";
+            // project.mortgageFlag="N";
+            // project.mortgage="无";
+            // project.guaranteeFlag="N";
+            // project.guarantee="无";
+            // project.description="这是一个通过controller添加进来的project";
+            // project.biddingDeadline=new Date();
+            // project.biddingStartAmount=5000;
+            // project.biddingStepAmount=1000;
+            // project.biddingAmount=100000.00;
+            // project.status = "IRP";
+            // project.totalDays=100;
+            // project.totalInterest=100;
+            // project.totalServiceFee=0.0;
+            // project.debtStartDate=new Date();
+            // project.debtEndDate=new Date();
+            // project.principalPaid=0;
+            // project.PrincipalBalance=100;
+            // project.interestPaid=1;
+            // project.serviceFeePaid=0;
+            // project.memo="";
+            // project.creditChannelId=1;
 
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
-            };
+            // borrowerService.get(project).then(function(res) {
+            //     debugger
+            // });
+        };
 
         (function init() {
 

@@ -8,26 +8,23 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">申请时间</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
+                            <div class="input-group">
+                                <span class="input-group-addon">申请时间</span>
+                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
+                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
+                                    <span class="input-group-addon">~</span>
+                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-6">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>申请</option>
-                                    <option>批准</option>
-                                    <option>拒绝</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -46,6 +43,9 @@
 <div class="panel panel-default">
     <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
+        <div class="col-md-12 m-b-12">
+            <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+        </div>
         <table id="fallbackCheckTable" bs-table-control="bsFallbackCheckTableControl"></table>
     </div>
 </div>

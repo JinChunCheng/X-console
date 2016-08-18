@@ -7,20 +7,20 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
                 .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', { directives: [], services: [], filters: [] }))
                 .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', { directives: [], services: [], filters: [] }))
-                
-                //asset module start
-                .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: []}, true))
-                .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', { directives: [], services: [], filters: []}, true))
-                .state('asset.info.list', lazyLoad.config('/list', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: []}))
-                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: []}))
-                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: []}))
-                .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', { directives: [], services: [], filters: []}, true))
-                .state('asset.release.list', lazyLoad.config('/list', 'view/asset/release/list.html', 'controller/asset/release/list', { directives: [], services: ['service/borrower'], filters: []}))
+
+            //asset module start
+            .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
+                .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
+                .state('asset.info.list', lazyLoad.config('/list', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
+                .state('asset.release.list', lazyLoad.config('/list', 'view/asset/release/list.html', 'controller/asset/release/list', { directives: [], services: ['service/borrower'], filters: [] }))
                 //asset module end 
-                
-                // borrower module start
-                
-                .state('borrower', lazyLoad.config('/borrower', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+
+            // borrower module start
+
+            .state('borrower', lazyLoad.config('/borrower', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //借款人列表
                 .state('borrower.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('borrower.info.list', lazyLoad.config('/list', '/view/borrower/info/list.html', 'controller/borrower/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -29,12 +29,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //借款人还款列表
                 .state('borrower.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('borrower.repayment.list', lazyLoad.config('/list', '/view/borrower/repayment/list.html', 'controller/borrower/repayment/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                
-                // borrower module end
-                
-                // investor module start
-               
-                .state('investor', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+
+            // borrower module end
+
+            // investor module start
+
+            .state('investor', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //投资人列表
                 .state('investor.investor', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('investor.investor.list', lazyLoad.config('/list', '/view/investor/investor/list.html', 'controller/investor/investor/list', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -52,12 +52,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //投资列表
                 .state('investor.info', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('investor.info.list', lazyLoad.config('/info', '/view/investor/info/list.html', 'controller/investor/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                
-                // investor module end
 
-                //project module start
-                
-                .state('project', lazyLoad.config('/project', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            // investor module end
+
+            //project module start
+
+            .state('project', lazyLoad.config('/project', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //项目列表
                 .state('project.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('project.info.info', lazyLoad.config('/info', '/view/project/info/info.html', 'controller/project/info/info', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -73,69 +73,81 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //项目还款计划
                 .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('project.repayment.repayment', lazyLoad.config('/repayment', '/view/project/repayment/repayment.html', 'controller/project/repayment/repayment', { directives: [], services: ['service/borrower'], filters: [] }))
-                
-                //project module end
 
-                //fund module start
-                //TODO 缺少提现回退和提现两个界面
-                .state('fund', lazyLoad.config('/fund', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            //project module end
+
+            //fund module start
+            //TODO 缺少提现回退和提现两个界面
+            .state('fund', lazyLoad.config('/fund', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //充值列表
                 .state('fund.charge', lazyLoad.config('/charge', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.charge.charge', lazyLoad.config('/charge', '/view/fund/charge/charge.html', 'controller/fund/charge/charge', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现列表
+
+            .state('fund.withdrawlist', lazyLoad.config('/withdrawlist', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('fund.withdrawlist.withdrawlist', lazyLoad.config('/withdrawlist', '/view/fund/withdrawlist/withdrawlist.html', 'controller/fund/withdrawlist/withdrawlist', { directives: [], services: ['service/borrower'], filters: [] }))
+                //提现
                 .state('fund.withdraw', lazyLoad.config('/withdraw', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/fund/withdraw/withdraw.html', 'controller/fund/withdraw/withdraw', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现审核
-                .state('fund.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('fund.check.check', lazyLoad.config('/check', '/view/fund/check/check.html', 'controller/fund/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('fund.withdrawCheck', lazyLoad.config('/withdrawCheck', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('fund.withdrawCheck.withdrawCheck', lazyLoad.config('/withdrawCheck', '/view/fund/withdrawCheck/withdrawCheck.html', 'controller/fund/withdrawCheck/withdrawCheck', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('fund.withdrawCheck.check', lazyLoad.config('/withdrawCheck', '/view/fund/withdrawCheck/check.html', 'controller/fund/withdrawCheck/check', { directives: [], services: ['service/borrower'], filters: [] }))
+                
                 //费率维护
                 .state('fund.rate', lazyLoad.config('/rate', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.rate.rate', lazyLoad.config('/rate', '/view/fund/rate/rate.html', 'controller/fund/rate/rate', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('fund.rate.add', lazyLoad.config('/add', '/view/fund/rate/edit.html', 'controller/fund/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('fund.rate.edit', lazyLoad.config('/edit/:id', '/view/fund/rate/edit.html', 'controller/fund/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))  
+                .state('fund.rate.edit', lazyLoad.config('/edit/:id', '/view/fund/rate/edit.html', 'controller/fund/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                //提现回退
+                .state('fund.wfallback', lazyLoad.config('/wfallback', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('fund.wfallback.wfallback', lazyLoad.config('/wfallback', '/view/fund/wfallback/wfallback.html', 'controller/fund/wfallback/wfallback', { directives: [], services: ['service/borrower'], filters: [] }))
                 //回退审核
                 .state('fund.fallback', lazyLoad.config('/fallback', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.fallback.fallback', lazyLoad.config('/fallback', '/view/fund/fallback/fallback.html', 'controller/fund/fallback/fallback', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('fund.fallback.check', lazyLoad.config('/fallback', '/view/fund/fallback/check.html', 'controller/fund/fallback/fallback', { directives: [], services: ['service/borrower'], filters: [] }))
+                
                 //充值查询
                 .state('fund.query', lazyLoad.config('/query', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.query.query', lazyLoad.config('/query', '/view/fund/query/query.html', 'controller/fund/query/query', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现查询
                 .state('fund.wquery', lazyLoad.config('/wquery', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('fund.wquery.wquery', lazyLoad.config('/wquery', '/view/fund/wquery/wquery.html', 'controller/fund/wquery/wquery', { directives: [], services: ['service/borrower'], filters: [] }))
-                
-                //fund module end
 
-                //account module start
+            //fund module end
 
-                .state('account', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            //account module start
+
+            .state('account', lazyLoad.config('/account', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //资金账户列表
                 .state('account.list', lazyLoad.config('/list', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('account.list.list', lazyLoad.config('/list', '/view/account/list/list.html', 'controller/account/list/list', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                
-                //资金账户流水查询
-                .state('account.query', lazyLoad.config('/query', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('account.list.list', lazyLoad.config('/list', '/view/account/list/list.html', 'controller/account/list/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('account.list.edit', lazyLoad.config('/edit/:id', '/view/account/list/edit.html', 'controller/account/list/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+
+            //资金账户流水查询
+            .state('account.query', lazyLoad.config('/query', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.query.query', lazyLoad.config('/query', '/view/account/query/query.html', 'controller/account/query/query', { directives: [], services: ['service/borrower'], filters: [] }))
                 //资金费率维护
                 .state('account.rate', lazyLoad.config('/rate', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.rate.rate', lazyLoad.config('/rate', '/view/account/rate/rate.html', 'controller/account/rate/rate', { directives: [], services: ['service/borrower'], filters: [] }))
                 .state('account.rate.add', lazyLoad.config('/rate', '/view/account/rate/edit.html', 'controller/account/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('account.rate.edit', lazyLoad.config('/edit/:id', '/view/account/rate/edit.html', 'controller/account/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))       
+                .state('account.rate.edit', lazyLoad.config('/edit/:id', '/view/account/rate/edit.html', 'controller/account/rate/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 //利润提取
                 .state('account.withdraw', lazyLoad.config('/withdraw', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/account/withdraw/withdraw.html', 'controller/account/withdraw/withdraw', { directives: [], services: ['service/borrower'], filters: [] }))
                 //利润提取列表
                 .state('account.profitlist', lazyLoad.config('/profitlist', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('account.profitlist.profitlist', lazyLoad.config('/profitlist', '/view/account/profitlist/profitlist.html', 'controller/account/profitlist/profitlist', { directives: [], services: ['service/borrower'], filters: [] }))
-            
-                //account module end
 
-                //financial module start
+            //account module end
 
-                .state('financial', lazyLoad.config('/financial', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            //financial module start
+
+            .state('financial', lazyLoad.config('/financial', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //催款单列表
                 .state('financial.list', lazyLoad.config('/list', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.list.list', lazyLoad.config('/list', '/view/financial/list/list.html', 'controller/financial/list/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('financial.list.edit', lazyLoad.config('/edit/:id', '/view/financial/list/edit.html', 'controller/financial/list/edit', { directives: [], services: ['service/borrower'], filters: [] }))  
+                .state('financial.list.edit', lazyLoad.config('/edit/:id', '/view/financial/list/edit.html', 'controller/financial/list/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现出款
                 .state('financial.withdraw', lazyLoad.config('/withdraw', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/financial/withdraw/withdraw.html', 'controller/financial/withdraw/withdraw', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -166,17 +178,17 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //ERP接口
                 .state('financial.ERP', lazyLoad.config('/ERP', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.ERP.ERP', lazyLoad.config('/ERP', '/view/financial/ERP/ERP.html', 'controller/financial/ERP/ERP', { directives: [], services: ['service/borrower'], filters: [] }))
-            
-                //financial module end
 
-                //marketing module start
+            //financial module end
 
-                .state('marketing', lazyLoad.config('/marketing', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            //marketing module start
+
+            .state('marketing', lazyLoad.config('/marketing', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 //系统公告列表
                 .state('marketing.notice', lazyLoad.config('/notice', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('marketing.notice.notice', lazyLoad.config('/notice', '/view/marketing/notice/notice.html', 'controller/marketing/notice/notice', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('marketing.notice.edit', lazyLoad.config('/edit/:id', '/view/marketing/notice/edit.html', 'controller/marketing/notice/edit', { directives: [], services: ['service/borrower'], filters: [] }))  
-                .state('marketing.notice.add', lazyLoad.config('/add', '/view/marketing/notice/edit.html', 'controller/marketing/notice/edit', { directives: [], services: ['service/borrower'], filters: [] }))   
+                .state('marketing.notice.edit', lazyLoad.config('/edit/:id', '/view/marketing/notice/edit.html', 'controller/marketing/notice/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('marketing.notice.add', lazyLoad.config('/add', '/view/marketing/notice/edit.html', 'controller/marketing/notice/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 //短信列表
                 .state('marketing.message', lazyLoad.config('/message', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('marketing.message.message', lazyLoad.config('/message', '/view/marketing/message/message.html', 'controller/marketing/message/message', { directives: [], services: ['service/borrower'], filters: [] }))

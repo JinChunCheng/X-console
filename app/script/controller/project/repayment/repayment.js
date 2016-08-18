@@ -13,7 +13,8 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            status:['待还款','已还清']
         };
 
         /**

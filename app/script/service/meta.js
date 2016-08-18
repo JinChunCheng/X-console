@@ -17,6 +17,12 @@ define(['common/config'], function(config) {
                 { value: '0', text: '否' }
             ]
         }, {
+            key: 'YW', //有无
+            value: [
+                { value: '1', text: '有' },
+                { value: '0', text: '无' }
+            ]
+        }, {
             key: 'ZCLX', //资产类型
             value: [
                 { value: '1', text: '车贷' },
@@ -106,6 +112,27 @@ define(['common/config'], function(config) {
             value: [
                 { value: '1', text: '流动资金' },
                 { value: '2', text: '固定投资' }
+            ]
+        }, {
+            key: 'XYJB',
+            value: [
+                { value: '1', text: '优质' },
+                { value: '2', text: '良好' },
+                { value: '3', text: '一般' },
+            ]
+        }, {
+            key: 'HKFS',
+            value: [
+                { value: '1', text: '到期还本付息' },
+                { value: '2', text: '等本等费' },
+                { value: '3', text: '先息后本' }
+            ]
+        }, {
+            key: 'HKLY',
+            value: [
+                { value: '1', text: '经营收入' },
+                { value: '2', text: '工资收入' },
+                { value: '3', text: '投资收入' }
             ]
         }];
 

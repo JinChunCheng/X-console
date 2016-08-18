@@ -40,13 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.chargeType">
-                                    <option>网银</option>
-                                    <option>委托扣款</option>
-                                    <option>POS收款</option>
-                                    <option>调账处理</option>
-                                    <option>奖励</option>
-                                    <option>其他</option>
+                                <select class="form-control form-white" ng-model="listView.condition.type" ng-options='type for type in listView.type'>
                                 </select>
                             </div>
                         </div>
@@ -57,12 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status">
-                                    <option>待支付</option>
-                                    <option>成功</option>
-                                    <option>取消</option>
-                                    <option>失败</option>
-                                    <option>在途</option>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -121,10 +110,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.chargeChannel">
-                                    <option>POS刷卡</option>
-                                    <option>银联转账</option>
-                                    <option>其他</option>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='channel for channel in listView.channel'>
                                 </select>
                             </div>
                         </div>
