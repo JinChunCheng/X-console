@@ -3,7 +3,7 @@
         <h3 ng-bind="assetVM.title"></h3>
     </div>
     <div class="panel-body">
-        <form class="form-validation" novalidate>
+        <form class="form-validation" novalidate ng-submit="assetVM.submit()">
             <tabset class="tab-fade-in">
                 <tab>
                     <tab-heading>
@@ -603,12 +603,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <hr class="m-t-10 m-b-10">
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">审批文件</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(1, '审批文件')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
@@ -616,18 +617,15 @@
                                         <div class="form-group">
                                             <label class="control-label">身份证图片</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(2, '身份证图片')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">资产证明图片</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                            <div>
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(3, '资产证明图片')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
@@ -637,7 +635,7 @@
                                         <div class="form-group">
                                             <label class="control-label">营业执照/抵押/质押/工作证明</label>
                                             <div>
-                                                <input type="text" class="form-control">
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(4, '营业执照/抵押/质押/工作证明')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
@@ -645,18 +643,15 @@
                                         <div class="form-group">
                                             <label class="control-label">借款协议</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.condition.data.gender" ng-options="item as item for item in ['男','女','其他']">
-                                                    <option value="">- 选择性别 -</option>
-                                                </select>
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(5, '借款协议')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class="control-label">调查文件</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
+                                            <div>
+                                                <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(6, '调查文件')">点击查看</button>
                                             </div>
                                         </div>
                                     </div>
@@ -668,8 +663,8 @@
             </tabset>
             <div class="row">
                 <div class="col-sm-12">
-                    <button class="btn btn-primary m-r-10">保存草稿</button>
-                    <button class="btn btn-success">保存并提交</button>
+                    <button type="button" class="btn btn-primary m-r-10" ng-click="assetVM.cache()">保存草稿</button>
+                    <button type="submit" class="btn btn-success">保存并提交</button>
                 </div>
             </div>
         </form>
