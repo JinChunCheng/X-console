@@ -83,7 +83,12 @@ define([], function() {
                     $state.go('asset.info.add');
                 },
                 batchUpload: function() {
-
+                    var selected = $scope.listVM.table.bootstrapTable('getSelections');
+                    if (!selected || selected.length === 0) {
+                        alert('未选中');
+                        return;
+                    }
+                    alert('已选' + selected.length + "条")
                 }
             };
 

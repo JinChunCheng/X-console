@@ -47,7 +47,7 @@
                                         <div class="form-group">
                                             <label class="control-label">出生日期</label>
                                             <div class="append-icon">
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.birthday" is-open="birthdayOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened=true" />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>

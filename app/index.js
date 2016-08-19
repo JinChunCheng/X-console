@@ -26,7 +26,8 @@ requirejs.config({
         'bootstrap-table-zh-cn': 'lib/bootstrap-table/locale/bootstrap-table-zh-CN.min',
         'scrollbar': 'lib/scrollbar/jquery.mCustomScrollbar.concat.min',
         'icheck': 'lib/icheck/icheck.min',
-        'ui-bootstrap': 'lib/ui-bootstrap/ui-bootstrap-tpls'
+        'ui-bootstrap': 'lib/ui-bootstrap/ui-bootstrap-tpls',
+        'zh-cn': 'lib/angular/i18n/angular-locale_zh-cn'
     },
     shim: {
         'angular': {
@@ -68,6 +69,9 @@ requirejs.config({
         },
         'ui-bootstrap': {
             deps: ['angular']
+        },
+        'zh-cn': {
+            deps: ['angular']
         }
     },
     urlArgs: "v=" + (new Date()).getTime()
@@ -76,7 +80,8 @@ requirejs([
         'angular',
         'jquery',
         'app',
-        'router'
+        'router',
+        'zh-cn'
     ],
     function(angular, $) {
         $(function() {

@@ -23,6 +23,17 @@ define([], function() {
                 }
             };
 
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1,
+                class: 'datepicker',
+                showWeeks: false
+            };
+
+            $scope.openDate = function(e) {
+                $scope.assetVM.birthdayOpened = true;
+            };
+
             (function(id) {
                 initMetaData();
                 if (!id) {
