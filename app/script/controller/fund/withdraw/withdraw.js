@@ -29,7 +29,7 @@ define([], function() {
 
                    var getDataTable1 = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -47,7 +47,7 @@ define([], function() {
             };
                                var getDataTable2 = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -58,7 +58,7 @@ define([], function() {
                         });
                         params.success({
                             total: res.data.paginate.totalCount,
-                            rows: res.data.items[0]
+                            rows: res.data.items
                         });
                     }, 500);
                 });

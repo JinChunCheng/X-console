@@ -16,7 +16,7 @@ define([], function() {
             if (!id) {
                 return;
             }
-            borrowerService.get({id: id}).$promise.then(function(res) {
+            borrowerService.resource.get({id: id}).$promise.then(function(res) {
                 $scope.vm.data = res.data;
             }, function(err) {
                 debugger
