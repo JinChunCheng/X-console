@@ -1,0 +1,41 @@
+<div class="header">
+    <h3><i class="fa fa-files-o m-r-5"></i><span ng-bind="listVM.title"></span></h3>
+</div>
+<div class="row">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">手机号</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.mobile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.status">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="row">
+    <div class="col-md-12 m-b-10">
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+    </div>
+</div>
+<table id="assetTypeTable" table-full-size bs-table-control="tbControl"></table>

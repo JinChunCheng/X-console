@@ -1,0 +1,49 @@
+<form name="assetTypeForm">
+    <div class="modal-header">
+        <h4 class="modal-title" ng-bind="assetTypeVM.title"></h4>
+    </div>
+    <div class="modal-body p-r">
+        <form class="form-validation" novalidate ng-submit="assetTypeVM.submit()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">资产类型</label>
+                        <div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">支持群体</label>
+                        <div>
+                            <div class="checkbox checkbox-info checkbox-inline" ng-repeat="item in assetTypeVM.supportList">
+                                <input id="chk_{{item.value}}" class="styled" type="checkbox" checklist-model="assetTypeVM.data.support" checklist-value="item.value">
+                                <label for="chk_{{item.value}}" ng-bind="item.text"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">备注</label>
+                        <div>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="assetTypeVM.processing">
+            <span class="w2em" ng-if="!assetTypeVM.processing" ng-cloak>确定</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="assetTypeVM.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="assetTypeVM.cancel()">取消</button>
+    </div>
+</form>

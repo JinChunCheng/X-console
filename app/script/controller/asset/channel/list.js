@@ -128,9 +128,10 @@ define([], function() {
                             title: title,
                             processing: false,
                             dataSourceList: dataSourceList,
-                            submit: submit
+                            submit: submit,
+                            cancel: cancel
                         };
-                        $scope.cancel = function() {
+                        function cancel() {
                             $modalInstance.dismiss();
                             return false;
                         }

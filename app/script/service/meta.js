@@ -153,6 +153,13 @@ define(['common/config'], function(config) {
                 { value: '1', text: '接口' },
                 { value: '2', text: '数据导入' }
             ]
+        }, {
+            key: 'ZCQT',
+            value: [
+                { value: '1', text: '个人' },
+                { value: '2', text: '企业' },
+                { value: '3', text: '机构' }
+            ]
         }];
 
         //获取某项元数据列表
