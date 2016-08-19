@@ -269,7 +269,9 @@
                                         <div class="form-group">
                                             <label class="control-label">结标方式</label>
                                             <div>
-                                                <input type="number" class="form-control">
+                                                <select class="form-control" ng-model="assetVM.data.finishType" ng-options="item.value as item.text for item in assetVM.finishTypeList">
+                                                    <option value="">- 请选择结标方式 -</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
