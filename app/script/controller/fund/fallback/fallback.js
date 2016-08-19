@@ -29,7 +29,7 @@ define([], function() {
 
         var getData = function(params) {
             //query: {where: JSON.stringify($scope.listVM.condition)}
-            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+            borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                 //debugger
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
@@ -233,12 +233,29 @@ define([], function() {
 
         })();
         $scope.checkRow = function(e, value, row, index) {
-            // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+          var text = $scope.listView.table.bootstrapTable('getAllSelections');
+            var withdrawNum = text.length;
             $modal.open({
                 templateUrl: 'view/fund/fallback/check.html',
                 size: 'lg',
                 // backdrop: true,
                 controller: function($scope, $modalInstance) {
+                      $scope.checkVM = {};
+                    //提现笔数
+                    $scope.checkVM.withdrawNum = withdrawNum;
+                    //提现金额
+                    var withdrawAmount = 0;
+                    text.forEach(function(item) {
+                        withdrawAmount += item.id;
+                    });
+
+                    $scope.checkVM.withdrawAmount = withdrawAmount;
+                    //提现服务费
+                    var withdrawFee = 0;
+                    text.forEach(function(item) {
+                        withdrawFee += item.id;
+                    });
+                    $scope.checkVM.withdrawFee = withdrawFee;
                     $scope.cancel = function() {
                         $modalInstance.dismiss();
                         return false;

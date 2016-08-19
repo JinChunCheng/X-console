@@ -8,7 +8,7 @@ define([], function() {
             title: $stateParams.id ? '修改费率信息' : '新增费率信息',
             data: {},
             cancel: function() {
-                $state.go('account.rate.rate');
+                $state.go('account.list.list');
             }
         };
 
@@ -16,7 +16,7 @@ define([], function() {
             if (!id) {
                 return;
             }
-            borrowerService.get({id: id}).$promise.then(function(res) {
+            borrowerService.resource.get({id: id}).$promise.then(function(res) {
                 $scope.vm.data = res.data;
             }, function(err) {
                 debugger

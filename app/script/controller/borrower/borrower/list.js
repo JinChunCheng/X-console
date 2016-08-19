@@ -40,7 +40,7 @@ define([], function() {
 
             var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -235,8 +235,8 @@ define([], function() {
 
             })();
 
-            function detail() {
-                $state.go('borrower.info.detail');
+            function detail(e, value, row, index) {
+                $state.go('borrower.info.detail', {id: row.id });
             }
 
             function deleteRow(e, value, row, index) {
@@ -265,6 +265,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
+                console.log(row,value,e,index)
                 $state.go('borrower.info.edit', { id: row.id });
             }
 

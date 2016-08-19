@@ -4,6 +4,7 @@ define([], function() {
 
             var action = $stateParams.id ? 'edit' : 'add';
             var defaultCondition = {
+
                 paginate: {
                     sort: 'update_time desc',
                     pageNum: 1,
@@ -11,6 +12,7 @@ define([], function() {
                 },
             };
             $scope.vm = {
+                action: action,
                 condition: angular.copy(defaultCondition),
                 table: null,
                 data: {},
@@ -18,13 +20,52 @@ define([], function() {
                     $state.go('borrower.info.list');
                 }
             };
+
+            function getDataLabel1(id) {
+                //query: {where: JSON.stringify($scope.listVM.condition)}
+                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
+                    console.log(res.data.items[0].id+ ',,,');
+                    $scope.vm.data.borrowerCode = res.data.items[0].id;
+                    $scope.vm.data.name = res.data.items[0].id;
+                    $scope.vm.data.IDcard = res.data.items[0].id;
+                    $scope.vm.data.status = res.data.items[0].id;
+                    $scope.vm.data.mobile = res.data.items[0].id;
+                    $scope.vm.data.phone = res.data.items[0].id;
+                    $scope.vm.data.mail = res.data.items[0].id;
+                    $scope.vm.data.bank = res.data.items[0].id;
+                    $scope.vm.data.bankProvince = res.data.items[0].id;
+                    $scope.vm.data.bankCity = res.data.items[0].id;
+                    $scope.vm.data.innerCode = res.data.items[0].id;
+                    $scope.vm.data.bankAccountName = res.data.items[0].id;
+                    $scope.vm.data.bankAccount = res.data.items[0].id;
+                    $scope.vm.data.address = res.data.items[0].id;
+                    $scope.vm.data.postCode = res.data.items[0].id;
+                    $scope.vm.data.buildTime = res.data.items[0].id;
+                    $scope.vm.data.refreshTime = res.data.items[0].id;
+                    $scope.vm.data.memo = res.data.items[0].id;
+                });
+            }
+            getDataLabel1($stateParams.id);
+
+            function getDataLabel2(id) {
+                //query: {where: JSON.stringify($scope.listVM.condition)}
+                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
+                    console.log(res.data.items[0].id);
+                    $scope.vm.data.accountSubject = res.data.items[0].id;
+                    $scope.vm.data.balance = res.data.items[0].id;
+                    $scope.vm.data.freezeBalance = res.data.items[0].id;
+                    $scope.vm.data.availableBalance = res.data.items[0].id;
+                    $scope.vm.data.buildTime = res.data.items[0].id;
+                });
+            }
+            getDataLabel2($stateParams.id);
             $scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#borrowDetailTable');
             });
 
             var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -141,17 +182,17 @@ define([], function() {
             };
             init();
 
-            (function(id) {
-                console.log(id)
-                if (!id) {
-                    return;
-                }
-                borrowerService.get({ id: id }).$promise.then(function(res) {
-                    $scope.vm.data = res.data;
-                }, function(err) {
-                    debugger
-                });
-            })($stateParams.id);
+            // (function(id) {
+            //     console.log(id)
+            //     if (!id) {
+            //         return;
+            //     }
+            //     borrowerService.resource.get({ id: id }).$promise.then(function(res) {
+            //         $scope.vm.data = res.data;
+            //     }, function(err) {
+            //         debugger
+            //     });
+            // })($stateParams.id);
 
         }
     ];

@@ -18,13 +18,34 @@ define([], function() {
                     $state.go('account.list.list');
                 }
             };
+            function getDataLabel() {
+                //query: {where: JSON.stringify($scope.listVM.condition)}
+                borrowerService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
+                    console.log(res.data.items[0].id);
+                    $scope.vm.data.accountMark = res.data.items[0].id;
+                    $scope.vm.data.accountCode = res.data.items[0].id;
+                    $scope.vm.data.accountName = res.data.items[0].id;
+                    $scope.vm.data.bankAccountName = res.data.items[0].id;
+                    $scope.vm.data.bankAccountNum = res.data.items[0].id;
+                    $scope.vm.data.openBank = res.data.items[0].id;
+                    $scope.vm.data.openBankProvince = res.data.items[0].id;
+                    $scope.vm.data.openBankCity = res.data.items[0].id;   
+                    $scope.vm.data.balance = res.data.items[0].id;
+                    $scope.vm.data.bigAmountBank = res.data.items[0].id;
+                    $scope.vm.data.company = res.data.items[0].id;
+                    $scope.vm.data.buildTime = res.data.items[0].id;
+                    $scope.vm.data.memo = res.data.items[0].id;                
+                });
+            }
+            getDataLabel();
+
             $scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#accountDetailTable');
             });
 
             var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -138,17 +159,17 @@ define([], function() {
             };
             init();
 
-            (function(id) {
-                console.log(id)
-                if (!id) {
-                    return;
-                }
-                borrowerService.get({ id: id }).$promise.then(function(res) {
-                    $scope.vm.data = res.data;
-                }, function(err) {
-                    debugger
-                });
-            })($stateParams.id);
+            // (function(id) {
+            //     console.log(id)
+            //     if (!id) {
+            //         return;
+            //     }
+            //     borrowerService.get({ id: id }).$promise.then(function(res) {
+            //         $scope.vm.data = res.data;
+            //     }, function(err) {
+            //         debugger
+            //     });
+            // })($stateParams.id);
 
         }
     ];
