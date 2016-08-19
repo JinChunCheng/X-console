@@ -130,6 +130,9 @@ define([], function() {
                 metaService.getMeta('CQR', function(data) {
                     $scope.assetVM.ownerList = data;
                 });
+                metaService.getMeta('JBFS', function(data) {
+                    $scope.assetVM.finishTypeList = data;
+                });
             }
 
 

@@ -53,14 +53,14 @@ define(['common/config'], function(config) {
                 { value: '5', text: '本科以上' }
             ]
         }, {
-            key: 'JZQK',
+            key: 'JZQK', //居住情况
             value: [
                 { value: '1', text: '租房' },
                 { value: '2', text: '自有住房' },
                 { value: '3', text: '父母同住' }
             ]
         }, {
-            key: 'DWXZ',
+            key: 'DWXZ', //单位性质
             value: [
                 { value: '1', text: '私企' },
                 { value: '2', text: '国企' },
@@ -68,32 +68,32 @@ define(['common/config'], function(config) {
                 { value: '4', text: '自营' }
             ]
         }, {
-            key: 'QYHY',
+            key: 'QYHY', //企业行业
             value: [
-                { value: '1', text: '农、林、牧、渔业'},
-                { value: '2', text: '采矿业'},
-                { value: '3', text: '制造业'},
-                { value: '4', text: '电力、热力、燃气及水的生产和供应业'},
-                { value: '5', text: '环境和公共设置管理业'},
-                { value: '6', text: '建筑业'},
-                { value: '7', text: '交通运输、仓储业和邮政业'},
-                { value: '8', text: '信息传输、计算机服务和软件业'},
-                { value: '9', text: '批发和零售业'},
-                { value: '10', text: '住宿和餐饮业'},
-                { value: '11', text: '金融和保险业'},
-                { value: '12', text: '房地产业'},
-                { value: '13', text: '租赁和商务服务业'},
-                { value: '14', text: '科学研究、技术服务和地质勘查业'},
-                { value: '15', text: '水利、环境和公共设施管理业'},
-                { value: '16', text: '居民服务和其他服务业'},
-                { value: '17', text: '教育业'},
-                { value: '18', text: '卫生、社会保障和社会服务业'},
-                { value: '19', text: '文化、体育和娱乐业'},
-                { value: '20', text: '综合类（含投资类、主业不明显）'},
-                { value: '21', text: '其他'}
+                { value: '1', text: '农、林、牧、渔业' },
+                { value: '2', text: '采矿业' },
+                { value: '3', text: '制造业' },
+                { value: '4', text: '电力、热力、燃气及水的生产和供应业' },
+                { value: '5', text: '环境和公共设置管理业' },
+                { value: '6', text: '建筑业' },
+                { value: '7', text: '交通运输、仓储业和邮政业' },
+                { value: '8', text: '信息传输、计算机服务和软件业' },
+                { value: '9', text: '批发和零售业' },
+                { value: '10', text: '住宿和餐饮业' },
+                { value: '11', text: '金融和保险业' },
+                { value: '12', text: '房地产业' },
+                { value: '13', text: '租赁和商务服务业' },
+                { value: '14', text: '科学研究、技术服务和地质勘查业' },
+                { value: '15', text: '水利、环境和公共设施管理业' },
+                { value: '16', text: '居民服务和其他服务业' },
+                { value: '17', text: '教育业' },
+                { value: '18', text: '卫生、社会保障和社会服务业' },
+                { value: '19', text: '文化、体育和娱乐业' },
+                { value: '20', text: '综合类（含投资类、主业不明显）' },
+                { value: '21', text: '其他' }
             ]
         }, {
-            key: 'QYGM',
+            key: 'QYGM', //企业规模
             value: [
                 { value: '1', text: '50人以下' },
                 { value: '2', text: '50-100' },
@@ -101,45 +101,57 @@ define(['common/config'], function(config) {
                 { value: '4', text: '500以上' },
             ]
         }, {
-            key: 'JKLX',
+            key: 'JKLX', //借款类型
             value: [
                 { value: '1', text: '信用类' },
                 { value: '2', text: '固产类' },
                 { value: '3', text: '其他' }
             ]
         }, {
-            key: 'YTLB',
+            key: 'YTLB', //用途类别
             value: [
                 { value: '1', text: '流动资金' },
                 { value: '2', text: '固定投资' }
             ]
         }, {
-            key: 'XYJB',
+            key: 'XYJB', //信用级别
             value: [
                 { value: '1', text: '优质' },
                 { value: '2', text: '良好' },
                 { value: '3', text: '一般' },
             ]
         }, {
-            key: 'HKFS',
+            key: 'HKFS', //还款方式
             value: [
                 { value: '1', text: '到期还本付息' },
                 { value: '2', text: '等本等费' },
                 { value: '3', text: '先息后本' }
             ]
         }, {
-            key: 'HKLY',
+            key: 'HKLY', //还款来源
             value: [
                 { value: '1', text: '经营收入' },
                 { value: '2', text: '工资收入' },
                 { value: '3', text: '投资收入' }
             ]
         }, {
-            key: 'CQR',
+            key: 'CQR', //产权人
             value: [
                 { value: '1', text: '本人' },
                 { value: '2', text: '配偶' },
-                { value: '3', text: '亲属' },
+                { value: '3', text: '亲属' }
+            ]
+        }, {
+            key: 'JBFS', //结算方式
+            value: [
+                { value: '1', text: '自动' },
+                { value: '2', text: '手动' }
+            ]
+        }, {
+            key: 'SJJRFS', //数据接入方式
+            value: [
+                { value: '1', text: '接口' },
+                { value: '2', text: '数据导入' }
             ]
         }];
 

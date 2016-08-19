@@ -1,0 +1,47 @@
+<form name="channelForm">
+    <div class="modal-header">
+        <h4 class="modal-title" ng-bind="channelVM.title"></h4>
+    </div>
+    <div class="modal-body p-r">
+        <form class="form-validation" novalidate ng-submit="channelVM.submit()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">渠道名称</label>
+                        <div><input type="text" class="form-control"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">接入方式</label>
+                        <div>
+                            <select class="form-control" ng-model="channelVM.data.dataSource" ng-options="item.value as item.text for item in channelVM.dataSourceList">
+                                <option value="">- 请选择接入方式 -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">授信额度</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control">
+                            <span class="input-group-addon">元</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="channelVM.processing">
+            <span class="w2em" ng-if="!channelVM.processing" ng-cloak>确定</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="channelVM.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">取消</button>
+    </div>
+</form>
