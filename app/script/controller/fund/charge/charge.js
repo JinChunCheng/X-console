@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state','borrowerService', function($scope, $http, $timeout, $modal,$state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', function($scope, $http, $timeout, $modal, $state, borrowerService) {
 
         /**
          * the default search condition
@@ -244,31 +244,7 @@ define([], function() {
                         formatter: flagFormatter,
                         events: {
                             'click .btn-primary': detail,
-                            'click .btn-danger': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn-danger':del
                         }
                     }]
                 }
@@ -283,13 +259,35 @@ define([], function() {
             }
 
         })();
-        function detail() {
-            console.log('detail')
-            $state.go('fund.charge.detail');
+
+        function detail(e, value, row, index) {
+            $state.go('fund.charge.detail',{id:row.id});
         }
-        $scope.del = function() {
-            console.log('del');
-        };
+        function del(e, value, row, index) {
+            var text = "确定删除此记录？";
+            // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
+            $modal.open({
+                templateUrl: 'view/shared/confirm.html',
+                size: 'sm',
+                // backdrop: true,
+                controller: function($scope, $modalInstance) {
+                    $scope.confirmData = {
+                        text: text,
+                        processing: false
+                    };
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss();
+                        return false;
+                    };
+
+                    $scope.ok = function() {
+                        delUser(item.id, $scope, $modalInstance);
+                        return true;
+                    };
+                }
+            });
+
+        }
 
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');

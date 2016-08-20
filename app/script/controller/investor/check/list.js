@@ -235,10 +235,6 @@ define([], function() {
 
         })();
 
-        $scope.del = function() {
-            console.log('del');
-        };
-
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
             console.log('aaa');

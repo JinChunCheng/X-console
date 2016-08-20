@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', function($scope, $timeout, $state, $stateParams, borrowerService) {
+    return ['$scope', '$timeout', '$state','metaService','$stateParams', 'borrowerService', function($scope, $timeout, $state,metaService, $stateParams, borrowerService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 
@@ -15,16 +15,34 @@ define([], function() {
             }
         };
 
-        (function(id) {
-            if (!id) {
-                return;
-            }
-            borrowerService.get({id: id}).$promise.then(function(res) {
-                $scope.vm.data = res.data;
-            }, function(err) {
-                debugger
+        function getDataLabel1(id) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.resource.query({ id: id }).$promise.then(function(res) {
+                console.log(res.data.items[0].id);
+                $scope.vm.data.rateMark = res.data.items[0].id;
+                $scope.vm.data.rateName = res.data.items[0].id;
+                $scope.vm.data.rateCode = res.data.items[0].id;
+                $scope.vm.data.rateType = res.data.items[0].id;
+                $scope.vm.data.rateValue = res.data.items[0].id;
+                $scope.vm.data.capValue = res.data.items[0].id;
+                $scope.vm.data.lowestValue = res.data.items[0].id;
+                $scope.vm.data.channel = res.data.items[0].id;
+                $scope.vm.data.status = res.data.items[0].id;
+                $scope.vm.data.memo = res.data.items[0].id;
+
             });
-        })($stateParams.id);
+        }
+        getDataLabel1($stateParams.id);
+        // (function(id) {
+        //     if (!id) {
+        //         return;
+        //     }
+        //     borrowerService.resource.get({id: id}).$promise.then(function(res) {
+        //         $scope.vm.data = res.data;
+        //     }, function(err) {
+        //         debugger
+        //     });
+        // })($stateParams.id);
 
     }];
 });

@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$state','$modal', 'borrowerService', function($scope, $http, $timeout, $state, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -232,7 +232,6 @@ define([], function() {
                     }]
                 }
             };
-
         })();
         $scope.checkRow = function(e, value, row, index) {
             var text = $scope.listView.table.bootstrapTable('getAllSelections');
@@ -272,6 +271,7 @@ define([], function() {
             });
 
         };
+
         $scope.del = function() {
             console.log('del');
         };
