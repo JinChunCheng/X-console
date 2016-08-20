@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', 'metaService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService, metaService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, borrowerService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -21,6 +21,11 @@ define([], function() {
                 table: null,
                 add: function() {
                     showChannelModal();
+                },
+                testToaster: function() {
+                    toaster.pop('success', '成功！');
+                    toaster.pop('error', '失败');
+                    toaster.pop('info', '提示！');
                 }
             };
 

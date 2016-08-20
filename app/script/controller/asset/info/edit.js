@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'borrowerService', 'metaService',
-        function($scope, $timeout, $state, $stateParams, $modal, borrowerService, metaService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'borrowerService', 'metaService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, borrowerService, metaService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -28,10 +28,6 @@ define([], function() {
                 startingDay: 1,
                 class: 'datepicker',
                 showWeeks: false
-            };
-
-            $scope.openDate = function(e) {
-                $scope.assetVM.birthdayOpened = true;
             };
 
             (function(id) {
