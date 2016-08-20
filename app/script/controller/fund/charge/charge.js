@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state','toaster', 'borrowerService', function($scope, $http, $timeout, $modal, $state,toaster, borrowerService) {
 
         /**
          * the default search condition
@@ -17,6 +17,12 @@ define([], function() {
             type: ['网银', '委托扣款', 'POS收款', '调账处理', '奖励', '其他'],
             status: ['待支付', '成功', '取消', '失败', '在途'],
             channel: ['POS刷卡', '银联转账', '其他']
+        };
+                $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
         };
         /**
          * do something after view loaded

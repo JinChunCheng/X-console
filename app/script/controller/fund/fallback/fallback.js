@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal','toaster', 'borrowerService', function($scope, $http, $timeout, $modal,toaster, borrowerService) {
 
         /**
          * the default search condition
@@ -10,7 +10,12 @@ define([], function() {
             pageNum: 1,
             pageSize: 10
         };
-
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
@@ -233,14 +238,14 @@ define([], function() {
 
         })();
         $scope.checkRow = function(e, value, row, index) {
-          var text = $scope.listView.table.bootstrapTable('getAllSelections');
+            var text = $scope.listView.table.bootstrapTable('getAllSelections');
             var withdrawNum = text.length;
             $modal.open({
                 templateUrl: 'view/fund/fallback/check.html',
                 size: 'lg',
                 // backdrop: true,
                 controller: function($scope, $modalInstance) {
-                      $scope.checkVM = {};
+                    $scope.checkVM = {};
                     //提现笔数
                     $scope.checkVM.withdrawNum = withdrawNum;
                     //提现金额

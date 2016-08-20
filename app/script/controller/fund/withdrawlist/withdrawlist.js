@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal','$state' ,'borrowerService', function($scope, $http, $timeout, $modal,$state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal','$state','toaster' ,'borrowerService', function($scope, $http, $timeout, $modal,$state,toaster, borrowerService) {
 
         /**
          * the default search condition
@@ -10,7 +10,12 @@ define([], function() {
             pageNum: 1,
             pageSize: 10
         };
-
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,

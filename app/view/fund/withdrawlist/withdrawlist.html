@@ -51,11 +51,11 @@
                         <div class="col-sm-12">
                          <div class="input-group">
                             <span class="input-group-addon">申请时间</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.applyStartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.applyEndDate">
-                            </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDay" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                    <span class="input-group-addon">~</span>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.endDay" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                </div>
                         </div>
                         </div>
                     </div>     

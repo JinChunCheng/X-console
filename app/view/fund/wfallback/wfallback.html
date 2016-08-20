@@ -80,7 +80,7 @@
                                         提现时间
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.withdrawTime">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDay" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true"/>
                                     </div>
                                 </td>
                                 <td>
@@ -96,7 +96,7 @@
                                         批准时间
                                     </label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="name" class="form-control" ng-model="listView.condition.approvalTime">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.approvalTime" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true"/>
                                     </div>
                                 </td>
                             </tr>
