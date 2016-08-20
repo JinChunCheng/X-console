@@ -81,9 +81,11 @@
         </div>
     </form>
 </div>
-<div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
-    <div class="panel-body">
-        <table id="transferCashPrintTable" table-full-size bs-table-control="bsTransferCashPrintTableControl"></table>
+<div class="row">
+    <div class="col-md-12 m-b-10">
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-print m-r-5"></i>打印</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-cloud-download m-r-5"></i>下载</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-sign-out m-r-5"></i>导出投资明细Excel</button>
     </div>
 </div>
+<table id="transferCashPrintTable" bs-table-control="bsTransferCashPrintTableControl"></table>

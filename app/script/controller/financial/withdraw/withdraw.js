@@ -29,7 +29,7 @@ define([], function() {
 
                     var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -195,6 +195,30 @@ define([], function() {
             }
 
         })();
+        $scope.checkRow = function(e, value, row, index) {
+            var text = "是否执行出款操作？";
+            //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
+            $modal.open({
+                templateUrl: 'view/shared/confirm.html',
+                size: 'sm',
+                //backdrop: true,
+                controller: function($scope, $modalInstance) {
+                    $scope.confirmData = {
+                        text: text,
+                        processing: false
+                    };
+                    $scope.cancel = function() {
+                        $modalInstance.dismiss();
+                        return false;
+                    }
+
+                    $scope.ok = function() {
+                        delUser(item.id, $scope, $modalInstance);
+                        return true;
+                    }
+                }
+            });
+        };
 
         $scope.del = function() {
             console.log('del');
