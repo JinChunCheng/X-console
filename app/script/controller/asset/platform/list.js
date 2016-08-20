@@ -16,16 +16,11 @@ define([], function() {
             };
 
             $scope.listVM = {
-                title: '渠道管理',
+                title: '销售平台管理',
                 condition: angular.copy(defaultCondition),
                 table: null,
                 add: function() {
-                    showChannelModal();
-                },
-                testToaster: function() {
-                    toaster.pop('success', '成功！');
-                    toaster.pop('error', '失败');
-                    toaster.pop('info', '提示！');
+                    showPlatformModal();
                 }
             };
 
@@ -35,7 +30,7 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#channelTable');
+                $scope.listVM.table = $('#platformTable');
             });
 
 
@@ -69,11 +64,11 @@ define([], function() {
                         sidePagination: "server",
                         columns: [
                             { field: 'id', title: '编号', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '渠道名称', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '录入时间', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '接入方式', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '授信额度', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '接入资产', align: 'left', valign: 'top' },
+                            { field: 'name', title: '平台名称', align: 'center', valign: 'middle' },
+                            { field: 'workspace', title: '上线时间', align: 'left', valign: 'top' },
+                            { field: 'workspace2', title: '平台形式', align: 'left', valign: 'top' },
+                            { field: 'workspace3', title: '累计销售额', align: 'left', valign: 'top' },
+                            { field: 'workspace3', title: '用户数', align: 'left', valign: 'top' },
                             { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
                                 field: 'flag',
                                 title: '操作',
@@ -97,7 +92,7 @@ define([], function() {
                 }
 
                 function edit(e, value, row, index) {
-                    showChannelModal(row);
+                    showPlatformModal(row);
                     e.stopPropagation();
                     e.preventDefault();
                 }
@@ -111,6 +106,9 @@ define([], function() {
                 metaService.getMeta('SJJRFS', function(data) {
                     $scope.listVM.dataSourceList = data;
                 });
+                metaService.getMeta('XSPTXS', function(data) {
+                    $scope.listVM.platformTypeList = data;
+                });
             }
 
             $scope.search = function() {
@@ -121,18 +119,18 @@ define([], function() {
                 $scope.listVM.condition = angular.copy(defaultCondition);
             };
 
-            function showChannelModal(channel) {
-                var title = channel ? "修改渠道信息" : "新增渠道";
-                var dataSourceList = $scope.listVM.dataSourceList;
+            function showPlatformModal(platform) {
+                var title = platform ? "修改销售平台信息" : "新增销售平台";
+                var platformTypeList = $scope.listVM.platformTypeList;
                 $modal.open({
-                    templateUrl: 'view/asset/channel/edit.html',
+                    templateUrl: 'view/asset/platform/edit.html',
                     size: 'md',
                     controller: function($scope, $modalInstance) {
 
-                        $scope.channelVM = {
+                        $scope.platformVM = {
                             title: title,
                             processing: false,
-                            dataSourceList: dataSourceList,
+                            platformTypeList: platformTypeList,
                             submit: submit,
                             cancel: cancel
                         };
@@ -142,7 +140,7 @@ define([], function() {
                         }
 
                         function submit() {
-                            saveChannel(item.id, $scope, $modalInstance);
+                            savePlatform(item.id, $scope, $modalInstance);
                             return true;
                         }
                     }
