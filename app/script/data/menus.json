@@ -34,6 +34,9 @@
                 "text": "风险资产库",
                 "state": "asset.info.risk"
             }, {
+                "text": "销售平台管理",
+                "state": "asset.platform.list"
+            }, {
                 "text": "待上架产品库",
                 "state": "asset.release.todo"
             }, {

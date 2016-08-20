@@ -1,0 +1,66 @@
+<form name="platformForm">
+    <div class="modal-header">
+        <h4 class="modal-title" ng-bind="platformVM.title"></h4>
+    </div>
+    <div class="modal-body p-r">
+        <form class="form-validation" novalidate ng-submit="platformVM.submit()">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">销售平台</label>
+                        <div><input type="text" class="form-control"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="control-label">平台形式</label>
+                        <div>
+                            <select class="form-control" ng-model="platformVM.data.dataSource" ng-options="item.value as item.text for item in platformVM.platformTypeList">
+                                <option value="">- 请选择平台形式 -</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">对接人</label>
+                        <div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">联系电话</label>
+                        <div>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="" class="control-label">备注</label>
+                        <div>
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="platformVM.processing">
+            <span class="w2em" ng-if="!platformVM.processing" ng-cloak>确定</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="platformVM.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="platformVM.cancel()">取消</button>
+    </div>
+</form>

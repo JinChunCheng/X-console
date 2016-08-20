@@ -154,11 +154,18 @@ define(['common/config'], function(config) {
                 { value: '2', text: '数据导入' }
             ]
         }, {
-            key: 'ZCQT',
+            key: 'ZCQT', //支持群体
             value: [
                 { value: '1', text: '个人' },
                 { value: '2', text: '企业' },
                 { value: '3', text: '机构' }
+            ]
+        }, {
+            key: 'XSPTXS', //销售平台形式
+            value: [
+                { value: '1', text: 'H5理财平台' },
+                { value: '2', text: 'iOS' },
+                { value: '3', text: 'Android' }
             ]
         }];
 
