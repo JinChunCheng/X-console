@@ -17,6 +17,12 @@ define([], function() {
             depositType:['托管户=>盒子支付','准备金=>恒丰银行','托管户=>准备金','托管户=>收益户','收益户=>结算户打款','托管户=>恒丰结算户','托管户=>盒子结算户','盒子还款户=>托管户']
         };
 
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
 
             /**
              * do something after view loaded

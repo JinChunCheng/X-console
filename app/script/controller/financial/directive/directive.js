@@ -18,6 +18,13 @@ define([], function() {
             status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}]
         };
 
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
+
         /**
          * do something after view loaded
          * @param  {string}     event type                       

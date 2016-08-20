@@ -16,6 +16,12 @@ define([], function() {
             table: null,
             channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}]
         };
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
 
         /**
          * do something after view loaded
