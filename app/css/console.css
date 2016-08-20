@@ -739,4 +739,5 @@ input[type="radio"] .styled:checked + label::after {
 .datepicker .btn-info .text-info {
   color: #fff !important;
 }
+table{outline: none;}
 
