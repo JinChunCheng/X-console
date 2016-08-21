@@ -19,8 +19,8 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            operSource: ['管理系统', '钱盒'],
-            securityLevel: ['未计算', '安全', '待详查', '危险']
+            operSource: [{id:1,title:'管理系统'}, {id:2,title:'钱盒'}],
+            securityLevel: [{id:1,title:'未计算'}, {id:2,title:'安全'}, {id:3,title:'待详查'}, {id:4,title:'危险'}]
         };
 
         /**

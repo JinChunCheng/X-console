@@ -14,9 +14,9 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            type: ['网银', '委托扣款', 'POS收款', '调账处理', '奖励', '其他'],
-            status: ['待支付', '成功', '取消', '失败', '在途'],
-            channel: ['POS刷卡', '银联转账', '其他']
+            type: [{id:1,title:'网银'}, {id:2,title:'委托扣款'}, {id:3,title:'POS收款'}, {id:4,title:'调账处理'}, {id:5,title:'奖励'}, {id:6,title:'其他'}],
+            status: [{id:1,title:'待支付'}, {id:2,title:'成功'}, {id:3,title:'取消'}, {id:4,title:'失败'}, {id:5,title:'在途'}],
+            channel: [{id:1,title:'POS刷卡'}, {id:2,title:'银联转账'}, {id:3,title:'其他'}]
         };
                 $scope.dateOptions = {
             formatYear: 'yy',

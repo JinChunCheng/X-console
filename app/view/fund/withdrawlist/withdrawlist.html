@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='operSource for operSource in listView.operSource'>
+                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='o as o.title for o in listView.operSource'>
                                 </select>
                             </div>
                         </div>

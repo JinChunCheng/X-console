@@ -7,7 +7,7 @@ define([], function() {
             action: action,
             title: $stateParams.id ? '修改借款人信息' : '新增借款人信息',
             status: [{ id: 1, title: '正常' }, { id: 2, title: '关闭' }],
-
+            bank: [{ id: 1, title: '农业银行' }, { id: 2, title: '工商银行' },{ id: 1, title: '人民银行' }, { id: 2, title: '建设银行' }],
             data: {},
             cancel: function() {
                 $state.go('borrower.info.list');

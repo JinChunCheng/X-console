@@ -19,7 +19,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            status: ['申请', '批准', '拒绝']
+            status: [{id:1,title:'申请'}, {id:2,title:'批准'}, {id:3,title:'拒绝'}]
         };
 
         /**

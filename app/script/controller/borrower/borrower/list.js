@@ -18,7 +18,7 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                status: ['正常', '关闭'],
+                status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
                 add: function() {
                     console.log('add');
                     $state.go('borrower.info.add');

@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率编码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='rateCode for rateCode in listVM.rateCode'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='r as r.title for r in listVM.rateCode'>
                                 </select>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率类型</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='rateType for rateType in listVM.rateType'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='r as r.title for r in listVM.rateType'>
                                 </select>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='status for status in listVM.status'>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
                                 </select>
                             </div>
                         </div>

@@ -52,7 +52,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='status for status in listVM.status'>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.label for s in listVM.status'>
                                 </select>
                             </div>
                         </div>
