@@ -8,17 +8,17 @@ define([], function() {
                 $state.go('financial.list.list');
             }
         };
-
-        (function(id) {
-            if (!id) {
-                return;
-            }
-            borrowerService.get({id: id}).$promise.then(function(res) {
-                $scope.vm.data = res.data;
-            }, function(err) {
-                debugger
-            });
-        })($stateParams.id);
+        //
+        //(function(id) {
+        //    if (!id) {
+        //        return;
+        //    }
+        //    borrowerService.get({id: id}).$promise.then(function(res) {
+        //        $scope.vm.data = res.data;
+        //    }, function(err) {
+        //        debugger
+        //    });
+        //})($stateParams.id);
 
     }];
 });

@@ -128,146 +128,100 @@ define([], function() {
                         valign: 'middle'
                     }, {
                         field: 'id',
-                        title: '编号',
+                        title: '催款标识',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
-                    }, {
-                        field: 'name',
-                        title: '登录名',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
-                    }, {
+                    },{
                         field: 'workspace',
-                        title: '真实姓名',
-                        align: 'left',
-                        valign: 'top',
+                        title: '审核状态',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace2',
-                        title: '身份证号码',
-                        align: 'left',
-                        valign: 'top',
+                        title: '审核员工',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace3',
-                        title: '手机号',
-                        align: 'left',
-                        valign: 'top',
+                        title: '审核时间',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        field: 'workspace',
+                        title: '姓名',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
+                        field: 'workspace2',
+                        title: '手机',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'workspace3',
+                        title: '邮箱',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
                         field: 'workspace4',
-                        title: '固话',
-                        align: 'left',
-                        valign: 'top',
+                        title: '催款日期',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace5',
-                        title: '状态',
-                        align: 'left',
-                        valign: 'top',
+                        title: '最后还款日期',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace6',
-                        title: '理财客户经理编号',
-                        align: 'left',
-                        valign: 'top',
+                        title: '当期本金',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace7',
-                        title: '理财客户经理代码',
-                        align: 'left',
-                        valign: 'top',
+                        title: '贷款利息',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace8',
-                        title: '理财客户经理姓名',
-                        align: 'left',
-                        valign: 'top',
+                        title: '当期手续费',
+                        align: 'center',
+                        valign: 'middle',
                         sortable: true
                     }, {
                         field: 'workspace9',
-                        title: '理财渠道代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '理财渠道名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '注册类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '是否本公司员工',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '邮编',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '地址',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '是否新手',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '试投金状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'flag',
-                        title: '操作',
+                        title: '延期回款费用',
                         align: 'center',
                         valign: 'middle',
-                        clickToSelect: false,
-                        formatter: flagFormatter,
-                        events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
-                        }
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '总回款',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    },{
+                        field: 'workspace10',
+                        title: '审核时间',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
+                    }, {
+                        field: 'workspace10',
+                        title: '创建时间',
+                        align: 'center',
+                        valign: 'middle',
+                        sortable: true
                     }]
                 }
             };

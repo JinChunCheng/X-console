@@ -1,7 +1,7 @@
 <div class="header">
     <h2><i class="fa fa-dashboard"></i>提现出款监控</h2>
 </div>
-<div class="row" id="toolbar">
+<div class="row">
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
@@ -94,9 +94,13 @@
         </div>
     </form>
 </div>
-<div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
-    <div class="panel-body">
-        <table id="withdrawCashMonitorTable" table-full-size bs-table-control="bsWithdrawCashMonitorTableControl"></table>
+<div class="row">
+    <div class="col-md-12 m-b-10">
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-search m-r-5"></i>查看明细</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-mail-forward m-r-5"></i>重新发送</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-mail-forward m-r-5"></i>回执对账</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-cloud-download m-r-5"></i>下载</button>
     </div>
 </div>
+<table id="withdrawCashMonitorTable" table-full-size bs-table-control="bsWithdrawCashMonitorTableControl"></table>
+

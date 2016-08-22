@@ -134,77 +134,101 @@ define([], function() {
                             checkbox: true,
                             align: 'center',
                             valign: 'middle'
-                        }, {
+                        },{
                             field: 'id',
-                            title: '编号',
+                            title: '催款标识',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
-                        }, {
-                            field: 'name',
+                        },{
+                            field: 'workspace',
                             title: '姓名',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace',
-                            title: '身份证号码',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
                             field: 'workspace2',
                             title: '手机',
-                            align: 'left',
-                            valign: 'top',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace3',
-                            title: '固定电话',
-                            align: 'left',
-                            valign: 'top',
+                            title: '邮箱',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace4',
-                            title: '邮箱',
-                            align: 'left',
-                            valign: 'top',
+                            title: '催款日期',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace5',
-                            title: '省份',
-                            align: 'left',
-                            valign: 'top',
+                            title: '最后还款日期',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace6',
-                            title: '城市',
-                            align: 'left',
-                            valign: 'top',
+                            title: '当期本金',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace7',
-                            title: '开户行',
-                            align: 'left',
-                            valign: 'top',
+                            title: '贷款利息',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace8',
-                            title: '银行账号',
-                            align: 'left',
-                            valign: 'top',
+                            title: '当期手续费',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace9',
+                            title: '延期回款费用',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
+                            title: '总回款',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
                             title: '状态',
-                            align: 'left',
-                            valign: 'top',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
+                            title: '审核状态',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
+                            title: '审核员工',
+                            align: 'center',
+                            valign: 'middle',
+                            sortable: true
+                        }, {
+                            field: 'workspace10',
+                            title: '审核时间',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'workspace10',
                             title: '创建时间',
-                            align: 'left',
-                            valign: 'top',
+                            align: 'center',
+                            valign: 'middle',
                             sortable: true
                         }, {
                             field: 'flag',
@@ -223,8 +247,9 @@ define([], function() {
 
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
-                        '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
+                        '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'
+                        //,
+                        //'<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
                     ];
                     return btnHtml.join('');
                 }
