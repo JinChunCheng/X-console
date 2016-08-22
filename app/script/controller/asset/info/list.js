@@ -79,7 +79,6 @@ define([], function() {
                 action: action,
                 table: null,
                 add: function() {
-                    console.log('add');
                     $state.go('asset.info.add');
                 },
                 batchUpload: function() {
@@ -130,7 +129,6 @@ define([], function() {
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        onPageChange: pageChange,
                         sidePagination: "server",
                         columns: [
                             { field: 'state', checkbox: true, align: 'center', valign: 'middle' },
@@ -168,37 +166,31 @@ define([], function() {
                 }
 
                 function view(e, value, row, index) {
-                    console.log('view');
                     e.stopPropagation();
                     e.preventDefault();
                 }
 
                 function edit(e, value, row, index) {
-                    console.log('edit');
                     e.stopPropagation();
                     e.preventDefault();
                 }
 
                 function submit(e, value, row, index) {
-                    console.log('submit');
                     e.stopPropagation();
                     e.preventDefault();
                 }
 
                 function auditPass(e, value, row, index) {
-                    console.log('pass');
                     e.stopPropagation();
                     e.preventDefault();
                 }
 
                 function auditRefuse(e, value, row, index) {
-                    console.log('refuse');
                     e.stopPropagation();
                     e.preventDefault();
                 }
 
                 function auditCancel(e, value, row, index) {
-                    console.log('cancel');
                     e.stopPropagation();
                     e.preventDefault();
                 }
@@ -236,10 +228,6 @@ define([], function() {
 
             $scope.reset = function() {
                 $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-                console.log('page change');
             };
         }
     ];

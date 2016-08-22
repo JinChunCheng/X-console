@@ -29,6 +29,18 @@ define([], function() {
                 }
             };
 
+            $scope.refreshUser = function(condition) {
+                if (!condition) {
+                    return;
+                }
+                $scope.listVM.userList = [
+                    { name: 'usea', email: 'usea@iboxpay.com' },
+                    { name: 'youhaiyang', email: 'youhaiyang@iboxpay.com' },
+                    { name: 'jinchuncheng', email: 'jinchuncheng@iboxpay.com' },
+                    { name: 'zhouzheng', email: 'zhouzheng@iboxpay.com' }
+                ];
+            };
+
             /**
              * do something after view loaded
              * @param  {string}     event type                       

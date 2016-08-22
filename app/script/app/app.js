@@ -12,10 +12,11 @@ define([
         'module/common',
         'bootstrap-table-ng',
         'icheck',
-        'ui-bootstrap'
+        'ui-bootstrap',
+        'select2'
     ],
     function(angular, resource, sanitize, uiRouter, mainCtrl, lazyLoad, session) {
-        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
+        var app = angular.module('mgr', ['ngResource', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'bootModule', 'bsTable', 'ui.select'], function($controllerProvider, $provide, $compileProvider, $filterProvider) {
             lazyLoad.init(arguments);
         });
 

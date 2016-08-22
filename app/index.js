@@ -27,7 +27,8 @@ requirejs.config({
         'scrollbar': 'lib/scrollbar/jquery.mCustomScrollbar.concat.min',
         'icheck': 'lib/icheck/icheck.min',
         'ui-bootstrap': 'lib/ui-bootstrap/ui-bootstrap-tpls',
-        'zh-cn': 'lib/angular/i18n/angular-locale_zh-cn'
+        'zh-cn': 'lib/angular/i18n/angular-locale_zh-cn',
+        'select2': 'lib/select2-ng/select.min'
     },
     shim: {
         'angular': {
@@ -71,6 +72,9 @@ requirejs.config({
             deps: ['angular']
         },
         'zh-cn': {
+            deps: ['angular']
+        },
+        'select2': {
             deps: ['angular']
         }
     },
