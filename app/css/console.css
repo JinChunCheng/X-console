@@ -8,6 +8,8 @@
 .w-100{width:100px;}
 .w-120{width:120px;}
 .w-140{width:140px;}
+/*height*/
+.h-35{height:35px;}
 /*table-th text-align:right*/
 table.th-right th{
   text-align:right !important;
