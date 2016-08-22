@@ -33,12 +33,16 @@ define([], function() {
                 if (!condition) {
                     return;
                 }
-                $scope.listVM.userList = [
-                    { name: 'usea', email: 'usea@iboxpay.com' },
-                    { name: 'youhaiyang', email: 'youhaiyang@iboxpay.com' },
-                    { name: 'jinchuncheng', email: 'jinchuncheng@iboxpay.com' },
-                    { name: 'zhouzheng', email: 'zhouzheng@iboxpay.com' }
-                ];
+                $scope.listVM.userLoading = true;
+                $timeout(function() {
+                    $scope.listVM.userList = [
+                        { name: 'usea', email: 'usea@iboxpay.com' },
+                        { name: 'youhaiyang', email: 'youhaiyang@iboxpay.com' },
+                        { name: 'jinchuncheng', email: 'jinchuncheng@iboxpay.com' },
+                        { name: 'zhouzheng', email: 'zhouzheng@iboxpay.com' }
+                    ];
+                    $scope.listVM.userLoading = false;
+                }, 1000);
             };
 
             /**
@@ -53,7 +57,6 @@ define([], function() {
 
             var getData = function(params) {
                 borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
                             item.id = parseInt(Math.random() * 100);
@@ -148,6 +151,7 @@ define([], function() {
                             submit: submit,
                             cancel: cancel
                         };
+
                         function cancel() {
                             $modalInstance.dismiss();
                             return false;

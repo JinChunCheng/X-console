@@ -1680,16 +1680,12 @@ angular.module('bootModule', [])
                 var parent = $(this).parent().parent();
                 parent.children('li.active').children('.children').slideUp(200);
                 $('.nav-sidebar .arrow').removeClass('active');
-                /**
-                 * do not remove 'active' class before route changed
-                 * 'active' class will be removed automatic after route changed
-                 * modified by youhaiyang at 2016.07.27
-                 */
-                //parent.children('li.active').removeClass('active');
+
+                parent.children('li.active').removeClass('active');
                 var sub = $(this).next();
                 if (sub.is(":visible")) {
                     sub.children().addClass('hidden-item')
-                        //$(this).parent().removeClass("active");
+                    $(this).parent().removeClass("active");
                     sub.slideUp(200, function() {
                         sub.children().removeClass('hidden-item')
                     });
@@ -1700,15 +1696,13 @@ angular.module('bootModule', [])
                         sub.children().addClass('is-shown');
                     }, 0);
                     sub.slideDown(200, function() {
-                        /**
-                         * do not add 'active' class before route changed
-                         * 'active' class will be added automatic after route changed
-                         * modified by youhaiyang at 2016.07.27
-                         */
-                        //$(this).parent().addClass("active");
+
+                        $(this).parent().addClass("active");
                         setTimeout(function() {
                             sub.children().removeClass('is-hidden').removeClass('is-shown');
                         }, 500);
+                        //rebuild sidebar scroll
+                        createSideScroll();
                     });
                 }
             });
