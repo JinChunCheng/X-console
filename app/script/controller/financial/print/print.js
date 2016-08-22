@@ -18,7 +18,12 @@ define([], function() {
             status:[{id:1,title:'未打印'},{id:2,title:'已打印'}]
         };
 
-
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
 
             /**
              * do something after view loaded

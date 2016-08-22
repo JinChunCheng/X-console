@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$state','$modal', 'borrowerService', 'toaster',function($scope, $http, $timeout, $state, $modal, borrowerService,toaster) {
 
         /**
          * the default search condition
@@ -10,12 +10,17 @@ define([], function() {
             pageNum: 1,
             pageSize: 10
         };
-
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            operSource: ['管理系统', '钱盒'],
-            securityLevel: ['未计算', '安全', '待详查', '危险']
+            operSource: [{id:1,title:'管理系统'}, {id:2,title:'钱盒'}],
+            securityLevel: [{id:1,title:'未计算'}, {id:2,title:'安全'}, {id:3,title:'待详查'}, {id:4,title:'危险'}]
         };
 
         /**
@@ -232,7 +237,6 @@ define([], function() {
                     }]
                 }
             };
-
         })();
         $scope.checkRow = function(e, value, row, index) {
             var text = $scope.listView.table.bootstrapTable('getAllSelections');
@@ -272,6 +276,7 @@ define([], function() {
             });
 
         };
+
         $scope.del = function() {
             console.log('del');
         };

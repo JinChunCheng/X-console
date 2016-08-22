@@ -24,7 +24,7 @@ define([], function() {
             function getDataLabel1(id) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
                 borrowerService.resource.query({ id:id }).$promise.then(function(res) {
-                    console.log(res.data.items[0].id+ ',,,');
+                    console.log(res.data.items[0].id);
                     $scope.vm.data.borrowerCode = res.data.items[0].id;
                     $scope.vm.data.name = res.data.items[0].id;
                     $scope.vm.data.IDcard = res.data.items[0].id;

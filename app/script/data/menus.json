@@ -141,10 +141,10 @@
                 "state": "account.rate.rate"
             }, {
                 "text": "利润提取",
-                "state": "account.profitlist.profitlist"
+                "state": "account.withdraw.withdraw"
             }, {
                 "text": "利润提取列表",
-                "state": "account.withdraw.withdraw"
+                "state": "account.profitlist.profitlist"
             }]
         }, {
             "text": "财务管理",

@@ -17,6 +17,12 @@ define([], function() {
             status: [{ id: 1, title: '对账成功' }, { id: 2, title: '对账失败' }]
         };
 
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
 
         /**
          * do something after view loaded

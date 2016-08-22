@@ -25,7 +25,7 @@
                     费率编码
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.rateCode" ng-options='rateCode for rateCode in vm.rateCode'></select>
+                    <select class="form-control" ng-model="vm.data.rateCode" ng-options='r as r.title for r in vm.rateCode'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -33,7 +33,7 @@
                     费率类型
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.rateType" ng-options='rateType for rateType in vm.rateType'></select>
+                    <select class="form-control" ng-model="vm.data.rateType" ng-options='r as r.title for r in vm.rateType'></select>
                 </div>
             </div>
             <div class="form-group">
@@ -81,7 +81,7 @@
                     状态
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.status" ng-options='status for status in vm.status'></select>
+                    <select class="form-control" ng-model="vm.data.status" ng-options='s as s.title for s in vm.status'></select>
                 </div>
             </div>
             <div class="form-group">

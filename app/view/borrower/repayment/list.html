@@ -26,18 +26,18 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                	<div class="form-group">
-                		<div class="col-sm-12">
-                		 <div class="input-group">
-                            <span class="input-group-addon">日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listVM.condition.startDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listVM.condition.endDate">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">日期</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.startDay" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                    <span class="input-group-addon">~</span>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.endDay" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                </div>
                             </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="form-group">
                     <button class="btn btn-info">查找</button>
@@ -53,4 +53,3 @@
         <table id="borrowerRepaymentsTable" table-full-size bs-table-control="bsRepaymentsTableControl"></table>
     </div>
 </div>
-

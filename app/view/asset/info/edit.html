@@ -88,7 +88,7 @@
                                         <div class="form-group">
                                             <label class="control-label">出生地</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.data.bornProvince" ng-options="p as p.name for p in assetVM.provinces" ng-change="vm.provinceChange()">
+                                                <select class="form-control" ng-model="assetVM.data.bornProvince" ng-options="p as p.name for p in assetVM.provinces" ng-change="assetVM.provinceChange()">
                                                     <option value="">- 请选择省份 -</option>
                                                 </select>
                                             </div>

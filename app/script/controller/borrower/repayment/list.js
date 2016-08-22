@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService', function($scope, $http, $state, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService','toaster', function($scope, $http, $state, $timeout, $modal, borrowerService,toaster) {
 
         /**
          * the default search condition
@@ -15,7 +15,12 @@ define([], function() {
             condition: angular.copy(defaultCondition),
             table: null
         };
-
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
         /**
          * do something after view loaded
          * @param  {string}     event type                       
@@ -217,8 +222,8 @@ define([], function() {
 
         })();
 
-        function detail() {
-            $state.go('borrower.repayment.detail');
+        function detail(e, value, row, index) {
+            $state.go('borrower.repayment.detail', { id: row.id });
         }
 
         function deleteRow(e, value, row, index) {

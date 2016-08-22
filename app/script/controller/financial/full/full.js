@@ -16,6 +16,13 @@ define([], function() {
             table: null
         };
 
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
+
         /**
          * do something after view loaded
          * @param  {string}     event type                       

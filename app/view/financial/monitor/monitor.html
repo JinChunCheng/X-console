@@ -41,22 +41,15 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">回执状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.receiptStatus" ng-options='r as r.title for r in listView.receiptStatus'>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <div class="input-group">
                                 <span class="input-group-addon">创建日期</span>
-                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                <div class="input-group">
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                    </div>
                                     <span class="input-group-addon">~</span>
-                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -67,11 +60,26 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">回执日期</span>
-                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
+                                <div class="input-group">
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation2" is-open="creation2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="creation2Opened=true" />
+                                    </div>
                                     <span class="input-group-addon">~</span>
-                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish2" is-open="finish2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="finish2Opened=true" />
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">回执状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.receiptStatus" ng-options='r as r.title for r in listView.receiptStatus'>
+                                </select>
                             </div>
                         </div>
                     </div>

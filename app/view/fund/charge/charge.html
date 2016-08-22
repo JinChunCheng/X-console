@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.type" ng-options='type for type in listView.type'>
+                                <select class="form-control form-white" ng-model="listView.condition.type" ng-options='t as t.title for t in listView.type'>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -72,11 +72,11 @@
                         <div class="col-sm-12">
                          <div class="input-group">
                             <span class="input-group-addon">创建时间</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.buildStartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.buildEndDate">
-                            </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDay" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                    <span class="input-group-addon">~</span>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.endDay" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                </div>
                         </div>
                         </div>
                     </div>     
@@ -86,11 +86,11 @@
                         <div class="col-sm-12">
                          <div class="input-group">
                             <span class="input-group-addon">充值完成日期</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.chargeStartDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.chargeEndDate">
-                            </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.chargeStartDay" is-open="birthdayOpened3" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened3=true" />
+                                    <span class="input-group-addon">~</span>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.chargeEndDay" is-open="birthdayOpened4" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened4=true" />
+                                </div>
                         </div>
                         </div>
                     </div>     
@@ -110,7 +110,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='channel for channel in listView.channel'>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='c as c.title for c in listView.channel'>
                                 </select>
                             </div>
                         </div>

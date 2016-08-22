@@ -18,7 +18,7 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                status: ['正常', '关闭'],
+                status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
                 add: function() {
                     console.log('add');
                     $state.go('borrower.info.add');
@@ -236,7 +236,7 @@ define([], function() {
             })();
 
             function detail(e, value, row, index) {
-                $state.go('borrower.info.detail', {id: row.id });
+                $state.go('borrower.info.detail', { id: row.id });
             }
 
             function deleteRow(e, value, row, index) {
@@ -265,7 +265,7 @@ define([], function() {
             };
 
             function editRow(e, value, row, index) {
-                console.log(row,value,e,index)
+                console.log(row, value, e, index)
                 $state.go('borrower.info.edit', { id: row.id });
             }
 

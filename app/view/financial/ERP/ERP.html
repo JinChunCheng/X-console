@@ -20,9 +20,16 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">处理状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.dealStatus" ng-options='Type for Type in listView.depositType'>
-                                </select>
+                                <span class="input-group-addon">创建时间</span>
+                                <div class="input-group">
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                    </div>
+                                    <span class="input-group-addon">~</span>
+                                    <div>
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -31,12 +38,9 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">创建时间</span>
-                                <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                    <input type="date" class="input-sm form-control" ng-model="listView.condition.StartDate">
-                                    <span class="input-group-addon">~</span>
-                                    <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.EndDate">
-                                </div>
+                                <span class="input-group-addon">处理状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.dealStatus" ng-options='Type for Type in listView.depositType'>
+                                </select>
                             </div>
                         </div>
                     </div>

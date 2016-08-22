@@ -16,6 +16,12 @@ define([], function() {
             table: null,
             status:[{id:1,title:'待审核'},{id:2,title:'已到账'},{id:3,title:'已转账'}]};
 
+        $scope.dateOptions = {
+            formatYear: 'yy',
+            startingDay: 1,
+            class: 'datepicker',
+            showWeeks: false
+        };
 
             /**
              * do something after view loaded

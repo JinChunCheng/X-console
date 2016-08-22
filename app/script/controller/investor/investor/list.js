@@ -22,7 +22,6 @@ define([], function() {
                 isEmployee: [{ id: 1, title: '待定' }, { id: 2, title: '否' }, { id: 3, title: '是' }],
                 status: [{ id: 1, title: '未发放' }, { id: 2, title: '已发放' }, { id: 3, title: '已回收' }],
                 operSource: [{ id: 1, title: '管理系统' }, { id: 2, title: '钱盒' }],
-
                 isUsed: [{ id: 1, title: '使用' }, { id: 2, title: '未使用' }],
                 add: function() {
                     console.log('add');
