@@ -1,0 +1,17 @@
+<form name="channelForm">
+    <div class="modal-header">
+        <h4 class="modal-title" ng-bind="channelVM.title"></h4>
+    </div>
+    <div class="modal-body p-r">
+        <form class="form-validation" novalidate ng-submit="channelVM.submit()">
+            <table id="channelTable" table-full-size bs-table-control="tbControl"></table>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" ng-disabled="channelVM.processing">
+            <span class="w2em" ng-if="!channelVM.processing" ng-cloak>确定</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="channelVM.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="channelVM.cancel()">取消</button>
+    </div>
+</form>
