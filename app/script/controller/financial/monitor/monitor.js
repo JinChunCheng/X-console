@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http','$state', '$timeout', '$modal', 'borrowerService', function($scope, $http,$state,$timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -25,6 +25,16 @@ define([], function() {
             startingDay: 1,
             class: 'datepicker',
             showWeeks: false
+        };
+
+        $scope.listVM = {
+            condition: angular.copy(defaultCondition),
+            table: null,
+            status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
+            check: function() {
+                console.log('check');
+                $state.go('financial.monitor.detail');
+            }
         };
             /**
              * do something after view loaded

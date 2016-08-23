@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService', function($scope, $http, $state,$timeout, $modal,borrowerService) {
 
         /**
          * the default search condition
@@ -24,6 +24,17 @@ define([], function() {
             class: 'datepicker',
             showWeeks: false
         };
+
+        $scope.listVM = {
+            condition: angular.copy(defaultCondition),
+            table: null,
+            status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
+            check: function() {
+                console.log('check');
+                $state.go('financial.directive.detail');
+            }
+        };
+
 
         /**
          * do something after view loaded
@@ -113,7 +124,6 @@ define([], function() {
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
                     //autoLoad: true,
-                    onPageChange: pageChange,
                     sidePagination: "server",
                     //search: true,
                     //showColumns: true,
@@ -221,15 +231,7 @@ define([], function() {
                 }
             };
 
-            function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
-            }
-
         })();
-
-        $scope.del = function() {
-            console.log('del');
-        };
 
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
@@ -239,10 +241,6 @@ define([], function() {
         $scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
             console.log('aaa');
-        };
-
-        var pageChange = function(num, size) {
-            console.log(num + ' - ' + size);
         };
     }];
 });
