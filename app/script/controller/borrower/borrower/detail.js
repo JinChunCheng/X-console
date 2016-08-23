@@ -1,177 +1,104 @@
 define([], function() {
     return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService',
         function($scope, $timeout, $state, $stateParams, borrowerService) {
-
-            var action = $stateParams.id ? 'edit' : 'add';
-            var defaultCondition = {
-
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-            };
             $scope.vm = {
-                action: action,
-                condition: angular.copy(defaultCondition),
                 table: null,
                 data: {},
+                borrowerAccountLogType: [{ code: 'BR_REPAYMENT_ASSIGNMENT', title: "还款分配" }, { code: 'BR_REPAYMENT', title: "还款" }, { code: 'BR_NEW', title: "借款人开户" }],
+                status: [{ code: "C", title: "关闭" }, { code: "O", title: "正常" }],
+                //初始化bsBorrowDetailTableControl对象，并将其扔到vm里面去，防止init调用的时候还没有加载出bsBorrowDetailTableControl这个对象而报错
+                bsBorrowDetailTableControl: {},
                 cancel: function() {
                     $state.go('borrower.info.list');
                 }
             };
 
-            function getDataLabel1(id) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
-                    console.log(res.data.items[0].id);
-                    $scope.vm.data.borrowerCode = res.data.items[0].id;
-                    $scope.vm.data.name = res.data.items[0].id;
-                    $scope.vm.data.IDcard = res.data.items[0].id;
-                    $scope.vm.data.status = res.data.items[0].id;
-                    $scope.vm.data.mobile = res.data.items[0].id;
-                    $scope.vm.data.phone = res.data.items[0].id;
-                    $scope.vm.data.mail = res.data.items[0].id;
-                    $scope.vm.data.bank = res.data.items[0].id;
-                    $scope.vm.data.bankProvince = res.data.items[0].id;
-                    $scope.vm.data.bankCity = res.data.items[0].id;
-                    $scope.vm.data.innerCode = res.data.items[0].id;
-                    $scope.vm.data.bankAccountName = res.data.items[0].id;
-                    $scope.vm.data.bankAccount = res.data.items[0].id;
-                    $scope.vm.data.address = res.data.items[0].id;
-                    $scope.vm.data.postCode = res.data.items[0].id;
-                    $scope.vm.data.buildTime = res.data.items[0].id;
-                    $scope.vm.data.refreshTime = res.data.items[0].id;
-                    $scope.vm.data.memo = res.data.items[0].id;
-                });
-            }
-            getDataLabel1($stateParams.id);
-
-            function getDataLabel2(id) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
-                    console.log(res.data.items[0].id);
-                    $scope.vm.data.accountSubject = res.data.items[0].id;
-                    $scope.vm.data.balance = res.data.items[0].id;
-                    $scope.vm.data.freezeBalance = res.data.items[0].id;
-                    $scope.vm.data.availableBalance = res.data.items[0].id;
-                    $scope.vm.data.buildTime = res.data.items[0].id;
-                });
-            }
-            getDataLabel2($stateParams.id);
             $scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#borrowDetailTable');
             });
 
-            var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
-            }
-
             function init() {
-
-                $scope.bsBorrowDetailTableControl = {
+                $scope.vm.bsBorrowDetailTableControl = {
                     options: {
                         cache: false,
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
-                        ajax: getData,
+                        ajax: getDetailTable,
                         sidePagination: "server",
                         columns: [{
-                            field: 'id',
-                            title: '编号',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
-                        }, {
-                            field: 'name',
+                            field: 'accountSubjectCode',
                             title: '账户科目',
                             align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            valign: 'middle'
                         }, {
-                            field: 'workspace',
+                            field: 'borrowerAccountLogType',
                             title: '账户变动类型',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+                            formatter: logFormatter
                         }, {
-                            field: 'workspace2',
+                            field: 'referenceId',
                             title: '参考编号',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace3',
+                            field: 'beforeBalance',
                             title: '发生前余额',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace4',
+                            field: 'beforeFrozenBalance',
                             title: '发生前余额冻结',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace5',
+                            field: 'beforeFreeBalance',
                             title: '发生前可用余额',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace6',
+                            field: 'changeAmount',
                             title: '发生额',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace7',
+                            field: 'afterBalance',
                             title: '发生后余额',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace8',
+                            field: 'afterFrozenBalance',
                             title: '发生后余额冻结',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace9',
+                            field: 'afterFreeBalance',
                             title: '发生后可用余额',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace10',
+                            field: 'balanceChangeFlag',
                             title: '余额变动标志',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace10',
+                            field: 'createDatetime',
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace10',
+                            field: 'memo',
                             title: '备注',
                             align: 'center',
                             valign: 'middle',
@@ -179,21 +106,57 @@ define([], function() {
                         }]
                     }
                 };
-            };
-            init();
 
-            // (function(id) {
-            //     console.log(id)
-            //     if (!id) {
-            //         return;
-            //     }
-            //     borrowerService.resource.get({ id: id }).$promise.then(function(res) {
-            //         $scope.vm.data = res.data;
-            //     }, function(err) {
-            //         debugger
-            //     });
-            // })($stateParams.id);
 
+                function logFormatter(value, row, index) {
+                    var result = '';
+                    $scope.vm.borrowerAccountLogType.forEach(function(item) {
+                        if (value === item.code) {
+                            result = item.title;
+                            return;
+                        }
+                    });
+                    return result;
+                }
+            }
+
+            function getDetail(borrowerId) {
+                //query: {where: JSON.stringify({'borrowerAccountNo':borrowerAccountNo})}
+                borrowerService.borrowerDetail.get({ id: borrowerId }).$promise.then(function(res) {
+                    //基本信息
+                    $scope.vm.status.forEach(function(item) {
+                        if (item.code === res.data.status) {
+                            res.data.status = item.title;
+                            return;
+                        }
+                    });
+                    $scope.vm.data = res.data;
+                    //账户信息
+                    $scope.vm.data.accountSubjectCode = res.data.borrowerAccount.accountSubjectCode;
+                    $scope.vm.data.balance = res.data.borrowerAccount.balance;
+                    $scope.vm.data.frozenBalance = res.data.borrowerAccount.frozenBalance;
+                    $scope.vm.data.freeBalance = res.data.borrowerAccount.freeBalance;
+                    $scope.vm.data.createDatetime = res.data.borrowerAccount.createDatetime;
+                    init();
+                });
+            }
+            getDetail($stateParams.id);
+
+
+            function getDetailTable(params) {
+                //这里的params就是分页的json
+                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                console.log($scope.vm.data.borrowerAccountNo);
+                var queryCondition = { data: { borrowerAccountNo: $scope.vm.data.borrowerAccountNo }, paginate: paganition };
+                borrowerService.borrowerDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                    res.data = res.data || { paginate: paganition, items: [] };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+
+                });
+            }
         }
     ];
 });

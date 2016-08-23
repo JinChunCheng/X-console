@@ -15,7 +15,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -31,7 +31,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.IDcard"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.idNo"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -57,7 +57,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.phone"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.telephone"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -67,7 +67,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.mail"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.email"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -75,7 +75,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bank"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankName"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -101,7 +101,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.innerCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerAccountNo"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -135,7 +135,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.postCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.zipCode"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -145,7 +145,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.buildTime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.createDatetime"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -153,7 +153,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.refreshTime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.updateDatetime"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -186,7 +186,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountSubject"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.accountSubjectCode"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -202,7 +202,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.freezeBalance"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.frozenBalance"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -212,7 +212,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.availableBalance"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.freeBalance"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -220,7 +220,7 @@
                                 </th>
                                 <th colspan="3">
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.buildTime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.createDatetime"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -234,7 +234,7 @@
 <div class="panel m-t-10">
     <div class="panel-header"><i class="icon icon-user"></i>账户余额变动日志</div>
     <div class="panel-body">
-        <table id="borrowDetailTable" bs-table-control="bsBorrowDetailTableControl"></table>
+        <table id="borrowDetailTable" bs-table-control="vm.bsBorrowDetailTableControl"></table>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-5">
                 <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>

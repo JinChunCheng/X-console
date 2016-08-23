@@ -1756,7 +1756,7 @@
 
                     item[that.header.stateField] = value === true || (value && value.checked);
                 } else {
-                    value = typeof value === 'undefined' || value === null ?
+                    value = typeof value === 'undefined' || value === null || value === '' ?
                         that.options.undefinedText : value;
 
                     text = that.options.cardView ? ['<div class="card-view">',

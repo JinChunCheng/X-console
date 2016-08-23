@@ -18,7 +18,7 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
+                status: [{ state: "O", title: '正常' }, { state: "C", title: '关闭' }],
                 add: function() {
                     console.log('add');
                     $state.go('borrower.info.add');
@@ -38,106 +38,40 @@ define([], function() {
             });
 
 
-            var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+            var getDataTable = function(params) {
+                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                data = { "status": $scope.listVM.condition.status, "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, 'idNo': $scope.listVM.condition.idNo, 'mobile': $scope.listVM.condition.mobile };
+                console.log(paganition);
+                var queryCondition = { "data": data, "paginate": paganition };
+                borrowerService.borrowerListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+                    res.data = res.data || { paginate: paganition, items: [] };
+                    console.log(res);
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
-
-                // //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加222";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
-
-
-                // $resource('http://172.21.1.12:8080/hzq/project', null, { update: { method: 'PUT' } }).update(project).$promise.then(function(data) {
-                //     console.log(data);
-                //     debugger
-                // }, function(err) {
-                //     debugger
-                // });
             };
 
             (function init() {
 
                 $scope.bsBorrowerTableControl = {
                     options: {
-                        //data: rows,
-                        // rowStyle: function(row, index) {
-                        //     return { classes: 'none' };
-                        // },
-                        // fixedColumns: true,
-                        // fixedNumber: 2,
                         cache: false,
-                        // height: 620,
-                        //striped: true,
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
-                        ajax: getData,
-                        //autoLoad: true,
-                        onPageChange: pageChange,
+                        ajax: getDataTable,
                         sidePagination: "server",
-                        //search: true,
-                        //showColumns: true,
-                        //showRefresh: false,
-                        //minimumCountColumns: 2,
-                        //clickToSelect: false,
-                        //showToggle: true,
-                        //maintainSelected: true,
                         columns: [{
                             field: 'state',
                             checkbox: true,
                             align: 'center',
                             valign: 'middle'
                         }, {
-                            field: 'id',
-                            title: '编号',
+                            field: 'borrowerId',
+                            title: '借款人编号',
                             align: 'center',
                             valign: 'middle',
                             sortable: true
@@ -148,61 +82,62 @@ define([], function() {
                             valign: 'middle',
                             sortable: true
                         }, {
-                            field: 'workspace',
+                            field: 'idNo',
                             title: '身份证号码',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace2',
+                            field: 'mobile',
                             title: '手机',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace3',
+                            field: 'telephone',
                             title: '固定电话',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace4',
+                            field: 'email',
                             title: '邮箱',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace5',
+                            field: 'bankProvince',
                             title: '省份',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace6',
-                            title: '城市',
+                            field: 'bankCity',
+                            title: '地市',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace7',
+                            field: 'bankName',
                             title: '开户行',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace8',
+                            field: 'bankAccount',
                             title: '银行账号',
                             align: 'left',
                             valign: 'top',
                             sortable: true
                         }, {
-                            field: 'workspace9',
+                            field: 'status',
                             title: '状态',
                             align: 'left',
                             valign: 'top',
-                            sortable: true
+                            sortable: true,
+                            formatter: statusFormatter
                         }, {
-                            field: 'workspace10',
+                            field: 'createDatetime',
                             title: '创建时间',
                             align: 'left',
                             valign: 'top',
@@ -224,6 +159,19 @@ define([], function() {
                     }
                 };
 
+                function statusFormatter(value, row, index) {
+                    var result = '';
+                    $scope.listVM.status.forEach(function(item) {
+                        if (value === item.code) {
+                            result = item.title;
+                            return;
+                        }
+                    });
+                    return result;
+                }
+
+
+
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
@@ -236,7 +184,7 @@ define([], function() {
             })();
 
             function detail(e, value, row, index) {
-                $state.go('borrower.info.detail', { id: row.id });
+                $state.go('borrower.info.detail', { id: row.borrowerId });
             }
 
             function deleteRow(e, value, row, index) {
@@ -254,19 +202,19 @@ define([], function() {
                         $scope.cancel = function() {
                             $modalInstance.dismiss();
                             return false;
-                        }
+                        };
 
                         $scope.ok = function() {
                             delUser(item.id, $scope, $modalInstance);
                             return true;
-                        }
+                        };
                     }
                 });
-            };
+            }
 
             function editRow(e, value, row, index) {
                 console.log(row, value, e, index)
-                $state.go('borrower.info.edit', { id: row.id });
+                $state.go('borrower.info.edit', { id: row.borrowerId });
             }
 
             $scope.del = function() {
@@ -279,10 +227,6 @@ define([], function() {
 
             $scope.reset = function() {
                 $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-
             };
         }
     ];
