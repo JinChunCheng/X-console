@@ -224,7 +224,6 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //邮件日志
                 .state('marketing.mail', lazyLoad.config('/mail', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('marketing.mail.mail', lazyLoad.config('/mail', '/view/marketing/mail/mail.html', 'controller/marketing/mail/mail', { directives: [], services: ['service/borrower'], filters: [] }))
-<<<<<<< HEAD
 
             //marketing module end
 
@@ -250,7 +249,6 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //.state('system-onlineMonitoring', lazyLoad.config('/system/onlineMonitoring', '/view/system/onlineMonitoring.html', 'controller/system/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
             //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
             //// system module end
-=======
             
                 //marketing module end
 
@@ -282,8 +280,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //.state('system-onlineMonitoring', lazyLoad.config('/system/onlineMonitoring', '/view/system/onlineMonitoring.html', 'controller/system/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
                 //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
                 //// system module end
->>>>>>> 1c2cc77d8c9f8b271c2a36a3a37107cf63f80855
-
+            ;
             $locationProvider.html5Mode(true);
         }
     ]);
