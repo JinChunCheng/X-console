@@ -249,19 +249,15 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //.state('system-onlineMonitoring', lazyLoad.config('/system/onlineMonitoring', '/view/system/onlineMonitoring.html', 'controller/system/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
             //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
             //// system module end
-<<<<<<< HEAD
 
             //marketing module end
-=======
             
                 //marketing module end
->>>>>>> 2e797d620bcf11c86da0e6d2952e5fd0d440768a
 
             //statistics module start
             .state('statistics', lazyLoad.config('/statistics', '/view/shared/blank.html', '', null, true))
                 .state('statistics.user', lazyLoad.config('/user', '/view/statistics/user.html', 'controller/statistics/user', null))
                 .state('statistics.profit', lazyLoad.config('/profit', '/view/statistics/profit.html', 'controller/statistics/profit', null))
-<<<<<<< HEAD
                 //statistics module end
 
 
@@ -287,7 +283,6 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
             //// system module end
 
-=======
             //statistics module end
 
 
@@ -313,7 +308,6 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
                 //// system module end
             ;
->>>>>>> 2e797d620bcf11c86da0e6d2952e5fd0d440768a
             $locationProvider.html5Mode(true);
         }
     ]);
