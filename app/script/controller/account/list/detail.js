@@ -20,13 +20,13 @@ define([], function() {
                 bsAccountDetailTableControl: {},
             };
 
-            $scope.$on('$viewContentLoaded', function() {
+            //$scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#accountDetailTable');
-            });
+            //});
 
             function init() {
 
-                $scope.bsAccountDetailTableControl = {
+                $scope.vm.bsAccountDetailTableControl = {
                     options: {
                         cache: false,
                         pagination: true,
@@ -94,7 +94,6 @@ define([], function() {
                             title: '开户行省份',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
                         }, {
                             field: 'relBankCity',
                             title: '开户行地市',
@@ -116,18 +115,18 @@ define([], function() {
             }
 
             function getDataLabel(capitalAccountId) {
-                accountService.accountDetailLabel.query({ id: capitalAccountId }).$promise.then(function(res) {
+                accountService.accountDetailLabel.get({ id: capitalAccountId }).$promise.then(function(res) {
                     $scope.vm.data = res.data;
+                    init();
                 });
-                init();
             }
             getDataLabel($stateParams.id);
 
             function getDetailTable(params) {
                 //这里的params就是分页的json
-                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
                 var queryCondition = { data: { capitalAccountNo: $scope.vm.data.capitalAccountNo }, paginate: paganition };
-                accountService.accountDetailtable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                accountService.accountDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     console.log($scope.vm.data.capitalAccountNo);
                     params.success({

@@ -9,7 +9,7 @@
                     编号
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.code">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.investorId">
                 </div>
             </div>
             <div class="form-group">
@@ -25,7 +25,7 @@
                     真实姓名
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.realName">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.name">
                 </div>
             </div>
             <div class="form-group">
@@ -41,16 +41,16 @@
                     身份认证标识
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.IDmark" ng-options='i as i.title for i in vm.IDmark'>
+                    <select class="form-control form-white" ng-model="vm.data.staticParamValue" ng-options='i as i.title for i in vm.staticParamValue'>
                     </select>
                 </div>
             </div>
             <div class="form-group" ng-show="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
-                    邮箱
+                    Email
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.Email">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.email">
                 </div>
             </div>
             <div class="form-group">
@@ -74,7 +74,7 @@
                     邮编
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.postCode">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.zipCode">
                 </div>
             </div>
             <div class="form-group">
@@ -90,7 +90,7 @@
                     理财渠道
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.channel" ng-options='c as c.title for c in vm.channel'>
+                    <select class="form-control form-white" ng-model="vm.data.fundChannelId" ng-options='c as c.title for c in vm.fundChannelCode'>
                     </select>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                     理财客户经理
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.manager" ng-options='m as m.label for m in vm.data.channel.content'>
+                    <select class="form-control form-white" ng-model="vm.data.fundAccountManagerCode" ng-options='m as m.label for m in vm.data.fundChannelCode.content'>
                     </select>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                     是否本公司员工
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.isEmployee" ng-options='i as i.title for i in vm.isEmployee'>
+                    <select class="form-control form-white" ng-model="vm.data.staticParamValue" ng-options='i as i.title for i in vm.staticParamValue'>
                     </select>
                 </div>
             </div>
@@ -126,7 +126,7 @@
                     绑定钱盒商户
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.boxBidding">
+                    <input type="text" name="name" class="form-control" ng-model="vm.data.bindIboxpayUser">
                 </div>
             </div>
             <div class="form-group" ng-show="vm.action=='add'">

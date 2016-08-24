@@ -9,7 +9,6 @@ define([], function() {
         };
 
         function getDetail(id) {
-                //query: {where: JSON.stringify({'borrowerAccountNo':borrowerAccountNo})}
                 borrowerService.borrowerRepaymentDetail.get({ id: id }).$promise.then(function(res) {
                     //基本信息
                     $scope.vm.accountSubjectCode.forEach(function(item) {
@@ -18,7 +17,6 @@ define([], function() {
                             return;
                         }
                     });
-                    console.log(res.data);
                     $scope.vm.data = res.data;
                 });
             }

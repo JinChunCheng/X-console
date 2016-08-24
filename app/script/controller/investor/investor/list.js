@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'investorService',
+        function($scope, $http, $timeout, $modal, $state, investorService) {
 
             /**
              * the default search condition
@@ -14,7 +14,12 @@ define([], function() {
                 },
                 data: {}
             };
-
+            $scope.dateOptions = {
+                formatYear: 'yy',
+                startingDay: 1,
+                class: 'datepicker',
+                showWeeks: false
+            };
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
@@ -23,262 +28,184 @@ define([], function() {
                 status: [{ id: 1, title: '未发放' }, { id: 2, title: '已发放' }, { id: 3, title: '已回收' }],
                 operSource: [{ id: 1, title: '管理系统' }, { id: 2, title: '钱盒' }],
                 isUsed: [{ id: 1, title: '使用' }, { id: 2, title: '未使用' }],
-                add: function() {
-                    console.log('add');
-                    $state.go('investor.investor.add');
-                },
-                edit: function(id) {
-                    $state.go('investor.investor.edit', { id: id });
-                }
             };
-
-            /**
-             * do something after view loaded
-             * @param  {string}     event type                       
-             * @param  {function}   callback function
-             */
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#investorTable');
             });
 
 
             var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                data = { "investorId": $scope.listVM.condition.investorId, "name": $scope.listVM.condition.name, 'loginName': $scope.listVM.condition.name, 'empFlag': $scope.listVM.condition.empFlag, 'mobile': $scope.listVM.condition.mobile , 'trialFlag': $scope.listVM.condition.trialFlag, 'operateOrigin': $scope.listVM.condition.operateOrigin, 'fundChannelCode': $scope.listVM.condition.fundChannelCode, 'fundAccountManagerId': $scope.listVM.condition.fundAccountManagerId, 'trialUsed': $scope.listVM.condition.trialUsed, 'idNo': $scope.listVM.condition.idNo,'createStartTime': $scope.listVM.condition.startDay,'createEndTime': $scope.listVM.condition.endDay,'bindIboxpayUser': $scope.listVM.condition.bindIboxpayUser};
+                var queryCondition = { "data":data,"paginate": paganition };
+                investorService.investorListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                    res.data = res.data || { paginate: paganition, items: [] };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
-
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
-
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
             };
 
             (function init() {
 
                 $scope.bsInvestorTableControl = {
                     options: {
-                        //data: rows,
-                        // rowStyle: function(row, index) {
-                        //     return { classes: 'none' };
-                        // },
-                        // fixedColumns: true,
-                        // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
-                        //striped: true,
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        //autoLoad: true,
-                        onPageChange: pageChange,
                         sidePagination: "server",
-                        //search: true,
-                        //showColumns: true,
-                        //showRefresh: false,
-                        //minimumCountColumns: 2,
-                        //clickToSelect: false,
-                        //showToggle: true,
-                        //maintainSelected: true,
                         columns: [{
                             field: 'state',
                             checkbox: true,
                             align: 'center',
                             valign: 'middle'
                         }, {
-                            field: 'id',
+                            field: 'investorId',
                             title: '编号',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+                            
                         }, {
-                            field: 'name',
+                            field: 'loginName',
                             title: '登录名',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+                            
                         }, {
-                            field: 'workspace',
+                            field: 'name',
                             title: '真实姓名',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace2',
+                            field: 'idNo',
                             title: '身份证号码',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace3',
+                            field: 'mobile',
                             title: '手机号',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace4',
+                            field: 'telephone',
                             title: '固话',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace5',
+                            field: 'status',
                             title: '状态',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace6',
+                            field: 'fundAccountManagerId',
                             title: '理财客户经理编号',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace7',
+                            field: 'fundAccountManagerCode',
                             title: '理财客户经理代码',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace8',
+                            field: 'fundAccountManagerName',
                             title: '理财客户经理姓名',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace9',
+                            field: 'fundChannelCode',
                             title: '理财渠道代码',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace10',
+                            field: 'fundChannelName',
                             title: '理财渠道名称',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace11',
+                            field: 'registerType',
                             title: '注册类型',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace12',
+                            field: 'empFlag',
                             title: '是否本公司员工',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace13',
+                            field: 'zipCode',
                             title: '邮编',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace14',
+                            field: 'address',
                             title: '地址',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace15',
+                            field: 'noviciate',
                             title: '是否新手',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace16',
+                            field: 'trialFlag',
                             title: '试投金状态',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace17',
+                            field: 'trialUsed',
                             title: '试投金是否已使用',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace18',
+                            field: 'trialAmt',
                             title: '试投金金额',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace19',
+                            field: 'operateOrigin',
                             title: '操作来源',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace20',
+                            field: 'bindIboxpayUser',
                             title: '绑定钱盒商户',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace21',
+                            field: 'createDatetime',
                             title: '创建时间',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
-                            field: 'workspace22',
+                            field: 'updateDatetime',
                             title: '更新时间',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                            
                         }, {
                             field: 'flag',
                             title: '操作',
@@ -287,7 +214,7 @@ define([], function() {
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {
-                                'click .btn-danger': deleteRow,
+                                'click .btn-info': detail,
                                 'click .btn-primary': editRow
                             }
                         }]
@@ -297,36 +224,14 @@ define([], function() {
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
+                        '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
                     ];
                     return btnHtml.join('');
                 }
 
             })();
-
-            function deleteRow(e, value, row, index) {
-                var text = "确定删除此记录？";
-                //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
-                $modal.open({
-                    templateUrl: 'view/shared/confirm.html',
-                    size: 'sm',
-                    //backdrop: true,
-                    controller: function($scope, $modalInstance) {
-                        $scope.confirmData = {
-                            text: text,
-                            processing: false
-                        };
-                        $scope.cancel = function() {
-                            $modalInstance.dismiss();
-                            return false;
-                        };
-
-                        $scope.ok = function() {
-                            delUser(item.id, $scope, $modalInstance);
-                            return true;
-                        };
-                    }
-                });
+            function detail(e,value, row, index) {
+                $state.go('investor.investor.detail',{ id: row.investorId });
             }
 
             function editRow(e, value, row, index) {
@@ -339,10 +244,6 @@ define([], function() {
 
             $scope.reset = function() {
                 $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-
             };
         }
     ];

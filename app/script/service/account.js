@@ -5,11 +5,12 @@ define([], function(config) {
             msg: '服务器连接失败，请检查服务是否可用或联系管理员！'
         };
 
-        var accountList = $resource('http://172.21.20.13:8080/capitalAccount/findAll', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountList = $resource('http://172.21.20.13:8080/capitalAccount/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountDetailLabel = $resource('http://172.21.20.13:8080/capitalAccount/getById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountDetailTable = $resource('http://172.21.20.13:8080/capitalAccountLog/findAll', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountListUpdate = $resource('http://172.21.20.13:8080/capitalAccount/account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountQueryList = $resource('http://172.21.20.13:8080/capitalAccount/repayment/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountDetailTable = $resource('http://172.21.20.13:8080/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountListUpdate = $resource('http://172.21.20.13:8080/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountQueryList = $resource('http://172.21.20.13:8080/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+
         return {
             //
             accountList:accountList,

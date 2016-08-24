@@ -18,9 +18,6 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                edit: function(id) {
-                    $state.go('account.list.edit', { id: id });
-                }
             };
 
             /**
@@ -35,8 +32,8 @@ define([], function() {
 
             var getDataTable = function(params) {
                 paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                console.log(paganition);
-                var queryCondition = {"paginate": paganition };
+                var queryCondition = { "paginate": paganition };
+
                 accountService.accountList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     //debugger
                     res.data = res.data || { paginate: paganition, items: [] };
@@ -68,87 +65,87 @@ define([], function() {
                             title: '账户标识',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'capitalAccountNo',
                             title: '账户编码',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             //TODO该字段还未确定
                             field: 'bankAccountName',
                             title: '账户名称',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'bankAccountName',
                             title: '银行账户名称',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'balance',
                             title: '资金余额',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'bankAccount',
                             title: '银行账户号码',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'bankName',
                             title: '开户行',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'bankProvince',
                             title: '开户行省份',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'bankCity',
                             title: '开户行地市',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'companyName',
                             title: '公司名称',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'largePaymentNumber',
                             title: '大额行号',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'memo',
                             title: '备注',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
-                        },  {
+
+                        }, {
                             field: 'createDatetime',
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
+
                         }, {
                             field: 'updateDatetime',
                             title: '更新时间',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
-                        },{
+
+                        }, {
                             field: 'flag',
                             title: '操作',
                             align: 'center',
@@ -174,18 +171,14 @@ define([], function() {
 
             })();
 
-            function detail(e,value, row, index) {
-                $state.go('account.list.detail',{ id: row.capitalAccountId });
+            function detail(e, value, row, index) {
+                $state.go('account.list.detail', { id: row.capitalAccountId });
             }
 
             function editRow(e, value, row, index) {
                 $state.go('account.list.edit', { id: row.capitalAccountId });
             }
 
-
-            $scope.del = function() {
-
-            };
 
             $scope.search = function() {
                 $scope.listVM.table.bootstrapTable('refresh');

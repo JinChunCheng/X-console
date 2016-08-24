@@ -17,10 +17,8 @@ define([], function() {
 
         (function showContent() {
             if ($stateParams.id) {
-                //query: {where: JSON.stringify({'borrowerAccountNo':borrowerAccountNo})}
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
-                    console.log(res.data);
                     $scope.vm.data = res.data;
                 });
             }
@@ -31,19 +29,16 @@ define([], function() {
             if (!$stateParams.id) {
                 //新增借款人
                 borrowerService.createBorrower.save($scope.vm.data).$promise.then(function(res) {
-                    console.log(res);
                     if (res.code == 200) {
-                    toaster.pop('success', '新增借款人成功！');
-                    $state.go("borrower.info.list");
-                }
+                        toaster.pop('success', '新增借款人成功！');
+                        $state.go("borrower.info.list");
+                    }
 
                 });
                 return;
             }
             //修改借款人
-
             borrowerService.updateBorrower.update($scope.vm.data).$promise.then(function(res) {
-                console.log(res);
                 if (res.code == 200) {
                     toaster.pop('success', '修改借款人成功！');
                     $state.go("borrower.info.list");
@@ -57,14 +52,5 @@ define([], function() {
             });
         }
         initMetaData();
-
-        // function getDataLabel(id) {
-        //     //query: {where: JSON.stringify($scope.listVM.condition)}
-        //     borrowerService.resource.query({ id: id }).$promise.then(function(res) {
-        //         $scope.vm.data = res.data;
-        //     });
-        // }
-        // getDataLabel($stateParams.id);
-
     }];
 });

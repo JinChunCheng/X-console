@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state','toaster', 'borrowerService', function($scope, $http, $timeout, $modal, $state,toaster, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'toaster', 'borrowerService', function($scope, $http, $timeout, $modal, $state, toaster, borrowerService) {
 
         /**
          * the default search condition
@@ -14,30 +14,23 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            type: [{id:1,title:'网银'}, {id:2,title:'委托扣款'}, {id:3,title:'POS收款'}, {id:4,title:'调账处理'}, {id:5,title:'奖励'}, {id:6,title:'其他'}],
-            status: [{id:1,title:'待支付'}, {id:2,title:'成功'}, {id:3,title:'取消'}, {id:4,title:'失败'}, {id:5,title:'在途'}],
-            channel: [{id:1,title:'POS刷卡'}, {id:2,title:'银联转账'}, {id:3,title:'其他'}]
+            type: [{ id: 1, title: '网银' }, { id: 2, title: '委托扣款' }, { id: 3, title: 'POS收款' }, { id: 4, title: '调账处理' }, { id: 5, title: '奖励' }, { id: 6, title: '其他' }],
+            status: [{ id: 1, title: '待支付' }, { id: 2, title: '成功' }, { id: 3, title: '取消' }, { id: 4, title: '失败' }, { id: 5, title: '在途' }],
+            channel: [{ id: 1, title: 'POS刷卡' }, { id: 2, title: '银联转账' }, { id: 3, title: '其他' }]
         };
-                $scope.dateOptions = {
+        $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
             class: 'datepicker',
             showWeeks: false
         };
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#chargeListTable');
         });
 
 
         var getData = function(params) {
-            //query: {where: JSON.stringify($scope.listVM.condition)}
             borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
                         item.id = parseInt(Math.random() * 100);
@@ -51,77 +44,18 @@ define([], function() {
                     });
                 }, 500);
             });
-
-            //post: 
-            // var project = {};
-            // project.borrowerId = 1;
-            // project.contractTemplateId=1;
-            // project.projectName="console-前台添加";
-            // project.requestAmount=100000.00;
-            // project.repaymentType="IOP";
-            // project.duration=12;
-            // project.durationUnit="Y";
-            // project.periodCount=10;
-            // project.interestRate=0.8;
-            // project.interestRateTerm="Y";
-            // project.serviceFeeRate=0;
-            // project.serviceFeeRateTerm="Y";
-            // project.latePaymentFeeRateTerm="D";
-            // project.purpose="前端测试";
-            // project.mortgageFlag="N";
-            // project.mortgage="无";
-            // project.guaranteeFlag="N";
-            // project.guarantee="无";
-            // project.description="这是一个通过controller添加进来的project";
-            // project.biddingDeadline=new Date();
-            // project.biddingStartAmount=5000;
-            // project.biddingStepAmount=1000;
-            // project.biddingAmount=100000.00;
-            // project.status = "IRP";
-            // project.totalDays=100;
-            // project.totalInterest=100;
-            // project.totalServiceFee=0.0;
-            // project.debtStartDate=new Date();
-            // project.debtEndDate=new Date();
-            // project.principalPaid=0;
-            // project.PrincipalBalance=100;
-            // project.interestPaid=1;
-            // project.serviceFeePaid=0;
-            // project.memo="";
-            // project.creditChannelId=1;
-
-            // borrowerService.get(project).then(function(res) {
-            //     debugger
-            // });
         };
 
         (function init() {
 
             $scope.bsChargeListTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
-                    height: 500,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -132,115 +66,115 @@ define([], function() {
                         title: '充值编号',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        
                     }, {
                         field: 'name',
                         title: '投资人编号',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        
                     }, {
                         field: 'workspace',
                         title: '投资人姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace2',
                         title: '注册来源',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace3',
                         title: '充值金额',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace4',
                         title: '服务费',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace5',
                         title: '结算金额',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace6',
                         title: '账户科目',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace7',
                         title: '状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace8',
                         title: '充值类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace9',
                         title: '充值渠道',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '银行名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '银行卡号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '支付序号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '外部参考编号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '创建时间',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '完成时间',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '操作员',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'workspace10',
                         title: '备注',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
+                        
                     }, {
                         field: 'flag',
                         title: '操作',
@@ -250,7 +184,7 @@ define([], function() {
                         formatter: flagFormatter,
                         events: {
                             'click .btn-primary': detail,
-                            'click .btn-danger':del
+                            'click .btn-danger': del
                         }
                     }]
                 }
@@ -267,8 +201,9 @@ define([], function() {
         })();
 
         function detail(e, value, row, index) {
-            $state.go('fund.charge.detail',{id:row.id});
+            $state.go('fund.charge.detail', { id: row.id });
         }
+
         function del(e, value, row, index) {
             var text = "确定删除此记录？";
             // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
