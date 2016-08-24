@@ -14,6 +14,9 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
+            check: function() {
+                showChannelModal();
+            },
             status:[{id:1,title:'待审核'},{id:2,title:'已到账'},{id:3,title:'已转账'}]};
 
         $scope.dateOptions = {
@@ -229,6 +232,37 @@ define([], function() {
             function flagFormatter(value, row, index) {
                 return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
             }
+
+
+            function showChannelModal(channel) {
+                var title = "催款单明细";
+                var dataSourceList = $scope.listVM.dataSourceList;
+                $modal.open({
+                    templateUrl: 'view/financial/list/check.html',
+                    size: 'md',
+                    controller: function($scope, $modalInstance) {
+
+                        $scope.channelVM = {
+                            title: title,
+                            processing: false,
+                            dataSourceList: dataSourceList,
+                            submit: submit,
+                            cancel: cancel
+                        };
+
+                        function cancel() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        function submit() {
+                            saveChannel(item.id, $scope, $modalInstance);
+                            return true;
+                        }
+                    }
+                });
+            }
+
 
         })();
 

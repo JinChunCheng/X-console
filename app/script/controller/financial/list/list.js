@@ -18,6 +18,9 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
+                check: function() {
+                    showChannelModal();
+                },
                 status:[{id:1,title:'等待处理'},{id:2,title:'失败'},{id:3,title:'成功'}],
                 edit: function(id) {
                     $state.go('financial.list.edit', { id: id });
@@ -280,6 +283,35 @@ define([], function() {
                     }
                 });
             };
+
+            function showChannelModal(channel) {
+                var title = "催款单明细";
+                var dataSourceList = $scope.listVM.dataSourceList;
+                $modal.open({
+                    templateUrl: 'view/financial/list/check.html',
+                    size: 'md',
+                    controller: function($scope, $modalInstance) {
+
+                        $scope.channelVM = {
+                            title: title,
+                            processing: false,
+                            dataSourceList: dataSourceList,
+                            submit: submit,
+                            cancel: cancel
+                        };
+
+                        function cancel() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        function submit() {
+                            saveChannel(item.id, $scope, $modalInstance);
+                            return true;
+                        }
+                    }
+                });
+            }
 
             function editRow(e, value, row, index) {
                 $state.go('financial.list.edit', { id: row.id });

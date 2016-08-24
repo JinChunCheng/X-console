@@ -181,12 +181,14 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //出款指令列表
                 .state('financial.directive', lazyLoad.config('/directive', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.directive.directive', lazyLoad.config('/directive', '/view/financial/directive/directive.html', 'controller/financial/directive/directive', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.directive.detail', lazyLoad.config('/directive', '/view/financial/directive/detail.html', 'controller/financial/directive/detail', { directives: [], services: ['service/borrower'], filters: [] }))
                 //划款打印
                 .state('financial.print', lazyLoad.config('/print', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.print.print', lazyLoad.config('/print', '/view/financial/print/print.html', 'controller/financial/print/print', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现出款监控
                 .state('financial.monitor', lazyLoad.config('/monitor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/borrower'], filters: [] }))
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
