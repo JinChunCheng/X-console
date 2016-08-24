@@ -11,7 +11,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //asset module start
             .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.channel', lazyLoad.config('/channel', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
 
             .state('asset.type', lazyLoad.config('/type', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.type.list', lazyLoad.config('/list', 'view/asset/type/list.html', 'controller/asset/type/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
@@ -181,12 +181,14 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //出款指令列表
                 .state('financial.directive', lazyLoad.config('/directive', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.directive.directive', lazyLoad.config('/directive', '/view/financial/directive/directive.html', 'controller/financial/directive/directive', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.directive.detail', lazyLoad.config('/directive', '/view/financial/directive/detail.html', 'controller/financial/directive/detail', { directives: [], services: ['service/borrower'], filters: [] }))
                 //划款打印
                 .state('financial.print', lazyLoad.config('/print', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.print.print', lazyLoad.config('/print', '/view/financial/print/print.html', 'controller/financial/print/print', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现出款监控
                 .state('financial.monitor', lazyLoad.config('/monitor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/borrower'], filters: [] }))
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
@@ -222,6 +224,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //邮件日志
                 .state('marketing.mail', lazyLoad.config('/mail', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('marketing.mail.mail', lazyLoad.config('/mail', '/view/marketing/mail/mail.html', 'controller/marketing/mail/mail', { directives: [], services: ['service/borrower'], filters: [] }))
+<<<<<<< HEAD
 
             //marketing module end
 
@@ -247,6 +250,39 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //.state('system-onlineMonitoring', lazyLoad.config('/system/onlineMonitoring', '/view/system/onlineMonitoring.html', 'controller/system/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
             //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
             //// system module end
+=======
+            
+                //marketing module end
+
+            //statistics module start
+            .state('statistics', lazyLoad.config('/statistics', '/view/shared/blank.html', '', null, true))
+                .state('statistics.user', lazyLoad.config('/user', '/view/statistics/user.html', 'controller/statistics/user', null))
+                .state('statistics.profit', lazyLoad.config('/profit', '/view/statistics/profit.html', 'controller/statistics/profit', null))
+            //statistics module end
+
+
+                //statement module start
+                //.state('statement-dashboard', lazyLoad.config('/statment/dashboard', '/view/statment/dashboard.html', 'controller/statment/dashboard', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('statement-earnedValue', lazyLoad.config('/statment/earnedValue', '/view/statment/earnedValue.html', 'controller/statment/earnedValue', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('statement-lendingStatement', lazyLoad.config('/statment/lendingStatement', '/view/statment/lendingStatement.html', 'controller/statment/lendingStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('statement-projectStatement', lazyLoad.config('/statment/projectStatement', '/view/statment/projectStatement.html', 'controller/statment/projectStatement', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('statement-dueRepayment', lazyLoad.config('/statment/dueRepayment', '/view/statment/dueRepayment.html', 'controller/statment/dueRepayment', { directives: [], services: ['service/borrower'], filters: [] }))
+                //statement module end
+
+                //// system module start
+                //.state('system', lazyLoad.config('/system', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                //.state('system.user', lazyLoad.config('/user', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                //.state('system.user.list', lazyLoad.config('/list', '/view/system/user/list.html', 'controller/system/user/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system.user.add', lazyLoad.config('/add', '/view/system/user/edit.html', 'controller/system/user/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system.user.edit', lazyLoad.config('/edit/:id', '/view/system/user/edit.html', 'controller/system/user/edit', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system.role', lazyLoad.config('/role', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                //.state('system.role.list', lazyLoad.config('/list', '/view/system/role/list.html', 'controller/system/role/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system-departmentMaintains', lazyLoad.config('/system/departmentMaintains', '/view/system/departmentMaintains.html', 'controller/system/departmentMaintains', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system-regularJobLog', lazyLoad.config('/system/regularJobLog', '/view/system/regularJobLog.html', 'controller/system/regularJobLog', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system-onlineMonitoring', lazyLoad.config('/system/onlineMonitoring', '/view/system/onlineMonitoring.html', 'controller/system/onlineMonitoring', { directives: [], services: ['service/borrower'], filters: [] }))
+                //.state('system-staticParameters', lazyLoad.config('/system/staticParameters', '/view/system/staticParameters.html', 'controller/system/staticParameters', { directives: [], services: ['service/borrower'], filters: [] }))
+                //// system module end
+>>>>>>> 1c2cc77d8c9f8b271c2a36a3a37107cf63f80855
 
             $locationProvider.html5Mode(true);
         }

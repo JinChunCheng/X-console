@@ -201,6 +201,17 @@
                 "text": "系统公告列表",
                 "state": "marketing.notice.notice"
             }]
+        }, {
+            "text": "统计报表",
+            "icon": "icon-screen-desktop",
+            "state": "statistics",
+            "subMenus": [{
+                "text": "用户统计",
+                "state": "statistics.user"
+            }, {
+                "text": "利润统计",
+                "state": "statistics.profit"
+            }]
         }]
     }
 }

@@ -34,9 +34,12 @@
                     defer = $q.defer();
                     var dependencies = ["text!" + templatePath, controllerPath];
                     if (lazyResources) {
-                        dependencies = dependencies.concat(lazyResources.directives);
-                        dependencies = dependencies.concat(lazyResources.services);
-                        dependencies = dependencies.concat(lazyResources.filters);
+                        if (lazyResources.directives)
+                            dependencies = dependencies.concat(lazyResources.directives);
+                        if (lazyResources.services)
+                            dependencies = dependencies.concat(lazyResources.services);
+                        if (lazyResources.filters)
+                            dependencies = dependencies.concat(lazyResources.filters);
                     }
                     require(dependencies, function() {
                         var indicator = 0;
@@ -45,7 +48,7 @@
                             controllerProvider.register(controllerPath.substring(controllerPath.lastIndexOf("/") + 1), arguments[indicator]);
                             indicator++;
                         }
-                        if (angular.isDefined(lazyResources)) {
+                        if (lazyResources) {
                             if (angular.isDefined(lazyResources.directives)) {
                                 for (var i = 0; i < lazyResources.directives.length; i++) {
                                     compileProvider.directive.apply(null, arguments[indicator]);
