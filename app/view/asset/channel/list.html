@@ -18,8 +18,8 @@
                         <span class="input-group-btn">
                             <button type="button" ng-click="listVM.user = undefined" class="btn btn-default h-35" ng-if="!listVM.userLoading" ng-cloak>
                                 <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                            <span class="btn btn-default h-35" ng-if="listVM.userLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                        </button>
+                        <span class="btn btn-default h-35" ng-if="listVM.userLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
                         </span>
                     </div>
                 </div>
@@ -46,9 +46,11 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <button class="btn btn-primary">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
-                    <button type="button" class="btn btn-default" ng-click="listVM.testToaster()">测试toaster</button>
+                    <div class="form-group col-sm-12">
+                        <button class="btn btn-primary m-b-10">查找</button>
+                        <button type="button" class="btn btn-default m-b-10" ng-click="reset()">重置</button>
+                        <button type="button" class="btn btn-default m-b-10" ng-click="listVM.testToaster()">测试toaster</button>
+                    </div>
                 </div>
             </div>
         </div>

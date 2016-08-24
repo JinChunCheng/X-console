@@ -2188,8 +2188,10 @@ textarea.form-error.form-control:focus {
   color: #313131;
   color: #994F4F;
   font-style: italic;
-  margin-top: 10px;
+  margin-top: 5px;
+  display: none;
 }
+.has-error .form-error { display: block; }
 .form-success {
   color: #313131;
   font-style: italic;

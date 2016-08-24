@@ -83,17 +83,15 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'id', title: '编号', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '渠道名称', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '录入时间', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '接入方式', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '授信额度', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '接入资产', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                            { field: 'id', title: '编号' },
+                            { field: 'name', title: '渠道名称' },
+                            { field: 'createTime', title: '录入时间' },
+                            { field: 'joinupType', title: '接入方式' },
+                            { field: 'creditLimit', title: '授信额度' },
+                            { field: 'assetCount', title: '接入资产' },
+                            { field: 'status', title: '状态' }, {
                                 field: 'flag',
                                 title: '操作',
-                                align: 'center',
-                                valign: 'middle',
                                 width: 60,
                                 formatter: flagFormatter,
                                 events: {
@@ -124,7 +122,7 @@ define([], function() {
              */
             function initMeta() {
                 metaService.getMeta('SJJRFS', function(data) {
-                    $scope.listVM.dataSourceList = data;
+                    $scope.listVM.joinupTypeList = data;
                 });
             }
 
@@ -138,7 +136,7 @@ define([], function() {
 
             function showChannelModal(channel) {
                 var title = channel ? "修改渠道信息" : "新增渠道";
-                var dataSourceList = $scope.listVM.dataSourceList;
+                var joinupTypeList = $scope.listVM.joinupTypeList;
                 $modal.open({
                     templateUrl: 'view/asset/channel/edit.html',
                     size: 'md',
@@ -147,7 +145,7 @@ define([], function() {
                         $scope.channelVM = {
                             title: title,
                             processing: false,
-                            dataSourceList: dataSourceList,
+                            joinupTypeList: joinupTypeList,
                             submit: submit,
                             cancel: cancel
                         };
@@ -157,7 +155,11 @@ define([], function() {
                             return false;
                         }
 
-                        function submit() {
+                        function submit(invalid) {
+                            $scope.channelVM.submitted = true;
+                            if (invalid) {
+                                return;
+                            }
                             saveChannel(item.id, $scope, $modalInstance);
                             return true;
                         }

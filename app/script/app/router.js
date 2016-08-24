@@ -225,6 +225,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             
                 //marketing module end
 
+            //statistics module start
+            .state('statistics', lazyLoad.config('/statistics', '/view/shared/blank.html', '', null, true))
+                .state('statistics.user', lazyLoad.config('/user', '/view/statistics/user.html', 'controller/statistics/user', null))
+                .state('statistics.profit', lazyLoad.config('/profit', '/view/statistics/profit.html', 'controller/statistics/profit', null))
+            //statistics module end
+
 
                 //statement module start
                 //.state('statement-dashboard', lazyLoad.config('/statment/dashboard', '/view/statment/dashboard.html', 'controller/statment/dashboard', { directives: [], services: ['service/borrower'], filters: [] }))

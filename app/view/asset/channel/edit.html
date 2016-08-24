@@ -1,41 +1,44 @@
-<form name="channelForm">
+<form name="channelForm" novalidate ng-submit="channelVM.submit(channelForm.$invalid)">
     <div class="modal-header">
         <h4 class="modal-title" ng-bind="channelVM.title"></h4>
     </div>
     <div class="modal-body p-r">
-        <form class="form-validation" novalidate ng-submit="channelVM.submit()">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="" class="control-label">渠道名称</label>
-                        <div><input type="text" class="form-control"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':channelForm.name.$invalid && (channelForm.name.$dirty||channelVM.submitted)}">
+                    <label for="" class="control-label">渠道名称</label>
+                    <div>
+                        <input type="text" ng-model="channelVM.data.name" name="name" class="form-control" maxlength="20" required>
                     </div>
+                    <div class="form-error">请输入渠道名称</div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="form-group">
-                        <label class="control-label">接入方式</label>
-                        <div>
-                            <select class="form-control" ng-model="channelVM.data.dataSource" ng-options="item.value as item.text for item in channelVM.dataSourceList">
-                                <option value="">- 请选择接入方式 -</option>
-                            </select>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group" ng-class="{'has-error':channelForm.datasource.$invalid && (channelForm.datasource.$dirty||channelVM.submitted)}">
+                    <label class="control-label">接入方式</label>
+                    <div>
+                        <select class="form-control" name="datasource" ng-model="channelVM.data.joinupType" ng-options="item.value as item.text for item in channelVM.joinupTypeList" required>
+                            <option value="">- 请选择接入方式 -</option>
+                        </select>
                     </div>
+                    <div class="form-error">请选择接入方式</div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="" class="control-label">授信额度</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control">
-                            <span class="input-group-addon">元</span>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':channelForm.creditLimit.$invalid && (channelForm.creditLimit.$dirty||channelVM.submitted)}">
+                    <label for="" class="control-label">授信额度</label>
+                    <div class="input-group">
+                        <input type="number" name="creditLimit" ng-model="channelVM.data.creditLimit" class="form-control" required ng-pattern="/^\+?[1-9]\d*$/">
+                        <span class="input-group-addon">元</span>
                     </div>
+                    <div class="form-error">授信额度必须是正整数!</div>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-disabled="channelVM.processing">
