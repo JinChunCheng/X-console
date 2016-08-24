@@ -15,7 +15,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountMark"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.capitalAccountId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -23,7 +23,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.capitalAccountNo"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -31,7 +31,8 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountName"></label>
+                                    <!-- TODO 该字段未确定-->
+                                        <label type="text" name="name" ng-bind="vm.data.bankAccountName"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -49,7 +50,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bankAccountNum"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankAccount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -57,7 +58,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.openBank"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankName"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -67,7 +68,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.openBankProvince"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankProvince"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -75,7 +76,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.openBankCity"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankCity"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -93,7 +94,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bigAmountBank"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.largePaymentNumber"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -101,7 +102,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.company"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.companyName"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -109,7 +110,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.buildTime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.createDatetime"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -133,7 +134,7 @@
 <div class="panel m-t-10">
     <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
-        <table id="accountDetailTable" table-full-size bs-table-control="bsAccountDetailTableControl"></table>
+        <table id="accountDetailTable" table-full-size bs-table-control="vm.bsAccountDetailTableControl"></table>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-5">
                 <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>

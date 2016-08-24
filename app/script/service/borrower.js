@@ -15,7 +15,7 @@ define([], function(config) {
         var createBorrower = $resource('http://172.21.20.8:8080/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         var updateBorrower = $resource('http://172.21.20.8:8080/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var borrowerRepaymentList = $resource('http://172.21.20.8:8080/borrower/repayment/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var borrowerRepaymentDetail = $resource('http://172.21.20.8:8080/borrower/repayment', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerRepaymentDetail = $resource('http://172.21.20.8:8080/borrower/repayment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: borrowerRes,
