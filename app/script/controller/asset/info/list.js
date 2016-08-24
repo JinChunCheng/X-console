@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService',
+        function($scope, $http, $timeout, $modal, $state, assetService) {
 
             /**
              * shared controller with more state
@@ -11,8 +11,10 @@ define([], function() {
             var buttons = [];
             var optColWidth = 120;
             var showAddBtn = false;
+            var status = -1;
             switch ($state.current.name) {
                 case 'asset.info.draft':
+                    status = -1;
                     action = 'draft';
                     title = '资产草稿';
                     buttons = [
@@ -25,6 +27,7 @@ define([], function() {
                     showAddBtn = true;
                     break;
                 case 'asset.info.todo':
+                    status = 0;
                     action = 'todo';
                     title = '未评审资产库';
                     buttons = [
@@ -38,6 +41,7 @@ define([], function() {
                     showAddBtn = true;
                     break;
                 case 'asset.info.better':
+                    status = 1;
                     action = 'better';
                     title = '优质资产库';
                     buttons = [
@@ -47,6 +51,7 @@ define([], function() {
                     ];
                     break;
                 case 'asset.info.risk':
+                    status = 3;
                     action = 'risk';
                     title = '风险资产库';
                     buttons = [
@@ -101,22 +106,13 @@ define([], function() {
             });
 
 
-            var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+            var findAsset = function(params) {
+                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                    res.data.paginate = res.data.paginate || { totalCount: 0 };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -128,19 +124,23 @@ define([], function() {
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
-                        ajax: getData,
+                        ajax: findAsset,
                         sidePagination: "server",
                         columns: [
-                            { field: 'state', checkbox: true, align: 'center', valign: 'middle' },
-                            { field: 'id', title: '编号', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '类型', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '借款概要', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '来源', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款利率', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款周期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '收录日期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '过期时间', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                            { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
+                            { field: 'remark', title: '借款概要' },
+                            { field: 'source', title: '来源' },
+                            { field: 'loanRate', title: '借款利率', formatter: function(value) {
+                                    return value ? value + '%' : ''; } }, {
+                                field: 'loanTermCount',
+                                title: '借款周期',
+                                formatter: function(value) {
+                                    return value ? value + '天' : ''
+                                }
+                            },
+                            { field: 'createTime', title: '收录日期' },
+                            { field: 'expireTime', title: '过期时间' },
+                            { field: 'state', title: '状态' }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -160,6 +160,10 @@ define([], function() {
                         ]
                     }
                 };
+
+                function assetTypeFormatter(value, row, index) {
+                    return '车贷';
+                }
 
                 function flagFormatter(value, row, index) {
                     return buttons.join('');

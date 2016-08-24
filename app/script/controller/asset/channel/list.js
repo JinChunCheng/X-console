@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$modal', '$state', 'assetService', 'metaService', 'toaster',
-        function($scope, $http, $modal, $state, assetService, metaService, toaster) {
+    return ['$scope', '$http', '$filter', '$modal', '$state', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $filter, $modal, $state, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -23,12 +23,16 @@ define([], function() {
                     showChannelModal();
                 },
                 search: function() {
-                    $scope.listVM.table.bootstrapTable('refresh');
+                    refreshChannel();
                 },
                 reset: function() {
                     $scope.listVM.condition = angular.copy(defaultCondition);
                 }
             };
+
+            function refreshChannel() {
+                $scope.listVM.table.bootstrapTable('refresh');
+            }
 
             /**
              * select2 plugin
@@ -81,10 +85,9 @@ define([], function() {
                         ajax: findChannel,
                         sidePagination: "server",
                         columns: [
-                            { field: 'id', title: '编号' },
                             { field: 'name', title: '渠道名称' },
                             { field: 'createTime', title: '录入时间' },
-                            { field: 'joinupType', title: '接入方式' },
+                            { field: 'joinupType', title: '接入方式', formatter: joinupTypeFormatter },
                             { field: 'creditLimit', title: '授信额度' },
                             { field: 'assetCount', title: '接入资产' },
                             { field: 'status', title: '状态' }, {
@@ -99,6 +102,10 @@ define([], function() {
                         ]
                     }
                 };
+
+                function joinupTypeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.joinupTypeList);
+                }
 
                 function flagFormatter(value, row, index) {
                     var buttons = [
@@ -136,9 +143,24 @@ define([], function() {
                             title: title,
                             processing: false,
                             joinupTypeList: joinupTypeList,
+                            data: channel || {},
                             submit: submit,
                             cancel: cancel
                         };
+
+                        // (function() {
+                        //     if (!channel) {
+                        //         return;
+                        //     }
+                        //     assetService.channel.get({ id: channel.id }).$promise.then(function(res) {
+                        //         $scope.channelVM.data = res.data;
+                        //         $scope.channelVM.loading = false;
+                        //     }, function() {
+                        //         $scope.channelVM.loading = false;
+                        //         toaster.pop('error', '服务器连接出错，请稍候再试！')
+                        //     });
+                        //     $scope.channelVM.loading = true;
+                        // })();
 
                         function cancel() {
                             $modalInstance.dismiss();
@@ -150,8 +172,26 @@ define([], function() {
                             if (invalid) {
                                 return;
                             }
-                            saveChannel(item.id, $scope, $modalInstance);
+                            saveChannel($scope.channelVM.data);
                             return true;
+                        }
+
+                        function saveChannel(data) {
+                            if (channel) {
+                                assetService.channel.update({ id: data.id }, data).$promise.then(saveSuccess, saveError);
+                            } else {
+                                assetService.channel.save(data).$promise.then(saveSuccess, saveError);
+                            }
+                        };
+
+                        function saveSuccess(res) {
+                            toaster.pop('success', '保存成功！');
+                            $modalInstance.dismiss();
+                            refreshChannel();
+                        }
+
+                        function saveError(res) {
+                            toaster.pop('error', '连接服务器出错，请重试');
                         }
                     }
                 });

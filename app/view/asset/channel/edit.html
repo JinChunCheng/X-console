@@ -1,6 +1,9 @@
 <form name="channelForm" novalidate ng-submit="channelVM.submit(channelForm.$invalid)">
     <div class="modal-header">
-        <h4 class="modal-title" ng-bind="channelVM.title"></h4>
+        <h4 class="modal-title">
+            <span ng-bind="channelVM.title"></span>
+            <i class="fa fa-spin fa-spinner m-l-5 m-t-5 text-lg" ng-if="channelVM.loading" ng-cloak></i>
+        </h4>
     </div>
     <div class="modal-body p-r">
         <div class="row">
@@ -16,10 +19,10 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="form-group" ng-class="{'has-error':channelForm.datasource.$invalid && (channelForm.datasource.$dirty||channelVM.submitted)}">
+                <div class="form-group" ng-class="{'has-error':channelForm.joinupType.$invalid && (channelForm.joinupType.$dirty||channelVM.submitted)}">
                     <label class="control-label">接入方式</label>
                     <div>
-                        <select class="form-control" name="datasource" ng-model="channelVM.data.joinupType" ng-options="item.value as item.text for item in channelVM.joinupTypeList" required>
+                        <select class="form-control" name="joinupType" ng-model="channelVM.data.joinupType" ng-options="item.value as item.text for item in channelVM.joinupTypeList" required>
                             <option value="">- 请选择接入方式 -</option>
                         </select>
                     </div>
