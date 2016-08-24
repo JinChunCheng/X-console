@@ -5,24 +5,24 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             $urlRouterProvider.otherwise('/404');
             $stateProvider
                 .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
-                .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', { directives: [], services: [], filters: [] }))
-                .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', { directives: [], services: [], filters: [] }))
+                .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', null))
+                .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', null))
 
             //asset module start
-            .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.channel', lazyLoad.config('/channel', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
+            .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', null, true))
+                .state('asset.channel', lazyLoad.config('/channel', 'view/shared/blank.html', '', null, true))
+                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
 
-            .state('asset.type', lazyLoad.config('/type', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
+            .state('asset.type', lazyLoad.config('/type', 'view/shared/blank.html', '', null, true))
                 .state('asset.type.list', lazyLoad.config('/list', 'view/asset/type/list.html', 'controller/asset/type/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
 
-            .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
-                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+            .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', null, true))
+                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
+                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
+                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
+                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
+                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
+                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
 
             .state('asset.platform', lazyLoad.config('/platform', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))

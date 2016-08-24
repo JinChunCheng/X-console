@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'borrowerService', 'metaService', 'toaster',
-        function($scope, $timeout, $state, $stateParams, $modal, borrowerService, metaService, toaster) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'assetService', 'metaService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, assetService, metaService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -35,7 +35,7 @@ define([], function() {
                 if (!id) {
                     return;
                 }
-                borrowerService.resource.get({ id: id }).$promise.then(function(res) {
+                assetService.asset.get({ id: id }).$promise.then(function(res) {
                     $scope.assetVM.data = res.data;
                 }, function(err) {});
             })($stateParams.id);
