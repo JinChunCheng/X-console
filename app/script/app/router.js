@@ -11,7 +11,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //asset module start
             .state('asset', lazyLoad.config('/asset', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.channel', lazyLoad.config('/channel', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                .state('asset.channel.list', lazyLoad.config('/list', 'view/asset/channel/list.html', 'controller/asset/channel/list', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
 
                 .state('asset.type', lazyLoad.config('/type', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.type.list', lazyLoad.config('/list', 'view/asset/type/list.html', 'controller/asset/type/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))

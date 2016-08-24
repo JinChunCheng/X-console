@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', 'metaService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, borrowerService, metaService, toaster) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -56,14 +56,9 @@ define([], function() {
 
 
             var getData = function(params) {
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                assetService.channel.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
                     $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
+                        
                         params.success({
                             total: res.data.paginate.totalCount,
                             rows: res.data.items

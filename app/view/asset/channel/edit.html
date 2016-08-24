@@ -35,7 +35,8 @@
                         <input type="number" name="creditLimit" ng-model="channelVM.data.creditLimit" class="form-control" required ng-pattern="/^\+?[1-9]\d*$/">
                         <span class="input-group-addon">元</span>
                     </div>
-                    <div class="form-error">授信额度必须是正整数!</div>
+                    <div class="form-error" ng-if="channelForm.creditLimit.$error.required">授信额度不能为空!</div>
+                    <div class="form-error" ng-if="channelForm.creditLimit.$error.pattern">授信额度必须是正整数!</div>
                 </div>
             </div>
         </div>
