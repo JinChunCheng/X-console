@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'metaService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, assetService, metaService, toaster) {
+    return ['$scope', '$http', '$modal', '$state', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $modal, $state, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -22,13 +22,18 @@ define([], function() {
                 add: function() {
                     showChannelModal();
                 },
-                testToaster: function() {
-                    toaster.pop('success', '成功！');
-                    toaster.pop('error', '失败');
-                    toaster.pop('info', '提示！');
+                search: function() {
+                    $scope.listVM.table.bootstrapTable('refresh');
+                },
+                reset: function() {
+                    $scope.listVM.condition = angular.copy(defaultCondition);
                 }
             };
 
+            /**
+             * select2 plugin
+             * @param  {object}
+             */
             $scope.refreshUser = function(condition) {
                 if (!condition) {
                     return;
@@ -55,15 +60,13 @@ define([], function() {
             });
 
 
-            var getData = function(params) {
-                assetService.channel.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    $timeout(function() {
-                        
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+            var findChannel = function(params) {
+                assetService.findChannel($scope.listVM.condition).then(function(res) {
+                    res.data.paginate = res.data.paginate || { totalCount: 0 };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -75,7 +78,7 @@ define([], function() {
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
-                        ajax: getData,
+                        ajax: findChannel,
                         sidePagination: "server",
                         columns: [
                             { field: 'id', title: '编号' },
@@ -120,14 +123,6 @@ define([], function() {
                     $scope.listVM.joinupTypeList = data;
                 });
             }
-
-            $scope.search = function() {
-                $scope.listVM.table.bootstrapTable('refresh');
-            };
-
-            $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
 
             function showChannelModal(channel) {
                 var title = channel ? "修改渠道信息" : "新增渠道";
