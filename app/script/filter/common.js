@@ -5,7 +5,7 @@
 */
 define(['common/config'], function(config) {
     return [
-        //数组[0]是过滤器的名字，数组[1][0]是需注入的参数全程，数组[1][1]是构造函数
+        //数组[0]是过滤器的名字，数组[1][0]是需注入的全部参数，数组[1][1]是构造函数
         //时间过滤器
         ['exDate', ['$filter', function($filter) {
             return function(date, format) {

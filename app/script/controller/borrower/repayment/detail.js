@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', function($scope, $timeout, $state, $stateParams, borrowerService) {
+    return ['$scope', '$timeout','metaService','$filter', '$state', '$stateParams', 'borrowerService', function($scope, $timeout,metaService,$filter, $state, $stateParams, borrowerService) {
         $scope.vm = {
             data: {},
             cancel: function() {

@@ -10,9 +10,9 @@ define([], function(config) {
         //return investorRes;
 
         var investorListTable = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var investorDetailLabel = $resource('http://172.21.20.12:8080/investor/getInvestorByInvestorId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var investorDetailLabel = $resource('http://172.21.20.12:8080/investor/getInvestorDetailsById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         
-        var investorDetailTable = $resource('http://172.21.20.12:8080/investor/getInvestorByInvestorId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var investorDetailTable = $resource('http://172.21.20.12:8080/investor/getAccountLogByAccountNo', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //修改投资人信息
         var updateInvestor = $resource('http://172.21.20.12:8080/investor/getInvestorByInvestorId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //新增投资人信息

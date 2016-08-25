@@ -12,11 +12,11 @@
                             <span class="input-group-addon">创建时间</span>
                             <div class="input-group">
                                 <div>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDate" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
                                 </div>
                                 <span class="input-group-addon">~</span>
                                 <div>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.endDate" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
                                 </div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">提现渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='c as c.title for c in listView.channel'>
+                                <select class="form-control form-white" ng-model="listView.condition.exeChannel" ng-options='c.code as c.title for c in listView.channel'>
                                 </select>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal','toaster', 'borrowerService', function($scope, $http, $timeout, $modal,toaster, borrowerService) {
+    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal','toaster', 'borrowerService', function($scope, $http,metaService,$filter, $timeout, $modal,toaster, borrowerService) {
 
         /**
          * the default search condition

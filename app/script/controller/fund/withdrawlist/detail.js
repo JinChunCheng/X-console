@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', function($scope, $timeout, $state, $stateParams, borrowerService) {
+    return ['$scope', '$timeout','metaService','$filter', '$state', '$stateParams', 'borrowerService', function($scope, $timeout,metaService,$filter, $state, $stateParams, borrowerService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
         var defaultCondition = {
