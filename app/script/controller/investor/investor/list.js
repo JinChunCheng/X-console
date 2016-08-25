@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'investorService',
-        function($scope, $http, $timeout, $modal, $state, investorService) {
+    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal', '$state', 'investorService',
+        function($scope, $http,metaService,$filter, $timeout, $modal, $state, investorService) {
 
             /**
              * the default search condition
@@ -23,6 +23,9 @@ define([], function() {
             $scope.listVM = {
                 condition: angular.copy(defaultCondition),
                 table: null,
+                add:function(){
+                    $state.go('investor.investor.add');
+                },
                 channel: [{ id: 1, title: '钱盒', content: [{ code: 1, label: '钱盒' }] }, { id: 2, title: '开通宝', content: [{ code: 1, label: '开通宝' }] }, { id: 3, title: '管理系统', content: [{ code: 1, label: '管理系统' }] }],
                 isEmployee: [{ id: 1, title: '待定' }, { id: 2, title: '否' }, { id: 3, title: '是' }],
                 status: [{ id: 1, title: '未发放' }, { id: 2, title: '已发放' }, { id: 3, title: '已回收' }],

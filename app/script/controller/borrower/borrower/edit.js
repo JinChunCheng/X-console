@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', 'borrowerService', function($scope, toaster, $timeout, $state, $stateParams, metaService, borrowerService) {
+    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService','$filter', 'borrowerService', function($scope, toaster, $timeout, $state, $stateParams, metaService,$filter, borrowerService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $state, $resource, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http','metaService','$filter', '$state', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http,metaService,$filter, $state, $resource, $timeout, $modal, $state, borrowerService) {
             var defaultCondition = {
                 paginate: {
                     sort: 'update_time desc',
@@ -14,6 +14,9 @@ define([], function() {
                 condition: angular.copy(defaultCondition),
                 table: null,
                 status: [{ state: "O", title: '正常' }, { state: "C", title: '关闭' }],
+                add:function(){
+                    $state.go(borrower.info.add)
+                }
             };
 
             /**
@@ -119,7 +122,6 @@ define([], function() {
                             title: '状态',
                             align: 'center',
                             valign: 'middle',
-                            ,
                             formatter: statusFormatter
                         }, {
                             field: 'createDatetime',

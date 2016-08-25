@@ -163,9 +163,200 @@ define(['common/config'], function(config) {
         }, {
             key: 'XSPTXS', //销售平台形式
             value: [
-                { value: '1', text: 'H5理财平台' },
-                { value: '2', text: 'iOS' },
-                { value: '3', text: 'Android' }
+                    { value: '1', text: 'H5理财平台' },
+                    { value: '2', text: 'iOS' },
+                    { value: '3', text: 'Android' }
+                ]
+                //===============================借款人============================
+        }, {
+            key: 'ZT', //状态
+            value: [
+                { value: 'C', text: '关闭' },
+                { value: 'O', text: '正常' },
+            ]
+        }, {
+            key: 'ZHKM', //账户科目
+            value: [
+                { value: '1001', text: '人民币' },
+            ]
+        }, {
+            key: 'ZHBDLX', //账户变动类型
+            value: [
+                { value: 'BR_NEW', text: '借款人开户' },
+                { value: 'BR_REPAYMENT', text: '还款' },
+                { value: 'BR_REPAYMENT_ASSIGNMENT', text: '还款分配' }
+            ]
+        }, {
+            key: 'HKQD', //还款渠道
+            value: [
+                { value: 'IBOXPAY', text: '盒子支付' },
+                { value: 'BANKTRANS', text: '银行转账' },
+                { value: 'OTHERS', text: '其他' }
+            ]
+        }, {
+            //===============================投资人============================
+            key: 'CZLY', //操作来源
+            value: [
+                { value: 'CASHBOX', text: '钱盒' },
+                { value: 'CONSOLE', text: '管理系统' },
+            ]
+        }, {
+            key: 'SFRZZT', //身份认证状态
+            value: [
+                { value: 'Y', text: '认证通过' },
+                { value: 'N', text: '认证失败' },
+                { value: 'P', text: '等待认证' }
+            ]
+        }, {
+            key: 'LCQDMC', //理财渠道名称
+            value: [
+                { value: '1001', text: '管理系统' },
+                { value: '1002', text: '钱盒' },
+                { value: '1003', text: '开通宝' }
+            ]
+        }, {
+            key: 'LCJLBH', //理财经理姓名
+            value: [
+                { value: '1001', text: '管理系统' },
+                { value: '2001', text: '钱盒' },
+                { value: '3001', text: '开通宝' }
+            ]
+        }, {
+            key: 'SFBGSYG', //是否本公司员工
+            value: [
+                { value: 'N', text: '否' },
+                { value: 'Y', text: '是' },
+                { value: 'P', text: '待定' }
+            ]
+        }, {
+            key: 'CZLY', //操作来源
+            value: [
+                { value: 'CASHBOX', text: '钱盒' },
+                { value: 'CONSOLE', text: '管理系统' },
+            ]
+        }, {
+            key: 'ZCLX', //注册类型
+            value: [
+                { value: 'BACKEND', text: '代注册' },
+                { value: 'ONLINE', text: '自己注册' },
+            ]
+        }, {
+            key: 'STJZT', //试投金状态
+            value: [
+                { value: 'N', text: '未发放' },
+                { value: 'Y', text: '已发放' },
+                { value: 'R', text: '已回收' }
+            ]
+        }, {
+            key: 'STJSFYSY', //试投金是否已使用
+            value: [
+                { value: 'N', text: '未使用' },
+                { value: 'Y', text: '使用' },
+            ]
+        }, {
+            //===============================资金账户============================
+            key: 'ZJZHMC', //资金账户名称
+            value: [
+                { value: 'EGSETTLE', text: '恒丰移动金融部' },
+                { value: 'EGTRUSTEE', text: '恒丰托管费' },
+                { value: 'IBOXPAY', text: '盒子资金户' },
+                { value: 'IBOXREPAYMENT', text: '盒子还款户' },
+                { value: 'IBOXSETTLE', text: '盒子结算户' },
+                { value: 'PROFIT', text: '汇和收益户' },
+                { value: 'RESERVE', text: '汇和准备金户' },
+                { value: 'TRUSTEE', text: '汇和托管户' },
+            ]
+        }, {
+            key: 'RZLX', //日志类型
+            value: [
+                { value: 'ADD', text: '手工调增' },
+                { value: 'DEPOSIT', text: '充值' },
+                { value: 'LESSEN', text: '手工调减' },
+                { value: 'LOAN', text: '放款' },
+                { value: 'PROFIT', text: '沉淀利润' },
+                { value: 'REPAYMENT', text: '还款' },
+                { value: 'RESERVE', text: '风险准备金' },
+                { value: 'SUPPLEMENT', text: '补充' },
+                { value: 'TRUSTEE_FEE', text: '托管费' },
+                { value: 'WITHDRAW', text: '提现' },
+                { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' },
+            ]
+        }, {
+            //===============================资金管理============================
+            key: 'CZQD', //充值渠道
+            value: [
+                { value: 'IBOXPAY', text: 'POS刷卡' },
+                { value: 'OTHER', text: '其他' },
+                { value: 'TRANSFER', text: '银联转账' },
+            ]
+        }, {
+            key: 'CZLX', //充值类型
+            value: [
+                { value: 'ADJ', text: '调账处理' },
+                { value: 'BGT', text: '网银' },
+                { value: 'EAC', text: '委托扣款' },
+                { value: 'OTH', text: '其他' },
+                { value: 'POS', text: 'POS收款' },
+                { value: 'RWD', text: '奖励' },
+            ]
+        }, {
+            key: 'CZZT', //充值状态（区别于status）
+            value: [
+                { value: 'C', text: '取消' },
+                { value: 'F', text: '失败' },
+                { value: 'P', text: '在途' },
+                { value: 'S', text: '成功' },
+                { value: 'W', text: '待支付' },
+            ]
+        }, {
+            key: 'ZCLY', //注册来源
+            value: [
+                { value: 'CASHBOX', text: '钱盒' },
+                { value: 'CONSOLE', text: '管理系统' },
+            ]
+        }, {
+            key: 'TXQD', //提现渠道
+            value: [
+                { value: 'EGBANK', text: '恒丰银行' },
+                { value: 'IBOXPAY', text: '盒子支付' },
+            ]
+        }, {
+            key: 'AQDJ', //安全等级
+            value: [
+                { value: 'G', text: '安全' },
+                { value: 'P', text: '未计算' },
+                { value: 'R', text: '危险' },
+                { value: 'Y', text: '待详查' },
+            ]
+        }, {
+            key: 'TXSHZT', //提现审核状态
+            value: [
+                { value: 'A', text: '批准' },
+                { value: 'D', text: '拒绝' },
+                { value: 'R', text: '申请' },
+            ]
+        }, {
+            // 提现列表
+            key: 'TXZT', //提现状态
+            value: [
+                { value: 'A', text: '批准' },
+                { value: 'B', text: '回退' },
+                { value: 'D', text: '拒绝' },
+                { value: 'E', text: '执行完成' },
+                { value: 'R', text: '申请' },
+            ]
+        }, {
+            // 费率维护
+            key: 'FLLX', //费率类型
+            value: [
+                { value: 'ABSOLUTE', text: '绝对值' },
+                { value: 'PERCENT', text: '百分比' },
+            ]
+        }, {
+            key: 'FLBM', //费率编码
+            value: [
+                { value: 'DEPOSIT', text: '充值' },
+                { value: 'WITHDRAW', text: '提现' },
             ]
         }];
 

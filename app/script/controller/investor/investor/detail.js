@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'investorService',
-        function($scope, $timeout, $state, $stateParams, investorService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', 'investorService','metaService','$filter',
+        function($scope, $timeout, $state, $stateParams, investorService,metaService,$filter) {
             $scope.vm = {
                 table: null,
                 data: {},
@@ -154,25 +154,10 @@ define([], function() {
             function getDetail(investorId) {
                 investorService.investorDetailLabel.get({ id: investorId }).$promise.then(function(res) {
                     //基本信息
-                    $scope.vm.status.forEach(function(item) {
-                        if (item.code === res.data.status) {
-                            res.data.status = item.title;
-                            return;
-                        }
-                    });
-                    $scope.vm.data = res.data.items;
+                    $scope.vm.data.investorInfo = res.investorInfo;
                     //账户信息
-                    $scope.vm.data.accountSubjectCode = res.data.borrowerAccount.accountSubjectCode;
-                    $scope.vm.data.balance = res.data.borrowerAccount.balance;
-                    $scope.vm.data.frozenBalance = res.data.borrowerAccount.frozenBalance;
-
-                    $scope.vm.data.freeBalance = res.data.account.freeBalance;
-                    $scope.vm.data.status = res.data.account.status;
-                    $scope.vm.data.principalBalance = res.data.account.principalBalance;
-                    $scope.vm.data.interestBalance = res.data.account.interestBalance;
-                    $scope.vm.data.totalInterest = res.data.account.totalInterest;
-                    $scope.vm.data.createDatetime = res.data.account.createDatetime;
-
+                    $scope.vm.data.accountInfo = res.accountInfo;
+                    
                     init();
                 });
             }
@@ -182,8 +167,7 @@ define([], function() {
             function getDetailTable(params) {
                 //这里的params就是分页的json
                 paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                console.log($scope.vm.data.borrowerAccountNo);
-                var queryCondition = { data: { accountNo: $scope.vm.data.accountNo }, paginate: paganition };
+                var queryCondition = { data: { accountNo: $scope.vm.data.investorInfo.accountNo }, paginate: paganition };
                 investorService.investorDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({

@@ -37,9 +37,9 @@ define([], function() {
 
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var queryCondition = { data: { capitalAccountNo: $scope.listView.condition.capitalAccountNo, capitalAccountLogType: $scope.listView.condition.capitalAccountLogType, createStartTime: $scope.listView.condition.startDay, createEndTime: $scope.listView.condition.EndDay }, paginate: paganition };
-            accountService.accountQueryList.query({ queryCondition }).$promise.then(function(res) {
-                //debugger
+            var queryCondition = { data: { capitalAccountNo: $scope.listView.condition.capitalAccountNo, capitalAccountLogType: $scope.listView.condition.capitalAccountLogType, startDateTime: $scope.listView.condition.startDay, endDateTime: $scope.listView.condition.endDay }, paginate: paganition };
+            console.log(JSON.stringify(queryCondition))
+            accountService.accountQueryList.query({ where:JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,

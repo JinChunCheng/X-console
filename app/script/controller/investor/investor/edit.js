@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', 'metaService', '$stateParams', 'investorService', function($scope, $timeout, $state, metaService, $stateParams, investorService) {
+    return ['$scope', '$timeout', '$state','metaService','$filter', '$stateParams', 'investorService', function($scope, $timeout, $state,metaService,$filter, $stateParams, investorService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 

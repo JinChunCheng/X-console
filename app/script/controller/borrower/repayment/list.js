@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService', 'toaster', function($scope, $http, $state, $timeout, $modal, borrowerService, toaster) {
+    return ['$scope', '$http','metaService','$filter', '$state', '$timeout', '$modal', 'borrowerService', 'toaster', function($scope, $http,metaService,$filter, $state, $timeout, $modal, borrowerService, toaster) {
         var defaultCondition = {
             paginate: {
                 sort: 'update_time desc',
