@@ -1,5 +1,5 @@
 ﻿define([], function() {
-    var ticket = "rememberMe";
+    var ticket = "token";
     var userInfo = "loginedUserInfo";
     var session = {
         setTicket: function(ticketObj) {

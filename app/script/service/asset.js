@@ -6,7 +6,8 @@ define(['common/config'], function(config) {
         };
 
         var channelResource = $resource(config.ASSET_CONSOLE + '/assetchannel/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var assetResource = $resource("http://172.21.22.31:8080" + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             channel: channelResource,
             asset: assetResource,

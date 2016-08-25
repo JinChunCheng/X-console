@@ -5,14 +5,14 @@
                 <div class="input-group">
                     <span class="input-group-addon">从</span>
                     <div class="input-group">
-                        <input type="text" class="form-control bd-r-0" datepicker-popup ng-model="vm.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
+                        <input type="text" class="form-control bd-r-0" datepicker-popup="yyyy-MM-dd" ng-model="vm.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
                         <span class="input-group-addon">到</span>
                         <input type="text" class="form-control bd-l-0" datepicker-popup ng-model="vm.condition.end" is-open="endOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endOpened=true" />
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary">统计</button>
+                <button class="btn btn-primary" ng-click="vm.submit()">统计</button>
             </div>
         </div>
     </div>

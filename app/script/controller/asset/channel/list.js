@@ -8,7 +8,6 @@ define([], function() {
              */
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
@@ -148,19 +147,19 @@ define([], function() {
                             cancel: cancel
                         };
 
-                        // (function() {
-                        //     if (!channel) {
-                        //         return;
-                        //     }
-                        //     assetService.channel.get({ id: channel.id }).$promise.then(function(res) {
-                        //         $scope.channelVM.data = res.data;
-                        //         $scope.channelVM.loading = false;
-                        //     }, function() {
-                        //         $scope.channelVM.loading = false;
-                        //         toaster.pop('error', '服务器连接出错，请稍候再试！')
-                        //     });
-                        //     $scope.channelVM.loading = true;
-                        // })();
+                        (function() {
+                            if (!channel) {
+                                return;
+                            }
+                            assetService.channel.get({ id: channel.id }).$promise.then(function(res) {
+                                $scope.channelVM.data = res.data;
+                                $scope.channelVM.loading = false;
+                            }, function() {
+                                $scope.channelVM.loading = false;
+                                toaster.pop('error', '服务器连接出错，请稍候再试！')
+                            });
+                            $scope.channelVM.loading = true;
+                        })();
 
                         function cancel() {
                             $modalInstance.dismiss();

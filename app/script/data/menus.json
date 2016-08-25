@@ -19,9 +19,6 @@
                 "text": "渠道管理",
                 "state": "asset.channel.list"
             }, {
-                "text": "资产类型管理",
-                "state": "asset.type.list"
-            }, {
                 "text": "草稿",
                 "state": "asset.info.draft"
             }, {

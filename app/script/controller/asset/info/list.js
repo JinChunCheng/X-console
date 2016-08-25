@@ -75,7 +75,7 @@ define([], function() {
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: {}
+                data: { status: status }
             };
 
             $scope.listVM = {

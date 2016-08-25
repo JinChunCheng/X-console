@@ -6,9 +6,8 @@ define(['common/config'], function(config) {
         var metas = [{
             key: 'XB', //性别
             value: [
-                { value: 'male', text: '男' },
-                { value: 'female', text: '女' },
-                { value: 'other', text: '其他' },
+                { value: '1', text: '男' },
+                { value: '0', text: '女' }
             ]
         }, {
             key: 'SF', //是否
@@ -90,7 +89,7 @@ define(['common/config'], function(config) {
                 { value: '18', text: '卫生、社会保障和社会服务业' },
                 { value: '19', text: '文化、体育和娱乐业' },
                 { value: '20', text: '综合类（含投资类、主业不明显）' },
-                { value: '21', text: '其他' }
+                { value: '99', text: '其他' }
             ]
         }, {
             key: 'QYGM', //企业规模
@@ -105,7 +104,7 @@ define(['common/config'], function(config) {
             value: [
                 { value: '1', text: '信用类' },
                 { value: '2', text: '固产类' },
-                { value: '3', text: '其他' }
+                { value: '99', text: '其他' }
             ]
         }, {
             key: 'YTLB', //用途类别
