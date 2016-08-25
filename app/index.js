@@ -28,7 +28,9 @@ requirejs.config({
         'icheck': 'lib/icheck/icheck.min',
         'ui-bootstrap': 'lib/ui-bootstrap/ui-bootstrap-tpls',
         'zh-cn': 'lib/angular/i18n/angular-locale_zh-cn',
-        'select2': 'lib/select2-ng/select.min'
+        'select2': 'lib/select2-ng/select.min',
+        'chart': 'lib/angular-chart/Chart.min',
+        'angular-chart': 'lib/angular-chart/angular-chart.min'
     },
     shim: {
         'angular': {
@@ -76,6 +78,9 @@ requirejs.config({
         },
         'select2': {
             deps: ['angular']
+        },
+        'angular-chart': {
+            deps: ['angular', 'chart']
         }
     },
     urlArgs: "v=" + (new Date()).getTime()

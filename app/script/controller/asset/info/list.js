@@ -129,9 +129,13 @@ define([], function() {
                         columns: [
                             { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
                             { field: 'remark', title: '借款概要' },
-                            { field: 'source', title: '来源' },
-                            { field: 'loanRate', title: '借款利率', formatter: function(value) {
-                                    return value ? value + '%' : ''; } }, {
+                            { field: 'source', title: '来源' }, {
+                                field: 'loanRate',
+                                title: '借款利率',
+                                formatter: function(value) {
+                                    return value ? value + '%' : '';
+                                }
+                            }, {
                                 field: 'loanTermCount',
                                 title: '借款周期',
                                 formatter: function(value) {
@@ -175,6 +179,7 @@ define([], function() {
                 }
 
                 function edit(e, value, row, index) {
+                    $state.go('asset.info.edit', { id: row.id });
                     e.stopPropagation();
                     e.preventDefault();
                 }
