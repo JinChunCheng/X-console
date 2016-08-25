@@ -4,6 +4,10 @@
 .m-r-5 {margin-right:5px;}
 .no-padding{padding: 0px;}
 
+/*border*/
+.bd-r-0{border-right: 0;}
+.bd-l-0{border-left: 0;}
+
 /*width*/
 .w-100{width:100px;}
 .w-120{width:120px;}
@@ -742,4 +746,6 @@ input[type="radio"] .styled:checked + label::after {
   color: #fff !important;
 }
 table{outline: none;}
-
+.table-bordered th {
+    background-color: #F0F4F8;
+}

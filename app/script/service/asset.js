@@ -9,6 +9,7 @@ define(['common/config'], function(config) {
         var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             channel: channelResource,
+            asset: assetResource,
             findChannel: function(condition) {
                 return $http({
                         method: 'POST',

@@ -1,0 +1,127 @@
+<div class="panel m-t-10">
+    <div class="panel-header header-line">
+        <div class="row form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">从</span>
+                    <div class="input-group">
+                        <input type="text" class="form-control bd-r-0" datepicker-popup ng-model="vm.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
+                        <span class="input-group-addon">到</span>
+                        <input type="text" class="form-control bd-l-0" datepicker-popup ng-model="vm.condition.end" is-open="endOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endOpened=true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary">统计</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <tabset class="tab-fade-in tab_left">
+            <tab>
+                <tab-heading>
+                    数据
+                </tab-heading>
+                <div class="p-l-10">
+                    <div class="row">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3><i class="fa fa-table"></i> <strong>投资人数统计</strong></h3>
+                            </div>
+                            <div class="panel-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>投资人总数</th>
+                                            <th>公司内部员工</th>
+                                            <th>盒伙人</th>
+                                            <th>普通用户</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Mark</td>
+                                            <td>Otto</td>
+                                            <td>@mdo</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3><i class="fa fa-table"></i> <strong>投资数据统计</strong></h3>
+                            </div>
+                            <div class="panel-content">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>投资金额</th>
+                                            <th>投资笔数</th>
+                                            <th>平均每笔投资金额</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>公司内部员工</th>
+                                            <td>1111</td>
+                                            <td>2222</td>
+                                            <td>3333</td>
+                                        </tr>
+                                        <tr>
+                                            <th>盒伙人</th>
+                                            <td>1111</td>
+                                            <td>2222</td>
+                                            <td>3333</td>
+                                        </tr>
+                                        <tr>
+                                            <th>普通用户</th>
+                                            <td>1111</td>
+                                            <td>2222</td>
+                                            <td>3333</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>图表</tab-heading>
+                <div class="p-l-10">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fa fa-pie-chart"></i> <strong>投资人数统计</strong></h3>
+                                    </div>
+                                    <div class="panel-content">
+                                        <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="panel">
+                                    <div class="panel-header">
+                                        <h3><i class="fa fa-pie-chart"></i> <strong>投资数据统计</strong></h3>
+                                    </div>
+                                    <div class="panel-content">
+                                        <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>
