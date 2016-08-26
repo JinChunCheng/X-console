@@ -746,6 +746,6 @@ input[type="radio"] .styled:checked + label::after {
   color: #fff !important;
 }
 table{outline: none;}
-.table-bordered th {
+.table-bordered.th-bg th {
     background-color: #F0F4F8;
 }
