@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService','$filter', 'borrowerService', function($scope, toaster, $timeout, $state, $stateParams, metaService,$filter, borrowerService) {
+    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', '$filter', 'borrowerService', function($scope, toaster, $timeout, $state, $stateParams, metaService, $filter, borrowerService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 
@@ -12,9 +12,18 @@ define([], function() {
             cancel: function() {
                 $state.go('borrower.info.list');
             },
-            save: save
+            submit: submit
         };
 
+
+        function submit(invalid) {
+            $scope.vm.submitted = true;
+            if (invalid) {
+                return;
+            }
+            save();
+            return true;
+        }
         (function showContent() {
             if ($stateParams.id) {
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
@@ -28,7 +37,7 @@ define([], function() {
         function save() {
             if (!$stateParams.id) {
                 //新增借款人
-                borrowerService.createBorrower.save($scope.vm.data).$promise.then(function(res) {
+                borrowerService.updateBorrower.save($scope.vm.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '新增借款人成功！');
                         $state.go("borrower.info.list");

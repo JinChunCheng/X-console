@@ -1,19 +1,6 @@
 define([], function() {
     return ['$scope', '$http','metaService','$filter', '$timeout', '$modal', '$state', 'investorService',
         function($scope, $http,metaService,$filter, $timeout, $modal, $state, investorService) {
-
-            /**
-             * the default search condition
-             * @type {Object}
-             */
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-                data: {}
-            };
             $scope.dateOptions = {
                 formatYear: 'yy',
                 startingDay: 1,
@@ -21,7 +8,7 @@ define([], function() {
                 showWeeks: false
             };
             $scope.listVM = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
                 add:function(){
                     $state.go('investor.investor.add');
@@ -38,8 +25,9 @@ define([], function() {
 
 
             var getData = function(params) {
-                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                data = { "investorId": $scope.listVM.condition.investorId, "name": $scope.listVM.condition.name, 'loginName': $scope.listVM.condition.name, 'empFlag': $scope.listVM.condition.empFlag, 'mobile': $scope.listVM.condition.mobile , 'trialFlag': $scope.listVM.condition.trialFlag, 'operateOrigin': $scope.listVM.condition.operateOrigin, 'fundChannelCode': $scope.listVM.condition.fundChannelCode, 'fundAccountManagerId': $scope.listVM.condition.fundAccountManagerId, 'trialUsed': $scope.listVM.condition.trialUsed, 'idNo': $scope.listVM.condition.idNo,'createStartTime': $scope.listVM.condition.startDay,'createEndTime': $scope.listVM.condition.endDay,'bindIboxpayUser': $scope.listVM.condition.bindIboxpayUser};
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                //var data = { "investorId": $scope.listVM.condition.investorId, "name": $scope.listVM.condition.name, 'loginName': $scope.listVM.condition.name, 'empFlag': $scope.listVM.condition.empFlag, 'mobile': $scope.listVM.condition.mobile , 'trialFlag': $scope.listVM.condition.trialFlag, 'operateOrigin': $scope.listVM.condition.operateOrigin, 'fundChannelCode': $scope.listVM.condition.fundChannelCode, 'fundAccountManagerId': $scope.listVM.condition.fundAccountManagerId, 'trialUsed': $scope.listVM.condition.trialUsed, 'idNo': $scope.listVM.condition.idNo,'createStartTime': $scope.listVM.condition.startDay,'createEndTime': $scope.listVM.condition.endDay,'bindIboxpayUser': $scope.listVM.condition.bindIboxpayUser};
+                var data=$scope.listVM.condition;
                 var queryCondition = { "data":data,"paginate": paganition };
                 investorService.investorListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };

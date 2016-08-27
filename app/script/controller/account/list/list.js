@@ -1,30 +1,10 @@
 define([], function() {
     return ['$scope', '$http', '$state', '$timeout', '$modal', '$state', 'accountService',
         function($scope, $http, $state, $timeout, $modal, $state, accountService) {
-
-            /**
-             * the default search condition
-             * @type {Object}
-             */
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-                data: {}
-            };
-
             $scope.listVM = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
             };
-
-            /**
-             * do something after view loaded
-             * @param  {string}     event type                       
-             * @param  {function}   callback function
-             */
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#fundAccountListTable');
             });
@@ -35,9 +15,7 @@ define([], function() {
                 var queryCondition = { "paginate": paganition };
 
                 accountService.accountList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
-                    //debugger
                     res.data = res.data || { paginate: paganition, items: [] };
-                    console.log(res);
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items

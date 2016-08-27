@@ -11,9 +11,9 @@
                             <div class="input-group">
                                 <span class="input-group-addon">申请时间</span>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDay" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.requestDateStart" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
                                     <span class="input-group-addon">~</span>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.endDay" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.requestDateEnd" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
                                 </div>
                             </div>
                         </div>
@@ -32,8 +32,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                        <button class="btn btn-info"  ng-click="listView.search()">查找</button>
+                        <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
                     </div>
                 </div>
             </div>

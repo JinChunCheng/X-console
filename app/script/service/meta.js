@@ -357,6 +357,13 @@ define(['common/config'], function(config) {
                 { value: 'DEPOSIT', text: '充值' },
                 { value: 'WITHDRAW', text: '提现' },
             ]
+        }, {
+            key: 'CKZT', //出款状态
+            value: [
+                { value: 'P', text: '待出款' },
+                { value: 'E', text: '出款完成' },
+                { value: 'C', text: '出款确认' }
+            ]
         }];
 
         //获取某项元数据列表

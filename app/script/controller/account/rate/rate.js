@@ -2,21 +2,8 @@ define([], function() {
     return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
         function($scope, $http, $timeout, $modal, $state, borrowerService) {
 
-            /**
-             * the default search condition
-             * @type {Object}
-             */
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-                data: {}
-            };
-
             $scope.listVM = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
                 rateCode:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
                 rateType:[{id:1,title:'百分比'},{id:2,title:'绝对值'}],
@@ -31,11 +18,6 @@ define([], function() {
                 }
             };
 
-            /**
-             * do something after view loaded
-             * @param  {string}     event type                       
-             * @param  {function}   callback function
-             */
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#fundRatePreserveTable');
             });
@@ -58,48 +40,6 @@ define([], function() {
                         });
                     }, 500);
                 });
-
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
-
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
             };
 
             (function init() {
@@ -122,13 +62,7 @@ define([], function() {
                         //autoLoad: true,
                         onPageChange: pageChange,
                         sidePagination: "server",
-                        //search: true,
-                        //showColumns: true,
-                        //showRefresh: false,
-                        //minimumCountColumns: 2,
-                        //clickToSelect: false,
-                        //showToggle: true,
-                        //maintainSelected: true,
+                    
                         columns: [{
                             field: 'state',
                             checkbox: true,

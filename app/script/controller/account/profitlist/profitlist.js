@@ -1,15 +1,6 @@
 define([], function() {
     return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService','toaster', function($scope, $http, $state, $timeout, $modal, borrowerService,toaster) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
-        var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
-        };
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
@@ -17,7 +8,7 @@ define([], function() {
             showWeeks: false
         };
         $scope.listView = {
-            condition: angular.copy(defaultCondition),
+            condition: {},
             table: null
         };
 

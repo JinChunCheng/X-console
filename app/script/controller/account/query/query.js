@@ -1,18 +1,5 @@
 define([], function() {
     return ['$scope', '$http', '$timeout', '$modal', 'accountService', 'metaService', function($scope, $http, $timeout, $modal, accountService, metaService) {
-
-        /**
-         * the default search condition
-         * @type {Object}
-         */
-        var defaultCondition = {
-            paginate: {
-                sort: 'update_time desc',
-                pageNum: 1,
-                pageSize: 10
-            },
-            data: {}
-        };
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
@@ -20,16 +7,11 @@ define([], function() {
             showWeeks: false
         };
         $scope.listView = {
-            condition: angular.copy(defaultCondition),
+            condition: {},
             table: null,
             accountType: [{ id: 1, title: '汇和托管户', content: [{ code: 1, label: '充值' }, { code: 2, label: '提现' }, { code: 3, label: '放款' }, { code: 4, label: '还款' }, { code: 5, label: '沉淀利润' }, { code: 6, label: '风险准备金' }, { code: 7, label: '提现手续费' }, { code: 8, label: '提现手续费' }, { code: 9, label: '手工调增' }, { code: 10, label: '手工调减' }] }, { id: 2, title: '汇和准备金户', content: [{ code: 1, label: '补充' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 3, title: '汇和收益户', content: [{ code: 1, label: '沉淀利润' }, { code: 2, label: '提现手续费' }, { code: 3, label: '托管费' }, { code: 4, label: '手工调增' }, { code: 5, label: '手工调减' }] }, { id: 4, title: '恒丰托管费', content: [{ code: 1, label: '充值' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 5, title: '恒丰移动金融部', content: [{ code: 1, label: '提现' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 6, title: '盒子资金户', content: [{ code: 1, label: '充值' }, { code: 2, label: '放款' }, { code: 3, label: '手工调增' }, { code: 4, label: '手工调减' }] }, { id: 7, title: '盒子结算户', content: [] }, { id: 8, title: '盒子还款户', content: [] }]
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#fundAccountQueryTable');
         });
@@ -37,9 +19,9 @@ define([], function() {
 
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var queryCondition = { data: { capitalAccountNo: $scope.listView.condition.capitalAccountNo, capitalAccountLogType: $scope.listView.condition.capitalAccountLogType, startDateTime: $scope.listView.condition.startDay, endDateTime: $scope.listView.condition.endDay }, paginate: paganition };
-            console.log(JSON.stringify(queryCondition))
-            accountService.accountQueryList.query({ where:JSON.stringify(queryCondition) }).$promise.then(function(res) {
+            var data = $scope.listView.condition;
+            var queryCondition = { "data": data, "paginate": paganition };
+            accountService.accountQueryList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,

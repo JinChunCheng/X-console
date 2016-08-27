@@ -32,8 +32,32 @@ define([], function() {
             table: null,
             status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
             check: function() {
-                console.log('check');
-                $state.go('financial.monitor.detail');
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    var text = "未选中行";
+                    $modal.open({
+                        templateUrl: 'view/shared/confirm.html',
+                        size: 'sm',
+                        controller: function($scope, $modalInstance) {
+                            $scope.confirmData = {
+                                text: text,
+                                processing: false
+                            };
+                            $scope.cancel = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                            $scope.ok = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                        }
+                    });
+                    return;
+                }
+                else {
+                    console.log('check');
+                    $state.go('financial.monitor.detail');}
             }
         };
             /**

@@ -1,14 +1,13 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal,borrowerService) {
-
+    return ['$scope', '$http', '$timeout', '$filter', '$modal', 'financialService', 'metaService',
+        function($scope, $http, $timeout, $filter, $modal,financialService, metaService) {
         /**
          * the default search condition
          * @type {Object}
          */
         var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
+            fundOutType: 'PRJ',
+            sorting: 'update_time desc'
         };
 
         $scope.listView = {
@@ -79,14 +78,11 @@ define([], function() {
             $scope.listView.table = $('#endBiddingCashTable');
         });
         var getData = function(params) {
-            borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var data = $scope.listView.condition;
+            var queryCondition = { "data":data,"paginate": paganition };
+            financialService.endBiddingCashTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 $timeout(function() {
-                    res.data.items.forEach(function(item) {
-                        item.id = parseInt(Math.random() * 100);
-                    });
-                    res.data.items.sort(function(a, b) {
-                        return Math.random() > .5 ? -1 : 1;
-                    });
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items
@@ -96,18 +92,11 @@ define([], function() {
         };
 
         (function init() {
-
+            initMeta();
             $scope.bsEndBiddingCashTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
                     height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
@@ -115,13 +104,6 @@ define([], function() {
                     //autoLoad: true,
                     onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -131,65 +113,62 @@ define([], function() {
                         field: 'id',
                         title: '编号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     },{
-                        field: 'workspace',
+                        field: 'exeDate',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace2',
+                        field: 'fundOutType',
                         title: '出款类型',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace3',
+                        field: 'projectName',
                         title: '出款项目',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace4',
+                        field: 'amount',
                         title: '出款金额',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace5',
+                        field: 'status',
                         title: '状态',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        formatter: statusFormatter
                     }, {
-                        field: 'workspace6',
+                        field: 'bankName',
                         title: '银行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace7',
+                        field: 'bankAccountName',
                         title: '银行户名',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace8',
+                        field: 'bankAccount',
                         title: '银行账号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }]
                 }
             };
-            function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
-            }
 
+            function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.statusList);
+            }
         })();
 
+        function initMeta() {
+            metaService.getMeta('CKZT', function(items) {
+                $scope.listView.statusList = items;
+            });
+        }
 
         $scope.del = function() {
             console.log('del');

@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state','metaService','$filter', '$stateParams', 'investorService', function($scope, $timeout, $state,metaService,$filter, $stateParams, investorService) {
+    return ['$scope', '$timeout', '$state', 'metaService', '$filter', '$stateParams', 'investorService', function($scope, $timeout, $state, metaService, $filter, $stateParams, investorService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 
@@ -14,8 +14,17 @@ define([], function() {
             cancel: function() {
                 $state.go('investor.investor.list');
             },
-            save: save
+            submit: submit
         };
+
+        function submit(invalid) {
+            $scope.vm.submitted = true;
+            if (invalid) {
+                return;
+            }
+            save();
+            return true;
+        }
         (function showContent() {
             if ($stateParams.id) {
                 investorService.investorDetailLabel.get({ id: $stateParams.id }).$promise.then(function(res) {

@@ -3,15 +3,8 @@ define([], function() {
         function($scope, $timeout, $state, $stateParams, borrowerService) {
 
             var action = $stateParams.id ? 'edit' : 'add';
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-            };
             $scope.vm = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
                 data: {},
                 cancel: function() {
