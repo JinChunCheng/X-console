@@ -19,7 +19,30 @@ define([], function() {
                 condition: angular.copy(defaultCondition),
                 table: null,
                 check: function() {
-                    showChannelModal();
+                    var selected = $scope.listView.table.bootstrapTable('getSelections');
+                    if (!selected || selected.length === 0) {
+                        var text = "未选中行";
+                        $modal.open({
+                            templateUrl: 'view/shared/confirm.html',
+                            size: 'sm',
+                            controller: function($scope, $modalInstance) {
+                                $scope.confirmData = {
+                                    text: text,
+                                    processing: false
+                                };
+                                $scope.cancel = function() {
+                                    $modalInstance.dismiss();
+                                    return false;
+                                }
+                                $scope.ok = function() {
+                                    $modalInstance.dismiss();
+                                    return false;
+                                }
+                            }
+                        });
+                        return;
+                    }
+                    else {showChannelModal();}
                 },
                 status:[{id:1,title:'等待处理'},{id:2,title:'失败'},{id:3,title:'成功'}],
                 edit: function(id) {
@@ -61,77 +84,19 @@ define([], function() {
                         });
                     }, 500);
                 });
-
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
-
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
             };
 
             (function init() {
 
                 $scope.bsPromptListTableControl = {
                     options: {
-                        //data: rows,
-                        // rowStyle: function(row, index) {
-                        //     return { classes: 'none' };
-                        // },
-                        // fixedColumns: true,
-                        // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
-                        //striped: true,
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        //autoLoad: true,
                         onPageChange: pageChange,
                         sidePagination: "server",
-                        //search: true,
-                        //showColumns: true,
-                        //showRefresh: false,
-                        //minimumCountColumns: 2,
-                        //clickToSelect: false,
-                        //showToggle: true,
-                        //maintainSelected: true,
                         columns: [{
                             field: 'state',
                             checkbox: true,

@@ -8,10 +8,13 @@ define(['common/config'], function(config) {
         //var channelResource = $resource(config.FINANCIAL_CONSOLE + '/financialchannel/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //var financialResource = $resource(config.FINANCIAL_CONSOLE + '/financial/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var withdrawCashTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var endBiddingCashTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //var withdrawCashTable = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
+
             withdrawCashTable:withdrawCashTable,
+            endBiddingCashTable:endBiddingCashTable,
             findChannel: function(condition) {
                 return $http({
                     method: 'POST',

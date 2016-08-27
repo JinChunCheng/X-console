@@ -12,11 +12,11 @@
                             <span class="input-group-addon">创建时间</span>
                             <div class="input-group">
                                 <div>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.startDate" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
                                 </div>
                                 <span class="input-group-addon">~</span>
                                 <div>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.endDate" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
                                 </div>
                             </div>
                          </div>

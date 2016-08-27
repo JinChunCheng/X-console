@@ -179,7 +179,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('financial.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/financial/withdraw/withdraw.html', 'controller/financial/withdraw/withdraw', { services: ['service/financial'] }))
                 //满标出款
                 .state('financial.full', lazyLoad.config('/full', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.full.full', lazyLoad.config('/full', '/view/financial/full/full.html', 'controller/financial/full/full', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.full.full', lazyLoad.config('/full', '/view/financial/full/full.html', 'controller/financial/full/full', { services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //出款指令列表
                 .state('financial.directive', lazyLoad.config('/directive', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.directive.directive', lazyLoad.config('/directive', '/view/financial/directive/directive.html', 'controller/financial/directive/directive', { directives: [], services: ['service/borrower'], filters: [] }))
