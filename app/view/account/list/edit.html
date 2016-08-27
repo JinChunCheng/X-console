@@ -3,13 +3,13 @@
         <h3>资金账户信息</h3>
     </div>
     <div class="panel-body">
-        <form role="form" class="form-horizontal form-validation" novalidate>
-            <div class="form-group" ng-show="vm.action=='edit'">
+        <form name="accountForm" class="form-horizontal form-validation" ng-submit="vm.submit(accountForm.$invalid)" novalidate>
+            <div class="form-group">
                 <label class="col-sm-2 control-label">
                     资金账户标识
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.capitalAccountId">
+                    <label type="text" class="form-control" ng-model="vm.data.capitalAccountId"></label>
                 </div>
             </div>
             <div class="form-group">
@@ -17,23 +17,22 @@
                     账户名称
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccountName">
+                    <label type="text" class="form-control" ng-model="vm.data.capitalAccountNo"></label>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    银行账户名称
-                </label>
+            <div class="form-group" ng-class="{'has-error':accountForm.bankAccountName.$invalid && (accountForm.bankAccountName.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">银行账户名称</label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccountName">
+                    <input type="text" name="bankAccountName" ng-model="vm.data.bankAccountName" class="form-control" required>
+                    <div class="form-error" ng-if="accountForm.bankAccountName.$error.required">银行账户名称不能为空!</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    银行账户号码
-                </label>
+            <div class="form-group" ng-class="{'has-error':accountForm.bankAccount.$invalid && (accountForm.bankAccount.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">银行账户号码</label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.bankAccount">
+                    <input type="text" name="bankAccount" ng-model="vm.data.bankAccount" class="form-control" required ng-pattern="/^[A-Za-z0-9]{8,24}$/">
+                    <div class="form-error" ng-if="accountForm.bankAccount.$error.required">银行账户号码不能为空!</div>
+                    <div class="form-error" ng-if="accountForm.bankAccount.$error.pattern">银行账户号码长度必须在8-24位之间!</div>
                 </div>
             </div>
             <div class="form-group">
@@ -41,32 +40,29 @@
                     余额
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.balance">
+                    <label type="text" class="form-control" ng-model="vm.data.balance"></label>
                 </div>
             </div>
             <!-- TODO开户行这里需要一个能够搜索的下拉列表 -->
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    开户行
-                </label>
+            <div class="form-group" ng-class="{'has-error':accountForm.bankCode.$invalid && (accountForm.bankCode.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">开户行</label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.bankName" ng-options='b as b.title for b in vm.bank'></select>
+                    <select class="form-control" name="bankCode" ng-model="vm.data.bankCode" ng-options='b.code as b.title for b in vm.bankCode' required></select>
+                    <div class="form-error" ng-if="accountForm.bankCode.$error.required">开户行不能为空!</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    开户行省份
-                </label>
+            <div class="form-group" ng-class="{'has-error':accountForm.bankProvince.$invalid && (accountForm.bankProvince.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">开户行省份</label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.bankProvince" ng-options='p as p.name for p in vm.provinces'></select>
+                    <select class="form-control" name="bankProvince" ng-model="vm.data.bankProvince" ng-options='b.code as b.title for b in vm.bankProvince' required></select>
+                    <div class="form-error" ng-if="accountForm.bankProvince.$error.required">开户行省份不能为空!</div>
                 </div>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    开户行城市
-                </label>
+            <div class="form-group" ng-class="{'has-error':accountForm.bankCity.$invalid && (accountForm.bankCity.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">开户行城市</label>
                 <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.bankCity" ng-options='c as c.name for c in vm.data.provinces.children'></select>
+                    <select class="form-control" name="bankCity" ng-model="vm.data.bankCity" ng-options='b.code as b.title for b in vm.bankCity' required></select>
+                    <div class="form-error" ng-if="accountForm.bankCity.$error.required">开户行城市不能为空!</div>
                 </div>
             </div>
             <div class="form-group">
@@ -74,7 +70,7 @@
                     大额行号
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.largePaymentNumber">
+                    <input type="text" class="form-control" ng-model="vm.data.largePaymentNumber">
                 </div>
             </div>
             <div class="form-group">
@@ -82,7 +78,7 @@
                     公司名称
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.companyName">
+                    <input type="text" class="form-control" ng-model="vm.data.companyName">
                 </div>
             </div>
             <div class="form-group">
@@ -90,12 +86,15 @@
                     备注
                 </label>
                 <div class="col-sm-10">
-                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
+                    <textarea rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
-                    <button type="submit" class="btn btn-primary m-r-10" ng-click="vm.save()">保存</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="vm.processing">
+                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
+                    </button>
                     <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
                 </div>
             </div>

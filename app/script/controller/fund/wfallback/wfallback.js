@@ -1,22 +1,25 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal','borrowerService', 'toaster',function($scope, $http,metaService,$filter, $timeout, $modal,borrowerService,toaster) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', 'fundService', 'toaster', function($scope, $http, metaService, $filter, $timeout, $modal, fundService, toaster) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
-
-        $scope.listView = {};
+        $scope.listView = {
+            condition: {},
+            withdraw:{},
+            getDetail:getDetail,
+        };
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
             class: 'datepicker',
             showWeeks: false
         };
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-        **/
+
+        function getDetail(id) {
+            fundService.withdrawBackLabel.get({ id: id }).$promise.then(function(res) {
+                //基本信息
+                $scope.listView.condition = res.data.result;
+                $scope.listView.withdraw.id = res.data.withdraw.id;
+
+            });
+        }
     }];
 });

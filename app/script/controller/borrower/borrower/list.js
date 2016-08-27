@@ -1,37 +1,24 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$state', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http,metaService,$filter, $state, $resource, $timeout, $modal, $state, borrowerService) {
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-                data: {}
-            };
+    return ['$scope', '$http', 'metaService', '$filter', '$state', '$resource', '$timeout', '$modal', '$state', 'borrowerService',
+        function($scope, $http, metaService, $filter, $state, $resource, $timeout, $modal, $state, borrowerService) {
 
             $scope.listVM = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
                 status: [{ state: "O", title: '正常' }, { state: "C", title: '关闭' }],
-                add:function(){
-                    $state.go(borrower.info.add)
+                add: function() {
+                    $state.go('borrower.info.add')
                 }
             };
-
-            /**
-             * do something after view loaded
-             * @param  {string}     event type                       
-             * @param  {function}   callback function
-             */
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#borrowerTable');
             });
 
 
             var getDataTable = function(params) {
-                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                data = { "status": $scope.listVM.condition.status, "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, 'idNo': $scope.listVM.condition.idNo, 'mobile': $scope.listVM.condition.mobile };
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                //data = { "status": $scope.listVM.condition.status, "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, 'idNo': $scope.listVM.condition.idNo, 'mobile': $scope.listVM.condition.mobile };
+                var data = $scope.listVM.condition;
                 var queryCondition = { "data": data, "paginate": paganition };
                 borrowerService.borrowerListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
@@ -48,7 +35,6 @@ define([], function() {
                     options: {
                         cache: false,
                         pagination: true,
-                        pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getDataTable,
                         sidePagination: "server",
@@ -62,61 +48,61 @@ define([], function() {
                             title: '借款人编号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'name',
                             title: '姓名',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'idNo',
                             title: '身份证号码',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'mobile',
                             title: '手机',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'telephone',
                             title: '固定电话',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'email',
                             title: '邮箱',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'bankProvince',
                             title: '省份',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'bankCity',
                             title: '地市',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'bankName',
                             title: '开户行',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'bankAccount',
                             title: '银行账号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'status',
                             title: '状态',
@@ -128,7 +114,7 @@ define([], function() {
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'flag',
                             title: '操作',

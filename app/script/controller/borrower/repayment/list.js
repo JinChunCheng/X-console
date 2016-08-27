@@ -1,16 +1,8 @@
 define([], function() {
     return ['$scope', '$http','metaService','$filter', '$state', '$timeout', '$modal', 'borrowerService', 'toaster', function($scope, $http,metaService,$filter, $state, $timeout, $modal, borrowerService, toaster) {
-        var defaultCondition = {
-            paginate: {
-                sort: 'update_time desc',
-                pageNum: 1,
-                pageSize: 10
-            },
-            data: {}
-        };
 
         $scope.listVM = {
-            condition: angular.copy(defaultCondition),
+            condition: {},
             table: null
         };
         $scope.dateOptions = {
@@ -26,8 +18,9 @@ define([], function() {
 
 
         var getDataTable = function(params) {
-            paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            data = { "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, "repaymentDateStart": $scope.listVM.condition.startDay, "repaymentDateEnd": $scope.listVM.condition.endDay };
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            //var data = { "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, "repaymentDateStart": $scope.listVM.condition.startDay, "repaymentDateEnd": $scope.listVM.condition.endDay };
+            var data=$scope.listVM.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             borrowerService.borrowerRepaymentList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };

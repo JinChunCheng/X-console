@@ -12,7 +12,6 @@ define([], function(config) {
         var borrowerDetail = $resource('http://172.21.20.8:8080/borrower/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var borrowerDetailTable = $resource('http://172.21.20.8:8080/borrower/list_account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var borrowerListTable = $resource('http://172.21.20.8:8080/borrower/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var createBorrower = $resource('http://172.21.20.8:8080/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         var updateBorrower = $resource('http://172.21.20.8:8080/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var borrowerRepaymentList = $resource('http://172.21.20.8:8080/borrower/repayment/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var borrowerRepaymentDetail = $resource('http://172.21.20.8:8080/borrower/repayment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
@@ -25,9 +24,7 @@ define([], function(config) {
             borrowerDetailTable:borrowerDetailTable,
             //借款人列表
             borrowerListTable:borrowerListTable,
-            //新增借款人接口
-            createBorrower:createBorrower,
-            //修改借款人信息
+            //修改借款人信息,新增借款人接口
             updateBorrower:updateBorrower,
             //借款人还款列表
             borrowerRepaymentList:borrowerRepaymentList,

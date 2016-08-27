@@ -21,7 +21,6 @@ define([], function() {
             borrowerService.resource.get({ id: id }).$promise.then(function(res) {
                 $scope.vm.data = res.data;
             }, function(err) {
-                debugger
             });
         })($stateParams.id);
 

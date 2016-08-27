@@ -1,16 +1,8 @@
 define([], function() {
     return ['$scope', '$timeout', '$state', '$stateParams', 'accountService',
         function($scope, $timeout, $state, $stateParams, accountService) {
-
-            var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-            };
             $scope.vm = {
-                condition: angular.copy(defaultCondition),
+                condition: {},
                 table: null,
                 data: {},
                 cancel: function() {
@@ -125,7 +117,7 @@ define([], function() {
             function getDetailTable(params) {
                 //这里的params就是分页的json
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { data: { capitalAccountNo: $scope.vm.data.capitalAccountNo }, paginate: paganition };
+                var queryCondition = { "data": { capitalAccountNo: $scope.vm.data.capitalAccountNo }, "paginate": paganition };
                 accountService.accountDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     console.log($scope.vm.data.capitalAccountNo);
