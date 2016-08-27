@@ -13,7 +13,52 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            channel:[{code:"IBOXPAY",title:'盒子支付'},{code:"EGBANK",title:'恒丰银行'}]
+            channel:[{code:"IBOXPAY",title:'盒子支付'},{code:"EGBANK",title:'恒丰银行'}],
+            batchUpload: function() {
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    var text = "未选中行";
+                    $modal.open({
+                        templateUrl: 'view/shared/confirm.html',
+                        size: 'sm',
+                        controller: function($scope, $modalInstance) {
+                            $scope.confirmData = {
+                                text: text,
+                                processing: false
+                            };
+                            $scope.cancel = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                            $scope.ok = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                        }
+                    });
+                    return;
+                }
+                else {
+                    var text = "是否执行出款操作？";
+                    $modal.open({
+                        templateUrl: 'view/shared/confirm.html',
+                        size: 'sm',
+                        controller: function($scope, $modalInstance) {
+                            $scope.confirmData = {
+                                text: text,
+                                processing: false
+                            };
+                            $scope.cancel = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                            $scope.ok = function() {
+                                return true;
+                            }
+                        }
+                    });
+                };
+            }
         };
         $scope.dateOptions = {
             formatYear: 'yy',
@@ -61,7 +106,7 @@ define([], function() {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,
-                    rows: res.data.items
+                    rows: res.data.items || []
                 });
             });
         };
@@ -149,32 +194,7 @@ define([], function() {
             }
 
         })();
-        $scope.checkRow = function(e, value, row, index) {
-            var text = "是否执行出款操作？";
-            //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
-            $modal.open({
-                templateUrl: 'view/shared/confirm.html',
-                size: 'sm',
-                //backdrop: true,
-                controller: function($scope, $modalInstance) {
-                    $scope.confirmData = {
-                        text: text,
-                        processing: false
-                    };
-                    $scope.cancel = function() {
-                        $modalInstance.dismiss();
-                        return false;
-                    }
-
-                    $scope.ok = function() {
-                        //delUser(item.id, $scope, $modalInstance);
-                        return true;
-                    }
-                }
-            });
-        };
-
-        $scope.search = function() {
+            $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
             console.log('aaa');
         };
