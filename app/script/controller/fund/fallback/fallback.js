@@ -166,18 +166,34 @@ define([], function() {
                 controller: function($scope, $modalInstance) {
                     $scope.checkOneVM = {};
                     (function getDetail() {
-                        console.log(row)
                         fundService.backCheckOneDetail.get({ id: row.id }).$promise.then(function(res) {
                             $scope.checkOneVM = res.data.result;
                         });
                     })();
-                    $scope.cancel = function() {
-                        $modalInstance.dismiss();
-                        return false;
+                    $scope.cancel = function(id) {
+                        var data= {withdrawBackId:$scope.checkOneVM.withdrawBackId,op: "靳春城", memo: $scope.checkOneVM.memo, status: "D"};
+                            fundService.backCheckOne.update({id: row.id}, data).$promise.then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '提现回退请求拒绝成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
+                        return true;
                     };
 
                     $scope.ok = function() {
-                        // delUser(item.id, $scope, $modalInstance);
+                            fundService.batchUpdatePlatform({ withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" },"PUT").then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '审核成功！');
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
                         $modalInstance.dismiss();
                         search();
                         return true;
@@ -201,7 +217,6 @@ define([], function() {
                     text.forEach(function(item) {
                         withdrawAmount += parseFloat(item.amount);
                     });
-
                     $scope.checkVM.withdrawAmount = withdrawAmount.toFixed(2);
                     //提现服务费
                     var withdrawFee = 0;
@@ -215,7 +230,19 @@ define([], function() {
                     };
 
                     $scope.ok = function() {
-                        // delUser(item.id, $scope, $modalInstance);
+                            var ids = $scope.listVM.checked.map(function(item) {
+                                return item.id;
+                            }).join(',');
+                            fundService.batchUpdatePlatform({ withdrawBackIds: ids, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" },"PUT").then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '批量审核成功！');
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
+                        $modalInstance.dismiss();
+                        search();
                         return true;
                     };
                 }
