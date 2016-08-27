@@ -2,7 +2,7 @@
     <h3><i class="fa fa-files-o m-r-5"></i><span ng-bind="listVM.title"></span></h3>
 </div>
 <div class="row">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-primary m-r-5">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
                 </div>
             </div>
         </div>
@@ -35,7 +35,9 @@
 </div>
 <div class="row">
     <div class="col-md-12 m-b-10">
-        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+        <button type="button" class="btn btn-warning btn-xs" ng-disabled="listVM.checked.length==0" ng-click="listVM.batchFreeze()"><i class="icon icon-plus m-r-5"></i>批量冻结</button>
+        <button type="button" class="btn btn-danger btn-xs" ng-disabled="listVM.checked.length==0" ng-click="listVM.batchDelete()"><i class="icon icon-plus m-r-5"></i>批量删除</button>
+        <button type="button" class="btn btn-success btn-xs pull-right" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
     </div>
 </div>
 <table id="platformTable" table-full-size bs-table-control="tbControl"></table>

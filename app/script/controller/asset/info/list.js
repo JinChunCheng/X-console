@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService',
-        function($scope, $http, $timeout, $modal, $state, assetService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, assetService, toaster) {
 
             /**
              * shared controller with more state

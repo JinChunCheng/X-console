@@ -71,6 +71,30 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
+            },
+            /**
+             * verify asset
+             * @param  {string} ids      platform id list
+             * @param  {int} status     
+             */
+            batchUpdatePlatform: function(data) {
+                return $http({
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        url: 'http://172.21.20.8:8089/saleplatform/batch',
+                        data: $.param(data)
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
             }
         }
     }]]
