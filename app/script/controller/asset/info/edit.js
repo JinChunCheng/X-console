@@ -37,9 +37,6 @@ define([], function() {
                     saveAsset();
                 }
             };
-            $scope.parseInt = function(number) {
-                return parseInt(number, 10);
-            }
 
             $scope.dateOptions = {
                 formatYear: 'yyyy',
@@ -163,19 +160,19 @@ define([], function() {
                 var localPlace = $scope.assetVM.localPlace;
                 if (birthPlace) {
                     if (birthPlace.province)
-                        asset.birthProvince = birthPlace.province.value;
+                        asset.birthProvince = birthPlace.province.code;
                     if (birthPlace.city)
-                        asset.birthCity = birthPlace.city.value;
+                        asset.birthCity = birthPlace.city.code;
                     if (birthPlace.district)
-                        asset.birthDistrict = birthPlace.birthDistrict;
+                        asset.birthDistrict = birthPlace.birthDistrict.code;
                 }
                 if (localPlace) {
                     if (localPlace.province)
-                        asset.localProvince = localPlace.province.value;
+                        asset.localProvince = localPlace.province.code;
                     if (localPlace.city)
-                        asset.localCity = localPlace.city.value;
+                        asset.localCity = localPlace.city.code;
                     if (localPlace.district)
-                        asset.localDistrict = localPlace.district.value;
+                        asset.localDistrict = localPlace.district.code;
                 }
                 asset.assetType = parseInt(asset.assetType);
                 if (asset.id)

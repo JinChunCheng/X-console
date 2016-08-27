@@ -25,7 +25,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
 
             .state('asset.platform', lazyLoad.config('/platform', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
-                .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
+                .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { services: ['service/asset', 'service/meta'] }))
 
             .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', { directives: [], services: [], filters: [] }, true))
                 .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { directives: [], services: ['service/borrower'], filters: [] }))

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', 'metaService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, borrowerService, metaService, toaster) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -8,7 +8,6 @@ define([], function() {
              */
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
@@ -35,20 +34,16 @@ define([], function() {
 
 
             var getData = function(params) {
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
+                assetService.platform.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                    if (res.code == 200) {
                         params.success({
                             total: res.data.paginate.totalCount,
                             rows: res.data.items
                         });
-                    }, 500);
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
                 });
             };
 
@@ -65,11 +60,11 @@ define([], function() {
                         columns: [
                             { field: 'id', title: '编号', align: 'center', valign: 'middle' },
                             { field: 'name', title: '平台名称', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '上线时间', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '平台形式', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '累计销售额', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '用户数', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                            { field: 'createTime', title: '上线时间', align: 'left', valign: 'top' },
+                            { field: 'content', title: '平台形式', align: 'left', valign: 'top' },
+                            { field: 'amount', title: '累计销售额', align: 'left', valign: 'top' },
+                            { field: 'number', title: '用户数', align: 'left', valign: 'top' },
+                            { field: 'status', title: '状态', align: 'left', valign: 'top' }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -134,14 +129,31 @@ define([], function() {
                             submit: submit,
                             cancel: cancel
                         };
+
                         function cancel() {
                             $modalInstance.dismiss();
                             return false;
                         }
 
                         function submit() {
-                            savePlatform(item.id, $scope, $modalInstance);
+                            debugger
+                            if (platform)
+                                assetService.platform.update({ id: platform.id }, $scope.platformVM.data).$promise.then(saveSuccess, saveError);
+                            else
+                                assetService.platform.save($scope.platformVM.data).then(saveSuccess, saveError);
                             return true;
+                        }
+
+                        function saveSuccess(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '保存成功！');
+                                $modalInstance.dismiss();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }
+
+                        function saveError(err) {
+                            toaster.pop('error', '服务器连接失败！');
                         }
                     }
                 });

@@ -8,7 +8,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="" class="control-label">销售平台</label>
-                        <div><input type="text" class="form-control"></div>
+                        <div><input type="text" class="form-control" ng-model="platformVM.data.name"></div>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="control-label">平台形式</label>
                         <div>
-                            <select class="form-control" ng-model="platformVM.data.dataSource" ng-options="item.value as item.text for item in platformVM.platformTypeList">
+                            <select class="form-control" ng-model="platformVM.data.content" ng-options="item.value as item.text for item in platformVM.platformTypeList">
                                 <option value="">- 请选择平台形式 -</option>
                             </select>
                         </div>
@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">对接人</label>
                         <div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="platformVM.data.linkman">
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">联系电话</label>
                         <div>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="platformVM.data.phone">
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <label for="" class="control-label">备注</label>
                         <div>
-                            <textarea class="form-control" rows="3"></textarea>
+                            <textarea class="form-control" rows="3" ng-model="platformVM.data.memo"></textarea>
                         </div>
                     </div>
                 </div>
