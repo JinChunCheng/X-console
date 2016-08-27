@@ -32,41 +32,41 @@ define(['common/session'], function(session) {
 
         $scope.login = function() {
             $scope.loginVM.processing = true;
-            $http({
-                url: 'http://172.21.20.17:8083/mgr/login',
-                method: 'POST',
-                data: {
-                    userName: $scope.loginVM.userName,
-                    password: $scope.loginVM.password
-                }
-            }).success(function(res) {
-                if (res.code == 200) {
-                    session.setTicket(res.data.token);
-                    session.setCookie('username', $scope.loginVM.name);
-                    var user = { id: 1, name: $scope.loginVM.name };
-                    session.rememberLoginUser(user);
-                    //广播到父级控制器做相关处理
-                    $scope.$emit('login', user);
-                    $state.go('dashboard');
-                }
-                else {
-                    toaster.pop('error', res.msg);
-                }
-                $scope.loginVM.processing = false;
+            // $http({
+            //     url: 'http://172.21.20.17:8083/mgr/login',
+            //     method: 'POST',
+            //     data: {
+            //         userName: $scope.loginVM.userName,
+            //         password: $scope.loginVM.password
+            //     }
+            // }).success(function(res) {
+            //     if (res.code == 200) {
+            //         session.setTicket(res.data.token);
+            //         session.setCookie('username', $scope.loginVM.name);
+            //         var user = { id: 1, name: $scope.loginVM.name };
+            //         session.rememberLoginUser(user);
+            //         //广播到父级控制器做相关处理
+            //         $scope.$emit('login', user);
+            //         $state.go('dashboard');
+            //     }
+            //     else {
+            //         toaster.pop('error', res.msg);
+            //     }
+            //     $scope.loginVM.processing = false;
 
-            }).error(function(err) {
-                toaster.pop('error', '服务器连接失败，请联系管理员！')
-                $scope.loginVM.processing = false;
+            // }).error(function(err) {
+            //     toaster.pop('error', '服务器连接失败，请联系管理员！')
+            //     $scope.loginVM.processing = false;
 
-            });
-            // $timeout(function() {
-            //     session.setCookie('username', $scope.loginVM.name);
-            //     var user = { id: 1, name: $scope.loginVM.name };
-            //     session.rememberLoginUser(user);
-            //     //广播到父级控制器做相关处理
-            //     $scope.$emit('login', user);
-            //     $state.go('dashboard');
-            // }, 500);
+            // });
+            $timeout(function() {
+                session.setCookie('username', $scope.loginVM.name);
+                var user = { id: 1, name: $scope.loginVM.name };
+                session.rememberLoginUser(user);
+                //广播到父级控制器做相关处理
+                $scope.$emit('login', user);
+                $state.go('dashboard');
+            }, 500);
         };
     }];
 });

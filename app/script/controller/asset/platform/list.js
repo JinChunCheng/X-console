@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService', 'metaService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, borrowerService, metaService, toaster) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', '$filter', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, $filter, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -8,7 +8,6 @@ define([], function() {
              */
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
@@ -19,10 +18,38 @@ define([], function() {
                 title: '销售平台管理',
                 condition: angular.copy(defaultCondition),
                 table: null,
+                checked: [],
+                search: function() {
+                    search();
+                },
+                reset: function() {
+                    $scope.listVM.condition = angular.copy(defaultCondition);
+                },
                 add: function() {
                     showPlatformModal();
+                },
+                batchFreeze: function() {
+                    batch(3);
+                },
+                batchDelete: function() {
+                    batch(2);
                 }
             };
+
+            function batch(status) {
+                var ids = $scope.listVM.checked.map(function(item) {
+                    return item.id;
+                }).join(',');
+                assetService.batchUpdatePlatform({ ids: ids, status: status }).then(function(res) {
+                    if (res.code == 200) {
+                        toaster.pop('success', '批量操作成功！');
+                        search();
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
+                });
+            }
 
             /**
              * do something after view loaded
@@ -30,25 +57,36 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#platformTable');
+                var table = $('#platformTable');
+                table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        $timeout(function() {
+                            var checked = table.bootstrapTable('getSelections')
+                            $scope.listVM.checked = checked || [];
+                        });
+                    });
+
+                $scope.listVM.table = table;
             });
 
+            function search() {
+                $scope.listVM.table.bootstrapTable('refresh');
+            };
 
             var getData = function(params) {
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                assetService.platform.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
+                    if (res.code == 200) {
                         params.success({
                             total: res.data.paginate.totalCount,
                             rows: res.data.items
                         });
-                    }, 500);
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
                 });
             };
 
@@ -63,13 +101,14 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'id', title: '编号', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '平台名称', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '上线时间', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '平台形式', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '累计销售额', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '用户数', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                            { field: 'state', checkbox: true, align: 'center', valign: 'middle' },
+                            { field: 'id', title: '编号' },
+                            { field: 'name', title: '平台名称' },
+                            { field: 'createTime', title: '上线时间' },
+                            { field: 'content', title: '平台形式' },
+                            { field: 'amount', title: '累计销售额' },
+                            { field: 'number', title: '用户数' },
+                            { field: 'status', title: '状态', align: 'middle' }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -111,14 +150,6 @@ define([], function() {
                 });
             }
 
-            $scope.search = function() {
-                $scope.listVM.table.bootstrapTable('refresh');
-            };
-
-            $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
             function showPlatformModal(platform) {
                 var title = platform ? "修改销售平台信息" : "新增销售平台";
                 var platformTypeList = $scope.listVM.platformTypeList;
@@ -134,14 +165,43 @@ define([], function() {
                             submit: submit,
                             cancel: cancel
                         };
+
+                        (function() {
+                            if (!platform) {
+                                return;
+                            }
+                            assetService.platform.get({ id: platform.id }).$promise.then(function(res) {
+                                $scope.platformVM.data = res.data;
+                                $scope.platformVM.loading = false;
+                            }, function() {
+                                $scope.platformVM.loading = false;
+                                toaster.pop('error', '服务器连接出错，请稍候再试！')
+                            });
+                            $scope.platformVM.loading = true;
+                        })();
+
                         function cancel() {
                             $modalInstance.dismiss();
                             return false;
                         }
 
                         function submit() {
-                            savePlatform(item.id, $scope, $modalInstance);
-                            return true;
+                            if (platform)
+                                assetService.platform.update({ id: platform.id }, $scope.platformVM.data).$promise.then(saveSuccess, saveError);
+                            else
+                                assetService.platform.save($scope.platformVM.data).$promise.then(saveSuccess, saveError);
+                        }
+
+                        function saveSuccess(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '保存成功！');
+                                $modalInstance.dismiss();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }
+
+                        function saveError(err) {
+                            toaster.pop('error', '服务器连接失败！');
                         }
                     }
                 });

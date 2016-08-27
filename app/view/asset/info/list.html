@@ -2,7 +2,7 @@
     <h3><i class="fa fa-files-o m-r-5"></i><span ng-bind="listVM.title"></span></h3>
 </div>
 <div class="row">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="col-md-4">
                     <button class="btn btn-primary">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
                 </div>
             </div>
         </div>
