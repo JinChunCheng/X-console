@@ -1,15 +1,23 @@
 define([], function() {
     return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'toaster', 'fundService', function($scope, $http, metaService, $filter, $timeout, $modal, $state, toaster, fundService) {
 
-
-
         $scope.listView = {
             condition: {},
             table: null,
-            type: [{ id: 1, title: '网银' }, { id: 2, title: '委托扣款' }, { id: 3, title: 'POS收款' }, { id: 4, title: '调账处理' }, { id: 5, title: '奖励' }, { id: 6, title: '其他' }],
-            status: [{ id: 1, title: '待支付' }, { id: 2, title: '成功' }, { id: 3, title: '取消' }, { id: 4, title: '失败' }, { id: 5, title: '在途' }],
-            channel: [{ id: 1, title: 'POS刷卡' }, { id: 2, title: '银联转账' }, { id: 3, title: '其他' }]
         };
+
+        function initMetaData() {
+            metaService.getMeta('CZLX', function(data) {
+                $scope.listView.paymentType = data;
+            });
+            metaService.getMeta('CZZT', function(data) {
+                $scope.listView.status = data;
+            });
+            metaService.getMeta('CZQD', function(data) {
+                $scope.listView.paymentChannel = data;
+            });
+        }
+        initMetaData();
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
@@ -24,7 +32,7 @@ define([], function() {
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             //var data = { "investorId": $scope.listView.condition.investorId, "id": $scope.listView.condition.id, 'name': $scope.listView.condition.name, 'paymentType': $scope.listView.condition.paymentType, 'externalRef': $scope.listView.condition.externalRef,'status': $scope.listView.condition.status,'startDateTime':$scope.listView.condition.startDay,'endDateTime':$scope.listView.condition.endDay,'chargeStartDateTime':$scope.listView.condition.chargeStartDay,'chargeEndDateTime':$scope.listView.condition.chargeEndDay,'paymentNum':$scope.listView.condition.paymentNum,'paymentOrderNo':$scope.listView.condition.paymentOrderNo, 'paymentChannel':$scope.listView.condition.paymentChannel};
-            var data=$scope.listView.condition;
+            var data = $scope.listView.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             fundService.chargeListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };

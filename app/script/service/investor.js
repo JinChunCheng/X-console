@@ -14,9 +14,10 @@ define([], function(config) {
         
         var investorDetailTable = $resource('http://172.21.20.12:8080/investor/getAccountLogByAccountNo', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //修改投资人信息
-        var updateInvestor = $resource('http://172.21.20.12:8080/investor/getInvestorByInvestorId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var updateInvestorDetail = $resource('http://172.21.20.12:8080/investor/getInvestorById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var updateInvestor = $resource('http://172.21.20.12:8080/investor/editInvestor/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //新增投资人信息
-        var createInvestor = $resource('http://172.21.20.12:8080/investor/', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+        var createInvestor = $resource('http://172.21.20.12:8080/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
 
         return {
             resource: investorRes,
@@ -24,6 +25,7 @@ define([], function(config) {
             investorListTable:investorListTable,
             investorDetailLabel:investorDetailLabel,
             investorDetailTable:investorDetailTable,
+            updateInvestorDetail:updateInvestorDetail,
             updateInvestor:updateInvestor,
             createInvestor:createInvestor,
             /**
@@ -65,6 +67,25 @@ define([], function(config) {
                     }, function(res) {
                         return $q.reject(res);
                     });
+            },
+            investorUpdate: function(data) {
+                return $http({
+                        method: 'POST',
+                        
+                        url: 'http://172.21.20.12:8080/investor/editInvestor',
+                       
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
             }
         }
     }]]

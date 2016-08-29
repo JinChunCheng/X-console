@@ -17,7 +17,7 @@ define(['common/config'], function(config) {
         var backCheckTable = $resource('http://172.21.20.8:8080/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckOneDetail = $resource('http://172.21.20.8:8080/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
        
-        var backCheckOne = $resource('http://172.21.20.8:8080/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var backCheckOne = $resource('http://172.21.20.8:8080/withdrawback/fallback', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: fundRes,
@@ -74,9 +74,29 @@ define(['common/config'], function(config) {
             batchUpdatePlatform: function(id,data,method) {
                 return $http({
                         method: method,
+                        data: data,
+                        //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        url: 'http://172.21.20.8:8080/withdrawback/fallback/'+id,
+                        
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            refuseCheckRows: function(data) {
+                return $http({
+                        method: 'POST',
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        url: 'http://172.21.20.8:8080/withdrawback/fallback/'+id,
+                        url: 'http://172.21.20.8:8080/withdrawback/fallback/batch',
                         
                     })
                     .then(function(res) {

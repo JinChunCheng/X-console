@@ -1,15 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$timeout', '$state','$modal', 'borrowerService', 'toaster',function($scope, $http,metaService,$filter, $timeout, $state, $modal, borrowerService,toaster) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$state', '$modal', 'borrowerService', 'toaster', function($scope, $http, metaService, $filter, $timeout, $state, $modal, borrowerService, toaster) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
-        var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
-        };
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
@@ -17,26 +8,27 @@ define([], function() {
             showWeeks: false
         };
         $scope.listView = {
-            condition: angular.copy(defaultCondition),
+            condition: {},
             table: null,
-            operSource: [{id:1,title:'管理系统'}, {id:2,title:'钱盒'}],
-            securityLevel: [{id:1,title:'未计算'}, {id:2,title:'安全'}, {id:3,title:'待详查'}, {id:4,title:'危险'}]
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
+        function initMetaData() {
+            metaService.getMeta('AQDJ', function(data) {
+                $scope.listView.securityLevel = data;
+            });
+            metaService.getMeta('CZLY', function(data) {
+                $scope.listView.operateOrigin = data;
+            });
+        }
+        initMetaData();
+
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#withdrawCheckTable');
         });
 
 
         var getData = function(params) {
-            //query: {where: JSON.stringify($scope.listVM.condition)}
             borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
                 $timeout(function() {
                     res.data.items.forEach(function(item) {
                         item.id = parseInt(Math.random() * 100);
@@ -50,77 +42,17 @@ define([], function() {
                     });
                 }, 500);
             });
-
-            //post: 
-            // var project = {};
-            // project.borrowerId = 1;
-            // project.contractTemplateId=1;
-            // project.projectName="console-前台添加";
-            // project.requestAmount=100000.00;
-            // project.repaymentType="IOP";
-            // project.duration=12;
-            // project.durationUnit="Y";
-            // project.periodCount=10;
-            // project.interestRate=0.8;
-            // project.interestRateTerm="Y";
-            // project.serviceFeeRate=0;
-            // project.serviceFeeRateTerm="Y";
-            // project.latePaymentFeeRateTerm="D";
-            // project.purpose="前端测试";
-            // project.mortgageFlag="N";
-            // project.mortgage="无";
-            // project.guaranteeFlag="N";
-            // project.guarantee="无";
-            // project.description="这是一个通过controller添加进来的project";
-            // project.biddingDeadline=new Date();
-            // project.biddingStartAmount=5000;
-            // project.biddingStepAmount=1000;
-            // project.biddingAmount=100000.00;
-            // project.status = "IRP";
-            // project.totalDays=100;
-            // project.totalInterest=100;
-            // project.totalServiceFee=0.0;
-            // project.debtStartDate=new Date();
-            // project.debtEndDate=new Date();
-            // project.principalPaid=0;
-            // project.PrincipalBalance=100;
-            // project.interestPaid=1;
-            // project.serviceFeePaid=0;
-            // project.memo="";
-            // project.creditChannelId=1;
-
-            // borrowerService.get(project).then(function(res) {
-            //     debugger
-            // });
         };
 
         (function init() {
 
             $scope.bsWithdrawCheckTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
-                    height: 650,
-                    //striped: true,
                     pagination: true,
-                    pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -131,109 +63,91 @@ define([], function() {
                         title: '编号',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
                     }, {
                         field: 'name',
                         title: '登录名',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
                     }, {
                         field: 'workspace',
                         title: '真实姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace2',
                         title: '身份证号码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace3',
                         title: '手机号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace4',
                         title: '固话',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace5',
                         title: '状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace6',
                         title: '理财客户经理编号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace7',
                         title: '理财客户经理代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace8',
                         title: '理财客户经理姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace9',
                         title: '理财渠道代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '理财渠道名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '注册类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '是否本公司员工',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '邮编',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '地址',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '是否新手',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }, {
                         field: 'workspace10',
                         title: '试投金状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center',
+                        valign: 'middle',
                     }]
                 }
             };
@@ -245,7 +159,6 @@ define([], function() {
             $modal.open({
                 templateUrl: 'view/fund/withdrawCheck/check.html',
                 size: 'lg',
-                // backdrop: true,
                 controller: function($scope, $modalInstance) {
                     $scope.checkVM = {};
                     //提现笔数
@@ -277,22 +190,12 @@ define([], function() {
 
         };
 
-        $scope.del = function() {
-            console.log('del');
-        };
-
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
 
         $scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
-
-        var pageChange = function(num, size) {
-            console.log(num + ' - ' + size);
         };
     }];
 });

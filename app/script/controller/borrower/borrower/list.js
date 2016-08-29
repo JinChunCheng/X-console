@@ -3,13 +3,24 @@ define([], function() {
         function($scope, $http, metaService, $filter, $state, $resource, $timeout, $modal, $state, borrowerService) {
 
             $scope.listVM = {
+                name: {},
                 condition: {},
                 table: null,
-                status: [{ state: "O", title: '正常' }, { state: "C", title: '关闭' }],
                 add: function() {
                     $state.go('borrower.info.add')
                 }
             };
+
+            function initMetaData() {
+                metaService.getProvinces(function(res) {
+                    $scope.listVM.provinces = res;
+                });
+                metaService.getMeta('ZT', function(data) {
+                    $scope.listVM.status = data;
+                });
+            }
+            initMetaData();
+
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#borrowerTable');
             });
@@ -17,7 +28,6 @@ define([], function() {
 
             var getDataTable = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                //data = { "status": $scope.listVM.condition.status, "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, 'idNo': $scope.listVM.condition.idNo, 'mobile': $scope.listVM.condition.mobile };
                 var data = $scope.listVM.condition;
                 var queryCondition = { "data": data, "paginate": paganition };
                 borrowerService.borrowerListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {

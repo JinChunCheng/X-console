@@ -24,7 +24,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='o as o.title for o in listView.operSource'>
+                                <select class="form-control form-white" ng-model="listView.condition.operateOrigin" ng-options='o.value as o.text for o in listView.operateOrigin'>
                                 </select>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">安全等级</span>
-                                <select class="form-control form-white" ng-model="listView.condition.securityLevel" ng-options='s as s.title for s in listView.securityLevel'>
+                                <select class="form-control form-white" ng-model="listView.condition.securityLevel" ng-options='s.value as s.text for s in listView.securityLevel'>
                                 </select>
                             </div>
                         </div>

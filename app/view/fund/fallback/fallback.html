@@ -24,7 +24,7 @@
                         <div class="col-sm-6">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s.value as s.text for s in listView.status'>
                                 </select>
                             </div>
                         </div>

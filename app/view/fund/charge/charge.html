@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.paymentType" ng-options='t as t.title for t in listView.type'>
+                                <select class="form-control form-white" ng-model="listView.condition.paymentType" ng-options='t.value as t.text for t in listView.paymentType'>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s.value as s.text for s in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">充值渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.paymentChannel" ng-options='c as c.title for c in listView.channel'>
+                                <select class="form-control form-white" ng-model="listView.condition.paymentChannel" ng-options='c.value as c.text for c in listView.paymentChannel'>
                                 </select>
                             </div>
                         </div>
