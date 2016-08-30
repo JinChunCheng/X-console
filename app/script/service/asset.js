@@ -44,7 +44,7 @@ define(['common/config'], function(config) {
                                 return serverErrorData;
                             }
                         },
-                        function(errRe) {
+                        function(errRes) {
                             return $q.reject(errRes);
                         }
                     );
