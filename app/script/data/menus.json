@@ -182,23 +182,6 @@
                 "state": "financial.ERP.ERP"
             }]
         }, {
-            "text": "营销管理",
-            "icon": "icon-screen-desktop",
-            "state": "marketing",
-            "subMenus": [{
-                "text": "短信列表",
-                "state": "marketing.message.message"
-            }, {
-                "text": "短信渠道",
-                "state": "marketing.channel.channel"
-            }, {
-                "text": "邮件日志",
-                "state": "marketing.mail.mail"
-            }, {
-                "text": "系统公告列表",
-                "state": "marketing.notice.notice"
-            }]
-        }, {
             "text": "统计报表",
             "icon": "icon-screen-desktop",
             "state": "statistics",

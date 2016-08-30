@@ -18,11 +18,11 @@ define([], function() {
                     action = 'draft';
                     title = '资产草稿';
                     buttons = [
-                        '<button name="btn-submit" class="btn btn-success btn-xs btn-transparent m-r-5" title="提交到待审核资产库"><i class="fa fa-minus-circle"></i></button>',
-                        '<button name="btn-edit" class="btn btn-info btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
+                        '<button name="btn-submit" class="btn btn-success btn-xs btn-transparent m-r-5" title="提交到待审核资产库"><i class="fa fa-check"></i></button>',
+                        '<button name="btn-edit" class="btn btn-primary btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
                         '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
-                    optColWidth = 120;
+                    optColWidth = 100;
                     showAddBtn = true;
                     break;
                 case 'asset.info.todo':
