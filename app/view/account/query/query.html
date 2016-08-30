@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">资金账户类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.accountType" ng-options='a as a.title for a in listView.accountType'>
+                                <select class="form-control form-white" ng-model="listView.condition.accountType" ng-options='a.value as a.text for a in listView.accountType' ng-change="listView.optionChange()">
                                 </select>
                             </div>
                         </div>
@@ -21,8 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">日志类型</span>
-                                <!-- TODO select里面的option需根据父级select的ng-change   -->
-                                <select class="form-control form-white" ng-model="listView.condition.logType" ng-options='l as l.label for l in listView.condition.accountType.content'>
+                                <select class="form-control form-white" ng-model="listView.condition.logType" ng-options='l.value as l.text for l in listView.getLogType(listView.condition.accountType)'>
                                 </select>
                             </div>
                         </div>

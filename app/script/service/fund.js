@@ -1,4 +1,4 @@
-define([], function(config) {
+define(['common/config'], function(config) {
     return ['fundService', ['$http', '$resource', '$q', function($http, $resource, $q) {
         var serverErrorData = {
             status: 500,
@@ -16,6 +16,8 @@ define([], function(config) {
         var withdrawBackLabel = $resource('http://172.21.20.8:8080/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckTable = $resource('http://172.21.20.8:8080/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckOneDetail = $resource('http://172.21.20.8:8080/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+       
+        var backCheckOne = $resource('http://172.21.20.8:8080/withdrawback/fallback', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: fundRes,
@@ -28,9 +30,11 @@ define([], function(config) {
             //提现回退
             withdrawBackLabel: withdrawBackLabel,
             //回退审核Table
-            backCheckTable:backCheckTable,
+            backCheckTable: backCheckTable,
             //回退审核One
-            backCheckOneDetail:backCheckOneDetail,
+            backCheckOneDetail: backCheckOneDetail,
+            //回退审核单一审核
+            backCheckOne:backCheckOne,
             query: function(data) {
                 return $http({
                         url: 'script/data/data1.json',
@@ -66,6 +70,46 @@ define([], function(config) {
                     }, function(res) {
                         return $q.reject(res);
                     });
+            },
+            batchUpdatePlatform: function(id,data,method) {
+                return $http({
+                        method: method,
+                        data: data,
+                        //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        url: 'http://172.21.20.8:8080/withdrawback/fallback/'+id,
+                        
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            refuseCheckRows: function(data) {
+                return $http({
+                        method: 'POST',
+                        data: $.param(data),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        url: 'http://172.21.20.8:8080/withdrawback/fallback/batch',
+                        
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
             }
         }
     }]]

@@ -9,8 +9,28 @@ define([], function() {
         $scope.listView = {
             condition: {},
             table: null,
-            accountType: [{ id: 1, title: '汇和托管户', content: [{ code: 1, label: '充值' }, { code: 2, label: '提现' }, { code: 3, label: '放款' }, { code: 4, label: '还款' }, { code: 5, label: '沉淀利润' }, { code: 6, label: '风险准备金' }, { code: 7, label: '提现手续费' }, { code: 8, label: '提现手续费' }, { code: 9, label: '手工调增' }, { code: 10, label: '手工调减' }] }, { id: 2, title: '汇和准备金户', content: [{ code: 1, label: '补充' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 3, title: '汇和收益户', content: [{ code: 1, label: '沉淀利润' }, { code: 2, label: '提现手续费' }, { code: 3, label: '托管费' }, { code: 4, label: '手工调增' }, { code: 5, label: '手工调减' }] }, { id: 4, title: '恒丰托管费', content: [{ code: 1, label: '充值' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 5, title: '恒丰移动金融部', content: [{ code: 1, label: '提现' }, { code: 2, label: '手工调增' }, { code: 3, label: '手工调减' }] }, { id: 6, title: '盒子资金户', content: [{ code: 1, label: '充值' }, { code: 2, label: '放款' }, { code: 3, label: '手工调增' }, { code: 4, label: '手工调减' }] }, { id: 7, title: '盒子结算户', content: [] }, { id: 8, title: '盒子还款户', content: [] }]
+            accountType: [],
+            getLogType: function(accountType) {
+                var result = [];
+                $scope.listView.accountType.forEach(function(item) {
+                    if (item.value == accountType) {
+                        result = item.children;
+                        return;
+                    }
+                });
+                return result;
+            },
+            optionChange:function(){
+                $scope.listView.condition.logType = null;
+            }
         };
+
+        function initMetaData() {
+            metaService.getMeta('ZJZHMC', function(data) {
+                $scope.listView.accountType = data;
+            });
+        }
+        initMetaData();
 
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#fundAccountQueryTable');

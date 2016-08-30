@@ -6,15 +6,36 @@ define([], function() {
         $scope.vm = {
             action: action,
             title: $stateParams.id ? '修改借款人信息' : '新增借款人信息',
-            status: [{ code: 1, title: '正常' }, { code: 2, title: '关闭' }],
-            bank: [{ code: 1, title: '农业银行' }, { code: 2, title: '中国工商银行' }, { code: '104100000004', title: '中国银行' }, { code: 2, title: '中国民生银行' }],
             data: {},
+            provinces: [],
             cancel: function() {
                 $state.go('borrower.info.list');
+            },
+            bankProvinceChange: function() {
+                $scope.vm.data.bankCity = null;
+            },
+            getCities: function(provinceCode) {
+                var result = [];
+                $scope.vm.provinces.forEach(function(item) {
+                    if (item.code == provinceCode) {
+                        result = item.children;
+                        return;
+                    }
+                });
+                return result;
             },
             submit: submit
         };
 
+        function initMetaData() {
+            metaService.getProvinces(function(res) {
+                $scope.vm.provinces = res;
+            });
+            metaService.getMeta('ZT', function(data) {
+                $scope.vm.status = data;
+            });
+        }
+        initMetaData();
 
         function submit(invalid) {
             $scope.vm.submitted = true;
@@ -23,7 +44,8 @@ define([], function() {
             }
             save();
             return true;
-        }
+        };
+
         (function showContent() {
             if ($stateParams.id) {
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
@@ -55,11 +77,5 @@ define([], function() {
             });
         }
 
-        function initMetaData() {
-            metaService.getProvinces(function(res) {
-                $scope.vm.provinces = res;
-            });
-        }
-        initMetaData();
     }];
 });

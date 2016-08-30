@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal','$state','toaster' ,'fundService', function($scope, $http,metaService,$filter, $timeout, $modal,$state,toaster, fundService) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'toaster', 'fundService', function($scope, $http, metaService, $filter, $timeout, $modal, $state, toaster, fundService) {
 
         $scope.dateOptions = {
             formatYear: 'yy',
@@ -10,18 +10,25 @@ define([], function() {
         $scope.listView = {
             condition: {},
             table: null,
-            status: [{id:1,title:'申请'}, {id:2,title:'批准'}, {id:3,title:'拒绝'}, {id:4,title:'执行完成'}, {id:5,title:'回退'}],
-            operSource: [{id:1,title:'管理系统'}, {id:2,title:'钱盒'}]
         };
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#withdrawListTable');
         });
 
+        function initMetaData() {
+            metaService.getMeta('TXZT', function(data) {
+                $scope.listView.status = data;
+            });
+            metaService.getMeta('CZLY', function(data) {
+                $scope.listView.operateOrigin = data;
+            });
+        }
+        initMetaData();
 
-         var getDataTable = function(params) {
+        var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             //var data = { "investorId": $scope.listView.condition.investorId, "id": $scope.listView.condition.id, 'name': $scope.listView.condition.name, 'paymentType': $scope.listView.condition.paymentType, 'externalRef': $scope.listView.condition.externalRef,'status': $scope.listView.condition.status,'startDateTime':$scope.listView.condition.startDay,'endDateTime':$scope.listView.condition.endDay,'chargeStartDateTime':$scope.listView.condition.chargeStartDay,'chargeEndDateTime':$scope.listView.condition.chargeEndDay,'paymentNum':$scope.listView.condition.paymentNum,'paymentOrderNo':$scope.listView.condition.paymentOrderNo, 'paymentChannel':$scope.listView.condition.paymentChannel};
-            var data=$scope.listView.condition;
+            var data = $scope.listView.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             fundService.withdrawListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
@@ -59,7 +66,7 @@ define([], function() {
                     }, {
                         field: 'amount',
                         title: '申请金额',
-                        align: 'center', 
+                        align: 'center',
                         valign: 'middle',
                     }, {
                         field: 'ferviceFee',
@@ -151,7 +158,7 @@ define([], function() {
         })();
 
         function detail(e, value, row, index) {
-            $state.go('fund.withdrawlist.detail',{id:row.id});
+            $state.go('fund.withdrawlist.detail', { id: row.id });
         }
 
         $scope.search = function() {

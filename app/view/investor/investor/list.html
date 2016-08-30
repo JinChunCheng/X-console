@@ -50,7 +50,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">是否本公司员工</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.empFlag" ng-options='i as i.title for i in listVM.empFlag'>
+                                <select class="form-control form-white" ng-model="listVM.condition.empFlag" ng-options='i.value as i.text for i in listVM.empFlag'>
                                 </select>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.trialFlag" ng-options='s as s.title for s in listVM.trialFlag'>
+                                <select class="form-control form-white" ng-model="listVM.condition.trialFlag" ng-options='s.value as s.text for s in listVM.trialFlag'>
                                 </select>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.operateOrigin" ng-options='o as o.title for o in listVM.operateOrigin'>
+                                <select class="form-control form-white" ng-model="listVM.condition.operateOrigin" ng-options='o.value as o.text for o in listVM.operateOrigin'>
                                 </select>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道代码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundChannelCode" ng-options='c as c.title for c in listVM.fundChannelCode'>
+                                <select class="form-control form-white" ng-model="listVM.condition.fundChannelCode" ng-options='c as c.text for c in listVM.fundChannelCode'>
                                 </select>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财客户经理</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundAccountManagerId" ng-options='m as m.label for m in listVM.condition.fundChannelCode.content'>
+                                <select class="form-control form-white" ng-model="listVM.condition.fundAccountManagerId" ng-options='m.code as m.name for m in listVM.condition.fundChannelCode.children'>
                                 </select>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">试投金是否已使用</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.trialUsed" ng-options='i as i.title for i in listVM.trialUsed'>
+                                <select class="form-control form-white" ng-model="listVM.condition.trialUsed" ng-options='i.value as i.text for i in listVM.trialUsed'>
                                 </select>
                             </div>
                         </div>

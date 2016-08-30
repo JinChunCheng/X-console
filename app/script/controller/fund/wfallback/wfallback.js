@@ -3,8 +3,9 @@ define([], function() {
 
         $scope.listView = {
             condition: {},
-            withdraw:{},
-            getDetail:getDetail,
+            withdraw: {},
+            getDetail: getDetail,
+            batch:batch,
         };
         $scope.dateOptions = {
             formatYear: 'yy',
@@ -21,5 +22,22 @@ define([], function() {
 
             });
         }
+
+        function batch() {
+            // var ids = $scope.listVM.checked.map(function(item) {
+            //     return item.id;
+            // }).join(',');
+            fundService.batchUpdatePlatform({ withdrawId: $scope.listView.withdraw.id, op: "靳春城",memo:$scope.listView.condition.memo }).then(function(res) {
+                if (res.code == 200) {
+                    toaster.pop('success', '提现回退申请成功！');
+                    $scope.listView.withdraw.id=null;
+                    $scope.listView.condition={};
+                } else
+                    toaster.pop('error', res.msg);
+            }, function(err) {
+                toaster.pop('error', '服务器连接失败！');
+            });
+        }
+
     }];
 });

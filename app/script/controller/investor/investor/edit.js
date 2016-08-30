@@ -1,21 +1,33 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', 'metaService', '$filter', '$stateParams', 'investorService', function($scope, $timeout, $state, metaService, $filter, $stateParams, investorService) {
+    return ['$scope', 'toaster', '$timeout', '$state', 'metaService', '$filter', '$stateParams', 'investorService', function($scope, toaster, $timeout, $state, metaService, $filter, $stateParams, investorService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
             action: action,
             title: $stateParams.id ? '修改投资人信息' : '新增投资人',
-            fundChannelCode: [{ id: 1, title: '钱盒', content: [{ code: 1, label: '钱盒' }] }, { id: 2, title: '开通宝', content: [{ code: 1, label: '开通宝' }] }, { id: 3, title: '管理系统', content: [{ code: 1, label: '管理系统' }] }],
-            staticParamValue: [{ id: 1, title: '待定' }, { id: 2, title: '否' }, { id: 3, title: '是' }],
-            status: [{ id: 1, title: '正常' }, { id: 2, title: '关闭' }],
-            staticParamValue: [{ id: 1, title: '认证通过' }, { id: 2, title: '认证失败' }, { id: 3, title: '等待认证' }],
             data: {},
             cancel: function() {
                 $state.go('investor.investor.list');
             },
             submit: submit
         };
+
+        function initMetaData() {
+            metaService.getMeta('LCQDMC', function(data) {
+                $scope.vm.fundChannelCode = data;
+            });
+            metaService.getMeta('SFBGSYG', function(data) {
+                $scope.vm.empFlag = data;
+            });
+            metaService.getMeta('ZT', function(data) {
+                $scope.vm.status = data;
+            });
+            metaService.getMeta('SFRZZT', function(data) {
+                $scope.vm.idAuthFlag = data;
+            });
+        }
+        initMetaData();
 
         function submit(invalid) {
             $scope.vm.submitted = true;
@@ -24,12 +36,13 @@ define([], function() {
             }
             save();
             return true;
-        }
+        };
+
         (function showContent() {
             if ($stateParams.id) {
-                investorService.investorDetailLabel.get({ id: $stateParams.id }).$promise.then(function(res) {
+                investorService.updateInvestorDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
-                    $scope.vm.data = res.data;
+                    $scope.vm.data = res;
                 });
             }
             return;
@@ -37,31 +50,24 @@ define([], function() {
 
         function save() {
             if (!$stateParams.id) {
-                //新增借款人
+                //新增投资人
                 investorService.createInvestor.save($scope.vm.data).$promise.then(function(res) {
                     if (res.code == 200) {
-                        toaster.pop('success', '新增借款人成功！');
-                        $state.go("borrower.info.list");
+                        toaster.pop('success', '新增投资人信息成功！');
+                        $state.go("investor.investor.list");
                     }
 
                 });
                 return;
             }
-            //修改借款人
-            investorService.updateInvestor.update($scope.vm.data).$promise.then(function(res) {
+            //修改投资人
+            investorService.investorUpdate($scope.vm.data).then(function(res) {
                 if (res.code == 200) {
-                    toaster.pop('success', '修改借款人成功！');
-                    $state.go("borrower.info.list");
+                    toaster.pop('success', '修改投资人信息成功！');
+                    $state.go("investor.investor.list");
                 }
             });
         }
-
-        function initMetaData() {
-            metaService.getProvinces(function(res) {
-                $scope.vm.provinces = res;
-            });
-        }
-        initMetaData();
 
     }];
 });
