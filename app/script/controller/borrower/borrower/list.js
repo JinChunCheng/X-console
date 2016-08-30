@@ -92,6 +92,7 @@ define([], function() {
                         }, {
                             field: 'bankProvince',
                             title: '省份',
+                            formatter: provinceFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -124,6 +125,7 @@ define([], function() {
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
+                            formatter: dateFormatter
 
                         }, {
                             field: 'flag',
@@ -142,15 +144,15 @@ define([], function() {
                 };
 
                 function statusFormatter(value, row, index) {
-                    var result = '';
-                    $scope.listVM.status.forEach(function(item) {
-                        if (value === item.code) {
-                            result = item.title;
-                            return;
-                        }
-                    });
-                    return result;
-                }
+                    return $filter('meta')(value, $scope.listVM.status);
+                };
+
+                function provinceFormatter(value, row, index) {
+                    return $filter('metaPCA')(value + '0000', $scope.listVM.provinces);
+                };
+                function dateFormatter(date) {
+                    return $filter('exDate')(date);
+                };
 
 
 
@@ -158,7 +160,6 @@ define([], function() {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
                         '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
                     ];
                     return btnHtml.join('');
                 }

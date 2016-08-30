@@ -50,7 +50,8 @@ define([], function() {
             if ($stateParams.id) {
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
-                    $scope.vm.data = res.data;
+                    $scope.vm.data = res.data.borrowerDetail;
+                    $scope.vm.data.bankProvince += '0000';
                 });
             }
             return;

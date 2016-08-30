@@ -27,7 +27,6 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            //var data = { "investorId": $scope.listView.condition.investorId, "id": $scope.listView.condition.id, 'name': $scope.listView.condition.name, 'paymentType': $scope.listView.condition.paymentType, 'externalRef': $scope.listView.condition.externalRef,'status': $scope.listView.condition.status,'startDateTime':$scope.listView.condition.startDay,'endDateTime':$scope.listView.condition.endDay,'chargeStartDateTime':$scope.listView.condition.chargeStartDay,'chargeEndDateTime':$scope.listView.condition.chargeEndDay,'paymentNum':$scope.listView.condition.paymentNum,'paymentOrderNo':$scope.listView.condition.paymentOrderNo, 'paymentChannel':$scope.listView.condition.paymentChannel};
             var data = $scope.listView.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             fundService.withdrawListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
@@ -69,12 +68,12 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'ferviceFee',
+                        field: 'serviceFee',
                         title: '服务费',
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        //TODO 接口里面缺少
+                       
                         field: 'factAmount',
                         title: '到账金额',
                         align: 'center',
