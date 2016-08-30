@@ -17,12 +17,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('asset.type.list', lazyLoad.config('/list', 'view/asset/type/list.html', 'controller/asset/type/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
 
             .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', null, true))
-                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
-                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
+                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
 
             .state('asset.platform', lazyLoad.config('/platform', 'view/shared/blank.html', '', null, true))
                 .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
