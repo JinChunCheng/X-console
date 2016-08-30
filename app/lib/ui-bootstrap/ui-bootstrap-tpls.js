@@ -1432,7 +1432,8 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
     closeText: '完成',
     closeOnDateSelection: true,
     appendToBody: false,
-    showButtonBar: true
+    showButtonBar: true,
+    useStringFormat: false // "2016-08-02" instead of Wed Aug 03 2016 00:00:00 GMT+0800 (CST)
 })
 
 .directive('datepickerPopup', ['$compile', '$parse', '$document', '$position', 'dateFilter', 'dateParser', 'datepickerPopupConfig',
@@ -1533,7 +1534,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
                 // Inner change
                 scope.dateSelection = function(dt) {
                     if (angular.isDefined(dt)) {
-                        scope.date = dt;
+                        scope.date = dateFilter(dt, dateFormat);
                     }
                     ngModel.$setViewValue(scope.date);
                     ngModel.$render();

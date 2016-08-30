@@ -17,12 +17,12 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('asset.type.list', lazyLoad.config('/list', 'view/asset/type/list.html', 'controller/asset/type/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: [] }))
 
             .state('asset.info', lazyLoad.config('/info', 'view/shared/blank.html', '', null, true))
-                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { directives: [], services: ['service/asset'], filters: [] }))
-                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
-                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { directives: [], services: ['service/asset', 'service/meta'], filters: [] }))
+                .state('asset.info.draft', lazyLoad.config('/draft', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.todo', lazyLoad.config('/todo', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.better', lazyLoad.config('/better', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.risk', lazyLoad.config('/risk', 'view/asset/info/list.html', 'controller/asset/info/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.add', lazyLoad.config('/add', 'view/asset/info/edit.html', 'controller/asset/info/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
+                .state('asset.info.edit', lazyLoad.config('/edit/:id', 'view/asset/info/edit.html', 'controller/asset/info/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
 
             .state('asset.platform', lazyLoad.config('/platform', 'view/shared/blank.html', '', null, true))
                 .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
@@ -77,22 +77,20 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
 
             //project module start
 
-            .state('project', lazyLoad.config('/project', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+            .state('project', lazyLoad.config('/project', '/view/shared/blank.html', '', null, true))
                 //项目列表
-                .state('project.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.info.info', lazyLoad.config('/info', '/view/project/info/info.html', 'controller/project/info/info', { directives: [], services: ['service/borrower'], filters: [] }))
-                //新增项目
-                .state('project.new', lazyLoad.config('/new', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.new.new', lazyLoad.config('/new', '/view/project/new/new.html', 'controller/project/new/new', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('project.info', lazyLoad.config('/info', '/view/shared/blank.html', '', null, true))
+                .state('project.info.list', lazyLoad.config('/list', '/view/project/info/list.html', 'controller/project/info/list', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
+                .state('project.info.add', lazyLoad.config('/add', '/view/project/info/edit.html', 'controller/project/info/edit', { services: ['service/project'] }))
                 //发布审核
-                .state('project.release', lazyLoad.config('/release', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.release.release', lazyLoad.config('/release', '/view/project/release/release.html', 'controller/project/release/release', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('project.release', lazyLoad.config('/release', '/view/shared/blank.html', '', null, true))
+                .state('project.release.release', lazyLoad.config('/release', '/view/project/release/release.html', 'controller/project/release/release', { services: ['service/project'] }))
                 //结标审核
                 .state('project.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
                 //项目还款计划
-                .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.repayment.repayment', lazyLoad.config('/repayment', '/view/project/repayment/repayment.html', 'controller/project/repayment/repayment', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', null, true))
+                .state('project.repayment.list', lazyLoad.config('/list', '/view/project/repayment/list.html', 'controller/project/repayment/list', { services: ['service/project'] }))
 
             //project module end
 

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, assetService, toaster) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', '$filter', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, $filter, assetService, metaService, toaster) {
 
             /**
              * shared controller with more state
@@ -18,11 +18,11 @@ define([], function() {
                     action = 'draft';
                     title = '资产草稿';
                     buttons = [
-                        '<button name="btn-submit" class="btn btn-success btn-xs btn-transparent m-r-5" title="提交到待审核资产库"><i class="fa fa-minus-circle"></i></button>',
-                        '<button name="btn-edit" class="btn btn-info btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
+                        '<button name="btn-submit" class="btn btn-success btn-xs btn-transparent m-r-5" title="提交到待审核资产库"><i class="fa fa-check"></i></button>',
+                        '<button name="btn-edit" class="btn btn-primary btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
                         '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
-                    optColWidth = 120;
+                    optColWidth = 100;
                     showAddBtn = true;
                     break;
                 case 'asset.info.todo':
@@ -121,7 +121,7 @@ define([], function() {
             };
 
             (function init() {
-
+                initMeta();
                 $scope.tbControl = {
                     options: {
                         cache: false,
@@ -132,7 +132,7 @@ define([], function() {
                         sidePagination: "server",
                         columns: [
                             { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
-                            { field: 'remark', title: '借款概要' },
+                            { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
                             { field: 'source', title: '来源' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
@@ -147,8 +147,8 @@ define([], function() {
                                 }
                             },
                             { field: 'createTime', title: '收录日期' },
-                            { field: 'expireTime', title: '过期时间' },
-                            { field: 'state', title: '状态' }, {
+                            { field: 'loanDate', title: '过期时间', formatter: dateFormatter },
+                            { field: 'status', title: '状态', formatter: statusFormatter }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -171,6 +171,18 @@ define([], function() {
 
                 function assetTypeFormatter(value, row, index) {
                     return '车贷';
+                }
+
+                function loanRemarkFormatter(value, row, index) {
+                    return row.name + ', 借款' + (row.amount || 0) + '元, 用于' + (row.loanUse || '');
+                }
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value);
+                }
+
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.assetStatusList);
                 }
 
                 function flagFormatter(value, row, index) {
@@ -272,6 +284,12 @@ define([], function() {
                 };
 
             })();
+
+            function initMeta() {
+                metaService.getMeta('ZCZT', function(items) {
+                    $scope.listVM.assetStatusList = items;
+                });
+            }
         }
     ];
 });

@@ -2,7 +2,7 @@
     <h2><i class="fa fa-dashboard"></i>项目列表</h2>
 </div>
 <div class="row" id="toolbar">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">项目编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.projectCode">
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.data.projectCode">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.status" ng-options='status for status in listVM.status'>
                                 </select>
                             </div>
                         </div>
@@ -31,39 +31,21 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">项目类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.type" ng-options='type for type in listView.type'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.type" ng-options='type for type in listVM.type'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">显示渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.displayChannel" ng-options='displayChannel for displayChannel in listView.displayChannel'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.displayChannel" ng-options='displayChannel for displayChannel in listVM.displayChannel'>
                                 </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">借款人姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerName">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                 <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <div class="input-group">
-                                <span class="input-group-addon">借款人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerCode">
                             </div>
                         </div>
                     </div>
@@ -72,8 +54,30 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
+                                <span class="input-group-addon">借款人姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.data.borrowerName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">借款人编号</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.data.borrowerCode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
                                 <span class="input-group-addon">授信渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='channel for channel in listView.channel'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.channel" ng-options='channel for channel in listVM.channel'>
                                 </select>
                             </div>
                         </div>
@@ -84,25 +88,22 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">授信客户经理</span>
-                                <select class="form-control form-white" ng-model="listView.condition.manager" ng-options='manager for manager in listView.manager'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.manager" ng-options='manager for manager in listVM.manager'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button class="btn btn-info">查找</button>
+                            <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
-    <div class="panel-body">
-        <table id="projectListTable" table-full-size bs-table-control="bsProjectListTableControl"></table>
-    </div>
-</div>
+<table id="projectListTable" table-full-size bs-table-control="bsProjectListTableControl"></table>

@@ -17,6 +17,14 @@
                 }
             };
 
+            $rootScope.dateOptions = {
+                formatYear: 'yyyy',
+                formatMonth: 'MM',
+                startingDay: 1,
+                class: 'datepicker',
+                showWeeks: false
+            };
+
             $scope.$on('$viewContentLoaded', function() {
                 initMenus();
                 $timeout(function() {
