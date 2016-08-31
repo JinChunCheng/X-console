@@ -88,7 +88,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //结标审核
                 .state('project.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/project'], filters: [] }))
-                .state('project.check.proDetail',lazyLoad.config('/check/:id','/view/project/check/proDetail.html','controller/project/check/proDetail',{ directives: [], services: ['service/project', 'service/meta'], filters: [] }))
+                .state('project.check.detail',lazyLoad.config('/detail/:id','/view/project/check/detail.html','controller/project/check/detail',{ directives: [], services: ['service/project', 'service/meta'], filters: [] }))
                 //项目还款计划
                 .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', null, true))
                 .state('project.repayment.list', lazyLoad.config('/list', '/view/project/repayment/list.html', 'controller/project/repayment/list', { services: ['service/project'] }))
@@ -100,7 +100,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //充值列表
                 .state('fund.charge', lazyLoad.config('/charge', '/view/shared/blank.html', '', null, true))
                 .state('fund.charge.charge', lazyLoad.config('/charge', '/view/fund/charge/charge.html', 'controller/fund/charge/charge', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
-                .state('fund.charge.detail', lazyLoad.config('/detail/:id', '/view/fund/charge/detail.html', 'controller/fund/charge/detail', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
+                .state('fund.charge.detail', lazyLoad.config('/detail/:projectId', '/view/fund/charge/detail.html', 'controller/fund/charge/detail', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
 
             //提现列表
 

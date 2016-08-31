@@ -6,10 +6,29 @@ define(['common/config'], function(config) {
         };
 
         var projectResource = $resource(config.RPOJECT_CONSOLE + '/hzq/project/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var checkResource = $resource(config.RPOJECT_CONSOLE + '/check/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var checkResource = $resource(config.RPOJECT_CONSOLE + '/hzq/project/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             project: projectResource,
-            check: checkResource
+            finishAudit: function(data) {
+                return $http({
+                    method: 'POST',
+                    url: config.RPOJECT_CONSOLE + '/hzq/project/audit',
+                    data: data
+                })
+                    .then(function(res) {
+                        if (res) {
+                            return res.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errRes) {
+                        return $q.reject(errRes);
+                    }
+                );
+            }
         }
     }]]
+
 });
+

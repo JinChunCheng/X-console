@@ -7,7 +7,7 @@
         <form role="form" class="form-horizontal form-validation" novalidate>
             <div class="form-group">
                 <div class="col-md-12 portlets">
-                    <table class="table table-bordered th-right">
+                    <table class="table table-bordered">
                         <tbody>
                             <tr>
                                 <th colspan="6">借款人信息</th>
@@ -18,7 +18,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -26,7 +26,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind=""></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -44,7 +44,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.requestAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -52,7 +52,7 @@
                                 </th>
                                 <th colspan="3">
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.purpose"></label>
                                     </div>
                                 </th>
 
@@ -67,7 +67,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -75,7 +75,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectName"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -93,7 +93,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -101,7 +101,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.repaymentType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -109,17 +109,17 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.serviceFeeRate"></label>
                                     </div>
                                 </th>
                             </tr>
                             <tr>
                                 <th class='w-120'>
-                                    期限
+                                    借款期限
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.duration"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -127,7 +127,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.interestRate"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -141,19 +141,19 @@
                             </tr>
                             <tr>
                                 <th class='w-120'>
-                                    合同模板序号
+                                    合同模板编号
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.contractTemplateId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
-                                    项目状态
+                                    期限
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.duration"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -161,7 +161,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.guaranteeFlag"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -171,7 +171,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.guarantee"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -179,7 +179,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.mortgageFlag"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -187,7 +187,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.mortgage"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -197,7 +197,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.biddingDeadline"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -205,7 +205,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.description"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -213,7 +213,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.memo"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -227,7 +227,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.biddingStartAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -235,7 +235,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.biddingStepAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -243,7 +243,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.biddingEndAmount"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -253,7 +253,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind=""></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -261,7 +261,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="listView.data.name"></label>
+                                        <label type="text" name="name" ng-bind=""></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -269,7 +269,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.biddingProgress"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -279,8 +279,9 @@
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-5">
-                    <button type="button" class="cancel btn  btn-primary" ng-click="">审核通过</button>
-                    <button type="button" class="cancel btn btn-danger" ng-click="">拒绝</button>
+                    <button type="button" class="cancel btn  btn-primary" ng-click="vm.pass()">审核通过</button>
+                    <button type="button" class="cancel btn btn-danger" ng-click="vm.refuse()">拒绝</button>
+                    <button type="button" class="cancel btn btn-danger" ng-click="vm.cancel()">返回</button>
                 </div>
             </div>
         </form>

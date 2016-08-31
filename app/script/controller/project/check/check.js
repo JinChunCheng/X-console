@@ -20,7 +20,7 @@ define([], function() {
 
 
         var getData = function(params) {
-            projectService.check.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+            projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items
@@ -118,16 +118,8 @@ define([], function() {
         })();
 
         function editRow(e, value, row, index) {
-            $state.go('project.check.proDetail', { id: row.id });
+            $state.go('project.check.detail', { id: row.projectId });
         }
-        /*$scope.search = function() {
-            $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
-        };*/
 
-        /*$scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };*/
     }];
 });
