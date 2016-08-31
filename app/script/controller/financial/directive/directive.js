@@ -1,5 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$timeout', '$modal', 'borrowerService', function($scope, $http, $state,$timeout, $modal,borrowerService) {
+    return ['$scope', '$http', '$state', '$timeout', '$modal', 'financialService',"toaster",
+        function($scope, $http, $state,$timeout, $modal,financialService,toaster) {
 
         /**
          * the default search condition
@@ -15,7 +16,11 @@ define([], function() {
             condition: angular.copy(defaultCondition),
             table: null,
             cashType:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
-            status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}]
+            status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}],
+            search: search,
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            },
         };
 
         $scope.dateOptions = {
@@ -32,30 +37,12 @@ define([], function() {
             check: function() {
                 var selected = $scope.listView.table.bootstrapTable('getSelections');
                 if (!selected || selected.length === 0) {
-                    var text = "未选中行";
-                    $modal.open({
-                        templateUrl: 'view/shared/confirm.html',
-                        size: 'sm',
-                        controller: function($scope, $modalInstance) {
-                            $scope.confirmData = {
-                                text: text,
-                                processing: false
-                            };
-                            $scope.cancel = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                            $scope.ok = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                        }
-                    });
+                    toaster.pop('error', '未选中行！');
                     return;
                 }
                 else {
-                    console.log('check');
-                    $state.go('financial.directive.detail');}
+                    var selectedId = selected[0].id;
+                    $state.go('financial.directive.detail', {id: selectedId});}
             }
         };
 
@@ -69,15 +56,12 @@ define([], function() {
             $scope.listView.table = $('#cashDirectiveTable');
         });
          var getData = function(params) {
-             borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+             var data = $scope.listView.condition;
+             var queryCondition = { "data":data,"paginate": paganition };
+             financialService.cashDirectiveTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                  //debugger
                  $timeout(function() {
-                     res.data.items.forEach(function(item) {
-                         item.id = parseInt(Math.random() * 100);
-                     });
-                     res.data.items.sort(function(a, b) {
-                         return Math.random() > .5 ? -1 : 1;
-                     });
                      params.success({
                          total: res.data.paginate.totalCount,
                          rows: res.data.items
@@ -93,10 +77,11 @@ define([], function() {
                     height: 650,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
-                    columns: [{
+                    columns: [
+                        {
                         field: 'state',
                         checkbox: true,
                         align: 'center',
@@ -105,106 +90,85 @@ define([], function() {
                         field: 'id',
                         title: '编号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     },{
-                        field: 'workspace',
+                        field: 'fundOutType',
                         title: '出款类型',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace2',
+                        field: 'referenceId',
                         title: '发起方编号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace3',
+                        field: 'bankAccountName',
                         title: '账户名称',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace4',
+                        field: 'bankAccount',
                         title: '卡号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace5',
+                        field: 'bankName',
                         title: '银行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'workspace6',
                         title: '开户支行名称',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace7',
+                        field: 'bankProvince',
                         title: '省份',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace8',
+                        field: 'bankCity',
                         title: '地市',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace9',
+                        field: 'amount',
                         title: '出款金额',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'statusName',
                         title: '状态',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'fundOutCount',
                         title: '出款笔数',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'memo',
                         title: '备注',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'exeDate',
                         title: '执行日期',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'createDatetime',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }]
                 }
             };
 
         })();
 
-        $scope.search = function() {
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
-        };
-
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
         };
     }];
 });
