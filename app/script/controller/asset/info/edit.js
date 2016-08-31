@@ -9,7 +9,7 @@ define([], function() {
                 title: $stateParams.id ? '修改资产信息' : '新增资产信息',
                 data: {},
                 cancel: function() {
-                    $state.go('asset.info.list');
+                    $state.go('asset.info.draft');
                 },
                 birthProvinceChange: function() {
                     $scope.assetVM.birthCity = null;
