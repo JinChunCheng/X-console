@@ -7,8 +7,22 @@ define([], function() {
             action: action,
             title: $stateParams.id ? '修改投资人信息' : '新增投资人',
             data: {},
+            fundChannelCode:[],
             cancel: function() {
                 $state.go('investor.investor.list');
+            },
+            fundChannelChange: function() {
+                $scope.vm.data.fundAccountManagerCode = null;
+            },
+            getManager: function(channelCode) {
+                var result = [];
+                $scope.vm.fundChannelCode.forEach(function(item) {
+                    if (item.value == channelCode) {
+                        result = item.children;
+                        return;
+                    }
+                });
+                return result;
             },
             submit: submit
         };
@@ -25,6 +39,9 @@ define([], function() {
             });
             metaService.getMeta('SFRZZT', function(data) {
                 $scope.vm.idAuthFlag = data;
+            });
+            metaService.getMeta('LCJLXM', function(data) {
+                $scope.vm.fundAccountManagerCode = data;
             });
         }
         initMetaData();

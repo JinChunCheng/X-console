@@ -49,7 +49,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.status"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.status|meta:vm.status"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -83,7 +83,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.idAuthFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.idAuthFlag|meta:vm.idAuthFlag"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -101,7 +101,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.fundAccountManagerName"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.fundAccountManagerName|meta:vm.fundAccountManagerName"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -135,7 +135,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.fundChannelName"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.fundChannelName|meta:vm.fundChannelName"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -145,7 +145,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.registerType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.registerType|meta:vm.registerType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -153,7 +153,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.empFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.empFlag|meta:vm.empFlag"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -161,7 +161,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.createDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.createDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -171,7 +171,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.updateDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.updateDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -179,7 +179,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.noviciate"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.noviciate|meta:vm.noviciate"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -197,7 +197,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.trialFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.trialFlag|meta:vm.trialFlag"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -205,7 +205,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.trialUsed"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.trialUsed|meta:vm.trialUsed"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -213,7 +213,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.operateOrigin"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.investorInfo.operateOrigin|meta:vm.operateOrigin"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -264,7 +264,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.accountSubjectCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.accountSubjectCode|meta:vm.accountSubjectCode"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -324,7 +324,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.status"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.status|meta:vm.status"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -332,7 +332,7 @@
                                 </th>
                                 <th colspan="3">
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.createDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.accountInfo.createDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>

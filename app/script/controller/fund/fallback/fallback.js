@@ -21,7 +21,19 @@ define([], function() {
             metaService.getMeta('TXSHZT', function(data) {
                 $scope.listView.status = data;
             });
-        }
+            metaService.getProvinces(function(res) {
+                $scope.listView.provinces = res;
+            });
+            metaService.getMeta('TXQD', function(data) {
+                $scope.listView.exeChannel = data;
+            });
+            metaService.getMeta('CZLY', function(data) {
+                $scope.listView.operateOrigin = data;
+            });
+            metaService.getCities(function(res) {
+               $scope.listView.bankCity=res;
+            });
+        };
         initMetaData();
 
         function search() {
@@ -69,6 +81,7 @@ define([], function() {
                     }, {
                         field: 'status',
                         title: '状态',
+                        formatter: statusFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -109,11 +122,13 @@ define([], function() {
                     }, {
                         field: 'bankProvince',
                         title: '省份',
+                        formatter: provinceFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
                         field: 'bankCity',
                         title: '城市',
+                        formatter: cityFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -124,6 +139,7 @@ define([], function() {
                     }, {
                         field: 'exeChannel',
                         title: '提现渠道',
+                        formatter: exeChannelFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -134,6 +150,7 @@ define([], function() {
                     }, {
                         field: 'operateOrigin',
                         title: '操作来源',
+                        formatter: operateOriginFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -156,6 +173,24 @@ define([], function() {
                 }
             };
 
+            function statusFormatter(value, row, index) {
+                return $filter("meta")(value, $scope.listView.status)
+            };
+
+            function provinceFormatter(value, row, index) {
+                return $filter("metaPCA")(value + '0000', $scope.listView.provinces)
+            };
+
+            function exeChannelFormatter(value, row, index) {
+                return $filter("meta")(value, $scope.listView.exeChannel)
+            };
+function cityFormatter(value, row, index) {
+                return $filter('metaPCA')(value+'00', $scope.listView.bankCity);
+            }
+            function operateOriginFormatter(value, row, index) {
+                return $filter("meta")(value, $scope.listView.operateOrigin)
+            };
+
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
@@ -170,11 +205,23 @@ define([], function() {
                 size: 'lg',
                 controller: function($scope, $modalInstance) {
                     $scope.checkOneVM = {};
+                    $scope.checkOneMeta = {};
+
+
                     (function getDetail() {
                         fundService.backCheckOneDetail.get({ id: row.id }).$promise.then(function(res) {
                             $scope.checkOneVM = res.data.result;
                         });
                     })();
+
+                    function initMetaData1() {
+                        metaService.getMeta('TXQD', function(data) {
+                            $scope.checkOneMeta.exeChannel = data;
+                            console.log($scope.checkOneMeta.exeChannel)
+                        });
+                    };
+                    initMetaData1();
+
                     $scope.cancel = function(id) {
                         var data = { withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "D" };
                         fundService.batchUpdatePlatform($scope.checkOneVM.withdrawBackId, data, "PUT").then(function(res) {
@@ -233,14 +280,11 @@ define([], function() {
                     $scope.checkVM.withdrawAmount = withdrawAmount.toFixed(2);
                     //提现服务费
                     var withdrawFee = 0;
-                    $scope.checkVM.withdrawFee = withdrawFee.toFixed(2);
-
                     var wbIds = text.map(function(item) {
                         withdrawFee += parseFloat(item.serviceFee);
                         return item.id;
                     }).join(',');
-
-                    console.log(wbIds)
+                    $scope.checkVM.withdrawFee = withdrawFee.toFixed(2);
                     $scope.cancel = function() {
                         var data = { withdrawBackIds: wbIds, op: "靳春城", memo: $scope.checkVM.memo, status: "D" };
                         fundService.refuseCheckRows(data).then(function(res) {

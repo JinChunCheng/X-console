@@ -7,6 +7,13 @@ define([], function() {
             getDetail: getDetail,
             batch:batch,
         };
+
+        function initMetaData() {
+            metaService.getMeta('TXZT', function(data) {
+                $scope.listView.status = data;
+            });
+        }
+        initMetaData();
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,

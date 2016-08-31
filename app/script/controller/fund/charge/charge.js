@@ -7,6 +7,13 @@ define([], function() {
         };
 
         function initMetaData() {
+            metaService.getMeta('ZCLY', function(data) {
+                $scope.listView.salesId = data;
+            });
+            metaService.getMeta('ZHKM', function(data) {
+                $scope.listView.subject = data;
+            });
+
             metaService.getMeta('CZLX', function(data) {
                 $scope.listView.paymentType = data;
             });
@@ -31,7 +38,6 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            //var data = { "investorId": $scope.listView.condition.investorId, "id": $scope.listView.condition.id, 'name': $scope.listView.condition.name, 'paymentType': $scope.listView.condition.paymentType, 'externalRef': $scope.listView.condition.externalRef,'status': $scope.listView.condition.status,'startDateTime':$scope.listView.condition.startDay,'endDateTime':$scope.listView.condition.endDay,'chargeStartDateTime':$scope.listView.condition.chargeStartDay,'chargeEndDateTime':$scope.listView.condition.chargeEndDay,'paymentNum':$scope.listView.condition.paymentNum,'paymentOrderNo':$scope.listView.condition.paymentOrderNo, 'paymentChannel':$scope.listView.condition.paymentChannel};
             var data = $scope.listView.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             fundService.chargeListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
@@ -78,8 +84,9 @@ define([], function() {
 
                     }, {
                         //TODO  rechargeVO里面缺少
-                        field: 'investorVO.operateOrigin',
+                        field: 'investorVO.salesId',
                         title: '注册来源',
+                        formatter: salesIdFormatter,
                         align: 'center',
                         valign: 'middle',
 
@@ -105,40 +112,44 @@ define([], function() {
                         field: 'rechargeVO.accountSubjectCode',
                         title: '账户科目',
                         align: 'center',
+                        formatter: subjectFormatter,
                         valign: 'middle',
 
                     }, {
                         field: 'rechargeVO.status',
                         title: '状态',
                         align: 'center',
+                        formatter: statusFormatter,
                         valign: 'middle',
 
                     }, {
                         field: 'rechargeVO.paymentType',
                         title: '充值类型',
+                        formatter: paymentTypeFormatter,
                         align: 'center',
                         valign: 'middle',
 
                     }, {
-                        field: 'rechargeVO.rechargeVO.paymentChannel',
+                        field: 'rechargeVO.paymentChannel',
                         title: '充值渠道',
+                        formatter: paymentChannelFormatter,
                         align: 'center',
                         valign: 'middle',
 
                     }, {
-                        field: 'rechargeVO.rechargeVO.bankCode',
+                        field: 'rechargeVO.bankCode',
                         title: '银行名称',
                         align: 'center',
                         valign: 'middle',
 
                     }, {
-                        field: 'rechargeVO.rechargeVO.bankCard',
+                        field: 'rechargeVO.bankCard',
                         title: '银行卡号',
                         align: 'center',
                         valign: 'middle',
 
                     }, {
-                        field: 'rechargeVO.rechargeVO.paymentOrderNo',
+                        field: 'rechargeVO.paymentOrderNo',
                         title: '支付序号',
                         align: 'center',
                         valign: 'middle',
@@ -152,12 +163,14 @@ define([], function() {
                     }, {
                         field: 'rechargeVO.createDatetime',
                         title: '创建时间',
+                        formatter:dateCreateFormatter,
                         align: 'center',
                         valign: 'middle',
 
                     }, {
                         field: 'rechargeVO.finishDatetime',
                         title: '完成时间',
+                        formatter: dateFinishFormatter,
                         align: 'center',
                         valign: 'middle',
 
@@ -187,9 +200,36 @@ define([], function() {
                 }
             };
 
+            function dateCreateFormatter(value, row, index) {
+                return $filter('exDate')(value, "yyyy-MM-dd HH:mm:ss");
+            };
+            function dateFinishFormatter(value, row, index) {
+                return $filter('exDate')(value, "yyyy-MM-dd HH:mm:ss");
+            };
+
+            function paymentChannelFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.paymentChannel);
+            };
+
+            function paymentTypeFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.paymentType);
+            };
+
+            function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.status);
+            };
+
+            function salesIdFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.salesId);
+            };
+
+            function subjectFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.subject);
+            }
+
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-arrow-right"></i></button>'
+                    '<button type="button" class="btn btn-xs btn-primary" title="查看详情"><i class="fa fa-arrow-right"></i></button>'
                 ];
                 return btnHtml.join('');
             }

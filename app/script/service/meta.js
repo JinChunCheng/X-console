@@ -207,11 +207,51 @@ define(['common/config'], function(config) {
                 { value: 'P', text: '等待认证' }
             ]
         }, {
+            key: 'TZRZHBDLX', //投资人账户变动类型
+            value: [
+                { value: 'IV_BIDDING', text: '投标' },
+                { value: 'IV_BIDDING_OVERTIME', text: '投标逾期' },
+                { value: 'IV_BIDDING_REJECTED', text: '结标审核拒绝' },
+                { value: 'IV_DEPOSIT', text: '充值' },
+                { value: 'IV_DEPOSIT_ADJ', text: '调账充值' },
+                { value: 'IV_DEPOSIT_BGT', text: '网银充值' },
+                { value: 'IV_DEPOSIT_EAC', text: '委托充值' },
+                { value: 'IV_DEPOSIT_IPP', text: '增利宝充值' },
+                { value: 'IV_DEPOSIT_OTH', text: '其他充值' },
+                { value: 'IV_DEPOSIT_PFE', text: '花红充值' },
+                { value: 'IV_DEPOSIT_POS', text: 'POS充值' },
+                { value: 'IV_DEPOSIT_PRE', text: '预付费卡充值' },
+                { value: 'IV_DEPOSIT_RET', text: '回收试投金充值' },
+                { value: 'IV_DEPOSIT_RWD', text: '奖励充值' },
+                { value: 'IV_DEPOSIT_TRI', text: '试投金充值' },
+                { value: 'IV_INVESTMENT', text: '投资(结标审核通过)' },
+                { value: 'IV_INVESTMENT_REPAYMENT', text: '投资还款' },
+                { value: 'IV_NEW', text: '投资人开户' },
+                { value: 'IV_UNDO_BIDDING', text: '撤销投标' },
+                { value: 'IV_WITHDRAW_APPROVED', text: '提现申请通过' },
+                { value: 'IV_WITHDRAW_BACK_APPROVED', text: '提现回退申请通过' },
+                { value: 'IV_WITHDRAW_REJECTED', text: '提现申请拒绝' },
+                { value: 'IV_WITHDRAW_REQUEST', text: '提现申请' },
+            ]
+        }, {
+            key: 'SFXS', //是否新手
+            value: [
+                { value: 'Y', text: '是' },
+                { value: 'N', text: '否' },
+            ]
+        }, {
             key: 'LCQDMC', //理财渠道名称
             value: [
-                { value: '1001', text: '管理系统', children: [{ code: '1001', name: '管理系统' }] },
-                { value: '1002', text: '钱盒', children: [{ code: '2001', name: '钱盒' }] },
-                { value: '1003', text: '开通宝', children: [{ code: '3001', name: '开通宝' }] }
+                { value: '1001', text: '管理系统', children: [{ value: '1001', text: '管理系统' }] },
+                { value: '1002', text: '钱盒', children: [{ value: '2001', text: '钱盒' }] },
+                { value: '1003', text: '开通宝', children: [{ value: '3001', text: '开通宝' }] }
+            ]
+        }, {
+            key: 'LCJLXM', //理财经理姓名
+            value: [
+                { value: '1001', text: '管理系统' },
+                { value: '2001', text: '钱盒' },
+                { value: '3001', text: '开通宝' },
             ]
         }, {
             key: 'SFBGSYG', //是否本公司员工
@@ -323,10 +363,13 @@ define(['common/config'], function(config) {
                 { value: 'W', text: '待支付' },
             ]
         }, {
+            //TODO正式上线时需要修改，现在是测试数据
             key: 'ZCLY', //注册来源
             value: [
-                { value: 'CASHBOX', text: '钱盒' },
-                { value: 'CONSOLE', text: '管理系统' },
+                { value: '1', text: '钱盒商户通1' },
+                { value: '2', text: '钱盒商户通2' },
+                { value: '3', text: '钱盒商户通3' },
+                { value: '4', text: '钱盒商户通4' },
             ]
         }, {
             key: 'TXQD', //提现渠道
@@ -350,7 +393,7 @@ define(['common/config'], function(config) {
                 { value: 'R', text: '申请' },
             ]
         }, {
-            // 提现列表
+            // 提现列表,提现回退
             key: 'TXZT', //提现状态
             value: [
                 { value: 'A', text: '批准' },
@@ -450,7 +493,25 @@ define(['common/config'], function(config) {
                         console.log('request error !');
                     });
             },
-
+            getCities: function(callback) {
+                if (provinces && provinces.length > 0) {
+                    if (typeof callback == 'function')
+                        callback(provinces);
+                    return false;
+                }
+                $http({
+                        url: 'script/data/city.json',
+                        method: 'GET',
+                        withCredentials: false
+                    })
+                    .success(function(res) {
+                        if (typeof callback == 'function')
+                            callback(res);
+                    })
+                    .error(function(err, msg) {
+                        console.log('request error !' + err);
+                    });
+            },
             getProvinces: function(callback) {
                 if (provinces && provinces.length > 0) {
                     if (typeof callback == 'function')

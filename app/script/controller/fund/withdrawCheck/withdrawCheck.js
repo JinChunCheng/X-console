@@ -38,9 +38,9 @@ define([], function() {
             metaService.getProvinces(function(res) {
                 $scope.listView.bankProvince = res;
             });
-            // metaService.getProvinces(function(res) {
-            //         $scope.listView.requestDatetime = res;
-            //     });
+            metaService.getCities(function(res) {
+               $scope.listView.bankCity=res;
+            });
         }
         initMetaData();
 
@@ -193,8 +193,8 @@ define([], function() {
                 }
             };
 
-            function dateFormatter(value, row, index) {
-                return $filter('meta')(value, $scope.listView.requestDatetime);
+            function dateFormatter(value) {
+                return $filter('exDate')(value, "yyyy-MM-dd HH:mm:ss");
             }
 
             function channelFormatter(value, row, index) {
@@ -202,11 +202,11 @@ define([], function() {
             }
 
             function provinceFormatter(value, row, index) {
-                return $filter('meta')(value, $scope.listView.bankProvince);
+                return $filter('metaPCA')(value+'0000', $scope.listView.bankProvince);
             }
 
             function cityFormatter(value, row, index) {
-                return $filter('meta')(value, $scope.listView.bankCity);
+                return $filter('metaPCA')(value+'00', $scope.listView.bankCity);
             }
 
             function operateFormatter(value, row, index) {

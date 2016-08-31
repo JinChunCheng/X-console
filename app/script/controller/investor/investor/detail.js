@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'investorService','metaService','$filter',
-        function($scope, $timeout, $state, $stateParams, investorService,metaService,$filter) {
+    return ['$scope', '$timeout', '$state', '$stateParams', 'investorService', 'metaService', '$filter',
+        function($scope, $timeout, $state, $stateParams, investorService, metaService, $filter) {
             $scope.vm = {
                 table: null,
                 data: {},
@@ -13,6 +13,45 @@ define([], function() {
                 }
             };
 
+            function initMetaData() {
+                metaService.getMeta('ZT', function(data) {
+                    $scope.vm.status = data;
+                });
+                metaService.getMeta('ZHKM', function(data) {
+                    $scope.vm.accountSubjectCode = data;
+                });
+                metaService.getMeta('SFRZZT', function(data) {
+                    $scope.vm.idAuthFlag = data;
+                });
+                metaService.getMeta('ZCLX', function(data) {
+                    $scope.vm.registerType = data;
+                });
+                metaService.getMeta('SFBGSYG', function(data) {
+                    $scope.vm.empFlag = data;
+                });
+                metaService.getMeta('STJZT', function(data) {
+                    $scope.vm.trialFlag = data;
+                });
+                metaService.getMeta('CZLY', function(data) {
+                    $scope.vm.operateOrigin = data;
+                });
+                metaService.getMeta('LCQDMC', function(data) {
+                    $scope.vm.fundChannelName = data;
+                });
+                metaService.getMeta('STJSFYSY', function(data) {
+                    $scope.vm.trialUsed = data;
+                });
+                metaService.getMeta('LCJLXM', function(data) {
+                    $scope.vm.fundAccountManagerName = data;
+                });
+                metaService.getMeta('SFXS', function(data) {
+                    $scope.vm.noviciate = data;
+                });
+                metaService.getMeta('TZRZHBDLX', function(data) {
+                    $scope.vm.accountLogType = data;
+                });
+            };
+            initMetaData();
             $scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#investorDetailTable');
             });
@@ -37,117 +76,115 @@ define([], function() {
                             title: '参考编号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforeBalance',
                             title: '发生前余额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforeFrozenBalance',
                             title: '发生前余额冻结',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforeFreeBalance',
                             title: '发生前可用余额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'changeAmount',
                             title: '发生额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterBalance',
                             title: '发生后余额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterFrozenBalance',
                             title: '发生后余额冻结',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterFreeBalance',
                             title: '发生后可用余额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforePrincipalBalance',
                             title: '变动前待收本金',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterPrincipalBalance',
                             title: '变动后待收本金',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforeInterestBalance',
                             title: '变动前待收利息',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterInterestBalance',
                             title: '变动后待收利息',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'beforeTotalInterest',
                             title: '变动前总收益',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'afterTotalInterest',
                             title: '变动后总收益',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'balanceChangeFlag',
                             title: '余额变动标志',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
+                            formatter: dateFormatter,
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'memo',
                             title: '备注',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }]
                     }
                 };
 
 
                 function logFormatter(value, row, index) {
-                    var result = '';
-                    $scope.vm.accountLogType.forEach(function(item) {
-                        if (value === item.code) {
-                            result = item.title;
-                            return;
-                        }
-                    });
-                    return result;
+                    return $filter('meta')(value, $scope.vm.accountLogType);
+                }
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value,'yyyy-MM-dd HH:mm:ss')
                 }
             }
 
@@ -157,7 +194,7 @@ define([], function() {
                     $scope.vm.data.investorInfo = res.investorInfo;
                     //账户信息
                     $scope.vm.data.accountInfo = res.accountInfo;
-                    
+
                     init();
                 });
             }
