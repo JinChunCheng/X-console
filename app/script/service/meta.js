@@ -390,6 +390,21 @@ define(['common/config'], function(config) {
                 { value: '4', text: '冻结' },
                 { value: '5', text: '失效' }
             ]
+        }, {
+            key: 'XMZT',
+            value: [
+                { value: 'NEW', text: '新建' },
+                { value: 'PBR', text: '发布审核拒绝' },
+                { value: 'RPB', text: '待发布' },
+                { value: 'IPB', text: '发布中' },
+                { value: 'BDF', text: '投标完成' },
+                { value: 'BDA', text: '结标审核完成' },
+                { value: 'BDR', text: '结标审核拒绝' },
+                { value: 'IRP', text: '还款中' },
+                { value: 'OVD', text: '逾期' },
+                { value: 'NCL', text: '正常关闭' },
+                { value: 'ECL', text: '异常关闭' }
+            ]
         }];
 
         //获取某项元数据列表

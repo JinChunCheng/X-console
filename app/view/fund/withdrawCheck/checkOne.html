@@ -1,0 +1,159 @@
+<form name="pageForm" class="bs-example form-horizontal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()"><i class="icons-office-52"></i></button>
+        <h4 class="modal-title">确认操作</h4>
+    </div>
+    <div class="modal-body p-r">
+        <div class="form-group">
+            <div class="col-md-12 portlets">
+                <table class="table table-bordered th-right">
+                    <tbody>
+                        <tr>
+                            <th class='w-120'>
+                                提现编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.id"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                申请人编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.investorId"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                申请人
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.name"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                手机
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.mobile"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                身份证
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.idNo"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                资金账号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.accountNo"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                账户余额
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.balance"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                可用余额
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.freeBalance"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                余额冻结
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.frozenBalance"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                服务费
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.serviceFee"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                到账金额
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.factAmount"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                提现渠道
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.exeChannel"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                安全等级
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.securityLevel"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                安全级别描述
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="checkOneVM.securityLevelReason"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                审批意见
+                            </th>
+                            <th colspan="3">
+                                <div class="col-sm-12">
+                                    <textarea type="text" name="name" ng-bind="checkOneVM.memo"></textarea>
+                                </div>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="confirmData.processing">
+            <span class="w2em" ng-if="!confirmData.processing" ng-cloak>批准</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="confirmData.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">拒绝</button>
+    </div>
+</form>

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$filter', '$modal', 'financialService', 'metaService',
-        function($scope, $http, $timeout, $filter, $modal,financialService, metaService) {
+    return ['$scope', '$http', '$timeout', '$filter', '$modal', 'financialService', 'metaService','toaster',
+        function($scope, $http, $timeout, $filter, $modal,financialService, metaService,toaster) {
         /**
          * the default search condition
          * @type {Object}
@@ -13,32 +13,19 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
+            search: search,
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            },
             batchUpload: function() {
                 var selected = $scope.listView.table.bootstrapTable('getSelections');
                 if (!selected || selected.length === 0) {
-                    var text = "未选中行";
-                    $modal.open({
-                        templateUrl: 'view/shared/confirm.html',
-                        size: 'sm',
-                        controller: function($scope, $modalInstance) {
-                            $scope.confirmData = {
-                                text: text,
-                                processing: false
-                            };
-                            $scope.cancel = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                            $scope.ok = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                        }
-                    });
+                    toaster.pop('error', '未选中行！');
                     return;
                 }
                 else {
                     var text = "是否执行出款操作？";
+                    var ids = $scope.listView.condition.ids;
                     $modal.open({
                         templateUrl: 'view/shared/confirm.html',
                         size: 'sm',
@@ -51,9 +38,22 @@ define([], function() {
                                 $modalInstance.dismiss();
                                 return false;
                             }
-
+                            var ids = selected.map(function(item) {
+                                return item.id;
+                            }).join(',');
                             $scope.ok = function() {
-                                delUser(item.id, $scope, $modalInstance);
+                                //delUser(item.id, $scope, $modalInstance);
+                                financialService.fullAccept(ids).then(function(res) {
+                                    if(res.code == 200) {
+                                        toaster.pop('success', '操作成功！');
+                                        $modalInstance.dismiss();
+                                        search();
+                                    }
+                                    else
+                                        toaster.pop('error', res.msg);
+                                }, function(err) {
+                                    toaster.pop('error', '服务器连接失败！');
+                                });
                                 return true;
                             }
                         }
@@ -169,21 +169,9 @@ define([], function() {
                 $scope.listView.statusList = items;
             });
         }
-
-        $scope.del = function() {
-            console.log('del');
-        };
-
-        $scope.search = function() {
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
-
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
-
         var pageChange = function(num, size) {
             console.log(num + ' - ' + size);
         };

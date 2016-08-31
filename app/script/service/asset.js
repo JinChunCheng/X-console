@@ -44,7 +44,7 @@ define(['common/config'], function(config) {
                                 return serverErrorData;
                             }
                         },
-                        function(errRe) {
+                        function(errRes) {
                             return $q.reject(errRes);
                         }
                     );
@@ -95,7 +95,28 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
-            }
+            },
+
+            /**
+             * upload file
+             * @param  {FormData} formData form data object
+             */
+            upload: function(formData) {
+                return $http({
+                        url: config.FILE_UPLOAD_CONSOLE + '/upload',
+                        method: 'POST',
+                        data: formData,
+                        headers: {
+                            //文件上传multipart必须使用空格式
+                            'Content-Type': undefined
+                        }
+                    })
+                    .then(function(res) {
+                        return res ? res.data : serverErrorData;
+                    }, function(res) {
+                        return $q.reject(res);
+                    });
+            },
         }
     }]]
 });

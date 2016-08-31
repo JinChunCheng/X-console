@@ -1,17 +1,30 @@
 define([], function() {
-    return ['$scope', '$timeout','metaService','$filter', '$state', '$stateParams', 'borrowerService',
-        function($scope, $timeout,metaService,$filter, $state, $stateParams, borrowerService) {
+    return ['$scope', '$timeout', 'metaService', '$filter', '$state', '$stateParams', 'borrowerService',
+        function($scope, $timeout, metaService, $filter, $state, $stateParams, borrowerService) {
             $scope.vm = {
                 table: null,
                 data: {},
-                borrowerAccountLogType: [{ code: 'BR_REPAYMENT_ASSIGNMENT', title: "还款分配" }, { code: 'BR_REPAYMENT', title: "还款" }, { code: 'BR_NEW', title: "借款人开户" }],
-                status: [{ code: "C", title: "关闭" }, { code: "O", title: "正常" }],
-                //初始化bsBorrowDetailTableControl对象，并将其扔到vm里面去，防止init调用的时候还没有加载出bsBorrowDetailTableControl这个对象而报错
                 bsBorrowDetailTableControl: {},
                 cancel: function() {
                     $state.go('borrower.info.list');
                 }
             };
+
+            function initMetaData() {
+                metaService.getProvinces(function(res) {
+                    $scope.vm.provinces = res;
+                });
+                metaService.getMeta('ZT', function(data) {
+                    $scope.vm.status = data;
+                });
+                metaService.getMeta('ZHBDLX', function(data) {
+                    $scope.vm.borrowerAccountLogType = data;
+                });
+                metaService.getMeta('ZHKM', function(data) {
+                    $scope.vm.accountSubjectCode = data;
+                });
+            }
+            initMetaData();
 
             $scope.$on('$viewContentLoaded', function() {
                 $scope.vm.table = $('#borrowDetailTable');
@@ -30,6 +43,7 @@ define([], function() {
                             field: 'accountSubjectCode',
                             title: '账户科目',
                             align: 'center',
+                            formatter: subjectFormatter,
                             valign: 'middle'
                         }, {
                             field: 'borrowerAccountLogType',
@@ -96,6 +110,7 @@ define([], function() {
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
+                            formatter:dateFormatter
 
                         }, {
                             field: 'memo',
@@ -107,32 +122,26 @@ define([], function() {
                     }
                 };
 
+                function subjectFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.vm.accountSubjectCode);
+                };
 
                 function logFormatter(value, row, index) {
-                    var result = '';
-                    $scope.vm.borrowerAccountLogType.forEach(function(item) {
-                        if (value === item.code) {
-                            result = item.title;
-                            return;
-                        }
-                    });
-                    return result;
-                }
-            }
+                    return $filter('meta')(value, $scope.vm.borrowerAccountLogType);
+                };
+                function dateFormatter(date) {
+                    return $filter('exDate')(date);
+                };
+
+            };
 
             function getDetail(borrowerId) {
                 borrowerService.borrowerDetail.get({ id: borrowerId }).$promise.then(function(res) {
-                    $scope.vm.status.forEach(function(item) {
-                        if (item.code === res.data.status) {
-                            res.data.status = item.title;
-                            return;
-                        }
-                    });
                     $scope.vm.data.borrowerDetail = res.data.borrowerDetail;
                     $scope.vm.data.borrowerAccount = res.data.borrowerAccount;
                     init();
                 });
-            }
+            };
             getDetail($stateParams.id);
 
 

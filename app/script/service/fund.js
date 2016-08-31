@@ -16,8 +16,9 @@ define(['common/config'], function(config) {
         var withdrawBackLabel = $resource('http://172.21.20.8:8080/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckTable = $resource('http://172.21.20.8:8080/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckOneDetail = $resource('http://172.21.20.8:8080/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-       
-        var backCheckOne = $resource('http://172.21.20.8:8080/withdrawback/fallback', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+
+        //提现审核
+        var withdrawCheckTable = $resource('http://172.21.20.13:8080/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: fundRes,
@@ -33,8 +34,7 @@ define(['common/config'], function(config) {
             backCheckTable: backCheckTable,
             //回退审核One
             backCheckOneDetail: backCheckOneDetail,
-            //回退审核单一审核
-            backCheckOne:backCheckOne,
+
             query: function(data) {
                 return $http({
                         url: 'script/data/data1.json',
@@ -71,13 +71,14 @@ define(['common/config'], function(config) {
                         return $q.reject(res);
                     });
             },
-            batchUpdatePlatform: function(id,data,method) {
+            //回退审核
+            batchUpdatePlatform: function(id, data, method) {
                 return $http({
                         method: method,
                         data: data,
                         //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        url: 'http://172.21.20.8:8080/withdrawback/fallback/'+id,
-                        
+                        url: url + id,
+
                     })
                     .then(function(res) {
                             if (res) {
@@ -97,7 +98,7 @@ define(['common/config'], function(config) {
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         url: 'http://172.21.20.8:8080/withdrawback/fallback/batch',
-                        
+
                     })
                     .then(function(res) {
                             if (res) {
@@ -110,7 +111,50 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
-            }
+            },
+            //提现审核
+            refuseWithdraw: function(data) {
+                return $http({
+                        method: "POST",
+                        data: $.param(data),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+
+                        url: "http://172.21.20.13:8080/withdraw/reject",
+
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            approveWithdraw: function(data) {
+                return $http({
+                        method: "POST",
+                        data: $.param(data),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+
+                        url: "http://172.21.20.13:8080/withdraw/approve",
+
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
         }
     }]]
 });

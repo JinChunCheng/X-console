@@ -1,5 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'financialService', function($scope, $http, $timeout, $modal,financialService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'financialService', 'toaster',
+        function($scope, $http, $timeout, $modal,financialService, toaster) {
 
         /**
          * the default search condition
@@ -7,39 +8,29 @@ define([], function() {
          */
         var defaultCondition = {
             fundOutType: 'WDR',
-            sorting: 'update_time desc'
+            sorting: 'update_time desc',
+
+            //exeChannel为必选项 值默认为IBOXPAY
+            exeChannel: 'IBOXPAY'
         };
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
             channel:[{code:"IBOXPAY",title:'盒子支付'},{code:"EGBANK",title:'恒丰银行'}],
+            search: search,
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            },
             batchUpload: function() {
                 var selected = $scope.listView.table.bootstrapTable('getSelections');
                 if (!selected || selected.length === 0) {
-                    var text = "未选中行";
-                    $modal.open({
-                        templateUrl: 'view/shared/confirm.html',
-                        size: 'sm',
-                        controller: function($scope, $modalInstance) {
-                            $scope.confirmData = {
-                                text: text,
-                                processing: false
-                            };
-                            $scope.cancel = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                            $scope.ok = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                        }
-                    });
+                    toaster.pop('error', '未选中行！');
                     return;
                 }
-                else {
+                else{
                     var text = "是否执行出款操作？";
+                    var exeChannel = $scope.listView.condition.exeChannel;
                     $modal.open({
                         templateUrl: 'view/shared/confirm.html',
                         size: 'sm',
@@ -52,7 +43,21 @@ define([], function() {
                                 $modalInstance.dismiss();
                                 return false;
                             }
+                            var ids = selected.map(function(item) {
+                                return item.id;
+                            }).join(',');
                             $scope.ok = function() {
+                                financialService.withdrawAccept(ids, exeChannel).then(function(res) {
+                                    if(res.code == 200) {
+                                        toaster.pop('success', '操作成功！');
+                                        $modalInstance.dismiss();
+                                        search();
+                                    }
+                                    else
+                                        toaster.pop('error', res.msg);
+                                }, function(err) {
+                                    toaster.pop('error', '服务器连接失败！');
+                                });
                                 return true;
                             }
                         }
@@ -75,27 +80,6 @@ define([], function() {
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#withdrawCashTable');
         });
-
-
-            //        var getData = function(params) {
-            //    //query: {where: JSON.stringify($scope.listVM.condition)}
-            //    financialService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-            //        //debugger
-            //        $timeout(function() {
-            //            res.data.items.forEach(function(item) {
-            //                item.id = parseInt(Math.random() * 100);
-            //            });
-            //            res.data.items.sort(function(a, b) {
-            //                return Math.random() > .5 ? -1 : 1;
-            //            });
-            //            params.success({
-            //                total: res.data.paginate.totalCount,
-            //                rows: res.data.items
-            //            });
-            //        }, 500);
-            //    });
-            //};
-
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var data = $scope.listView.condition;
@@ -110,16 +94,11 @@ define([], function() {
                 });
             });
         };
-
-
-
         (function init() {
-
             $scope.bsWithdrawCashTableControl = {
                 options: {
                     cache: false,
                     height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
@@ -194,14 +173,8 @@ define([], function() {
             }
 
         })();
-            $scope.search = function() {
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
-        };
-
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
         };
     }];
 });

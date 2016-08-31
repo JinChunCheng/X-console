@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$state', '$timeout', '$modal', 'borrowerService', 'toaster', function($scope, $http,metaService,$filter, $state, $timeout, $modal, borrowerService, toaster) {
+    return ['$scope', '$http', 'metaService', '$filter', '$state', '$timeout', '$modal', 'borrowerService', 'toaster', function($scope, $http, metaService, $filter, $state, $timeout, $modal, borrowerService, toaster) {
 
         $scope.listVM = {
             condition: {},
@@ -12,6 +12,16 @@ define([], function() {
             showWeeks: false
         };
 
+        function initMetaData() {
+            metaService.getMeta('HKQD', function(data) {
+                $scope.listVM.repaymentChannel = data;
+            });
+            metaService.getMeta('ZHKM', function(data) {
+                $scope.listVM.accountSubjectCode = data;
+            });
+        }
+        initMetaData();
+
         $scope.$on('$viewContentLoaded', function() {
             $scope.listVM.table = $('#borrowerRepaymentsTable');
         });
@@ -19,8 +29,7 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            //var data = { "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, "repaymentDateStart": $scope.listVM.condition.startDay, "repaymentDateEnd": $scope.listVM.condition.endDay };
-            var data=$scope.listVM.condition;
+            var data = $scope.listVM.condition;
             var queryCondition = { "data": data, "paginate": paganition };
             borrowerService.borrowerRepaymentList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
@@ -51,61 +60,62 @@ define([], function() {
                         title: '借款人编号',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'name',
                         title: '借款人姓名',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'repaymentDate',
                         title: '还款日期',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'accountSubjectCode',
                         title: '账户科目',
                         align: 'center',
                         valign: 'middle',
-                        
+                        formatter: subjectFormatter
                     }, {
                         field: 'amount',
                         title: '还款金额',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'repaymentChannel',
                         title: '还款渠道',
                         align: 'center',
                         valign: 'middle',
-                        
+                        formatter: channelFormatter
+
                     }, {
                         field: 'externalRef',
                         title: '参考凭证',
                         align: 'center',
                         valign: 'middle',
-                        
                     }, {
                         field: 'op',
                         title: '操作人',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'createDatetime',
                         title: '创建时间',
                         align: 'center',
                         valign: 'middle',
-                        
+                        formatter: dateFormatter
+
                     }, {
                         field: 'memo',
                         title: '备注',
                         align: 'center',
                         valign: 'middle',
-                        
+
                     }, {
                         field: 'flag',
                         title: '操作',
@@ -118,6 +128,18 @@ define([], function() {
                         }
                     }]
                 }
+            };
+
+            function subjectFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listVM.accountSubjectCode);
+            };
+
+            function channelFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listVM.repaymentChannel );
+            };
+
+            function dateFormatter(date) {
+                return $filter('exDate')(date);
             };
 
             function flagFormatter(value, row, index) {
