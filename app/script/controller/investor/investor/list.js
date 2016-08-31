@@ -11,8 +11,8 @@ define([], function() {
             };
 
             function initMetaData() {
-                metaService.getMeta('ZT', function(data) {
-                    $scope.listVM.status = data;
+                metaService.getMeta('ZCLX', function(data) {
+                    $scope.listVM.registerType = data;
                 });
                 metaService.getMeta('SFBGSYG', function(data) {
                     $scope.listVM.empFlag = data;
@@ -115,6 +115,7 @@ define([], function() {
                             title: '状态',
                             align: 'center',
                             valign: 'middle',
+                            formatter:statusFormatter
 
                         }, {
                             field: 'fundAccountManagerId',
@@ -151,7 +152,7 @@ define([], function() {
                             title: '注册类型',
                             align: 'center',
                             valign: 'middle',
-
+                            formatter:registerFormatter
                         }, {
                             field: 'empFlag',
                             title: '是否本公司员工',

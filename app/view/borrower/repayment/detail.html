@@ -57,7 +57,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.repaymentChannel"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.repaymentChannel|meta:vm.repaymentChannel"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -83,7 +83,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.createDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.createDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -93,7 +93,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.updateDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.updateDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -135,7 +135,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.accountSubjectCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.accountSubjectCode|meta:vm.accountSubjectCode"></label>
                                     </div>
                                 </th>
                             </tr>
