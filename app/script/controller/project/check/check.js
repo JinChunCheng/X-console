@@ -1,14 +1,12 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$state','projectService', function($scope,$state,projectService) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
         var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
+            data: {},
+            paginate: {
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
@@ -16,212 +14,120 @@ define([], function() {
             table: null
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#endTenderCheckTable');
         });
 
 
         var getData = function(params) {
-            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
-                $timeout(function() {
-                    res.data.items.forEach(function(item) {
-                        item.id = parseInt(Math.random() * 100);
-                    });
-                    res.data.items.sort(function(a, b) {
-                        return Math.random() > .5 ? -1 : 1;
-                    });
-                    params.success({
-                        total: res.data.paginate.totalCount,
-                        rows: res.data.items
-                    });
-                }, 500);
+            projectService.check.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                params.success({
+                    total: res.data.paginate.totalCount,
+                    rows: res.data.items
+                });
             });
         };
 
         (function init() {
-
-            $scope.bsEndTenderCheckTableControl = {
+            $scope.EndTenderCheckTableControl = {
                 options: {
                     cache: false,
-                    height: 840,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    onPageChange: pageChange,
                     sidePagination: "server",
                     columns: [{
-                        field: 'state',
+                        field: 'code',
                         checkbox: true,
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'id',
-                        title: '编号',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        field: 'projectId',
+                        title: '项目编号'
                     }, {
-                        field: 'name',
-                        title: '登录名',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        field: 'projectName',
+                        title: '项目名称'
                     }, {
-                        field: 'workspace',
-                        title: '真实姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'projectType',
+                        title: '项目类型'
                     }, {
                         field: 'workspace2',
-                        title: '身份证号码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        title: '产品分类'
                     }, {
-                        field: 'workspace3',
-                        title: '手机号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'borrowerId',
+                        title: '借款人编号'
                     }, {
                         field: 'workspace4',
-                        title: '固话',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        title: '借款人'
                     }, {
-                        field: 'workspace5',
-                        title: '状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'requestAmount',
+                        title: '借款金额'
                     }, {
-                        field: 'workspace6',
-                        title: '理财客户经理编号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'purpose',
+                        title: '借款用途'
                     }, {
-                        field: 'workspace7',
-                        title: '理财客户经理代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'repaymentType',
+                        title: '还款方式'
                     }, {
-                        field: 'workspace8',
-                        title: '理财客户经理姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'duration',
+                        title: '借款期限'
                     }, {
-                        field: 'workspace9',
-                        title: '理财渠道代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'interestRate',
+                        title: '借款利率'
+                    }, {
+                        field: 'serviceFeeRate',
+                        title: '服务费率'
                     }, {
                         field: 'workspace10',
-                        title: '理财渠道名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        title: '返利利率'
                     }, {
-                        field: 'workspace10',
-                        title: '注册类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'status',
+                        title: '状态'
                     }, {
-                        field: 'workspace10',
-                        title: '是否本公司员工',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'publishTime',
+                        title: '发布时间'
                     }, {
-                        field: 'workspace10',
-                        title: '邮编',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingDeadline',
+                        title: '满标时间'
                     }, {
-                        field: 'workspace10',
-                        title: '地址',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'createDatetime',
+                        title: '创建时间'
                     }, {
-                        field: 'workspace10',
-                        title: '是否新手',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '试投金状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'updateDatetime',
+                        title: '更新时间'
                     }, {
                         field: 'flag',
-                        title: '操作',
-                        align: 'center',
-                        valign: 'middle',
+                        title: '查看',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn-primary': editRow
                         }
                     }]
                 }
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                var btnHtml = [
+                    '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'
+                ];
+                return btnHtml.join('');
             }
 
         })();
 
-        $scope.search = function() {
+        function editRow(e, value, row, index) {
+            $state.go('project.check.proDetail', { id: row.id });
+        }
+        /*$scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
             console.log('aaa');
-        };
+        };*/
 
-        $scope.reset = function() {
+        /*$scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
             console.log('aaa');
-        };
+        };*/
     }];
 });

@@ -89,7 +89,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('project.release.release', lazyLoad.config('/release', '/view/project/release/release.html', 'controller/project/release/release', { directives: [], services: ['service/borrower'], filters: [] }))
                 //结标审核
                 .state('project.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/project'], filters: [] }))
+                .state('project.check.proDetail',lazyLoad.config('/check/:id','/view/project/check/proDetail.html','controller/project/check/proDetail',{ directives: [], services: ['service/project', 'service/meta'], filters: [] }))
                 //项目还款计划
                 .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('project.repayment.repayment', lazyLoad.config('/repayment', '/view/project/repayment/repayment.html', 'controller/project/repayment/repayment', { directives: [], services: ['service/borrower'], filters: [] }))
