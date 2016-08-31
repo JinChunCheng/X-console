@@ -77,19 +77,19 @@
             "state": "project",
             "subMenus": [{
                 "text": "项目列表",
-                "state": "project.info.info"
+                "state": "project.info.list"
             }, {
                 "text": "新增项目",
-                "state": "project.new.new"
+                "state": "project.info.add"
             }, {
                 "text": "发布审核",
-                "state": "project.release.release"
+                "state": "project.info.release"
             }, {
                 "text": "结标审核",
                 "state": "project.check.check"
             }, {
                 "text": "项目还款计划列表",
-                "state": "project.repayment.repayment"
+                "state": "project.repayment.list"
             }]
         }, {
             "text": "资金管理",
@@ -180,23 +180,6 @@
             }, {
                 "text": "ERP接口",
                 "state": "financial.ERP.ERP"
-            }]
-        }, {
-            "text": "营销管理",
-            "icon": "icon-screen-desktop",
-            "state": "marketing",
-            "subMenus": [{
-                "text": "短信列表",
-                "state": "marketing.message.message"
-            }, {
-                "text": "短信渠道",
-                "state": "marketing.channel.channel"
-            }, {
-                "text": "邮件日志",
-                "state": "marketing.mail.mail"
-            }, {
-                "text": "系统公告列表",
-                "state": "marketing.notice.notice"
             }]
         }, {
             "text": "统计报表",

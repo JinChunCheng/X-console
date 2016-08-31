@@ -209,16 +209,9 @@ define(['common/config'], function(config) {
         }, {
             key: 'LCQDMC', //理财渠道名称
             value: [
-                { value: '1001', text: '管理系统' },
-                { value: '1002', text: '钱盒' },
-                { value: '1003', text: '开通宝' }
-            ]
-        }, {
-            key: 'LCJLBH', //理财经理姓名
-            value: [
-                { value: '1001', text: '管理系统' },
-                { value: '2001', text: '钱盒' },
-                { value: '3001', text: '开通宝' }
+                { value: '1001', text: '管理系统', children: [{ code: '1001', name: '管理系统' }] },
+                { value: '1002', text: '钱盒', children: [{ code: '2001', name: '钱盒' }] },
+                { value: '1003', text: '开通宝', children: [{ code: '3001', name: '开通宝' }] }
             ]
         }, {
             key: 'SFBGSYG', //是否本公司员工
@@ -226,12 +219,6 @@ define(['common/config'], function(config) {
                 { value: 'N', text: '否' },
                 { value: 'Y', text: '是' },
                 { value: 'P', text: '待定' }
-            ]
-        }, {
-            key: 'CZLY', //操作来源
-            value: [
-                { value: 'CASHBOX', text: '钱盒' },
-                { value: 'CONSOLE', text: '管理系统' },
             ]
         }, {
             key: 'ZCLX', //注册类型
@@ -255,31 +242,59 @@ define(['common/config'], function(config) {
         }, {
             //===============================资金账户============================
             key: 'ZJZHMC', //资金账户名称
-            value: [
-                { value: 'EGSETTLE', text: '恒丰移动金融部' },
-                { value: 'EGTRUSTEE', text: '恒丰托管费' },
-                { value: 'IBOXPAY', text: '盒子资金户' },
-                { value: 'IBOXREPAYMENT', text: '盒子还款户' },
-                { value: 'IBOXSETTLE', text: '盒子结算户' },
-                { value: 'PROFIT', text: '汇和收益户' },
-                { value: 'RESERVE', text: '汇和准备金户' },
-                { value: 'TRUSTEE', text: '汇和托管户' },
-            ]
-        }, {
-            key: 'RZLX', //日志类型
-            value: [
-                { value: 'ADD', text: '手工调增' },
-                { value: 'DEPOSIT', text: '充值' },
-                { value: 'LESSEN', text: '手工调减' },
-                { value: 'LOAN', text: '放款' },
-                { value: 'PROFIT', text: '沉淀利润' },
-                { value: 'REPAYMENT', text: '还款' },
-                { value: 'RESERVE', text: '风险准备金' },
-                { value: 'SUPPLEMENT', text: '补充' },
-                { value: 'TRUSTEE_FEE', text: '托管费' },
-                { value: 'WITHDRAW', text: '提现' },
-                { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' },
-            ]
+            value: [{
+                value: 'EGSETTLE',
+                text: '恒丰移动金融部',
+                children: [
+                    { value: 'WITHDRAW', text: '提现' }, { value: 'ADD', text: '手工调增' }, { value: 'LESSEN', text: '手工调减' }
+                ]
+            }, {
+                value: 'EGTRUSTEE',
+                text: '恒丰托管费',
+                children: [
+                    { value: 'DEPOSIT', text: '充值' }, { value: 'ADD', text: '手工调增' }, { value: 'LESSEN', text: '手工调减' }
+                ]
+            }, {
+                value: 'IBOXPAY',
+                text: '盒子资金户',
+                children: [
+                    { value: 'DEPOSIT', text: '充值' }, { value: 'LOAN', text: '放款' }, { value: 'ADD', text: '手工调增' }, { value: 'LESSEN', text: '手工调减' }
+                ]
+            }, {
+                value: 'IBOXREPAYMENT',
+                text: '盒子还款户',
+                children: []
+            }, {
+                value: 'IBOXSETTLE',
+                text: '盒子结算户',
+                children: []
+            }, {
+                value: 'PROFIT',
+                text: '汇和收益户',
+                children: [
+                    { value: 'PROFIT', text: '沉淀利润' }, { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' }, { value: 'TRUSTEE_FEE', text: '托管费' }, { value: 'ADD', text: '手工调增' }, { value: 'LESSEN', text: '手工调减' }
+                ]
+            }, {
+                value: 'RESERVE',
+                text: '汇和准备金户',
+                children: [
+                    { value: 'SUPPLEMENT', text: '补充' }, { value: 'ADD', text: '手工调增' }, { value: 'LESSEN', text: '手工调减' }
+                ]
+            }, {
+                value: 'TRUSTEE',
+                text: '汇和托管户',
+                children: [
+                    { value: 'DEPOSIT', text: '充值' },
+                    { value: 'WITHDRAW', text: '提现' },
+                    { value: 'ADD', text: '手工调增' },
+                    { value: 'LESSEN', text: '手工调减' },
+                    { value: 'LOAN', text: '放款' },
+                    { value: 'REPAYMENT', text: '还款' },
+                    { value: 'PROFIT', text: '沉淀利润' },
+                    { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' },
+                    { value: 'RESERVE', text: '风险准备金' },
+                ]
+            }, ]
         }, {
             //===============================资金管理============================
             key: 'CZQD', //充值渠道
@@ -363,6 +378,32 @@ define(['common/config'], function(config) {
                 { value: 'P', text: '待出款' },
                 { value: 'E', text: '出款完成' },
                 { value: 'C', text: '出款确认' }
+            ]
+        }, {
+            key: 'ZCZT', //资产状态
+            value: [
+                { value: '-1', text: '草稿' },
+                { value: '0', text: '待审核' },
+                { value: '1', text: '审核通过' },
+                { value: '2', text: '上架' },
+                { value: '3', text: '审核不通过' },
+                { value: '4', text: '冻结' },
+                { value: '5', text: '失效' }
+            ]
+        }, {
+            key: 'XMZT',
+            value: [
+                { value: 'NEW', text: '新建' },
+                { value: 'PBR', text: '发布审核拒绝' },
+                { value: 'RPB', text: '待发布' },
+                { value: 'IPB', text: '发布中' },
+                { value: 'BDF', text: '投标完成' },
+                { value: 'BDA', text: '结标审核完成' },
+                { value: 'BDR', text: '结标审核拒绝' },
+                { value: 'IRP', text: '还款中' },
+                { value: 'OVD', text: '逾期' },
+                { value: 'NCL', text: '正常关闭' },
+                { value: 'ECL', text: '异常关闭' }
             ]
         }];
 

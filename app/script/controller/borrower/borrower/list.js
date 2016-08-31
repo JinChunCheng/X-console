@@ -3,13 +3,24 @@ define([], function() {
         function($scope, $http, metaService, $filter, $state, $resource, $timeout, $modal, $state, borrowerService) {
 
             $scope.listVM = {
+                name: {},
                 condition: {},
                 table: null,
-                status: [{ state: "O", title: '正常' }, { state: "C", title: '关闭' }],
                 add: function() {
                     $state.go('borrower.info.add')
                 }
             };
+
+            function initMetaData() {
+                metaService.getProvinces(function(res) {
+                    $scope.listVM.provinces = res;
+                });
+                metaService.getMeta('ZT', function(data) {
+                    $scope.listVM.status = data;
+                });
+            }
+            initMetaData();
+
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#borrowerTable');
             });
@@ -17,7 +28,6 @@ define([], function() {
 
             var getDataTable = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                //data = { "status": $scope.listVM.condition.status, "borrowerId": $scope.listVM.condition.borrowerId, 'name': $scope.listVM.condition.name, 'idNo': $scope.listVM.condition.idNo, 'mobile': $scope.listVM.condition.mobile };
                 var data = $scope.listVM.condition;
                 var queryCondition = { "data": data, "paginate": paganition };
                 borrowerService.borrowerListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
@@ -82,6 +92,7 @@ define([], function() {
                         }, {
                             field: 'bankProvince',
                             title: '省份',
+                            formatter: provinceFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -114,6 +125,7 @@ define([], function() {
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
+                            formatter: dateFormatter
 
                         }, {
                             field: 'flag',
@@ -132,15 +144,15 @@ define([], function() {
                 };
 
                 function statusFormatter(value, row, index) {
-                    var result = '';
-                    $scope.listVM.status.forEach(function(item) {
-                        if (value === item.code) {
-                            result = item.title;
-                            return;
-                        }
-                    });
-                    return result;
-                }
+                    return $filter('meta')(value, $scope.listVM.status);
+                };
+
+                function provinceFormatter(value, row, index) {
+                    return $filter('metaPCA')(value + '0000', $scope.listVM.provinces);
+                };
+                function dateFormatter(date) {
+                    return $filter('exDate')(date);
+                };
 
 
 
@@ -148,7 +160,6 @@ define([], function() {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
                         '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
                     ];
                     return btnHtml.join('');
                 }

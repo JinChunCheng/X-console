@@ -12,18 +12,18 @@ define([], function() {
                     $state.go('asset.info.list');
                 },
                 birthProvinceChange: function() {
-                    $scope.assetVM.birthPlace.city = null;
-                    $scope.assetVM.birthPlace.district = null;
+                    $scope.assetVM.birthCity = null;
+                    $scope.assetVM.birthDistrict = null;
                 },
                 birthCityChange: function() {
-                    $scope.assetVM.birthPlace.district = null;
+                    $scope.assetVM.birthDistrict = null;
                 },
                 localProvinceChange: function() {
-                    $scope.assetVM.localPlace.city = null;
-                    $scope.assetVM.localPlace.district = null;
+                    $scope.assetVM.localCity = null;
+                    $scope.assetVM.localDistrict = null;
                 },
                 localCityChange: function() {
-                    $scope.assetVM.localPlace.district = null;
+                    $scope.assetVM.localDistrict = null;
                 },
                 showFiles: function(type, title) {
                     showFiles(type, title);
@@ -35,15 +35,31 @@ define([], function() {
                 submit: function() {
                     $scope.assetVM.data.status = 0;
                     saveAsset();
+                },
+                provinces: [],
+                getCities: function(provinceCode) {
+                    var result = [];
+                    $scope.assetVM.provinces.forEach(function(item) {
+                        if (item.code == provinceCode) {
+                            result = item.children;
+                            return;
+                        }
+                    });
+                    return result;
+                },
+                getDistricts: function(provinceCode, cityCode) {
+                    var result = [];
+                    var cities = $scope.assetVM.getCities(provinceCode);
+                    if (cities.length > 0) {
+                        cities.forEach(function(item) {
+                            if (item.code == cityCode) {
+                                result = item.children;
+                                return;
+                            }
+                        });
+                    }
+                    return result;
                 }
-            };
-
-            $scope.dateOptions = {
-                formatYear: 'yyyy',
-                formatMonth: 'MM',
-                startingDay: 1,
-                class: 'datepicker',
-                showWeeks: false
             };
 
             (function(id) {
@@ -62,6 +78,7 @@ define([], function() {
                     toaster.pop('error', '服务器连接失败！');
                     $scope.assetVM.processing = true;
                 });
+
             })($stateParams.id);
 
             function initMetaData() {
@@ -156,25 +173,26 @@ define([], function() {
 
             function saveAsset() {
                 var asset = $scope.assetVM.data;
+
                 var birthPlace = $scope.assetVM.birthPlace;
                 var localPlace = $scope.assetVM.localPlace;
-                if (birthPlace) {
-                    if (birthPlace.province)
-                        asset.birthProvince = birthPlace.province.code;
-                    if (birthPlace.city)
-                        asset.birthCity = birthPlace.city.code;
-                    if (birthPlace.district)
-                        asset.birthDistrict = birthPlace.birthDistrict.code;
-                }
-                if (localPlace) {
-                    if (localPlace.province)
-                        asset.localProvince = localPlace.province.code;
-                    if (localPlace.city)
-                        asset.localCity = localPlace.city.code;
-                    if (localPlace.district)
-                        asset.localDistrict = localPlace.district.code;
-                }
-                asset.assetType = parseInt(asset.assetType);
+                // if (birthPlace) {
+                //     if (birthPlace.province)
+                //         asset.birthProvince = birthPlace.province.code;
+                //     if (birthPlace.city)
+                //         asset.birthCity = birthPlace.city.code;
+                //     if (birthPlace.district)
+                //         asset.birthDistrict = birthPlace.birthDistrict.code;
+                // }
+                // if (localPlace) {
+                //     if (localPlace.province)
+                //         asset.localProvince = localPlace.province.code;
+                //     if (localPlace.city)
+                //         asset.localCity = localPlace.city.code;
+                //     if (localPlace.district)
+                //         asset.localDistrict = localPlace.district.code;
+                // }
+                // asset.assetType = parseInt(asset.assetType);
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else
@@ -183,7 +201,7 @@ define([], function() {
                 function saveSuccess(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '资产保存成功！');
-                        //$state.go('asset.info.draft');
+                        $state.go('asset.info.draft');
                     } else
                         toaster.pop('error', res.msg);
                     $scope.assetVM.saving = false;

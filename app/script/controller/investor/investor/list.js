@@ -1,24 +1,45 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal', '$state', 'investorService',
-        function($scope, $http,metaService,$filter, $timeout, $modal, $state, investorService) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'investorService',
+        function($scope, $http, metaService, $filter, $timeout, $modal, $state, investorService) {
+
+            $scope.listVM = {
+                condition: {},
+                table: null,
+                add: function() {
+                    $state.go('investor.investor.add');
+                },
+            };
+
+            function initMetaData() {
+                metaService.getMeta('ZCLX', function(data) {
+                    $scope.listVM.registerType = data;
+                });
+                metaService.getMeta('SFBGSYG', function(data) {
+                    $scope.listVM.empFlag = data;
+                });
+                metaService.getMeta('STJZT', function(data) {
+                    $scope.listVM.trialFlag = data;
+                });
+                metaService.getMeta('CZLY', function(data) {
+                    $scope.listVM.operateOrigin = data;
+                });
+                metaService.getMeta('LCQDMC', function(data) {
+                    $scope.listVM.fundChannelCode = data;
+                });
+                metaService.getMeta('STJSFYSY', function(data) {
+                    $scope.listVM.trialUsed = data;
+                });
+                
+            };
+            initMetaData();
             $scope.dateOptions = {
                 formatYear: 'yy',
                 startingDay: 1,
                 class: 'datepicker',
                 showWeeks: false
             };
-            $scope.listVM = {
-                condition: {},
-                table: null,
-                add:function(){
-                    $state.go('investor.investor.add');
-                },
-                channel: [{ id: 1, title: '钱盒', content: [{ code: 1, label: '钱盒' }] }, { id: 2, title: '开通宝', content: [{ code: 1, label: '开通宝' }] }, { id: 3, title: '管理系统', content: [{ code: 1, label: '管理系统' }] }],
-                isEmployee: [{ id: 1, title: '待定' }, { id: 2, title: '否' }, { id: 3, title: '是' }],
-                status: [{ id: 1, title: '未发放' }, { id: 2, title: '已发放' }, { id: 3, title: '已回收' }],
-                operSource: [{ id: 1, title: '管理系统' }, { id: 2, title: '钱盒' }],
-                isUsed: [{ id: 1, title: '使用' }, { id: 2, title: '未使用' }],
-            };
+
+
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#investorTable');
             });
@@ -27,8 +48,8 @@ define([], function() {
             var getData = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
                 //var data = { "investorId": $scope.listVM.condition.investorId, "name": $scope.listVM.condition.name, 'loginName': $scope.listVM.condition.name, 'empFlag': $scope.listVM.condition.empFlag, 'mobile': $scope.listVM.condition.mobile , 'trialFlag': $scope.listVM.condition.trialFlag, 'operateOrigin': $scope.listVM.condition.operateOrigin, 'fundChannelCode': $scope.listVM.condition.fundChannelCode, 'fundAccountManagerId': $scope.listVM.condition.fundAccountManagerId, 'trialUsed': $scope.listVM.condition.trialUsed, 'idNo': $scope.listVM.condition.idNo,'createStartTime': $scope.listVM.condition.startDay,'createEndTime': $scope.listVM.condition.endDay,'bindIboxpayUser': $scope.listVM.condition.bindIboxpayUser};
-                var data=$scope.listVM.condition;
-                var queryCondition = { "data":data,"paginate": paganition };
+                var data = $scope.listVM.condition;
+                var queryCondition = { "data": data, "paginate": paganition };
                 investorService.investorListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({
@@ -58,145 +79,146 @@ define([], function() {
                             title: '编号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'loginName',
                             title: '登录名',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'name',
                             title: '真实姓名',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'idNo',
                             title: '身份证号码',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'mobile',
                             title: '手机号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'telephone',
                             title: '固话',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'status',
                             title: '状态',
                             align: 'center',
                             valign: 'middle',
-                            
+                            formatter:statusFormatter
+
                         }, {
                             field: 'fundAccountManagerId',
                             title: '理财客户经理编号',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'fundAccountManagerCode',
                             title: '理财客户经理代码',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'fundAccountManagerName',
                             title: '理财客户经理姓名',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'fundChannelCode',
                             title: '理财渠道代码',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'fundChannelName',
                             title: '理财渠道名称',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'registerType',
                             title: '注册类型',
                             align: 'center',
                             valign: 'middle',
-                            
+                            formatter:registerFormatter
                         }, {
                             field: 'empFlag',
                             title: '是否本公司员工',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'zipCode',
                             title: '邮编',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'address',
                             title: '地址',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'noviciate',
                             title: '是否新手',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'trialFlag',
                             title: '试投金状态',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'trialUsed',
                             title: '试投金是否已使用',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'trialAmt',
                             title: '试投金金额',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'operateOrigin',
                             title: '操作来源',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'bindIboxpayUser',
                             title: '绑定钱盒商户',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'updateDatetime',
                             title: '更新时间',
                             align: 'center',
                             valign: 'middle',
-                            
+
                         }, {
                             field: 'flag',
                             title: '操作',
@@ -221,12 +243,13 @@ define([], function() {
                 }
 
             })();
-            function detail(e,value, row, index) {
-                $state.go('investor.investor.detail',{ id: row.investorId });
+
+            function detail(e, value, row, index) {
+                $state.go('investor.investor.detail', { id: row.investorId });
             }
 
             function editRow(e, value, row, index) {
-                $state.go('investor.investor.edit', { id: row.id });
+                $state.go('investor.investor.edit', { id: row.investorId });
             }
 
             $scope.search = function() {

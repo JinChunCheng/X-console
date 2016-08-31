@@ -27,7 +27,7 @@ define(['common/config'], function(config) {
                 return dateFilter(newTime, format || 'yyyy-MM-dd');
             };
         }]],
-        //元数据过滤器
+        //普通元数据过滤器
         ['meta', [function() {
             return function(value, list) {
 
@@ -38,6 +38,25 @@ define(['common/config'], function(config) {
                 for (var i = 0; i < list.length; i++) {
                     val = list[i].value;
                     txt = list[i].text;
+                    if (val.toString().toUpperCase() == value.toString().toUpperCase()) {
+                        result = txt;
+                        break;
+                    }
+                }
+                return result;
+            };
+        }]],
+        //省市县元数据过滤器
+        ['metaPCA', [function() {
+            return function(value, list) {
+
+                if (value == undefined || value == null || !list || list.length == 0)
+                    return '';
+
+                var result = '';
+                for (var i = 0; i < list.length; i++) {
+                    val = list[i].code;
+                    txt = list[i].name;
                     if (val.toString().toUpperCase() == value.toString().toUpperCase()) {
                         result = txt;
                         break;

@@ -9,7 +9,7 @@
                     编号
                 </label>
                 <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-model="vm.data.investorId"></label>
+                    <label type="text" class="form-control" ng-bind="vm.data.investorId"></label>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':investorForm.loginName.$invalid && (investorForm.loginName.$dirty||vm.submitted)}">
@@ -41,7 +41,7 @@
                     身份认证标识
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.staticParamValue" ng-options='i as i.title for i in vm.staticParamValue'>
+                    <select class="form-control form-white" ng-model="vm.data.idAuthFlag" ng-options='i.value as i.text for i in vm.idAuthFlag'>
                     </select>
                 </div>
             </div>
@@ -77,28 +77,28 @@
                     <div class="form-error" ng-if="investorForm.zipCode.$error.pattern">邮编格式不正确!</div>
                 </div>
             </div>
-            <div class="form-group" ng-class="{'has-error':investorForm.fundChannelId.$invalid && (investorForm.fundChannelId.$dirty||vm.submitted)}">
+            <div class="form-group" ng-class="{'has-error':investorForm.fundChannelCode.$invalid && (investorForm.fundChannelCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财渠道</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundChannelId" ng-model="vm.data.fundChannelId" ng-options='c as c.title for c in vm.fundChannelCode' required>
+                    <select class="form-control form-white" name="fundChannelCode" ng-model="vm.data.fundChannelCode" ng-options='c.value as c.text for c in vm.fundChannelCode' required>
                     </select>
-                    <div class="form-error" ng-if="investorForm.fundChannelId.$error.required">理财渠道不能为空!</div>
+                    <div class="form-error" ng-if="investorForm.fundChannelCode.$error.required">理财渠道不能为空!</div>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':investorForm.fundAccountManagerCode.$invalid && (investorForm.fundAccountManagerCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财客户经理</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerCode" ng-options='c as c.title for c in vm.fundChannelCode' required>
+                    <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerCode" ng-options='c.code as c.name for c in vm.data.fundChannelCode.children' required>
                     </select>
                     <div class="form-error" ng-if="investorForm.fundAccountManagerCode.$error.required">理财客户经理不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-class="{'has-error':investorForm.staticParamValue.$invalid && (investorForm.staticParamValue.$dirty||vm.submitted)}">
+            <div class="form-group" ng-class="{'has-error':investorForm.empFlag.$invalid && (investorForm.empFlag.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">是否本公司员工</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="staticParamValue" ng-model="vm.data.staticParamValue" ng-options='c as c.title for c in vm.fundChannelCode' required>
+                    <select class="form-control form-white" name="empFlag" ng-model="vm.data.empFlag" ng-options='c.value as c.text for c in vm.empFlag' required>
                     </select>
-                    <div class="form-error" ng-if="investorForm.staticParamValue.$error.required">是否本公司员工不能为空!</div>
+                    <div class="form-error" ng-if="investorForm.empFlag.$error.required">是否本公司员工不能为空!</div>
                 </div>
             </div>
             <div class="form-group" ng-show="vm.action=='edit'">
@@ -106,7 +106,7 @@
                     状态
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.status" ng-options='s as s.title for s in vm.status'>
+                    <select class="form-control form-white" ng-model="vm.data.status" ng-options='s.value as s.text for s in vm.status'>
                     </select>
                 </div>
             </div>

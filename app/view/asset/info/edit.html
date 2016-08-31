@@ -57,7 +57,7 @@
                                         <div class="form-group">
                                             <label class="control-label">出生日期</label>
                                             <div class="append-icon">
-                                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.birthdate" is-open="birthdayOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened=true" />
+                                                <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.birthdate" is-open="birthdayOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened=true" />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@
                                         <div class="form-group">
                                             <label class="control-label">出生地</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.birthPlace.province" ng-options="p as p.name for p in assetVM.provinces" ng-change="assetVM.birthProvinceChange()">
+                                                <select class="form-control" ng-model="assetVM.data.birthProvince" ng-options="p.code as p.name for p in assetVM.provinces" ng-change="assetVM.birthProvinceChange()">
                                                     <option value="">- 请选择省份 -</option>
                                                 </select>
                                             </div>
@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label class="control-label">城市</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.birthPlace.city" ng-options="c as c.name for c in assetVM.birthPlace.province.children" ng-change="assetVM.birthCityChange()">
+                                                <select class="form-control" ng-model="assetVM.data.birthCity" ng-options="c.code as c.name for c in assetVM.getCities(assetVM.data.birthProvince)" ng-change="assetVM.birthCityChange()">
                                                     <option value="">- 请选择城市 -</option>
                                                 </select>
                                             </div>
@@ -118,7 +118,7 @@
                                         <div class="form-group">
                                             <label class="control-label">地区</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.birthPlace.district" ng-options="a as a.name for a in assetVM.birthPlace.city.children">
+                                                <select class="form-control" ng-model="assetVM.data.birthDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.birthProvince,assetVM.data.birthCity)">
                                                     <option value="">- 请选择地区 -</option>
                                                 </select>
                                             </div>
@@ -130,7 +130,7 @@
                                         <div class="form-group">
                                             <label class="control-label">所在省份</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.localPlace.province" ng-options="p as p.name for p in assetVM.provinces" ng-change="assetVM.localProvinceChange()">
+                                                <select class="form-control" ng-model="assetVM.data.localProvince" ng-options="p.code as p.name for p in assetVM.provinces" ng-change="assetVM.localProvinceChange()">
                                                     <option value="">- 请选择省份 -</option>
                                                 </select>
                                             </div>
@@ -140,7 +140,7 @@
                                         <div class="form-group">
                                             <label class="control-label">城市</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.localPlace.city" ng-options="c as c.name for c in assetVM.localPlace.province.children" ng-change="assetVM.localCityChange()">
+                                                <select class="form-control" ng-model="assetVM.data.localCity" ng-options="c.code as c.name for c in assetVM.getCities(assetVM.data.localProvince)" ng-change="assetVM.localCityChange()">
                                                     <option value="">- 请选择城市 -</option>
                                                 </select>
                                             </div>
@@ -150,7 +150,7 @@
                                         <div class="form-group">
                                             <label class="control-label">地区</label>
                                             <div>
-                                                <select class="form-control" ng-model="assetVM.localPlace.district" ng-options="a as a.name for a in assetVM.localPlace.city.children">
+                                                <select class="form-control" ng-model="assetVM.data.localDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.localProvince,assetVM.data.localCity)">
                                                     <option value="">- 请选择地区 -</option>
                                                 </select>
                                             </div>
@@ -308,7 +308,7 @@
                                         <div class="form-group">
                                             <label class="control-label">入职时间</label>
                                             <div class="append-icon">
-                                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.entryDate" is-open="entryDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="entryDateOpened=true" />
+                                                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="assetVM.data.entryDate" is-open="entryDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="entryDateOpened=true" />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>
@@ -473,7 +473,7 @@
                                         <div class="form-group">
                                             <label class="control-label">截止日期</label>
                                             <div class="append-icon">
-                                                <input type="text" class="form-control" ng-model="assetVM.data.loanDate">
+                                                <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.loanDate" is-open="loanDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="loanDateOpened=true" />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>

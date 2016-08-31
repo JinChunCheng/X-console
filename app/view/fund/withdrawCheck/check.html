@@ -1,6 +1,6 @@
 <form name="pageForm" class="bs-example form-horizontal">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="cancel()"><i class="icons-office-52"></i></button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()"><i class="icons-office-52"></i></button>
         <h4 class="modal-title">申请信息</h4>
     </div>
     <div class="modal-body p-r">
@@ -39,7 +39,7 @@
                         </th>
                         <th colspan="5">
                             <div class="col-sm-12">
-                                <textarea type="text" name="name" ng-bind="checkVM.suggest"></textarea>
+                                <textarea type="text" name="name" ng-model="checkVM.memo"></textarea>
                             </div>
                         </th>
                     </tr>

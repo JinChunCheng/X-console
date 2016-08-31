@@ -9,15 +9,20 @@ define([], function() {
         $scope.listView = {
             condition: {},
             table: null,
-            status: [{ id: 1, title: '申请' }, { id: 2, title: '批准' }, { id: 3, title: '拒绝' }],
             search: function() {
                 search();
             },
             reset: function reset() {
                 $scope.listView.condition = {};
             },
-
         };
+
+        function initMetaData() {
+            metaService.getMeta('TXSHZT', function(data) {
+                $scope.listView.status = data;
+            });
+        }
+        initMetaData();
 
         function search() {
             $scope.listView.table.bootstrapTable('refresh')
@@ -171,40 +176,48 @@ define([], function() {
                         });
                     })();
                     $scope.cancel = function(id) {
-                        var data= {withdrawBackId:$scope.checkOneVM.withdrawBackId,op: "靳春城", memo: $scope.checkOneVM.memo, status: "D"};
-                            fundService.backCheckOne.update({id: row.id}, data).$promise.then(function(res) {
-                                if (res.code == 200) {
-                                    toaster.pop('success', '提现回退请求拒绝成功！');
-                                    $modalInstance.dismiss();
-                                    search();
-                                } else
-                                    toaster.pop('error', res.msg);
-                            }, function(err) {
-                                toaster.pop('error', '服务器连接失败！');
-                            });
+                        var data = { withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "D" };
+                        fundService.batchUpdatePlatform($scope.checkOneVM.withdrawBackId, data, "PUT").then(function(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '提现回退请求拒绝成功！');
+                                $modalInstance.dismiss();
+                                search();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }, function(err) {
+                            toaster.pop('error', '服务器连接失败！');
+                        });
                         return true;
                     };
 
                     $scope.ok = function() {
-                            fundService.batchUpdatePlatform({ withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" },"PUT").then(function(res) {
-                                if (res.code == 200) {
-                                    toaster.pop('success', '审核成功！');
-                                } else
-                                    toaster.pop('error', res.msg);
-                            }, function(err) {
-                                toaster.pop('error', '服务器连接失败！');
-                            });
-                        $modalInstance.dismiss();
-                        search();
+                        fundService.batchUpdatePlatform($scope.checkOneVM.withdrawBackId, { withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" }, "PUT").then(function(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '审核成功！');
+                                $modalInstance.dismiss();
+                                search();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }, function(err) {
+                            toaster.pop('error', '服务器连接失败！');
+                        });
                         return true;
                     };
+                    $scope.close = function() {
+                        $modalInstance.dismiss();
+                    }
                 }
             });
 
         };
+        //批量审核
         $scope.checkRow = function(e, value, row, index) {
             var text = $scope.listView.table.bootstrapTable('getAllSelections');
             var withdrawNum = text.length;
+            if (text.length == 0) {
+                toaster.pop('error', "请先选择要审核的行");
+                return;
+            }
             $modal.open({
                 templateUrl: 'view/fund/fallback/check.html',
                 size: 'lg',
@@ -220,31 +233,48 @@ define([], function() {
                     $scope.checkVM.withdrawAmount = withdrawAmount.toFixed(2);
                     //提现服务费
                     var withdrawFee = 0;
-                    text.forEach(function(item) {
-                        withdrawFee += parseFloat(item.serviceFee);
-                    });
                     $scope.checkVM.withdrawFee = withdrawFee.toFixed(2);
+
+                    var wbIds = text.map(function(item) {
+                        withdrawFee += parseFloat(item.serviceFee);
+                        return item.id;
+                    }).join(',');
+
+                    console.log(wbIds)
                     $scope.cancel = function() {
-                        $modalInstance.dismiss();
-                        return false;
+                        var data = { withdrawBackIds: wbIds, op: "靳春城", memo: $scope.checkVM.memo, status: "D" };
+                        fundService.refuseCheckRows(data).then(function(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '提现回退请求拒绝成功！');
+                                $modalInstance.dismiss();
+                                search();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }, function(err) {
+                            toaster.pop('error', '服务器连接失败！');
+                        });
+                        return true;
                     };
 
                     $scope.ok = function() {
-                            var ids = $scope.listVM.checked.map(function(item) {
-                                return item.id;
-                            }).join(',');
-                            fundService.batchUpdatePlatform({ withdrawBackIds: ids, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" },"PUT").then(function(res) {
-                                if (res.code == 200) {
-                                    toaster.pop('success', '批量审核成功！');
-                                } else
-                                    toaster.pop('error', res.msg);
-                            }, function(err) {
-                                toaster.pop('error', '服务器连接失败！');
-                            });
-                        $modalInstance.dismiss();
-                        search();
+                        var ids = $scope.listVM.checked.map(function(item) {
+                            return item.id;
+                        }).join(',');
+                        fundService.batchUpdatePlatform({ withdrawBackIds: ids, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" }, "PUT").then(function(res) {
+                            if (res.code == 200) {
+                                toaster.pop('success', '批量审核批准成功！');
+                                $modalInstance.dismiss();
+                                search();
+                            } else
+                                toaster.pop('error', res.msg);
+                        }, function(err) {
+                            toaster.pop('error', '服务器连接失败！');
+                        });
                         return true;
                     };
+                    $scope.close = function() {
+                        $modalInstance.dismiss();
+                    }
                 }
             });
 
