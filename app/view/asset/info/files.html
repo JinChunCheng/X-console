@@ -1,24 +1,38 @@
-    <div class="modal-header">
-        <h4 class="modal-title" ng-bind="filesVM.title"></h4>
-    </div>
-    <div class="modal-body p-r">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>文件</th>
-                    <th class="w-100">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="file in filesVM.files">
-                    <td ng-bind="$index+1"></td>
-                    <td><a ng-href="{{file.url}}" ng-bind="file.url"></a></td>
-                    <td><a href="" class="m-r-5">下载</a><a href="">删除</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click="cancel()">关闭</button>
-    </div>
+<div class="modal-header">
+    <h4 class="modal-title" ng-bind="filesVM.title"></h4>
+</div>
+<div class="modal-body p-r">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>文件</th>
+                <th class="w-100">操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="file in filesVM.files">
+                <td ng-bind="$index+1"></td>
+                <td>
+                    <a ng-href="{{file.originalName}}" ng-bind="file.originalName"></a>
+                </td>
+                <td><a href="">删除</a></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    <input id="btnUpload" type="file" base-sixty-four base-sixty-four-success="filesVM.fileSuccess(file, data, formData)" file-max-size="1" style="display:none;" />
+                    <button type="button" class="btn btn-info btn-sm" onclick="$('#btnUpload').click()" ng-disabled="filesVM.uploading">
+                        上传文件
+                        <i class="fa fa-spin fa-spinner m-l-2" ng-if="filesVM.uploading" ng-cloak></i>
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" ng-click="filesVM.ok()">确定</button>
+    <button type="button" class="btn btn-default" ng-click="filesVM.cancel()">关闭</button>
+</div>

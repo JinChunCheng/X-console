@@ -92,7 +92,6 @@ define([], function() {
                                         $modal.open({
                                             templateUrl: 'view/shared/confirm.html',
                                             size: 'sm',
-                                            // backdrop: true,
                                             controller: function($scope, $modalInstance) {
                                                 $scope.confirmData = {
                                                     text: text,
