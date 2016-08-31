@@ -81,7 +81,7 @@
                                     </th>
                                     <th>
                                         <div class="col-sm-12">
-                                            <label type="text" name="name" ng-bind="listView.condition.requestDatetime"></label>
+                                            <label type="text" name="name" ng-bind="listView.condition.requestDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                         </div>
                                     </th>
                                     <th class='w-120'>
@@ -89,7 +89,7 @@
                                     </th>
                                     <th>
                                         <div class="col-sm-12">
-                                            <label type="text" name="name" ng-bind="listView.condition.status"></label>
+                                            <label type="text" name="name" ng-bind="listView.condition.status|meta:listView.status"></label>
                                         </div>
                                     </th>
                                     <th class='w-120'>
@@ -97,7 +97,7 @@
                                     </th>
                                     <th>
                                         <div class="col-sm-12">
-                                            <label type="text" name="name" ng-bind="listView.condition.approveDatetime"></label>
+                                            <label type="text" name="name" ng-bind="listView.condition.approveDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                         </div>
                                     </th>
                                 </tr>

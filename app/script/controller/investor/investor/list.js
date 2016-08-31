@@ -11,6 +11,9 @@ define([], function() {
             };
 
             function initMetaData() {
+                metaService.getMeta('ZT', function(data) {
+                    $scope.listVM.status = data;
+                });
                 metaService.getMeta('ZCLX', function(data) {
                     $scope.listVM.registerType = data;
                 });
@@ -24,12 +27,17 @@ define([], function() {
                     $scope.listVM.operateOrigin = data;
                 });
                 metaService.getMeta('LCQDMC', function(data) {
-                    $scope.listVM.fundChannelCode = data;
+                    $scope.listVM.fundChannelName = data;
                 });
                 metaService.getMeta('STJSFYSY', function(data) {
                     $scope.listVM.trialUsed = data;
                 });
-                
+                metaService.getMeta('LCJLXM', function(data) {
+                    $scope.listVM.fundAccountManagerName = data;
+                });
+                metaService.getMeta('SFXS', function(data) {
+                    $scope.listVM.noviciate = data;
+                });
             };
             initMetaData();
             $scope.dateOptions = {
@@ -115,7 +123,7 @@ define([], function() {
                             title: '状态',
                             align: 'center',
                             valign: 'middle',
-                            formatter:statusFormatter
+                            formatter: statusFormatter
 
                         }, {
                             field: 'fundAccountManagerId',
@@ -132,6 +140,7 @@ define([], function() {
                         }, {
                             field: 'fundAccountManagerName',
                             title: '理财客户经理姓名',
+                            formatter: fundAccountManagerNameFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -144,6 +153,7 @@ define([], function() {
                         }, {
                             field: 'fundChannelName',
                             title: '理财渠道名称',
+                            formatter: fundChannelNameFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -152,10 +162,11 @@ define([], function() {
                             title: '注册类型',
                             align: 'center',
                             valign: 'middle',
-                            formatter:registerFormatter
+                            formatter: registerFormatter
                         }, {
                             field: 'empFlag',
                             title: '是否本公司员工',
+                            formatter: empFlagFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -174,6 +185,7 @@ define([], function() {
                         }, {
                             field: 'noviciate',
                             title: '是否新手',
+                            formatter:noviciateFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -181,12 +193,14 @@ define([], function() {
                             field: 'trialFlag',
                             title: '试投金状态',
                             align: 'center',
+                            formatter: trialFlagFormatter,
                             valign: 'middle',
 
                         }, {
                             field: 'trialUsed',
                             title: '试投金是否已使用',
                             align: 'center',
+                            formatter: trialUsedFormatter,
                             valign: 'middle',
 
                         }, {
@@ -198,6 +212,7 @@ define([], function() {
                         }, {
                             field: 'operateOrigin',
                             title: '操作来源',
+                            formatter: operateOriginFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -233,6 +248,41 @@ define([], function() {
                         }]
                     }
                 };
+
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.status);
+                }
+
+                function registerFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.registerType);
+                }
+
+                function empFlagFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.empFlag);
+                }
+
+                function trialFlagFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.trialFlag);
+                }
+
+                function trialUsedFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.trialUsed);
+                }
+
+                function operateOriginFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.operateOrigin);
+                }
+
+                function fundChannelNameFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.fundChannelName);
+                }
+
+                function fundAccountManagerNameFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.fundAccountManagerName);
+                }
+                function noviciateFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.noviciateFormatter);
+                }
 
                 function flagFormatter(value, row, index) {
                     var btnHtml = [

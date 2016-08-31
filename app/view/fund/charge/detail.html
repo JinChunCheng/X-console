@@ -57,7 +57,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.accountSubjectCode"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.accountSubjectCode|meta:vm.subject"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -67,7 +67,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.status"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.status|meta:vm.status"></label>
                                     </div>
                                 </th>
                                 <th class='w-140'>
@@ -75,7 +75,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.paymentType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.paymentType|meta:vm.paymentType"></label>
                                     </div>
                                 </th>
                                 <th class='w-140'>
@@ -83,7 +83,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.paymentChannel"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.paymentChannel|meta:vm.paymentChannel"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -109,7 +109,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.createDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.createDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -119,7 +119,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.finishDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.rechargeVO.finishDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-140'>

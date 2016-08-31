@@ -80,7 +80,7 @@
             <div class="form-group" ng-class="{'has-error':investorForm.fundChannelCode.$invalid && (investorForm.fundChannelCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财渠道</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundChannelCode" ng-model="vm.data.fundChannelCode" ng-options='c.value as c.text for c in vm.fundChannelCode' required>
+                    <select class="form-control form-white" name="fundChannelCode" ng-model="vm.data.fundChannelCode" ng-change="vm.fundChannelChange()" ng-options='c.value as c.text for c in vm.fundChannelCode' required>
                     </select>
                     <div class="form-error" ng-if="investorForm.fundChannelCode.$error.required">理财渠道不能为空!</div>
                 </div>
@@ -88,7 +88,7 @@
             <div class="form-group" ng-class="{'has-error':investorForm.fundAccountManagerCode.$invalid && (investorForm.fundAccountManagerCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财客户经理</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerCode" ng-options='c.code as c.name for c in vm.data.fundChannelCode.children' required>
+                    <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerCode" ng-options='c.value as c.text for c in vm.getManager(vm.data.fundChannelCode)' required>
                     </select>
                     <div class="form-error" ng-if="investorForm.fundAccountManagerCode.$error.required">理财客户经理不能为空!</div>
                 </div>
