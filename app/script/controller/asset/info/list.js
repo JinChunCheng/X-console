@@ -68,7 +68,6 @@ define([], function() {
              */
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
@@ -174,7 +173,13 @@ define([], function() {
                 }
 
                 function loanRemarkFormatter(value, row, index) {
-                    return row.name + ', 借款' + (row.amount || 0) + '元, 用于' + (row.loanUse || '');
+                    var list = [];
+                    if (row.name)
+                        list.push(row.name);
+                    list.push('借款' + (row.amount || 0) + '元')
+                    if (row.loanUse)
+                        list.push('用于' + row.loanUse);
+                    return list.join('，');
                 }
 
                 function dateFormatter(value, row, index) {

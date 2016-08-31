@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'assetService', 'metaService', 'toaster',
-        function($scope, $timeout, $state, $stateParams, $modal, assetService, metaService, toaster) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', '$filter', 'assetService', 'metaService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, $filter, assetService, metaService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -9,7 +9,7 @@ define([], function() {
                 title: $stateParams.id ? '修改资产信息' : '新增资产信息',
                 data: {},
                 cancel: function() {
-                    $state.go('asset.info.list');
+                    $state.go('asset.info.draft');
                 },
                 birthProvinceChange: function() {
                     $scope.assetVM.birthCity = null;
@@ -146,6 +146,8 @@ define([], function() {
 
 
             function showFiles(type, title) {
+                var allFiles = $scope.assetVM.data.files || [];
+                var files = $filter('filter')(allFiles, { type: type });
                 title = title || '文件列表';
                 $modal.open({
                     templateUrl: 'view/asset/info/files.html',
@@ -154,18 +156,39 @@ define([], function() {
                         $scope.filesVM = {
                             title: title,
                             processing: false,
-                            files: [
-                                { "name": "审批文件01", "url": "/data/files/shenpi01.doc" },
-                                { "name": "身份证", "url": "/data/files/shenpi01.doc" },
-                                { "name": "资产证明", "url": "/data/files/shenpi01.doc" },
-                                { "name": "营业执照", "url": "/data/files/shenpi01.doc" },
-                                { "name": "借款协议", "url": "/data/files/shenpi01.doc" },
-                                { "name": "调查文件", "url": "/data/files/shenpi01.doc" }
-                            ]
+                            files: files,
+                            fileSuccess: fileSuccess,
+                            ok: ok,
+                            cancel: cancel
                         };
-                        $scope.cancel = function() {
+
+                        function ok() {
+                            allFiles = $scope.filesVM.files;
+                        }
+
+                        function cancel() {
                             $modalInstance.dismiss();
                             return false;
+                        }
+
+                        function fileSuccess(file, data, formData) {
+                            $scope.filesVM.uploading = true;
+                            assetService.upload(formData).then(function(res) {
+                                if (res.code == 200) {
+                                    $scope.filesVM.files.push({
+                                        originalName: res.data[0],
+                                        path: res.data[0],
+                                        fileUseageType: type,
+                                        fileType: file.type,
+                                        fileSize: file.size
+                                    });
+                                } else
+                                    toaster.pop('error', res.msg);
+                                $scope.filesVM.uploading = false;
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接出错！');
+                                $scope.filesVM.uploading = false;
+                            });
                         }
                     }
                 });
