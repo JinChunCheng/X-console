@@ -25,10 +25,10 @@ define([], function () {
                                 //$timeout(function () {
                                 //        $scope.confirmData.processing = false;
                                 //    }, 1000);
-                                projectService.finishAudit({
+                                projectService.finishAudit({data:{
                                     projectId: $stateParams.id,
                                     status: 'DBA'
-                                }).then(function (res) {
+                                }}).then(function (res) {
                                     if (res.code == 200) {
                                         toaster.pop('success', '操作成功！');
                                         $modalInstance.close($state.go('project.check.check'));
@@ -62,8 +62,10 @@ define([], function () {
                             $scope.ok = function () {
                                 $modalInstance.close($state.go('project.check.check'));
                                 projectService.finishAudit({
-                                    projectId: $stateParams.id,
-                                    status: 'DBR'
+                                    data:{
+                                        projectId: $stateParams.id,
+                                        status: 'DBR'
+                                    }
                                 });
                                 return true;
                             
