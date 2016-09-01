@@ -18,7 +18,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.borrowerId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -26,7 +26,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.name"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -34,7 +34,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.idNo"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -44,7 +44,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.requestAmount"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.requestAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -52,10 +52,9 @@
                                 </th>
                                 <th colspan="3">
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.purpose"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.purpose"></label>
                                     </div>
                                 </th>
-
                             </tr>
 
                             <tr>
@@ -67,7 +66,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -75,7 +74,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectName"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectName"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -83,7 +82,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.prodTypeId"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -93,7 +92,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -101,7 +100,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.repaymentType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.repaymentType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -109,7 +108,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.serviceFeeRate"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.serviceFeeRate"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -119,7 +118,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.duration"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -127,7 +126,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.interestRate"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.loanRate"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -145,7 +144,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.contractTemplateId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.contractTemplateId"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -153,7 +152,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.duration"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -161,7 +160,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.guaranteeFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guaranteeFlag"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -171,7 +170,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.guarantee"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guarantee"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -179,7 +178,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.mortgageFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgageFlag"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -187,7 +186,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.mortgage"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgage"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -197,7 +196,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.biddingDeadline"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingDeadline"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -205,7 +204,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.description"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.description"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -213,7 +212,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.memo"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.memo"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -227,7 +226,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.biddingStartAmount"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingStartAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -235,7 +234,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.biddingStepAmount"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingStepAmount"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -243,7 +242,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.biddingEndAmount"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingEndAmount"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -253,7 +252,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.publishType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -269,7 +268,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.biddingProgress"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingProgress"></label>
                                     </div>
                                 </th>
                             </tr>

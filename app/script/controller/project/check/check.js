@@ -21,6 +21,7 @@ define([], function() {
 
         var getData = function(params) {
             projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                res.data.paginate = res.data.paginate || { totalCount: 0 };
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items
