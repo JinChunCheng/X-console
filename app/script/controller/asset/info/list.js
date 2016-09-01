@@ -217,6 +217,8 @@ define([], function() {
 
                 function verifyCancel(e, value, row, index) {
                     verify(row.id, 0, '确定取消审核该资产？');
+                    e.stopPropagation();
+                    e.preventDefault();
                 }
 
                 function verify(id, status, text) {

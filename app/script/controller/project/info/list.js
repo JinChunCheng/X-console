@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$filter', '$modal', 'projectService', 'metaService',
-        function($scope, $http, $filter, $modal, projectService, metaService) {
+    return ['$scope', '$http', '$filter', '$state', '$modal', 'projectService', 'metaService',
+        function($scope, $http, $filter, $state, $modal, projectService, metaService) {
 
             /**
              * the default search condition
@@ -36,6 +36,7 @@ define([], function() {
 
             var getData = function(params) {
                 projectService.project.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                    res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items
@@ -61,7 +62,7 @@ define([], function() {
                             { field: 'projectType', title: '项目类型' },
                             { field: 'status', title: '状态', formatter: statusFormatter },
                             { field: 'borrowerId', title: '借款人编号' },
-                            { field: '', title: '借款人' },
+                            { field: 'borrowerName', title: '借款人' },
                             { field: 'requestAmount', title: '借款金额' },
                             { field: 'purpose', title: '借款用途' },
                             { field: 'displayChannelCode', title: '显示渠道' },
@@ -87,28 +88,8 @@ define([], function() {
                                 clickToSelect: false,
                                 formatter: flagFormatter,
                                 events: {
-                                    'click .btn': function(e, value, row, index) {
-                                        var text = "确定删除此记录？";
-                                        $modal.open({
-                                            templateUrl: 'view/shared/confirm.html',
-                                            size: 'sm',
-                                            controller: function($scope, $modalInstance) {
-                                                $scope.confirmData = {
-                                                    text: text,
-                                                    processing: false
-                                                };
-                                                $scope.cancel = function() {
-                                                    $modalInstance.dismiss();
-                                                    return false;
-                                                };
-
-                                                $scope.ok = function() {
-                                                    delUser(item.id, $scope, $modalInstance);
-                                                    return true;
-                                                };
-                                            }
-                                        });
-
+                                    'click [name="btnDetail"]': function(e, value, row, index) {
+                                        $state.go('project.info.detail', { id: row.projectId });
                                     }
                                 }
                             }
@@ -129,7 +110,7 @@ define([], function() {
                 }
 
                 function flagFormatter(value, row, index) {
-                    return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                    return '<button name="btnDetail" class="btn btn-xs btn-transparent btn-default" title="查看项目信息"><i class="fa fa-file-o"></i></button>';
                 }
 
             })();

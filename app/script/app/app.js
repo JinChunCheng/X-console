@@ -25,7 +25,7 @@ define([
                 //跨域请求统一参数配置
                 //允许传入cookie值到服务端
                 $httpProvider.defaults.withCredentials = true;
-
+                
                 $httpProvider.interceptors.push(['$rootScope', '$q', '$injector', function($rootScope, $q, $injector) {
                     return {
                         response: function(response) {

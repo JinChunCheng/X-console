@@ -1,18 +1,18 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService',
+        function($scope, $http, $timeout, $modal, $state, assetService) {
 
             /**
              * the default search condition
              * @type {Object}
              */
+            var status = 1;
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: {}
+                data: { status: status }
             };
 
             $scope.listVM = {
@@ -22,9 +22,14 @@ define([], function() {
                 add: function() {
                     $state.go('asset.info.add');
                 },
-                batchUpload: function() {
-
+                search: search,
+                reset: function() {
+                    $scope.listVM.condition = angular.copy(defaultCondition);
                 }
+            };
+
+            function search() {
+                $scope.listVM.table.bootstrapTable('refresh');
             };
 
             /**
@@ -36,22 +41,13 @@ define([], function() {
                 $scope.listVM.table = $('#tobeReleaseTable');
             });
 
-
-            var getData = function(params) {
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+            var findAsset = function(params) {
+                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                    res.data.paginate = res.data.paginate || { totalCount: 0 };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -63,8 +59,7 @@ define([], function() {
                         pagination: true,
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
-                        ajax: getData,
-                        onPageChange: pageChange,
+                        ajax: findAsset,
                         sidePagination: "server",
                         columns: [
                             { field: 'id', title: '编号', align: 'center', valign: 'middle' },
@@ -103,18 +98,6 @@ define([], function() {
                 }
 
             })();
-
-            $scope.search = function() {
-                $scope.listVM.table.bootstrapTable('refresh');
-            };
-
-            $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-                console.log('page change');
-            };
         }
     ];
 });

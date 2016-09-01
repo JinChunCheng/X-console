@@ -58,7 +58,8 @@ define(['common/config'], function(config) {
                 return $http({
                         method: 'POST',
                         url: config.ASSET_CONSOLE + '/asset/verify',
-                        data: { id: id, status: status }
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        data: $.param({ id: id, status: status })
                     })
                     .then(function(res) {
                             if (res) {
