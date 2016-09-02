@@ -1,5 +1,5 @@
 <div class="header">
-    <h2><i class="fa fa-dashboard"></i>用户信息</h2>
+    <h2><i class="fa fa-dashboard"></i>投资信息</h2>
 </div>
 <div class="panel m-t-10">
     <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
@@ -11,7 +11,7 @@
                         <tbody>
                         <tr>
                             <th class='w-120'>
-                                用户编号
+                                项目编号
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -19,7 +19,7 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                用户名
+                                项目名称
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -27,7 +27,7 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                姓名
+                                投资人编号
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -37,7 +37,7 @@
                         </tr>
                         <tr>
                             <th class='w-120'>
-                                部门
+                                投资人名称
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -45,7 +45,7 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                手机
+                                还款方式
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -53,7 +53,7 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                电话
+                                期限
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -63,7 +63,7 @@
                         </tr>
                         <tr>
                             <th class='w-120'>
-                                Email
+                                开始日期
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -71,33 +71,26 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                有效期
+                                结束日期
                             </th>
                             <th>
                                 <div class="col-sm-12">
                                     <label type="text" name="name" ng-bind=""></label>
                                 </div>
                             </th>
-                            <th class='w-120'>
-                                动态口令序列号
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
                             <th class='w-120'>
                                 状态
                             </th>
                             <th>
                                 <div class="col-sm-12">
                                     <label type="text" name="name" ng-bind=""></label>
+                                    <button type="button" class="cancel btn  btn-primary" ng-click="vm.repayList()">投资还款计划列表</button>
                                 </div>
                             </th>
+                        </tr>
+                        <tr>
                             <th class='w-120'>
-                                加密等级
+                                借款利率
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -105,7 +98,41 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                更新时间
+                                本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                利息
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                已付本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                剩余本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                合同生成标志
                             </th>
                             <th>
                                 <div class="col-sm-12">
@@ -123,30 +150,69 @@
                                 </div>
                             </th>
                             <th class='w-120'>
-                                角色
+                                理财渠道编号
                             </th>
-                            <th colspan="3">
+                            <th>
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>角色编号</td>
-                                            <td>角色名称</td>
-                                            <td>描述</td>
-                                        </tr>
-                                        <tr>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                        </tr>
-                                    </table>
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财渠道名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th class='w-120'>
-                                备注
+                                理财客户经理编号
                             </th>
-                            <th colspan="5">
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财客户经理代码
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财客户经理名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                更新时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                是否包含试投金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind=""></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                试投金金额
+                            </th>
+                            <th>
                                 <div class="col-sm-12">
                                     <label type="text" name="name" ng-bind=""></label>
                                 </div>

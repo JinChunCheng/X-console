@@ -1,5 +1,5 @@
 <div class="header">
-    <h2><i class="fa fa-dashboard"></i>用户信息</h2>
+    <h2><i class="fa fa-dashboard"></i>投标信息</h2>
 </div>
 <div class="panel m-t-10">
     <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
@@ -11,19 +11,37 @@
                         <tbody>
                         <tr>
                             <th class='w-120'>
-                                用户编号
+                                投标编号
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingId"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
-                                用户名
+                                项目编号
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                项目名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.projectName"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                投资人编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.investorId"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -31,85 +49,41 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.investorName"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                登录名
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.loginName"></label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th class='w-120'>
-                                部门
+                                投标金额
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingAmount"></label>
                                 </div>
                             </th>
-                            <th class='w-120'>
-                                手机
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                            <th class='w-120'>
-                                电话
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th class='w-120'>
-                                Email
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                            <th class='w-120'>
-                                有效期
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                            <th class='w-120'>
-                                动态口令序列号
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
                             <th class='w-120'>
                                 状态
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.statusName"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
-                                加密等级
+                                投标时间
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
-                                </div>
-                            </th>
-                            <th class='w-120'>
-                                更新时间
-                            </th>
-                            <th>
-                                <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingDatetime"></label>
                                 </div>
                             </th>
                         </tr>
@@ -119,36 +93,33 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.createDatetime"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
-                                角色
+                                更新时间
                             </th>
-                            <th colspan="3">
+                            <th>
                                 <div class="col-sm-12">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td>角色编号</td>
-                                            <td>角色名称</td>
-                                            <td>描述</td>
-                                        </tr>
-                                        <tr>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                            <td><label type="text" name="name" ng-bind=""></label></td>
-                                        </tr>
-                                    </table>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.updateDatetime"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                是否包含试投金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.hasTrial"></label>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th class='w-120'>
-                                备注
+                                试投金金额
                             </th>
                             <th colspan="5">
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind=""></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.trialAmt"></label>
                                 </div>
                             </th>
                         </tr>

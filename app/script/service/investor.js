@@ -19,9 +19,12 @@ define([], function(config) {
         //新增投资人信息
         var createInvestor = $resource('http://172.21.20.12:8080/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投标列表
-        var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var tenderList = $resource('/script/data/borrower-list.json', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var tenderList = $resource('http://172.21.20.13:8080/bidding/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var tenderDetail = $resource('http://172.21.20.13:8080/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
-
+        //var infoList = $resource('http://172.21.20.13:8080/Bidding/id/:id',  { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var infoList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             resource: investorRes,
             //投标人列表
@@ -31,6 +34,9 @@ define([], function(config) {
             updateInvestorDetail:updateInvestorDetail,
             updateInvestor:updateInvestor,
             createInvestor:createInvestor,
+            tenderList:tenderList,
+            infoList:infoList,
+            tenderDetail:tenderDetail,
             /**
              * get investor list
              * @param  {string} data 

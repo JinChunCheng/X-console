@@ -63,16 +63,19 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
 
             //投资人修改审核列表
             .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
-                .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor'], filters: [] }))
                 //新增投标
-                .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.new.list', lazyLoad.config('/new', '/view/investor/new/list.html', 'controller/investor/new/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/investor'], filters: [] }, true))
+                .state('investor.new.list', lazyLoad.config('/new', '/view/investor/new/list.html', 'controller/investor/new/list', { directives: [], services: ['service/investor'], filters: [] }))
                 //投标列表
-                .state('investor.tender', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.tender.list', lazyLoad.config('/tender', '/view/investor/tender/list.html', 'controller/investor/tender/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.tender', lazyLoad.config('/tender', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('investor.tender.list', lazyLoad.config('/list', '/view/investor/tender/list.html', 'controller/investor/tender/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.tender.detail',lazyLoad.config('/detail/:id','/view/investor/tender/detail.html','controller/investor/tender/detail',{ directives: [], services: ['service/investor', 'service/meta'], filters: [] }))
+
                 //投资列表
-                .state('investor.info', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.info.list', lazyLoad.config('/info', '/view/investor/info/list.html', 'controller/investor/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('investor.info.list', lazyLoad.config('/list', '/view/investor/info/list.html', 'controller/investor/info/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.info.detail',lazyLoad.config('/detail/:id','/view/investor/info/detail.html','controller/investor/info/detail',{ directives: [], services: ['service/investor', 'service/meta'], filters: [] }))
 
             // investor module end
 
