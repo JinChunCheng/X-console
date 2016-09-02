@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">打印号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.printCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.remitPrintId">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">付费资金账户标示</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.paidAccount">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.payCapitalAccountId">
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">收费资金账户标示</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.tollAccount">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.receiveCapitalAccountId">
                             </div>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">划账类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.depositType" ng-options='d as d.title for d in listView.depositType'>
+                                <select class="form-control form-white" ng-model="listView.condition.remitPrintTypeName" ng-options='d as d.title for d in listView.depositType'>
                                 </select>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.statusName" ng-options='s as s.title for s in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -65,11 +65,11 @@
                             <span class="input-group-addon">日期</span>
                              <div class="input-group">
                                  <div>
-                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.startDate" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
                                  </div>
                                  <span class="input-group-addon">~</span>
                                  <div>
-                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.endDate" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
                                  </div>
                              </div>
                         </div>
