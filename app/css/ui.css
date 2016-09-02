@@ -1579,7 +1579,7 @@ input:-webkit-autofill {
 }
 .form-horizontal .control-label {
   color: #3E484E;
-  text-align: left;
+  text-align: right;
   top: 10px;
 }
 .form-horizontal .prepend-icon i {

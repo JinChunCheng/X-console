@@ -9,7 +9,7 @@
                     资金账户标识
                 </label>
                 <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-model="vm.data.capitalAccountId"></label>
+                    <label type="text" class="form-control" ng-bind="vm.data.capitalAccountId"></label>
                 </div>
             </div>
             <div class="form-group">
@@ -17,7 +17,7 @@
                     账户名称
                 </label>
                 <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-model="vm.data.capitalAccountNo"></label>
+                    <label type="text" class="form-control" ng-bind="vm.data.capitalAccountNo|meta:vm.capitalAccountNo"></label>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':accountForm.bankAccountName.$invalid && (accountForm.bankAccountName.$dirty||vm.submitted)}">
@@ -40,28 +40,28 @@
                     余额
                 </label>
                 <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-model="vm.data.balance"></label>
+                    <label type="text" class="form-control" ng-bind="vm.data.balance"></label>
                 </div>
             </div>
             <!-- TODO开户行这里需要一个能够搜索的下拉列表 -->
             <div class="form-group" ng-class="{'has-error':accountForm.bankCode.$invalid && (accountForm.bankCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">开户行</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="bankCode" ng-model="vm.data.bankCode" ng-options='b.code as b.title for b in vm.bankCode' required></select>
+                    <select class="form-control" name="bankCode" ng-model="vm.data.bankCode" ng-options='b.code as b.name for b in vm.bankCode' required></select>
                     <div class="form-error" ng-if="accountForm.bankCode.$error.required">开户行不能为空!</div>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':accountForm.bankProvince.$invalid && (accountForm.bankProvince.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">开户行省份</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="bankProvince" ng-model="vm.data.bankProvince" ng-options='b.code as b.title for b in vm.bankProvince' required></select>
+                    <select class="form-control" name="bankProvince" ng-change="vm.bankProvinceChange()" ng-model="vm.data.bankProvince" ng-options='b.code as b.name for b in vm.bankProvince' required></select>
                     <div class="form-error" ng-if="accountForm.bankProvince.$error.required">开户行省份不能为空!</div>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':accountForm.bankCity.$invalid && (accountForm.bankCity.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">开户行城市</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="bankCity" ng-model="vm.data.bankCity" ng-options='b.code as b.title for b in vm.bankCity' required></select>
+                    <select class="form-control" name="bankCity" ng-model="vm.data.bankCity" ng-options='b.code as b.name for b in vm.getCities(vm.data.bankProvince)' required></select>
                     <div class="form-error" ng-if="accountForm.bankCity.$error.required">开户行城市不能为空!</div>
                 </div>
             </div>

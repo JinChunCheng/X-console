@@ -49,7 +49,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bankProvince"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankProvince+'0000'|metaPCA:vm.provinces"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -57,7 +57,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bankCity"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankCity+'00'|metaPCA:vm.bankCity"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -168,7 +168,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.requestDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.requestDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -176,7 +176,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.exeChannel"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.exeChannel|meta:vm.exeChannel"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -186,7 +186,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.approveDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.approveDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -202,7 +202,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.exeDate"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.exeDate|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -212,7 +212,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.status"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.status|meta:vm.status"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -220,7 +220,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.operateOrigin"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.operateOrigin|meta:vm.operateOrigin"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>

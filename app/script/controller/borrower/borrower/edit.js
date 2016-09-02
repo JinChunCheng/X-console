@@ -31,6 +31,9 @@ define([], function() {
             metaService.getProvinces(function(res) {
                 $scope.vm.provinces = res;
             });
+            metaService.getCities(function(res) {
+                $scope.vm.bankCity = res;
+            });
             metaService.getMeta('ZT', function(data) {
                 $scope.vm.status = data;
             });
@@ -52,6 +55,7 @@ define([], function() {
                     //基本信息展示
                     $scope.vm.data = res.data.borrowerDetail;
                     $scope.vm.data.bankProvince += '0000';
+                    $scope.vm.data.bankCity += '00';
                 });
             }
             return;
@@ -64,7 +68,10 @@ define([], function() {
                     if (res.code == 200) {
                         toaster.pop('success', '新增借款人成功！');
                         $state.go("borrower.info.list");
-                    }
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
 
                 });
                 return;
@@ -74,7 +81,10 @@ define([], function() {
                 if (res.code == 200) {
                     toaster.pop('success', '修改借款人成功！');
                     $state.go("borrower.info.list");
-                }
+                } else
+                    toaster.pop('error', res.msg);
+            }, function(err) {
+                toaster.pop('error', '服务器连接失败！');
             });
         }
 

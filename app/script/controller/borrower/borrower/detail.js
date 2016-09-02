@@ -14,6 +14,9 @@ define([], function() {
                 metaService.getProvinces(function(res) {
                     $scope.vm.provinces = res;
                 });
+                metaService.getCities(function(res) {
+                    $scope.vm.bankCity = res;
+                });
                 metaService.getMeta('ZT', function(data) {
                     $scope.vm.status = data;
                 });
@@ -110,7 +113,7 @@ define([], function() {
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
-                            formatter:dateFormatter
+                            formatter: dateFormatter
 
                         }, {
                             field: 'memo',
@@ -129,6 +132,7 @@ define([], function() {
                 function logFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.vm.borrowerAccountLogType);
                 };
+
                 function dateFormatter(date) {
                     return $filter('exDate')(date);
                 };

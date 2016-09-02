@@ -336,6 +336,22 @@ define(['common/config'], function(config) {
                 ]
             }, ]
         }, {
+            //资金账户日志类型
+            key: 'ZJZHRZLX',
+            value: [
+                { value: 'DEPOSIT', text: '充值' },
+                { value: 'WITHDRAW', text: '提现' },
+                { value: 'ADD', text: '手工调增' },
+                { value: 'LESSEN', text: '手工调减' },
+                { value: 'LOAN', text: '放款' },
+                { value: 'REPAYMENT', text: '还款' },
+                { value: 'PROFIT', text: '沉淀利润' },
+                { value: 'SUPPLEMENT', text: '补充' },
+                { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' },
+                { value: 'RESERVE', text: '风险准备金' },
+                { value: 'TRUSTEE_FEE', text: '托管费' },
+            ]
+        }, {
             //===============================资金管理============================
             key: 'CZQD', //充值渠道
             value: [
@@ -460,6 +476,8 @@ define(['common/config'], function(config) {
             return null;
         };
         var provinces = [];
+        var cities = [];
+
 
         return {
             getMeta: function(code, callback) {
@@ -494,9 +512,9 @@ define(['common/config'], function(config) {
                     });
             },
             getCities: function(callback) {
-                if (provinces && provinces.length > 0) {
+                if (cities && cities.length > 0) {
                     if (typeof callback == 'function')
-                        callback(provinces);
+                        callback(cities);
                     return false;
                 }
                 $http({

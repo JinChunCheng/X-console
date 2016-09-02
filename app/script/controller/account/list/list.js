@@ -1,10 +1,25 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$timeout', '$modal', '$state', 'accountService',
-        function($scope, $http, $state, $timeout, $modal, $state, accountService) {
+    return ['$scope', '$http', '$state', '$timeout', '$modal', '$state', 'accountService', '$filter', 'metaService',
+
+        function($scope, $http, $state, $timeout, $modal, $state, accountService, $filter, metaService) {
             $scope.listVM = {
                 condition: {},
                 table: null,
             };
+
+            function initMetaData() {
+                metaService.getMeta('ZJZHMC', function(data) {
+                    $scope.listVM.capitalAccountNo = data;
+                });
+                metaService.getProvinces(function(res) {
+                    $scope.listVM.bankProvince = res;
+                });
+                metaService.getCities(function(res) {
+                    $scope.listVM.bankCity = res;
+                });
+            }
+            initMetaData();
+
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#fundAccountListTable');
             });
@@ -51,21 +66,21 @@ define([], function() {
                             valign: 'middle',
 
                         }, {
-                            //TODO该字段还未确定
-                            field: 'bankAccountName',
+                            field: 'capitalAccountNo',
                             title: '账户名称',
-                            align: 'center',
-                            valign: 'middle',
-
-                        }, {
-                            field: 'bankAccountName',
-                            title: '银行账户名称',
+                            formatter: capitalAccountNoFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'balance',
                             title: '资金余额',
+                            align: 'center',
+                            valign: 'middle',
+
+                        }, {
+                            field: 'bankAccountName',
+                            title: '银行账户名称',
                             align: 'center',
                             valign: 'middle',
 
@@ -84,12 +99,14 @@ define([], function() {
                         }, {
                             field: 'bankProvince',
                             title: '开户行省份',
+                            formatter: provinceFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'bankCity',
                             title: '开户行地市',
+                            formatter: cityFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -114,12 +131,14 @@ define([], function() {
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
+                            formatter: dateFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'updateDatetime',
                             title: '更新时间',
+                            formatter: updateFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -139,13 +158,30 @@ define([], function() {
                     }
                 };
 
+                function capitalAccountNoFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.capitalAccountNo)
+                };
+
+                function provinceFormatter(value, row, index) {
+                    return $filter('metaPCA')(value + '0000', $scope.listVM.bankProvince)
+                };
+
+                function cityFormatter(value, row, index) {
+                    return $filter('metaPCA')(value + '00', $scope.listVM.bankCity)
+                };
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
+                };
+
+
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
                         '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
                     ];
                     return btnHtml.join('');
-                }
+                };
 
             })();
 

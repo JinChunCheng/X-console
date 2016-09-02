@@ -31,7 +31,7 @@ define([], function() {
                 $scope.listView.operateOrigin = data;
             });
             metaService.getCities(function(res) {
-               $scope.listView.bankCity=res;
+                $scope.listView.bankCity = res;
             });
         };
         initMetaData();
@@ -184,9 +184,11 @@ define([], function() {
             function exeChannelFormatter(value, row, index) {
                 return $filter("meta")(value, $scope.listView.exeChannel)
             };
-function cityFormatter(value, row, index) {
-                return $filter('metaPCA')(value+'00', $scope.listView.bankCity);
+
+            function cityFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '00', $scope.listView.bankCity);
             }
+
             function operateOriginFormatter(value, row, index) {
                 return $filter("meta")(value, $scope.listView.operateOrigin)
             };

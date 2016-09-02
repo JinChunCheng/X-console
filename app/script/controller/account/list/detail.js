@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'accountService',
-        function($scope, $timeout, $state, $stateParams, accountService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', 'accountService','$filter', 'metaService',
+        function($scope, $timeout, $state, $stateParams, accountService,$filter, metaService) {
             $scope.vm = {
                 condition: {},
                 table: null,
@@ -12,9 +12,23 @@ define([], function() {
                 bsAccountDetailTableControl: {},
             };
 
-            //$scope.$on('$viewContentLoaded', function() {
-                $scope.vm.table = $('#accountDetailTable');
-            //});
+            function initMetaData() {
+                metaService.getMeta('ZJZHMC', function(data) {
+                    $scope.vm.capitalAccountNo = data;
+                });
+                metaService.getMeta('ZJZHRZLX', function(data) {
+                    $scope.vm.capitalAccountLogType = data;
+                });
+                metaService.getProvinces(function(res) {
+                    $scope.vm.bankProvince = res;
+                });
+                metaService.getCities(function(res) {
+                    $scope.vm.bankCity = res;
+                });
+            }
+            initMetaData();
+            $scope.vm.table = $('#accountDetailTable');
+
 
             function init() {
 
@@ -37,13 +51,15 @@ define([], function() {
                             align: 'center',
                             valign: 'middle',
                         }, {
-                            field: 'capitalAccountNoName',
+                            field: 'capitalAccountNo',
+                            formatter: capitalAccountNoFormatter,
                             title: '账户名称',
                             align: 'center',
                             valign: 'middle',
                         }, {
                             field: 'capitalAccountLogType',
                             title: '日志类型',
+                            formatter:capitalAccountLogTypeFormatter,
                             align: 'center',
                             valign: 'middle',
                         }, {
@@ -84,10 +100,12 @@ define([], function() {
                         }, {
                             field: 'relBankProvince',
                             title: '开户行省份',
+                            formatter:provinceFormatter,
                             align: 'center',
                             valign: 'middle',
                         }, {
                             field: 'relBankCity',
+                            formatter:cityFormatter,
                             title: '开户行地市',
                             align: 'center',
                             valign: 'middle',
@@ -99,10 +117,26 @@ define([], function() {
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
+                            formatter:dateFormatter,
                             align: 'center',
                             valign: 'middle',
                         }]
                     }
+                };
+                function capitalAccountNoFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.vm.capitalAccountNo)
+                };
+                function provinceFormatter(value, row, index) {
+                    return $filter('metaPCA')(value+'0000', $scope.vm.bankProvince)
+                };
+                function cityFormatter(value, row, index) {
+                    return $filter('metaPCA')(value+'00', $scope.vm.bankCity)
+                };
+                function capitalAccountLogTypeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.vm.capitalAccountLogType)
+                };
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
                 };
             }
 

@@ -59,6 +59,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor.investor.add', lazyLoad.config('/add', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.edit', lazyLoad.config('/edit/:id', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.detail', lazyLoad.config('/detail/:id', '/view/investor/investor/detail.html', 'controller/investor/investor/detail', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
+                .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
 
             //投资人修改审核列表
             .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
