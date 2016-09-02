@@ -13,7 +13,7 @@ define([], function() {
 
             function initMetaData() {
                 metaService.getProvinces(function(res) {
-                    $scope.listVM.provinces = res;
+                    $scope.listVM.bankProvince = res;
                 });
                 metaService.getCities(function(res) {
                     $scope.listVM.bankCity = res;
@@ -152,11 +152,18 @@ define([], function() {
                 };
 
                 function provinceFormatter(value, row, index) {
-                    return $filter('metaPCA')(value + '0000', $scope.listVM.provinces);
+                    if (value.length == 2) {
+                        return $filter('metaPCA')(value + '0000', $scope.listVM.bankProvince);
+                    }
+                    return $filter('metaPCA')(value, $scope.listVM.bankProvince);
                 };
 
                 function cityFormatter(value, row, index) {
-                    return $filter('metaPCA')(value + '00', $scope.listVM.bankCity);
+                    if (value.length == 4) {
+                        return $filter('metaPCA')(value + '00', $scope.listVM.bankCity);
+                    }
+                    return $filter('metaPCA')(value, $scope.listVM.bankCity);
+
                 }
 
                 function dateFormatter(date) {

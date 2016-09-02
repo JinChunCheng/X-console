@@ -20,17 +20,22 @@ define([], function(config) {
         var createInvestor = $resource('http://172.21.20.12:8080/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投标列表
         var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //投资列表
-
+        //投资人银行账户列表
+        var bankListTable=$resource('http://172.21.20.12:8080/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //新增投资人银行信息
+        var createBankAcc=$resource('http://172.21.20.12:8080/investor/addInvestorBank', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+        
         return {
             resource: investorRes,
             //投标人列表
             investorListTable:investorListTable,
-            investorDetailLabel:investorDetailLabel,
+            investorDetailLabel:investorDetailLabel, 
             investorDetailTable:investorDetailTable,
             updateInvestorDetail:updateInvestorDetail,
             updateInvestor:updateInvestor,
             createInvestor:createInvestor,
+            bankListTable:bankListTable,
+            createBankAcc:createBankAcc,
             /**
              * get investor list
              * @param  {string} data 

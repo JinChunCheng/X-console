@@ -14,7 +14,7 @@
             <div class="form-group" ng-class="{'has-error':maintainForm.bankAccount.$invalid && (maintainForm.bankAccount.$dirty||vm.submitted)}">
                 <label class="col-sm-1 control-label">银行账号</label>
                 <div class="col-sm-11">
-                    <input type="text" name="bankAccount" ng-blur='vm.getBankName(vm.data.bankAccount)' ng-model="vm.data.bankAccount" class="form-control" required ng-pattern="/^[A-Za-z0-9]{12,24}$/">
+                    <input type="text" name="bankAccount" ng-model="vm.data.bankAccount" class="form-control" required ng-pattern="/^[A-Za-z0-9]{12,24}$/">
                     <div class="form-error" ng-if="maintainForm.bankAccount.$error.required">银行账号不能为空!</div>
                     <div class="form-error" ng-if="maintainForm.bankAccount.$error.pattern">银行账号长度必须在12-24位之间!</div>
                 </div>
@@ -22,7 +22,7 @@
             <div class="form-group" ng-class="{'has-error':maintainForm.bankCode.$invalid && (maintainForm.bankCode.$dirty||vm.submitted)}">
                 <label class="col-sm-1 control-label">银行</label>
                 <div class="col-sm-11">
-                    <label class="form-control" name="bankCode" ng-bind="vm.data.bankCode" required></label>
+                    <input class="form-control" name="bankCode" ng-model="vm.data.bankName" required>
                     <div class="form-error" ng-if="maintainForm.bankCode.$error.required">开户行不能为空!</div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="form-group" ng-class="{'has-error':maintainForm.bankProvince.$invalid && (maintainForm.bankProvince.$dirty||vm.submitted)}">
                 <label class="col-sm-1 control-label">省份</label>
                 <div class="col-sm-11">
-                    <select class="form-control" name="bankProvince" ng-change="vm.bankProvinceChange()" ng-model="vm.data.bankProvince" ng-options='b.code as b.name for b in vm.provinces' required></select>
+                    <select class="form-control" name="bankProvince" ng-change="vm.bankProvinceChange()" ng-model="vm.data.bankProvince" ng-options='b.code as b.name for b in vm.bankProvince' required></select>
                     <div class="form-error" ng-if="maintainForm.bankProvince.$error.required">省份不能为空!</div>
                 </div>
             </div>
