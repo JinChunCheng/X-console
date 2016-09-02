@@ -5,6 +5,25 @@
     <form class="form-horizontal" novalidate ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
+                <div class="col-sm-12 m-b-10">
+                        <div class="input-group">
+                            <span class="input-group-addon">用户</span>
+                            <ui-select ng-model="listVM.user" theme="bootstrap">
+                                <ui-select-match placeholder="输入用户名查询">{{listVM.user.name}}</ui-select-match>
+                                <ui-select-choices repeat="item in listVM.userList | filter: $select.search" refresh="refreshUser($select.search)" refresh-delay="500">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                    <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="input-group-btn">
+                    <button type="button" ng-click="listVM.user = undefined" class="btn btn-default h-35" ng-if="!listVM.userLoading" ng-cloak>
+                         <span class="glyphicon glyphicon-trash"></span> </button>
+                            <span class="btn btn-default h-35" ng-if="listVM.userLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                            </span>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
                         <div class="col-sm-12">

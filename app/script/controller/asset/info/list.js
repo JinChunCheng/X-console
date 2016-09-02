@@ -271,7 +271,7 @@ define([], function() {
                             }
 
                             $scope.ok = function() {
-                                assetService.asset.delete({ id: row.id }).$promise.then(function(res) {
+                                assetService.deleteAsset(row.id).then(function(res) {
                                     if (res.code == 200) {
                                         toaster.pop('success', '删除成功！');
                                         search();

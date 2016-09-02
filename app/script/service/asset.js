@@ -73,6 +73,25 @@ define(['common/config'], function(config) {
                         }
                     );
             },
+            deleteAsset: function(id) {
+                return $http({
+                        method: 'DELETE',
+                        url: config.ASSET_CONSOLE + '/asset/' + id,
+                        //headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                        data: null
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
             /**
              * verify asset
              * @param  {string} ids      platform id list
