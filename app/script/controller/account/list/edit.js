@@ -1,16 +1,44 @@
 define([], function() {
-    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', 'accountService', function($scope, toaster, $timeout, $state, $stateParams, metaService, accountService) {
+    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', 'accountService', '$filter', function($scope, toaster, $timeout, $state, $stateParams, metaService, accountService, $filter) {
 
         $scope.vm = {
             title: '修改资金账户信息',
-            bank: [{ id: 1, title: '农业银行' }, { id: 2, title: '工商银行' }, { id: 1, title: '人民银行' }, { id: 2, title: '建设银行' }],
-
             data: {},
             cancel: function() {
                 $state.go('account.list.list');
             },
+            bankProvince: [],
+            bankProvinceChange: function() {
+                $scope.vm.data.bankCity = null;
+            },
+            getCities: function(provinceCode) {
+                var result = [];
+                $scope.vm.bankProvince.forEach(function(item) {
+                    if (item.code == provinceCode) {
+                        result = item.children;
+                        return;
+                    }
+                });
+                return result;
+            },
             submit: submit
         };
+
+        function initMetaData() {
+            metaService.getMeta('ZJZHMC', function(data) {
+                $scope.vm.capitalAccountNo = data;
+            });
+            metaService.getMeta('ZJZHRZLX', function(data) {
+                $scope.vm.capitalAccountLogType = data;
+            });
+            metaService.getProvinces(function(res) {
+                $scope.vm.bankProvince = res;
+            });
+            metaService.getCities(function(res) {
+                $scope.vm.bankCity = res;
+            });
+        }
+        initMetaData();
 
         function submit(invalid) {
             $scope.vm.submitted = true;
@@ -24,6 +52,8 @@ define([], function() {
             accountService.accountDetailLabel.get({ id: $stateParams.id }).$promise.then(function(res) {
                 //基本信息展示
                 $scope.vm.data = res.data;
+                $scope.vm.data.bankProvince += '0000';
+                $scope.vm.data.bankCity += '00';
             })
             return;
         })();
@@ -36,13 +66,6 @@ define([], function() {
                 }
             });
         }
-
-        function initMetaData() {
-            metaService.getProvinces(function(res) {
-                $scope.vm.provinces = res;
-            });
-        }
-        initMetaData();
 
     }];
 });

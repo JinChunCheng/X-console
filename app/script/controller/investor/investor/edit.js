@@ -72,7 +72,10 @@ define([], function() {
                     if (res.code == 200) {
                         toaster.pop('success', '新增投资人信息成功！');
                         $state.go("investor.investor.list");
-                    }
+                    }else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
 
                 });
                 return;
@@ -82,7 +85,10 @@ define([], function() {
                 if (res.code == 200) {
                     toaster.pop('success', '修改投资人信息成功！');
                     $state.go("investor.investor.list");
-                }
+                }else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
             });
         }
 

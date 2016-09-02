@@ -1,8 +1,8 @@
 define([], function() {
-    return ['$scope', '$state','projectService', function($scope,$state,projectService) {
+    return ['$scope', '$state', 'projectService', function($scope, $state, projectService) {
 
         var defaultCondition = {
-            data: {},
+            data: { status: 'BDF' },
             paginate: {
                 pageNum: 1,
                 pageSize: 10

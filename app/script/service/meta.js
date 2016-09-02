@@ -22,6 +22,12 @@ define(['common/config'], function(config) {
                 { value: '0', text: '无' }
             ]
         }, {
+            key: 'YOUWU', //有无
+            value: [
+                { value: 'Y', text: '有' },
+                { value: 'N', text: '无' }
+            ]
+        }, {
             key: 'ZCLX', //资产类型
             value: [
                 { value: '1', text: '车贷' },
@@ -122,9 +128,12 @@ define(['common/config'], function(config) {
         }, {
             key: 'HKFS', //还款方式
             value: [
-                { value: '1', text: '到期还本付息' },
-                { value: '2', text: '等本等费' },
-                { value: '3', text: '先息后本' }
+                // { value: '1', text: '到期还本付息' },
+                // { value: '2', text: '等本等费' },
+                // { value: '3', text: '先息后本' }
+                { value: 'ETP', text: '等额本息' },
+                { value: 'SPM', text: '到期还本付息' },
+                { value: 'IOP', text: '每期偿还利息' }
             ]
         }, {
             key: 'HKLY', //还款来源
@@ -141,10 +150,10 @@ define(['common/config'], function(config) {
                 { value: '3', text: '亲属' }
             ]
         }, {
-            key: 'JBFS', //结算方式
+            key: 'JBFS', //结标方式
             value: [
-                { value: '1', text: '自动' },
-                { value: '2', text: '手动' }
+                { value: 'A', text: '自动' },
+                { value: 'B', text: '手动' }
             ]
         }, {
             key: 'SJJRFS', //数据接入方式
@@ -242,9 +251,14 @@ define(['common/config'], function(config) {
         }, {
             key: 'LCQDMC', //理财渠道名称
             value: [
-                { value: '1001', text: '管理系统', children: [{ value: '1001', text: '管理系统' }] },
-                { value: '1002', text: '钱盒', children: [{ value: '2001', text: '钱盒' }] },
-                { value: '1003', text: '开通宝', children: [{ value: '3001', text: '开通宝' }] }
+                { id: 1, value: '1001', text: '管理系统', children: [{ id: 1, value: '1001', text: '管理系统' }] },
+                { id: 2, value: '1002', text: '钱盒', children: [{ id: 1, value: '2001', text: '钱盒' }] },
+                { id: 3, value: '1003', text: '开通宝', children: [{ id: 1, value: '3001', text: '开通宝' }] }
+            ]
+        }, {
+            key: 'SXQD', //授信渠道
+            value: [
+                { id: 1, value: '0001', text: '汇和金服', children: [{ id: 1, value: '1001', text: '汇和金服' }] }
             ]
         }, {
             key: 'LCJLXM', //理财经理姓名
@@ -335,6 +349,22 @@ define(['common/config'], function(config) {
                     { value: 'RESERVE', text: '风险准备金' },
                 ]
             }, ]
+        }, {
+            //资金账户日志类型
+            key: 'ZJZHRZLX',
+            value: [
+                { value: 'DEPOSIT', text: '充值' },
+                { value: 'WITHDRAW', text: '提现' },
+                { value: 'ADD', text: '手工调增' },
+                { value: 'LESSEN', text: '手工调减' },
+                { value: 'LOAN', text: '放款' },
+                { value: 'REPAYMENT', text: '还款' },
+                { value: 'PROFIT', text: '沉淀利润' },
+                { value: 'SUPPLEMENT', text: '补充' },
+                { value: 'WITHDRAW_SERVICE_FEE', text: '提现手续费' },
+                { value: 'RESERVE', text: '风险准备金' },
+                { value: 'TRUSTEE_FEE', text: '托管费' },
+            ]
         }, {
             //===============================资金管理============================
             key: 'CZQD', //充值渠道
@@ -448,6 +478,23 @@ define(['common/config'], function(config) {
                 { value: 'NCL', text: '正常关闭' },
                 { value: 'ECL', text: '异常关闭' }
             ]
+        }, {
+            key: 'CPLX', //产品类型(汇赚钱)
+            value: [
+                { value: '0101', text: '汇赚钱理财' },
+                { value: '0901', text: '房贷' },
+                { value: '0801', text: '车贷' }
+            ]
+        }, {
+            key: 'XMLX', //项目类型
+            value: [
+                { value: 'NOR', text: '普通推荐' }
+            ]
+        }, {
+            key: 'HTMB', //合同模板
+            value: [
+                { value: '1', text: '合同模板' }
+            ]
         }];
 
         //获取某项元数据列表
@@ -460,6 +507,8 @@ define(['common/config'], function(config) {
             return null;
         };
         var provinces = [];
+        var cities = [];
+
 
         return {
             getMeta: function(code, callback) {
@@ -494,9 +543,9 @@ define(['common/config'], function(config) {
                     });
             },
             getCities: function(callback) {
-                if (provinces && provinces.length > 0) {
+                if (cities && cities.length > 0) {
                     if (typeof callback == 'function')
-                        callback(provinces);
+                        callback(cities);
                     return false;
                 }
                 $http({

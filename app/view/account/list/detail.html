@@ -32,7 +32,7 @@
                                 <th>
                                     <div class="col-sm-12">
                                     <!-- TODO 该字段未确定-->
-                                        <label type="text" name="name" ng-bind="vm.data.bankAccountName"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.capitalAccountNo|meta:vm.capitalAccountNo"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -68,7 +68,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bankProvince"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankProvince+'0000'|metaPCA:vm.bankProvince"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -76,7 +76,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.bankCity"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.bankCity+'00'|metaPCA:vm.bankCity"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -110,7 +110,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.createDatetime"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.createDatetime|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                             </tr>

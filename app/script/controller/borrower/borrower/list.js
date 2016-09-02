@@ -15,6 +15,9 @@ define([], function() {
                 metaService.getProvinces(function(res) {
                     $scope.listVM.provinces = res;
                 });
+                metaService.getCities(function(res) {
+                    $scope.listVM.bankCity = res;
+                });
                 metaService.getMeta('ZT', function(data) {
                     $scope.listVM.status = data;
                 });
@@ -99,6 +102,7 @@ define([], function() {
                         }, {
                             field: 'bankCity',
                             title: '地市',
+                            formatter: cityFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -150,6 +154,11 @@ define([], function() {
                 function provinceFormatter(value, row, index) {
                     return $filter('metaPCA')(value + '0000', $scope.listVM.provinces);
                 };
+
+                function cityFormatter(value, row, index) {
+                    return $filter('metaPCA')(value + '00', $scope.listVM.bankCity);
+                }
+
                 function dateFormatter(date) {
                     return $filter('exDate')(date);
                 };

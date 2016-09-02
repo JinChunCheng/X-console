@@ -58,7 +58,27 @@ define(['common/config'], function(config) {
                 return $http({
                         method: 'POST',
                         url: config.ASSET_CONSOLE + '/asset/verify',
-                        data: { id: id, status: status }
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        data: $.param({ id: id, status: status })
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            deleteAsset: function(id) {
+                return $http({
+                        method: 'DELETE',
+                        url: config.ASSET_CONSOLE + '/asset/' + id,
+                        //headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+                        data: null
                     })
                     .then(function(res) {
                             if (res) {

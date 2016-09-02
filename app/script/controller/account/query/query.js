@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'accountService', 'metaService', function($scope, $http, $timeout, $modal, accountService, metaService) {
+    return ['$scope', '$http', '$timeout', '$modal', 'accountService', 'metaService', '$filter', 'metaService', function($scope, $http, $timeout, $modal, accountService, metaService, $filter, metaService) {
         $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
@@ -9,25 +9,20 @@ define([], function() {
         $scope.listView = {
             condition: {},
             table: null,
-            accountType: [],
-            getLogType: function(accountType) {
-                var result = [];
-                $scope.listView.accountType.forEach(function(item) {
-                    if (item.value == accountType) {
-                        result = item.children;
-                        return;
-                    }
-                });
-                return result;
-            },
-            optionChange:function(){
-                $scope.listView.condition.logType = null;
-            }
         };
 
         function initMetaData() {
             metaService.getMeta('ZJZHMC', function(data) {
-                $scope.listView.accountType = data;
+                $scope.listView.capitalAccountNo = data;
+            });
+            metaService.getMeta('ZJZHRZLX', function(data) {
+                $scope.listView.capitalAccountLogType = data;
+            });
+            metaService.getProvinces(function(res) {
+                $scope.listView.bankProvince = res;
+            });
+            metaService.getCities(function(res) {
+                $scope.listView.bankCity = res;
             });
         }
         initMetaData();
@@ -66,13 +61,15 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'capitalAccountNoName',
+                        field: 'capitalAccountNo',
                         title: '账号名称',
+                        formatter: capitalAccountNoFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
                         field: 'capitalAccountLogType',
                         title: '日志类型',
+                        formatter: capitalAccountLogTypeFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -113,11 +110,13 @@ define([], function() {
                     }, {
                         field: 'relBankProvince',
                         title: '开户行省份',
+                        formatter: provinceFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
                         field: 'relBankCity',
                         title: '开户行地市',
+                        formatter: cityFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -127,11 +126,36 @@ define([], function() {
                         valign: 'middle',
                     }, {
                         field: 'createDatetime',
+                        formatter: dateFormatter,
                         title: '创建时间',
                         align: 'center',
                         valign: 'middle',
                     }]
                 }
+            };
+
+            function capitalAccountNoFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.capitalAccountNo)
+            };
+
+            function capitalAccountLogTypeFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.capitalAccountLogType)
+            };
+
+            function provinceFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '0000', $scope.listView.bankProvince)
+            };
+
+            function cityFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '00', $scope.listView.bankCity)
+            };
+
+            function dateFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
+            };
+
+            function updateFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
             };
         })();
 

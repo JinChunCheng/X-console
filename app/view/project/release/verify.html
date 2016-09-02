@@ -1,0 +1,205 @@
+<div class="panel m-t-10">
+    <div class="panel-header header-line">
+        <h3>发布审核信息</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th colspan="6">借款人信息</th>
+                </tr>
+                <tr>
+                    <th class='w-140'>
+                        借款人编号
+                    </th>
+                    <td ng-bind="projectVM.borrower.borrowerId">
+                    </td>
+                    <th class='w-140'>
+                        借款人姓名
+                    </th>
+                    <td ng-bind="projectVM.borrower.name">
+                        <label type="text" name="name"></label>
+                    </td>
+                </tr>
+                <tr>
+                    <th class='w-140'>身份证号码</th>
+                    <td colspan="3" ng-bind="projectVM.borrower.idNo"></td>
+                </tr>
+                <tr>
+                    <th colspan="4">项目信息</th>
+                </tr>
+                <tr>
+                    <th class="w-140">项目编号</th>
+                    <td ng-bind="projectVM.project.projectId"></td>
+                    <th class="w-140">项目名称</th>
+                    <td ng-bind="projectVM.project.projectName"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">产品分类</th>
+                    <td ng-bind="projectVM.project.prodTypeId"></td>
+                    <th class="w-140">项目类型</th>
+                    <td ng-bind="projectVM.project.projectType"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">还款方式</th>
+                    <td ng-bind="projectVM.project.repaymentType"></td>
+                    <th class="w-140">请求金额</th>
+                    <td ng-bind="projectVM.project.requestAmount"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">服务费率</th>
+                    <td>---待提供---</td>
+                    <th class="w-140">期限</th>
+                    <td ng-bind="projectVM.project.duration + projectVM.project.durationUnit"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">借款利率</th>
+                    <td>---待提供---</td>
+                    <th class="w-140">包含的返利利率</th>
+                    <td ng-bind="projectVM.project.rebateRate + '缺少单位'"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">可用自动投标金额</th>
+                    <td ng-bind="projectVM.project.autoBiddingAmount"></td>
+                    <th class="w-140">可用自动投标余额</th>
+                    <td ng-bind="projectVM.project.autoBiddingBalance"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">合同模板号</th>
+                    <td ng-bind="projectVM.project.contractTemplateId"></td>
+                    <th class="w-140">合同模板名称</th>
+                    <td>---待提供---</td>
+                </tr>
+                <tr>
+                    <th class="w-140">项目状态</th>
+                    <td colspan="3" ng-bind="projectVM.project.status"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">渠道编号</th>
+                    <td ng-bind="projectVM.project.creditChannelId + '是否用code替换？'"></td>
+                    <th class="w-140">渠道名称</th>
+                    <td>---待提供---</td>
+                </tr>
+                <tr>
+                    <th class="w-140">授信客户经理编号</th>
+                    <td ng-bind="projectVM.project.creditAccountManagerId + '是否用code替换'"></td>
+                    <th class="w-140">授信客户经理名称</th>
+                    <td>---待提供---</td>
+                </tr>
+                <tr>
+                    <th class="w-140">借款用途</th>
+                    <td colspan="3" ng-bind="projectVM.project.purpose"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">借款情况描述</th>
+                    <td colspan="3" ng-bind="projectVM.project.description"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">是否担保</th>
+                    <td colspan="3" ng-bind="projectVM.project.guaranteeFlag + '---需要过滤成文字'"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">担保说明</th>
+                    <td colspan="3" ng-bind="projectVM.project.guarantee"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">是否抵押</th>
+                    <td colspan="3" ng-bind="projectVM.project.mortgageFlag+'---需要过滤文字'"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">抵押说明</th>
+                    <td colspan="3" ng-bind="projectVM.project.mortgage"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">备注</th>
+                    <td colspan="3" ng-bind="projectVM.project.memo"></td>
+                </tr>
+                <tr>
+                    <th colspan="4">投标信息</th>
+                </tr>
+                <tr>
+                    <th class="w-140">起投金额</th>
+                    <td ng-bind="projectVM.project.biddingStartAmount"></td>
+                    <th class="w-140">间隔金额</th>
+                    <td ng-bind="projectVM.project.biddingStepAmount"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">上限金额</th>
+                    <td ng-bind="projectVM.project.biddingEndAmount"></td>
+                    <th class="w-140">截止时间</th>
+                    <td ng-bind="projectVM.project.biddingDeadline|exDate"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">发布方式</th>
+                    <td ng-bind="projectVM.project.publishType + '---过滤成文字+发布时间'"></td>
+                    <th class="w-140">结标方式</th>
+                    <td ng-bind="projectVM.project.autoApprove + '---过滤文字'"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">投标进度</th>
+                    <td ng-bind="projectVM.project.biddingProgress"></td>
+                    <th class="w-140">成交金额</th>
+                    <td ng-bind="projectVM.project.biddingAmount"></td>
+                </tr>
+                <tr>
+                    <th colspan="4">还款信息</th>
+                </tr>
+                <tr>
+                    <th class="w-140">借贷开始日期</th>
+                    <td ng-bind="projectVM.project.debtStartDate"></td>
+                    <th class="w-140">借贷结束日期</th>
+                    <td ng-bind="projectVM.project.debtEndDate"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">本金总计</th>
+                    <td ng-bind="projectVM.project.totalPrinciple"></td>
+                    <th class="w-140">已付本金</th>
+                    <td ng-bind="projectVM.project.principalPaid"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">剩余本金</th>
+                    <td colspan="3" ng-bind="projectVM.project.principalBalance"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">利息总计</th>
+                    <td ng-bind="projectVM.project.totalInterest"></td>
+                    <th class="w-140">已付利息</th>
+                    <td ng-bind="projectVM.project.interestPaid"></td>
+                </tr>
+                <tr>
+                    <th class="w-140">服务费总计</th>
+                    <td ng-bind="projectVM.project.totalServiceFee"></td>
+                    <th class="w-140">已付服务费</th>
+                    <td ng-bind="projectVM.project.serviceFeePaid"></td>
+                </tr>
+                <tr>
+                    <th colspan="4">发布选项</th>
+                </tr>
+                <tr>
+                    <th class="w-140">发布方式</th>
+                    <td colspan="3" class="form-inline">
+                        <div class="form-group">
+                            <label class="m-r-10">
+                                <input type="radio" name="publishType" ng-model="projectVM.data.publishType" value="I" class="m-r-5">立即发布</label>
+                            <label class="m-r-10">
+                                <input type="radio" name="publishType" ng-model="projectVM.data.publishType" value="T" class="m-r-5">定时发布</label>
+                        </div>
+                        <div class="form-group" ng-if="projectVM.data.publishType=='T'" ng-cloak>
+                            <div class="append-icon">
+                                <input type="text" class="form-control" datepicker-popup ng-model="projectVM.data.publishTime" is-open="publishTimeOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="publishTimeOpened=true" />
+                                <i class="icon-calendar"></i>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-center">
+                        <button class="btn btn-success m-r-5" ng-click="projectVM.pass();">审核通过</button>
+                        <button class="btn btn-danger m-r-5" ng-click="projectVM.refuse();">审核拒绝</button>
+                        <button class="btn btn-default" ng-click="projectVM.cancel();">返回列表</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -163,7 +163,8 @@ define([], function() {
                         };
 
                         function ok() {
-                            allFiles = $scope.filesVM.files;
+                            saveFiles(type, $scope.filesVM.files);
+                            $modalInstance.dismiss();
                         }
 
                         function cancel() {
@@ -176,9 +177,9 @@ define([], function() {
                             assetService.upload(formData).then(function(res) {
                                 if (res.code == 200) {
                                     $scope.filesVM.files.push({
-                                        originalName: res.data[0],
-                                        path: res.data[0],
-                                        fileUseageType: type,
+                                        fileUsageType: type,
+                                        originalName: file.name,
+                                        filePath: res.data[file.name],
                                         fileType: file.type,
                                         fileSize: file.size
                                     });
@@ -192,6 +193,16 @@ define([], function() {
                         }
                     }
                 });
+            }
+
+            function saveFiles(type, files) {
+                var preFiles = $scope.assetVM.data.files || [];
+                for (var i = preFiles.length - 1; i >= 0; i--) {
+                    var file = preFiles[i];
+                    if (file.fileType == type)
+                        preFiles.splice(i, 1);
+                }
+                $scope.assetVM.data.files = preFiles.concat(files);
             }
 
             function saveAsset() {

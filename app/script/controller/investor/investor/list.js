@@ -73,7 +73,6 @@ define([], function() {
                     options: {
                         cache: false,
                         pagination: true,
-                        pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
                         sidePagination: "server",
@@ -225,12 +224,14 @@ define([], function() {
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
+                            formatter:dateFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'updateDatetime',
                             title: '更新时间',
+                            formatter:updateFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -243,7 +244,8 @@ define([], function() {
                             formatter: flagFormatter,
                             events: {
                                 'click .btn-info': detail,
-                                'click .btn-primary': editRow
+                                'click .btn-primary': editRow,
+                                'click .btn-success': bankMaintain,
                             }
                         }]
                     }
@@ -283,11 +285,19 @@ define([], function() {
                 function noviciateFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.noviciateFormatter);
                 }
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+                }
+                function updateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+                }
 
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
                         '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
+                        '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
+                        '<button type="button" class="btn btn-xs btn-success"><i class="fa fa-cc-visa"></i></button>'
+
                     ];
                     return btnHtml.join('');
                 }
@@ -296,6 +306,9 @@ define([], function() {
 
             function detail(e, value, row, index) {
                 $state.go('investor.investor.detail', { id: row.investorId });
+            }
+            function bankMaintain(e, value, row, index) {
+                $state.go('investor.investor.maintain', { id: row.investorId });
             }
 
             function editRow(e, value, row, index) {
