@@ -40,24 +40,6 @@ define(['common/config'], function(config) {
                     }
                 );
             },
-            findFinancial: function(condition) {
-                return $http({
-                    method: 'POST',
-                    url: config.FINANCIAL_CONSOLE + '/financial/list',
-                    data: condition
-                })
-                    .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
-                        }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
-            },
             withdrawAccept: function(ids, exeChannel) {
                     return $http({
                         method: 'PUT',
@@ -109,6 +91,7 @@ define(['common/config'], function(config) {
                     }
                 );
             }
+
         }
     }]]
 });

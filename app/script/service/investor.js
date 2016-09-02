@@ -18,6 +18,8 @@ define([], function(config) {
         var updateInvestor = $resource('http://172.21.20.12:8080/investor/editInvestor/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //新增投资人信息
         var createInvestor = $resource('http://172.21.20.12:8080/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+        //投资人修改审核
+        var investorCheckTable = $resource('http://172.21.20.12:8080/investorUpdate/list', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投标列表
         var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //投资列表
@@ -31,6 +33,8 @@ define([], function(config) {
             updateInvestorDetail:updateInvestorDetail,
             updateInvestor:updateInvestor,
             createInvestor:createInvestor,
+            //投资人修改审核
+            investorCheckTable:investorCheckTable,
             /**
              * get investor list
              * @param  {string} data 
@@ -74,7 +78,6 @@ define([], function(config) {
             investorUpdate: function(data) {
                 return $http({
                         method: 'POST',
-                        
                         url: 'http://172.21.20.12:8080/investor/editInvestor',
                        
                     })
@@ -89,6 +92,72 @@ define([], function(config) {
                             return $q.reject(errRes);
                         }
                     );
+            },
+            checkAccept: function(ids) {
+                return $http({
+                    method: 'PUT',
+                    url: 'http://172.21.20.13:8080/cashout/project/accept/' + ids
+                })
+                    .then(function(resp) {
+                        if (resp) {
+                            return resp.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errResp) {
+                        return $q.reject(errResp);
+                    }
+                );
+            },
+            getUpdateInvestor: function(id) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://172.21.20.12:8080/investorUpdate/getByInvestorUpdateId/' + id
+                })
+                    .then(function(resp) {
+                        if (resp) {
+                            return resp.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errResp) {
+                        return $q.reject(errResp);
+                    }
+                );
+            },
+            approvalInvestor: function(id) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://172.21.20.12:8080/investorUpdate/approveInvestorUpdate/' + id
+                })
+                .then(function(resp) {
+                    if (resp) {
+                        return resp.data;
+                    } else {
+                        return serverErrorData;
+                    }
+                },
+                function(errResp) {
+                    return $q.reject(errResp);
+                });
+            },
+            rejectInvestor: function(id) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://172.21.20.12:8080/investorUpdate/rejectInvestorUpdate/' + id
+                })
+                    .then(function(resp) {
+                        if (resp) {
+                            return resp.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errResp) {
+                        return $q.reject(errResp);
+                    });
             }
         }
     }]]
