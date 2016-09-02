@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$filter', '$modal', '$state', 'assetService', 'metaService', 'toaster',
-        function($scope, $http, $filter, $modal, $state, assetService, metaService, toaster) {
+    return ['$scope', '$http', '$filter', '$modal', '$state', '$timeout', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $filter, $modal, $state, $timeout, assetService, metaService, toaster) {
 
             /**
              * the default search condition

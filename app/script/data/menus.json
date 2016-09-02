@@ -62,9 +62,6 @@
                 "text": "投资人修改审核",
                 "state": "investor.check.list"
             }, {
-                "text": "新增投标",
-                "state": "investor.new.list"
-            }, {
                 "text": "投标列表",
                 "state": "investor.tender.list"
             }, {
@@ -83,7 +80,7 @@
                 "state": "project.info.add"
             }, {
                 "text": "发布审核",
-                "state": "project.info.release"
+                "state": "project.release.list"
             }, {
                 "text": "结标审核",
                 "state": "project.check.check"
@@ -177,9 +174,6 @@
             }, {
                 "text": "文件接口日志",
                 "state": "financial.file.file"
-            }, {
-                "text": "ERP接口",
-                "state": "financial.ERP.ERP"
             }]
         }, {
             "text": "统计报表",

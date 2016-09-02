@@ -22,6 +22,12 @@ define(['common/config'], function(config) {
                 { value: '0', text: '无' }
             ]
         }, {
+            key: 'YOUWU', //有无
+            value: [
+                { value: 'Y', text: '有' },
+                { value: 'N', text: '无' }
+            ]
+        }, {
             key: 'ZCLX', //资产类型
             value: [
                 { value: '1', text: '车贷' },
@@ -122,9 +128,12 @@ define(['common/config'], function(config) {
         }, {
             key: 'HKFS', //还款方式
             value: [
-                { value: '1', text: '到期还本付息' },
-                { value: '2', text: '等本等费' },
-                { value: '3', text: '先息后本' }
+                // { value: '1', text: '到期还本付息' },
+                // { value: '2', text: '等本等费' },
+                // { value: '3', text: '先息后本' }
+                { value: 'ETP', text: '等额本息' },
+                { value: 'SPM', text: '到期还本付息' },
+                { value: 'IOP', text: '每期偿还利息' }
             ]
         }, {
             key: 'HKLY', //还款来源
@@ -141,10 +150,10 @@ define(['common/config'], function(config) {
                 { value: '3', text: '亲属' }
             ]
         }, {
-            key: 'JBFS', //结算方式
+            key: 'JBFS', //结标方式
             value: [
-                { value: '1', text: '自动' },
-                { value: '2', text: '手动' }
+                { value: 'A', text: '自动' },
+                { value: 'B', text: '手动' }
             ]
         }, {
             key: 'SJJRFS', //数据接入方式
@@ -242,9 +251,14 @@ define(['common/config'], function(config) {
         }, {
             key: 'LCQDMC', //理财渠道名称
             value: [
-                { value: '1001', text: '管理系统', children: [{ value: '1001', text: '管理系统' }] },
-                { value: '1002', text: '钱盒', children: [{ value: '2001', text: '钱盒' }] },
-                { value: '1003', text: '开通宝', children: [{ value: '3001', text: '开通宝' }] }
+                { id: 1, value: '1001', text: '管理系统', children: [{ id: 1, value: '1001', text: '管理系统' }] },
+                { id: 2, value: '1002', text: '钱盒', children: [{ id: 1, value: '2001', text: '钱盒' }] },
+                { id: 3, value: '1003', text: '开通宝', children: [{ id: 1, value: '3001', text: '开通宝' }] }
+            ]
+        }, {
+            key: 'SXQD', //授信渠道
+            value: [
+                { id: 1, value: '0001', text: '汇和金服', children: [{ id: 1, value: '1001', text: '汇和金服' }] }
             ]
         }, {
             key: 'LCJLXM', //理财经理姓名
@@ -463,6 +477,23 @@ define(['common/config'], function(config) {
                 { value: 'OVD', text: '逾期' },
                 { value: 'NCL', text: '正常关闭' },
                 { value: 'ECL', text: '异常关闭' }
+            ]
+        }, {
+            key: 'CPLX', //产品类型(汇赚钱)
+            value: [
+                { value: '0101', text: '汇赚钱理财' },
+                { value: '0901', text: '房贷' },
+                { value: '0801', text: '车贷' }
+            ]
+        }, {
+            key: 'XMLX', //项目类型
+            value: [
+                { value: 'NOR', text: '普通推荐' }
+            ]
+        }, {
+            key: 'HTMB', //合同模板
+            value: [
+                { value: '1', text: '合同模板' }
             ]
         }];
 

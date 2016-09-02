@@ -1,0 +1,288 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>待结标审核详情</h2>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group">
+                <div class="col-md-12 portlets">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th colspan="6">借款人信息</th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    借款人编号
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.borrowerId"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    借款人姓名
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.name"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    身份证号码
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.idNo"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    借款金额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.requestAmount"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    借款用途
+                                </th>
+                                <th colspan="3">
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.purpose"></label>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="6">项目信息</th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    项目编号
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    项目名称
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectName"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    产品分类
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.prodTypeId"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    项目类型
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectType"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    还款方式
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.repaymentType"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    服务费率
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.serviceFeeRate"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    借款期限
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    借款利率
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.loanRate"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    其中包含的返利利率
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind=""></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    合同模板编号
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.contractTemplateId"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    期限
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    是否担保
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guaranteeFlag"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    担保说明
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guarantee"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                   是否抵押
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgageFlag"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    抵押说明
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgage"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    投标结束时间
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingDeadline"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    描述
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.description"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    备注
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.memo"></label>
+                                    </div>
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <th colspan="6">投标信息</th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    起投金额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingStartAmount"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    间隔金额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingStepAmount"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    上限金额
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingEndAmount"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th class='w-120'>
+                                    发布方式
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.publishType"></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    结标方式
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind=""></label>
+                                    </div>
+                                </th>
+                                <th class='w-120'>
+                                    投标进度
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingProgress"></label>
+                                    </div>
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-5">
+                    <button type="button" class="cancel btn  btn-primary" ng-click="vm.pass()">审核通过</button>
+                    <button type="button" class="cancel btn btn-danger" ng-click="vm.refuse()">拒绝</button>
+                    <button type="button" class="cancel btn btn-danger" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -4,378 +4,361 @@
     </div>
     <div class="panel-body">
         <form class="form-validation" novalidate ng-submit="assetVM.submit()">
-            <tabset class="tab-fade-in">
-                <tab>
-                    <tab-heading>
-                        标的信息
-                    </tab-heading>
-                    <div>
-                        <div class="row m-t-10">
-                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">产品编号</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">借款人</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">借款金额</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
+            <div class="row m-t-10">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">产品编号</label>
+                                <div>
+                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">产品类别</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
-                                                    <option value="">- 请选择产品类型 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">借款利率</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">理财利率</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">%</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">借款人</label>
+                                <div>
+                                    <input type="text" class="form-control">
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">还款方式</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
-                                                    <option value="">- 请选择产品类型 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">理财期限</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">天</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">资产来源</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">房屋担保</label>
-                                            <div class="checkbox checkbox-info">
-                                                <input id="chkHouseDB" class="styled" type="checkbox" ng-model="assetVM.data.houseDB">
-                                                <label for="chkHouseDB" ng-bind="assetVM.data.houseDB?'是':'否'"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" ng-if="assetVM.data.houseDB">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">房屋产权人</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.data.houseOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
-                                                    <option value="">- 请选择产权人 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">房屋评估价格</label>
-                                            <div class="append-icon">
-                                                <input type="text" class="form-control">
-                                                <i class="icon-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">房屋地址</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆担保</label>
-                                            <div class="checkbox checkbox-info">
-                                                <input id="chkCarDB" class="styled" type="checkbox" ng-model="assetVM.data.carDB">
-                                                <label for="chkCarDB" ng-bind="assetVM.data.carDB?'是':'否'"></label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" ng-if="assetVM.data.carDB">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆产权人</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.data.carOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
-                                                    <option value="">- 请选择产权人 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆价格</label>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆品牌</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label class="control-label">车辆所在地</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="control-label">借款用途</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="control-label">借款描述</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label class="control-label">增信说明</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">发售状态</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="control-label">发售渠道</label>
-                                            <div>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="m-t-10 m-b-10">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">起投金额</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">间隔金额</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">上限金额</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">结标方式</label>
-                                            <div>
-                                                <select class="form-control" ng-model="assetVM.data.finishType" ng-options="item.value as item.text for item in assetVM.finishTypeList">
-                                                    <option value="">- 请选择结标方式 -</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">投标进度</label>
-                                            <div>
-                                                <input type="number" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">成交金额</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="m-t-10 m-b-10">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">本金总计</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">已付本金</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">剩余本金</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">利息总计</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">已付利息</label>
-                                            <div class="input-group">
-                                                <input type="number" class="form-control">
-                                                <span class="input-group-addon">元</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">借款开始日</label>
-                                            <div class="append-icon">
-                                                <input type="number" class="form-control">
-                                                <i class="icon-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class="control-label">借款截止日</label>
-                                            <div class="append-icon">
-                                                <input type="number" class="form-control">
-                                                <i class="icon-calendar"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">借款金额</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </tab>
-                <tab>
-                    <tab-heading>
-                        投资人列表
-                    </tab-heading>
-                    <div class="p-t-20">
-                        <table id="borrowerTable" bs-table-control="tbControl"></table>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">产品类别</label>
+                                <div>
+                                    <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
+                                        <option value="">- 请选择产品类型 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">借款利率</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">理财利率</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </tab>
-            </tabset>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">还款方式</label>
+                                <div>
+                                    <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
+                                        <option value="">- 请选择产品类型 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">理财期限</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">天</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">资产来源</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">房屋担保</label>
+                                <div class="checkbox checkbox-info">
+                                    <input id="chkHouseDB" class="styled" type="checkbox" ng-model="assetVM.data.houseDB">
+                                    <label for="chkHouseDB" ng-bind="assetVM.data.houseDB?'是':'否'"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="assetVM.data.houseDB">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">房屋产权人</label>
+                                <div>
+                                    <select class="form-control" ng-model="assetVM.data.houseOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
+                                        <option value="">- 请选择产权人 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">房屋评估价格</label>
+                                <div class="append-icon">
+                                    <input type="text" class="form-control">
+                                    <i class="icon-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">房屋地址</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">车辆担保</label>
+                                <div class="checkbox checkbox-info">
+                                    <input id="chkCarDB" class="styled" type="checkbox" ng-model="assetVM.data.carDB">
+                                    <label for="chkCarDB" ng-bind="assetVM.data.carDB?'是':'否'"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" ng-if="assetVM.data.carDB">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">车辆产权人</label>
+                                <div>
+                                    <select class="form-control" ng-model="assetVM.data.carOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
+                                        <option value="">- 请选择产权人 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">车辆价格</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">车辆品牌</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label">车辆所在地</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">借款用途</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">借款描述</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="control-label">增信说明</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">发售状态</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="control-label">发售渠道</label>
+                                <div>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-t-10 m-b-10">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">起投金额</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">间隔金额</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">上限金额</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">结标方式</label>
+                                <div>
+                                    <select class="form-control" ng-model="assetVM.data.finishType" ng-options="item.value as item.text for item in assetVM.finishTypeList">
+                                        <option value="">- 请选择结标方式 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">投标进度</label>
+                                <div>
+                                    <input type="number" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">成交金额</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="m-t-10 m-b-10">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">本金总计</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">已付本金</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">剩余本金</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">利息总计</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">已付利息</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">元</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">借款开始日</label>
+                                <div class="append-icon">
+                                    <input type="number" class="form-control">
+                                    <i class="icon-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">借款截止日</label>
+                                <div class="append-icon">
+                                    <input type="number" class="form-control">
+                                    <i class="icon-calendar"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-success m-r-10">确定上架</button>

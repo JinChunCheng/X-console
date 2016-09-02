@@ -1,14 +1,12 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$state', 'projectService', function($scope, $state, projectService) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
         var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
+            data: { status: 'BDF' },
+            paginate: {
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
@@ -16,103 +14,113 @@ define([], function() {
             table: null
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                       
-         * @param  {function}   callback function
-         */
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#endTenderCheckTable');
         });
 
 
         var getData = function(params) {
-            borrowerService.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
-                $timeout(function() {
-                    res.data.items.forEach(function(item) {
-                        item.id = parseInt(Math.random() * 100);
-                    });
-                    res.data.items.sort(function(a, b) {
-                        return Math.random() > .5 ? -1 : 1;
-                    });
-                    params.success({
-                        total: res.data.paginate.totalCount,
-                        rows: res.data.items
-                    });
-                }, 500);
+            projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                res.data.paginate = res.data.paginate || { totalCount: 0 };
+                params.success({
+                    total: res.data.paginate.totalCount,
+                    rows: res.data.items
+                });
             });
         };
 
         (function init() {
-
-            $scope.bsEndTenderCheckTableControl = {
+            $scope.EndTenderCheckTableControl = {
                 options: {
                     cache: false,
-                    height: 840,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    onPageChange: pageChange,
                     sidePagination: "server",
-                    columns: [
-                    { field: 'projectId', title: '项目编号' }, 
-                    { field: 'projectName', title: '项目名' },
-                    { field: '', title: '产品类型'},
-                    {
-                        field: 'flag',
-                        title: '操作',
+                    columns: [{
+                        field: 'code',
+                        checkbox: true,
                         align: 'center',
-                        valign: 'middle',
+                        valign: 'middle'
+                    }, {
+                        field: 'projectId',
+                        title: '项目编号'
+                    }, {
+                        field: 'projectName',
+                        title: '项目名称'
+                    }, {
+                        field: 'projectType',
+                        title: '项目类型'
+                    }, {
+                        field: 'workspace2',
+                        title: '产品分类'
+                    }, {
+                        field: 'borrowerId',
+                        title: '借款人编号'
+                    }, {
+                        field: 'workspace4',
+                        title: '借款人'
+                    }, {
+                        field: 'requestAmount',
+                        title: '借款金额'
+                    }, {
+                        field: 'purpose',
+                        title: '借款用途'
+                    }, {
+                        field: 'repaymentType',
+                        title: '还款方式'
+                    }, {
+                        field: 'duration',
+                        title: '借款期限'
+                    }, {
+                        field: 'interestRate',
+                        title: '借款利率'
+                    }, {
+                        field: 'serviceFeeRate',
+                        title: '服务费率'
+                    }, {
+                        field: 'workspace10',
+                        title: '返利利率'
+                    }, {
+                        field: 'status',
+                        title: '状态'
+                    }, {
+                        field: 'publishTime',
+                        title: '发布时间'
+                    }, {
+                        field: 'biddingDeadline',
+                        title: '满标时间'
+                    }, {
+                        field: 'createDatetime',
+                        title: '创建时间'
+                    }, {
+                        field: 'updateDatetime',
+                        title: '更新时间'
+                    }, {
+                        field: 'flag',
+                        title: '查看',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn-primary': editRow
                         }
                     }]
                 }
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                var btnHtml = [
+                    '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'
+                ];
+                return btnHtml.join('');
             }
 
         })();
 
-        $scope.search = function() {
-            $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
-        };
+        function editRow(e, value, row, index) {
+            $state.go('project.check.detail', { id: row.projectId });
+        }
 
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
     }];
 });
