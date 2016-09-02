@@ -1,5 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','$state', '$timeout', '$modal', 'borrowerService', function($scope, $http,$state,$timeout, $modal, borrowerService) {
+    return ['$scope', '$http','$state', '$timeout', '$modal', 'financialService','toaster',
+        function($scope, $http,$state,$timeout, $modal, financialService,toaster) {
 
         /**
          * the default search condition
@@ -72,7 +73,7 @@ define([], function() {
 
                     var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                financialService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
@@ -88,195 +89,121 @@ define([], function() {
                     }, 500);
                 });
 
-                //post: 
-                // var project = {};
-                // project.borrowerId = 1;
-                // project.contractTemplateId=1;
-                // project.projectName="console-前台添加";
-                // project.requestAmount=100000.00;
-                // project.repaymentType="IOP";
-                // project.duration=12;
-                // project.durationUnit="Y";
-                // project.periodCount=10;
-                // project.interestRate=0.8;
-                // project.interestRateTerm="Y";
-                // project.serviceFeeRate=0;
-                // project.serviceFeeRateTerm="Y";
-                // project.latePaymentFeeRateTerm="D";
-                // project.purpose="前端测试";
-                // project.mortgageFlag="N";
-                // project.mortgage="无";
-                // project.guaranteeFlag="N";
-                // project.guarantee="无";
-                // project.description="这是一个通过controller添加进来的project";
-                // project.biddingDeadline=new Date();
-                // project.biddingStartAmount=5000;
-                // project.biddingStepAmount=1000;
-                // project.biddingAmount=100000.00;
-                // project.status = "IRP";
-                // project.totalDays=100;
-                // project.totalInterest=100;
-                // project.totalServiceFee=0.0;
-                // project.debtStartDate=new Date();
-                // project.debtEndDate=new Date();
-                // project.principalPaid=0;
-                // project.PrincipalBalance=100;
-                // project.interestPaid=1;
-                // project.serviceFeePaid=0;
-                // project.memo="";
-                // project.creditChannelId=1;
-
-                // borrowerService.get(project).then(function(res) {
-                //     debugger
-                // });
             };
 
         (function init() {
 
             $scope.bsWithdrawCashMonitorTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
                     height: 650,
                     //striped: true,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
-                    //autoLoad: true,
                     onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'id',
+                        field: 'remitPrintId',
                         title: '批次号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     },{
-                        field: 'workspace',
+                        field: 'exeChannelName',
                         title: '提现渠道',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace2',
+                        field: 'execStatusName',
                         title: '发送状态',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace3',
+                        field: 'execDatetime',
                         title: '发送时间',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace4',
+                        field: 'receiptStatusName',
                         title: '回执状态',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace5',
+                        field: 'receiptDatetime',
                         title: '回执时间',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace6',
+                        field: 'payCapitalAccountName',
                         title: '付款资金账户名',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace7',
+                        field: 'amount',
                         title: '金额',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace8',
+                        field: 'payCapitalAccount',
                         title: '付款资金账户',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace9',
+                        field: 'payBankName',
                         title: '付款开户行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'payBankProvince',
                         title: '付款开户行省份',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'payBankCity',
                         title: '付款开户行地市',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveCapitalAccountName',
                         title: '收款资金账户名',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveCapitalAccount',
                         title: '收款资金账户',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankName',
                         title: '收款开户行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankProvince',
                         title: '收款开户行省份',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankCity',
                         title: '收款开户行地市',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'op',
                         title: '操作员',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
-                        field: 'workspace10',
+                        field: 'createDatetime',
                         title: '创建日期',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }]
                 }
             };

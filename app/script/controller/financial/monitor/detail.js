@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService',
-        function($scope, $timeout, $state, $stateParams, borrowerService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', 'financialService','toaster',
+        function($scope, $timeout, $state, $stateParams, financialService,toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
             var defaultCondition = {
@@ -23,7 +23,7 @@ define([], function() {
 
             function getDataLabel1(id) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
+                financialService.resource.query({ id:id }).$promise.then(function(res) {
                     console.log(res.data.items[0].id);
                     $scope.vm.data.borrowerCode = res.data.items[0].id;
                     $scope.vm.data.name = res.data.items[0].id;
@@ -49,7 +49,7 @@ define([], function() {
 
             function getDataLabel2(id) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ id:id }).$promise.then(function(res) {
+                financialService.resource.query({ id:id }).$promise.then(function(res) {
                     console.log(res.data.items[0].id);
                     $scope.vm.data.accountSubject = res.data.items[0].id;
                     $scope.vm.data.balance = res.data.items[0].id;
@@ -65,7 +65,7 @@ define([], function() {
 
             var getData = function(params) {
                 //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
+                financialService.resource.query({ where: JSON.stringify($scope.vm.condition) }).$promise.then(function(res) {
                     //debugger
                     $timeout(function() {
                         res.data.items.forEach(function(item) {
