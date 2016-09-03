@@ -17,7 +17,11 @@ define([], function() {
             table: null,
             channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}],
             sendStatus:[{id:1,title:'等待发送'},{id:2,title:'发送失败'},{id:3,title:'发送成功'}],
-            receiptStatus:[{id:1,title:'等待回执'},{id:2,title:'部分回执失败'},{id:3,title:'回执成功'},{id:4,title:'回执失败'}]
+            receiptStatus:[{id:1,title:'等待回执'},{id:2,title:'部分回执失败'},{id:3,title:'回执成功'},{id:4,title:'回执失败'}],
+            search: search,
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            }
 
         };
 
@@ -35,30 +39,16 @@ define([], function() {
             check: function() {
                 var selected = $scope.listView.table.bootstrapTable('getSelections');
                 if (!selected || selected.length === 0) {
-                    var text = "未选中行";
-                    $modal.open({
-                        templateUrl: 'view/shared/confirm.html',
-                        size: 'sm',
-                        controller: function($scope, $modalInstance) {
-                            $scope.confirmData = {
-                                text: text,
-                                processing: false
-                            };
-                            $scope.cancel = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                            $scope.ok = function() {
-                                $modalInstance.dismiss();
-                                return false;
-                            }
-                        }
-                    });
-                    return;
+                    var selected = $scope.listView.table.bootstrapTable('getSelections');
+                    if (!selected || selected.length === 0) {
+                        toaster.pop('error', '未选中行！');
+                        return;
+                    }
+
                 }
                 else {
-                    console.log('check');
-                    $state.go('financial.monitor.detail');}
+                    var selectedId = selected[0].id;
+                    $state.go('financial.monitor.detail', {id: selectedId});}
             }
         };
             /**
@@ -70,34 +60,25 @@ define([], function() {
             $scope.listView.table = $('#withdrawCashMonitorTable');
         });
 
-
-                    var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                financialService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
-
-            };
-
+        var getData = function(params) {
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var data = $scope.listView.condition;
+            var queryCondition = { "data":data,"paginate": paganition };
+            financialService.withdrawCashMonitorTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                $timeout(function() {
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
+        };
         (function init() {
 
             $scope.bsWithdrawCashMonitorTableControl = {
                 options: {
                     cache: false,
                     height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
@@ -208,26 +189,11 @@ define([], function() {
                 }
             };
 
-            function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
-            }
 
         })();
-
-        $scope.del = function() {
-            console.log('del');
-        };
-
-        $scope.search = function() {
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
-
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
-
         var pageChange = function(num, size) {
             console.log(num + ' - ' + size);
         };
