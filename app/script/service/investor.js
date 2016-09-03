@@ -21,9 +21,11 @@ define([], function(config) {
         //投资人修改审核
         var investorCheckTable = $resource('http://172.21.20.12:8080/investorUpdate/list', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投标列表
-        var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var tenderList = $resource('http://172.21.20.13:8080/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var tenderDetail = $resource('http://172.21.20.13:8080/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
-
+        var infoList=$resource('http://172.21.20.16:8080/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoDetail=$resource('http://172.21.20.16:8080/investment/4755', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         return {
             resource: investorRes,
             //投标人列表
@@ -35,6 +37,10 @@ define([], function(config) {
             createInvestor:createInvestor,
             //投资人修改审核
             investorCheckTable:investorCheckTable,
+            tenderList:tenderList,
+            tenderDetail:tenderDetail,
+            infoList:infoList,
+            infoDetail:infoDetail,
             /**
              * get investor list
              * @param  {string} data 

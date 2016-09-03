@@ -12,8 +12,9 @@ define([], function () {
             };
 
             function getDetail(id) {
-                investorService.infoList.get({id: id}).$promise.then(function (res) {
+                investorService.infoDetail.get({id: id}).$promise.then(function (res) {
                     $scope.vm.data = res.data;
+                    console.log($scope.vm.data)
                 });
             }
 

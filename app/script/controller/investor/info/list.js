@@ -7,8 +7,10 @@ define([], function () {
          */
         var defaultCondition = {
             data: {},
-            pageNum: 1,
-            pageSize: 10
+            paginate:{
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
@@ -113,77 +115,77 @@ define([], function () {
                         field: 'state',
                         checkbox: true
                     }, {
-                        field: 'id',
+                        field: 'projectVO.projectId',
                         title: '项目编号'
 
                     }, {
-                        field: 'name',
+                        field: 'projectVO.projectName',
                         title: '项目名称'
                     }, {
-                        field: 'workspace',
+                        field: 'investorVO.investorId',
                         title: '投资人编号'
                     }, {
-                        field: 'workspace2',
+                        field: 'investorVO.name',
                         title: '投资人名称'
                     }, {
-                        field: 'workspace3',
+                        field: 'investmentVO.repaymentTypeName',
                         title: '还款方式'
                     }, {
-                        field: 'workspace4',
+                        field: 'investmentVO.debtStartDate',
                         title: '开始日期'
                     }, {
-                        field: 'workspace5',
+                        field: 'investmentVO.debtEndDate',
                         title: '结束日期'
                     }, {
-                        field: 'workspace6',
+                        field: 'investmentVO.statusName',
                         title: '状态'
                     }, {
-                        field: 'workspace7',
+                        field: 'investmentVO.interestRate',
                         title: '借款利率'
                     }, {
-                        field: 'workspace8',
+                        field: 'investmentVO.totalPrincipal',
                         title: '本金'
                     }, {
-                        field: 'workspace9',
+                        field: 'investmentVO.investmentPrice',
                         title: '买入价格'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.totalInterest',
                         title: '利息'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.principalPaid',
                         title: '已付本金'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.principalBalance',
                         title: '剩余本金'
                     }, {
-                        field: 'workspace10',
+                        field: 'investorVO.fundAccountManagerId',
                         title: '理财客户经理编号'
                     }, {
-                        field: 'workspace10',
+                        field: 'investorVO.fundAccountManagerCode',
                         title: '理财客户经理代码'
                     }, {
-                        field: 'workspace10',
+                        field: 'investorVO.fundAccountManagerName',
                         title: '理财客户经理姓名'
                     }, {
-                        field: 'workspace10',
+                        field: 'investorVO.fundChannelCode',
                         title: '理财渠道代码'
                     }, {
-                        field: 'workspace10',
+                        field: 'investorVO.fundChannelName',
                         title: '理财渠道名称'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.contractGenFlag',
                         title: '合同生成标志'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.createDatetime',
                         title: '创建时间'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.updateDatetime',
                         title: '更新时间'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.hasTrial',
                         title: '是否包含试投金'
                     }, {
-                        field: 'workspace10',
+                        field: 'investmentVO.trialAmt',
                         title: '试投金金额'
                     }, {
                         field: 'flag',
@@ -205,7 +207,7 @@ define([], function () {
 
         })();
         function editRow(e, value, row, index) {
-            $state.go('investor.info.detail', {id: row.id});
+            $state.go('investor.info.detail', {id: row.investorVO.investorId});
         }
 
 

@@ -26,7 +26,7 @@ define([], function() {
 
         var getData = function(params) {
             investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //console.log(res)
+                console.log(res)
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
                     total: res.paginate.totalCount,
@@ -71,7 +71,7 @@ define([], function() {
                         title: '项目编号',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.projectName',
+                        field: 'projectVO.projectName',
                         title: '项目名称',
                         align: 'center'
                     }, {
@@ -79,11 +79,11 @@ define([], function() {
                         title: '投资人编号',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.investorName',
+                        field: 'investorVO.name',
                         title: '姓名',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.loginName',
+                        field: 'investorVO.loginName',
                         title: '登录名',
                         align: 'center'
                     }, {
@@ -91,15 +91,15 @@ define([], function() {
                         title: '投标金额',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.statusName',
+                        field: 'biddingVO.status',
                         title: '状态',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.biddingTypeName',
+                        field: 'biddingVO.biddingType',
                         title: '投标方式',
                         align: 'center'
                     }, {
-                        field: 'biddingDatetime',
+                        field: 'biddingVO.biddingDatetime',
                         title: '投标时间',
                         align: 'center'
                     }, {
@@ -107,7 +107,7 @@ define([], function() {
                         title: '代投标人',
                         align: 'center'
                     }, {
-                        field: 'biddingVO.operateOriginName',
+                        field: 'biddingVO.operateOrigin',
                         title: '操作来源',
                         align: 'center'
                     }, {
@@ -142,6 +142,7 @@ define([], function() {
         })();
         function editRow(e, value, row, index) {
             //$state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
+            console.log(row)
             $state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
 
         }
