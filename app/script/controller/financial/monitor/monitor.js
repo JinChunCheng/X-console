@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','$state', '$timeout', '$modal', 'financialService','toaster',
-        function($scope, $http,$state,$timeout, $modal, financialService,toaster) {
+    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', 'financialService','toaster',
+        function($scope, $http,metaService,$state,$timeout, $modal, financialService,toaster) {
 
         /**
          * the default search condition
@@ -15,7 +15,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}],
+            //channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}],
             sendStatus:[{id:1,title:'等待发送'},{id:2,title:'发送失败'},{id:3,title:'发送成功'}],
             receiptStatus:[{id:1,title:'等待回执'},{id:2,title:'部分回执失败'},{id:3,title:'回执成功'},{id:4,title:'回执失败'}],
             search: search,
@@ -25,7 +25,21 @@ define([], function() {
 
         };
 
-        $scope.dateOptions = {
+        function initMetaData() {
+            metaService.getProvinces(function(res) {
+                $scope.listVM.provinces = res;
+            });
+            metaService.getCities(function(res) {
+                $scope.listVM.bankCity = res;
+            });
+            metaService.getMeta('TXQD', function(data) {
+                $scope.listView.channel = data;
+            });
+        }
+        initMetaData();
+
+
+            $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
             class: 'datepicker',
@@ -37,6 +51,36 @@ define([], function() {
             table: null,
             status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
             check: function() {
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    var selected = $scope.listView.table.bootstrapTable('getSelections');
+                    if (!selected || selected.length === 0) {
+                        toaster.pop('error', '未选中行！');
+                        return;
+                    }
+
+                }
+                else {
+                    var selectedId = selected[0].id;
+                    $state.go('financial.monitor.detail', {id: selectedId});}
+            },
+            //重新发送
+            senf: function() {
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    var selected = $scope.listView.table.bootstrapTable('getSelections');
+                    if (!selected || selected.length === 0) {
+                        toaster.pop('error', '未选中行！');
+                        return;
+                    }
+
+                }
+                else {
+                    var selectedId = selected[0].id;
+                    $state.go('financial.monitor.detail', {id: selectedId});}
+            },
+            //回执   只允许发送操作成功的状态
+            receipt: function() {
                 var selected = $scope.listView.table.bootstrapTable('getSelections');
                 if (!selected || selected.length === 0) {
                     var selected = $scope.listView.table.bootstrapTable('getSelections');
@@ -85,7 +129,8 @@ define([], function() {
                     ajax: getData,
                     onPageChange: pageChange,
                     sidePagination: "server",
-                    columns: [{
+                    columns: [
+                        {
                         field: 'state',
                         checkbox: true,
                         align: 'center',
@@ -99,7 +144,8 @@ define([], function() {
                         field: 'exeChannelName',
                         title: '提现渠道',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: channelFormatter
                     }, {
                         field: 'execStatusName',
                         title: '发送状态',
@@ -191,6 +237,9 @@ define([], function() {
 
 
         })();
+        function channelFormatter(value, row, index) {
+            return $filter('meta')(value, $scope.listView.channel);
+        };
         function search() {
             $scope.listView.table.bootstrapTable('refresh');
         };

@@ -495,6 +495,12 @@ define(['common/config'], function(config) {
             value: [
                 { value: '1', text: '合同模板' }
             ]
+        }, {
+            key: 'TXQD', //提现渠道
+            value: [
+                { value: 'EGBANK', text: '恒丰银行' },
+                { value: 'IBOXPAY', text: '盒子支付' },
+            ]
         }];
 
         //获取某项元数据列表

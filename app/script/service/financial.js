@@ -15,7 +15,8 @@ define(['common/config'], function(config) {
         //划款打印
         var transferCashPrintTable = $resource('http://172.21.20.12:8080/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //提现出款监控
-        var withdrawCashMonitorTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawCashMonitorTable = $resource('172.21.20.16:8080/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var monitorDetailsTable = $resource('172.21.20.16:8080/paymentMonitor:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
@@ -25,6 +26,7 @@ define(['common/config'], function(config) {
             cashDetailsTable:cashDetailsTable,
             transferCashPrintTable:transferCashPrintTable,
             withdrawCashMonitorTable:withdrawCashMonitorTable,
+            monitorDetailsTable:monitorDetailsTable,
             findChannel: function(condition) {
                 return $http({
                     method: 'POST',

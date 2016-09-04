@@ -24,7 +24,7 @@ define([], function() {
             (function(id) {
                 if(!id)
                     return;
-                financialService.withdrawCashMonitorTable.get({id: id}).$promise.then(function(res) {
+                financialService.monitorDetailsTable.get({id: id}).$promise.then(function(res) {
                     if(res.code == 200) {
                         $scope.vm.data = res.data;
                     }
