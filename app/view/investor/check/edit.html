@@ -1,0 +1,308 @@
+<div class="modal-header">
+    <h4 class="modal-title">
+        <span ng-bind="vm.title"></span>
+        <i class="fa fa-spin fa-spinner m-l-5 m-t-5 text-lg" ng-if="vm.loading" ng-cloak></i>
+    </h4>
+</div>
+<div class="modal-body p-r">
+    <div>
+        <table class="table table-bordered">
+            <tbody class="row">
+            <tr>
+                <th class="col-sm-3">
+                    审核编号
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.id"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    投资人编号
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.investorId"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    登录名(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.investorLoginName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    登录名(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.loginName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    投资人姓名(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.investorName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    投资人姓名(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.name"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    手机号码(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.mobile"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    手机号码(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.mobile"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    身份证号码(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.investorIdNo"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    身份证号码(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.idNo"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    身份认证(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.idAuthFlagName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    身份认证(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.idAuthFlagName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    email(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.email"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    email(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.email"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    固话号码(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.telephone"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    固话号码(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.telephone"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    地址(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.address"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    地址(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.address"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    邮编(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.zipCode"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    邮编(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.zipCode"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    绑定钱盒商户(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.bindIboxpayUser"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    绑定钱盒商户(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.bindIboxpayUser"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    投资人状态(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.investorStatusName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    投资人状态(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.statusName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    是否本公司员工(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.empFlagName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    是否本公司员工(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.empFlagName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    理财渠道(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.operateOriginName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    理财渠道(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.fundChannelName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    理财客户经理(修改前)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.fundAccountManagerName"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    理财客户经理(修改后)
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data1.fundAccountManagerName"></label>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th class="col-sm-3">
+                    操作员
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.submitOp"></label>
+                    </div>
+                </th>
+                <th class="col-sm-3">
+                    申请时间
+                </th>
+                <th class="col-sm-3">
+                    <div class="col-sm-6">
+                        <label type="text" name="name" ng-bind="vm.data.submitDateTime"></label>
+                    </div>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary m-r-5" ng-click="vm.approve()">批准</button>
+    <button type="button" class="btn btn-danger m-r-5" ng-click="vm.reject()">拒绝</button>
+    <button type="button" class="btn btn-default" ng-click="vm.cancel()">取消</button>
+</div>
