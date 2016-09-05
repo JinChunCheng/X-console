@@ -20,8 +20,12 @@ define([], function(config) {
         var createInvestor = $resource('http://172.21.20.12:8080/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投资人修改审核
         var investorCheckTable = $resource('http://172.21.20.12:8080/investorUpdate/list', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
-        //投标列表
+       //银行账号获取银行名称
+        var getBankName = $resource('http://172.21.20.8:8088/bank/card/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
+
+
+        //投标列表
         var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //投资人银行账户列表
         var bankListTable=$resource('http://172.21.20.12:8080/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
@@ -31,8 +35,9 @@ define([], function(config) {
         var tenderList = $resource('http://172.21.20.13:8080/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var tenderDetail = $resource('http://172.21.20.13:8080/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
-        var infoList=$resource('http://172.21.20.16:8080/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var infoDetail=$resource('http://172.21.20.16:8080/investment/4755', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoList=$resource('http://172.21.20.16:8088/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoDetail=$resource('http://172.21.20.16:8088/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoRepayList=$resource('http://172.21.20.16:8088/investment/getRepaymentPlanById',{ id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
             resource: investorRes,
@@ -41,6 +46,7 @@ define([], function(config) {
             investorDetailLabel:investorDetailLabel, 
             investorDetailTable:investorDetailTable,
             updateInvestorDetail:updateInvestorDetail,
+            getBankName:getBankName,
             updateInvestor:updateInvestor,
             createInvestor:createInvestor,
             bankListTable:bankListTable,
@@ -51,6 +57,7 @@ define([], function(config) {
             tenderDetail:tenderDetail,
             infoList:infoList,
             infoDetail:infoDetail,
+            infoRepayList:infoRepayList,
             /**
              * get investor list
              * @param  {string} data 
@@ -146,7 +153,7 @@ define([], function(config) {
             approvalInvestor: function(id) {
                 return $http({
                     method: 'GET',
-                    url: 'http://172.21.20.12:8080/investorUpdate/approveInvestorUpdate/' + id
+                    url: 'http://172.21.20.12:8080/investorUpdate/approveInvestorUpdate/'+ id
                 })
                 .then(function(resp) {
                     if (resp) {
@@ -174,6 +181,24 @@ define([], function(config) {
                     function(errResp) {
                         return $q.reject(errResp);
                     });
+            },
+            repayList: function(id) {
+                return $http({
+                    method: 'GET',
+                    url:'http://172.21.20.16:8088/investment/getRepaymentPlanById/'+id
+                })
+                    .then(function(res) {
+                        if (res) {
+                            return res.data;
+
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errRes) {
+                        return $q.reject(errRes);
+                    }
+                );
             }
         }
     }]]

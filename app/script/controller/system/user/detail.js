@@ -8,7 +8,7 @@ define([], function() {
         };
 
         function getDetail(id) {
-            systemService.system.get({id: id}).$promise.then(function (res) {
+            systemService.systemDetail.get({id: id}).$promise.then(function (res) {
                 $scope.vm.data = res.data;
             });
         }

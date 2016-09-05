@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">出款类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.cashType" ng-options='c as c.title for c in listView.cashType'>
+                                <select class="form-control form-white" ng-model="listView.condition.cashType" ng-options='s.value as s.text for s in listView.cashType'>
                                 </select>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s.value as s.text for s in listView.status'>
                                 </select>
                             </div>
                         </div>

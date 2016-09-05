@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$state', '$timeout', '$modal', 'financialService',"toaster",
-        function($scope, $http, $state,$timeout, $modal,financialService,toaster) {
+    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', 'financialService',"toaster",
+        function($scope, $http,metaService, $state,$timeout, $modal,financialService,toaster) {
 
         /**
          * the default search condition
@@ -15,8 +15,8 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            cashType:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
-            status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}],
+            //cashType:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
+            //status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}],
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
@@ -46,7 +46,15 @@ define([], function() {
             }
         };
 
-
+            function initMetaData() {
+                metaService.getMeta('CKLX', function(data) {
+                    $scope.listView.cashType = data;
+                });
+                metaService.getMeta('CKZT', function(data) {
+                    $scope.listView.status = data;
+                });
+            }
+            initMetaData();
         /**
          * do something after view loaded
          * @param  {string}     event type                       
@@ -95,7 +103,8 @@ define([], function() {
                         field: 'fundOutType',
                         title: '出款类型',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: cashTypeFormatter
                     }, {
                         field: 'referenceId',
                         title: '发起方编号',
@@ -140,7 +149,8 @@ define([], function() {
                         field: 'statusName',
                         title: '状态',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: statusFormatter
                     }, {
                         field: 'fundOutCount',
                         title: '出款笔数',
@@ -166,7 +176,11 @@ define([], function() {
             };
 
         })();
-
+            function cashTypeFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.cashType);
+            };function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.status);
+            };
         function search() {
             $scope.listView.table.bootstrapTable('refresh');
         };

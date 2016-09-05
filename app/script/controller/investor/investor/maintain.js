@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', '$filter', 'investorService','publicService', function($scope, toaster, $timeout, $state, $stateParams, metaService, $filter, investorService,publicService) {
+    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'metaService', '$filter', 'investorService', 'publicService', function($scope, toaster, $timeout, $state, $stateParams, metaService, $filter, investorService, publicService) {
         $scope.vm = {
             data: {},
             table: null,
@@ -46,7 +46,7 @@ define([], function() {
         function getBank(bankName) {
             var result;
             var bankList = $scope.vm.bankList;
-            if (bankList && bankList.length > 0 && data && data.bankCode) {
+            if (bankList && bankList.length > 0) {
                 $scope.vm.bankList.forEach(function(item) {
                     if (item.bankName == bankName) {
                         result = item.bankCode;
@@ -58,10 +58,15 @@ define([], function() {
         }
 
         function getBankName(id) {
-            investorService.withdrawBackLabel.get({ id: id }).$promise.then(function(res) {
-                //基本信息
-                $scope.vm.data = res.data.result;
-                $scope.vm.data.bankAccount = res.data.withdraw.id;
+            investorService.getBankName.get({ id: id }).$promise.then(function(res) {
+                if (res.data == null || res.data == undefined) {
+                    $scope.vm.data.bankCode = null;
+                    return false;
+                }
+                //TODO 该接口还未返回正确数据
+                $scope.vm.data.bankCode = res.data.bankName;
+                //存储bankName以便save的时候转化为code
+                $scope.vm.bankNameCode = res.data.bankCode;
 
             });
         }
@@ -180,19 +185,31 @@ define([], function() {
 
         function save() {
             //新增银行账号
-            $scope.vm.data.bankCode = getBank($scope.vm.data.bankName);;
+            $scope.vm.data.bankCode = $scope.vm.bankNameCode;
+            console.log($scope.vm.data.bankCode)
             $scope.vm.data.investorId = $stateParams.id;
-
+            if ($scope.vm.data.bankCode == null || $scope.vm.data.bankCode == undefined) {
+                toaster.pop('error', '银行名称不能为空，请输入正确的银行卡号！');
+                return false;
+            }
             investorService.createBankAcc.save($scope.vm.data).$promise.then(function(res) {
-                if (res.code == 200) {
-                    toaster.pop('success', '新增银行账户成功！');
+                    if (res.code == 200) {
+                        toaster.pop('success', '新增银行账户成功！');
+                        $scope.vm.data = {};
+                        refresh();
+                    } else if (res.code == 501) {
+                        $scope.vm.data = {};
+                        toaster.pop('error', res.msg);
+                    } else {
+                        $scope.vm.data = {};
+                        toaster.pop('error', res.msg);
+                    }
+
+                },
+                function(err) {
                     $scope.vm.data = {};
-                    refresh();
-                } else
-                    toaster.pop('error', res.msg);
-            }, function(err) {
-                toaster.pop('error', '服务器连接失败！');
-            });
+                    toaster.pop('error', '服务器连接失败！');
+                });
             return;
         }
 

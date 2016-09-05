@@ -249,16 +249,23 @@ define(['common/config'], function(config) {
                 { value: 'N', text: '否' },
             ]
         }, {
-            key: 'LCQDMC', //理财渠道名称
+            key: 'LCQDMC', //理财渠道名称+理财客户经理
             value: [
-                { id: 1, value: '1001', text: '管理系统', children: [{ id: 1, value: '1001', text: '管理系统' }] },
-                { id: 2, value: '1002', text: '钱盒', children: [{ id: 1, value: '2001', text: '钱盒' }] },
-                { id: 3, value: '1003', text: '开通宝', children: [{ id: 1, value: '3001', text: '开通宝' }] }
+                { value: "1", code: '1001', text: '管理系统', children: [{ value: "1", code: '1001', text: '管理系统' }] },
+                { value: "2", code: '1002', text: '钱盒', children: [{ value: "1", code: '2001', text: '钱盒' }] },
+                { value: "3", code: '1003', text: '开通宝', children: [{ value: "1", code: '3001', text: '开通宝' }] }
+            ]
+        }, {
+            key: 'LCQD', //理财渠道
+            value: [
+                { value: 1, code: '1001', text: '管理系统' },
+                { value: 2, code: '1002', text: '钱盒' },
+                { value: 3, code: '1003', text: '开通宝' }
             ]
         }, {
             key: 'SXQD', //授信渠道
             value: [
-                { id: 1, value: '0001', text: '汇和金服', children: [{ id: 1, value: '1001', text: '汇和金服' }] }
+                { value: 1, code: '0001', text: '汇和金服', children: [{ value: 1, code: '1001', text: '汇和金服' }] }
             ]
         }, {
             key: 'LCJLXM', //理财经理姓名
@@ -275,7 +282,7 @@ define(['common/config'], function(config) {
                 { value: 'P', text: '待定' }
             ]
         }, {
-            key: 'ZCLX', //注册类型
+            key: 'ZHUCLX', //注册类型
             value: [
                 { value: 'BACKEND', text: '代注册' },
                 { value: 'ONLINE', text: '自己注册' },
@@ -495,13 +502,55 @@ define(['common/config'], function(config) {
             value: [
                 { value: '1', text: '合同模板' }
             ]
-        }, {
+        },
+            //    financial
+            //        monitor
+        {
             key: 'TXQD', //提现渠道
             value: [
                 { value: 'EGBANK', text: '恒丰银行' },
                 { value: 'IBOXPAY', text: '盒子支付' },
             ]
-        }];
+        }, {
+            key: 'FSZT', //发送状态
+            value: [
+                { value: 'W', text: '等待发送' },
+                { value: 'F', text: '发送失败' },
+                { value: 'S', text: '发送成功' }
+            ]
+        }, {
+            key: 'HZZT', //发送状态
+            value: [
+                { value: 'W', text: '等待回执' },
+                { value: 'P', text: '部分回执失败' },
+                { value: 'S', text: '回执成功' },
+                { value: 'F', text: '回执失败' }
+            ]
+        }, {
+            key: 'CKLX', //出款类型
+            value: [
+                { value: 'PRJ', text: '项目出款' },
+                { value: 'WDR', text: '提现出款' }
+            ]
+        }, {
+            key: 'DYZT', //打印状态
+            value: [
+                { value: 'N', text: '已打印' },
+                { value: 'P', text: '未打印' }
+            ]
+        }, {
+            key: 'HZLX', //划账类型
+            value: [
+                { value: '2T1', text: '托管户=>盒子支付' },
+                { value: '3T6', text: '准备金=>恒丰银行' },
+                { value: '2T3', text: '托管户=>准备金' },
+                { value: '2T4', text: '托管户=>收益户' },
+                { value: '4T7', text: '收益户=>结算户打款' },
+                { value: '2T7E', text: '托管户=>恒丰结算户' },
+                { value: '2T7I', text: '托管户=>盒子结算户' },
+                { value: '8T2', text: '盒子还款户=>托管户' }
+            ]
+            }];
 
         //获取某项元数据列表
         var getMetaItem = function(code) {

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'financialService', 'toaster',
-        function($scope, $http, $timeout, $modal,financialService, toaster) {
+    return ['$scope', '$http', 'metaService','$timeout', '$modal', 'financialService', 'toaster',
+        function($scope, $http,metaService, $timeout, $modal,financialService, toaster) {
 
         /**
          * the default search condition
@@ -17,7 +17,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            channel:[{code:"IBOXPAY",title:'盒子支付'},{code:"EGBANK",title:'恒丰银行'}],
+            //channel:[{code:"IBOXPAY",title:'盒子支付'},{code:"EGBANK",title:'恒丰银行'}],
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
@@ -65,7 +65,14 @@ define([], function() {
                 };
             }
         };
-        $scope.dateOptions = {
+            function initMetaData() {
+                metaService.getMeta('TXQD', function(data) {
+                    $scope.listView.exeChannel = data;
+                });
+            }
+            initMetaData();
+
+            $scope.dateOptions = {
             formatYear: 'yy',
             startingDay: 1,
             class: 'datepicker',
@@ -123,7 +130,8 @@ define([], function() {
                         field: 'exeChannel',
                         title: '出款渠道',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: exeChannelFormatter
                     }, {
                         field: 'bankName',
                         title: '银行',
@@ -167,7 +175,9 @@ define([], function() {
                     }]
                 }
             };
-
+            function exeChannelFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.channel);
+            };
             function flagFormatter(value, row, index) {
                 return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
             }
