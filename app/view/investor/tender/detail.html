@@ -1,0 +1,137 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>投标信息</h2>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group">
+                <div class="col-md-12 portlets">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class='w-120'>
+                                投标编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                项目编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                项目名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.projectVO.projectName"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                投资人编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.investorId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                姓名
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.name"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                登录名
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.loginName"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                投标金额
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingAmount"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                状态
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.status"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                投标时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingDatetime"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                创建时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.createDatetime"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                更新时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.updateDatetime"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                是否包含试投金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.hasTrial"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                试投金金额
+                            </th>
+                            <th colspan="5">
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.trialAmt"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-5">
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

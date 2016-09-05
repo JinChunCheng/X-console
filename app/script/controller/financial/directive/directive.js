@@ -20,7 +20,7 @@ define([], function() {
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
-            },
+            }
         };
 
         $scope.dateOptions = {

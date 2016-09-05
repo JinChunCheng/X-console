@@ -1,23 +1,21 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'investorService', function($scope, $http, $timeout, $modal, investorService) {
+    return ['$scope','$state', '$modal', 'investorService', function($scope,$state, $modal, investorService) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
         var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
+            data:{},
+            paginate: {
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null,
-            operSource: ['管理系统', '钱盒'],
+            table: null
+            /*operSource: ['管理系统', '钱盒'],
             status: ['待结标', '取消', '结标完成'],
             tenderWay: ['手动投标', '自动投标', '代理投标'],
-            isUsed: ['使用', '未使用']
+            isUsed: ['使用', '未使用']*/
         };
 
 
@@ -27,8 +25,13 @@ define([], function() {
 
 
         var getData = function(params) {
-            investorService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-
+            investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                console.log(res)
+                res.paginate = res.paginate || { totalCount: 0 };
+                params.success({
+                    total: res.paginate.totalCount,
+                    rows: res.data.items,
+                });
             });
         };
 
@@ -50,7 +53,7 @@ define([], function() {
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
                     //autoLoad: true,
-                    onPageChange: pageChange,
+                    //onPageChange: pageChange,
                     sidePagination: "server",
                     //search: true,
                     //showColumns: true,
@@ -62,117 +65,60 @@ define([], function() {
                     columns: [{
                         field: 'state',
                         checkbox: true,
-                        align: 'center',
-                        valign: 'middle'
+                        align: 'center'
                     }, {
-                        field: 'id',
-                        title: '编号',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        field: 'biddingVO.projectId',
+                        title: '项目编号',
+                        align: 'center'
                     }, {
-                        field: 'name',
+                        field: 'projectVO.projectName',
+                        title: '项目名称',
+                        align: 'center'
+                    }, {
+                        field: 'biddingVO.investorId',
+                        title: '投资人编号',
+                        align: 'center'
+                    }, {
+                        field: 'investorVO.name',
+                        title: '姓名',
+                        align: 'center'
+                    }, {
+                        field: 'investorVO.loginName',
                         title: '登录名',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        align: 'center'
                     }, {
-                        field: 'workspace',
-                        title: '真实姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.biddingAmount',
+                        title: '投标金额',
+                        align: 'center'
                     }, {
-                        field: 'workspace2',
-                        title: '身份证号码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace3',
-                        title: '手机号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace4',
-                        title: '固话',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace5',
+                        field: 'biddingVO.status',
                         title: '状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        align: 'center'
                     }, {
-                        field: 'workspace6',
-                        title: '理财客户经理编号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.biddingType',
+                        title: '投标方式',
+                        align: 'center'
                     }, {
-                        field: 'workspace7',
-                        title: '理财客户经理代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.biddingDatetime',
+                        title: '投标时间',
+                        align: 'center'
                     }, {
-                        field: 'workspace8',
-                        title: '理财客户经理姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.op',
+                        title: '代投标人',
+                        align: 'center'
                     }, {
-                        field: 'workspace9',
-                        title: '理财渠道代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.operateOrigin',
+                        title: '操作来源',
+                        align: 'center'
                     }, {
-                        field: 'workspace10',
-                        title: '理财渠道名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'biddingVO.hasTrial',
+                        title: '包含试投金',
+                        align: 'center'
                     }, {
-                        field: 'workspace10',
-                        title: '注册类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '是否本公司员工',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '邮编',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '地址',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '是否新手',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '试投金状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
+                        field: 'biddingVO.trialAmt',
+                        title: '试投金金额',
+                        align: 'center'
+                    },{
                         field: 'flag',
                         title: '操作',
                         align: 'center',
@@ -180,45 +126,29 @@ define([], function() {
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn': function(e, value, row, index) {
-                                var text = "确定删除此记录？";
-                                // var text = JSON.stringify($scope.listView.table.bootstrapTable('getAllSelections'));
-                                $modal.open({
-                                    templateUrl: 'view/shared/confirm.html',
-                                    size: 'sm',
-                                    // backdrop: true,
-                                    controller: function($scope, $modalInstance) {
-                                        $scope.confirmData = {
-                                            text: text,
-                                            processing: false
-                                        };
-                                        $scope.cancel = function() {
-                                            $modalInstance.dismiss();
-                                            return false;
-                                        };
-
-                                        $scope.ok = function() {
-                                            delUser(item.id, $scope, $modalInstance);
-                                            return true;
-                                        };
-                                    }
-                                });
-
-                            }
+                            'click .btn-info': editRow
                         }
                     }]
                 }
             };
 
             function flagFormatter(value, row, index) {
-                return '<button class="btn btn-sm btn-danger" ng-click="del()"><i class="fa fa-remove"></i></button>';
+                var btnHtml = [
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
+                ];
+                return btnHtml.join('');
             }
 
         })();
+        function editRow(e, value, row, index) {
+            //$state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
+            console.log(row)
+            $state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
 
-        $scope.del = function() {
+        }
+       /* $scope.del = function() {
             console.log('del');
-        };
+        };*/
 
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
@@ -230,8 +160,8 @@ define([], function() {
             console.log('aaa');
         };
 
-        var pageChange = function(num, size) {
+       /* var pageChange = function(num, size) {
             console.log(num + ' - ' + size);
-        };
+        };*/
     }];
 });

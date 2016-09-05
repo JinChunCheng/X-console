@@ -186,6 +186,14 @@
                 "text": "利润统计",
                 "state": "statistics.profit"
             }]
+        }, {
+            "text": "系统管理",
+            "icon": "icon-screen-desktop",
+            "state": "system",
+            "subMenus": [{
+                "text": "用户管理",
+                "state": "system.user.list"
+            }]
         }]
     }
 }

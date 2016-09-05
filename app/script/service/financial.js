@@ -13,7 +13,10 @@ define(['common/config'], function(config) {
         var cashDirectiveTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var cashDetailsTable = $resource('http://172.21.20.13:8080/cashout/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //划款打印
-        var transferCashPrintTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var transferCashPrintTable = $resource('http://172.21.20.12:8080/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        //提现出款监控
+        var withdrawCashMonitorTable = $resource('172.21.20.16:8080/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var monitorDetailsTable = $resource('172.21.20.16:8080/paymentMonitor:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
@@ -22,28 +25,12 @@ define(['common/config'], function(config) {
             cashDirectiveTable:cashDirectiveTable,
             cashDetailsTable:cashDetailsTable,
             transferCashPrintTable:transferCashPrintTable,
+            withdrawCashMonitorTable:withdrawCashMonitorTable,
+            monitorDetailsTable:monitorDetailsTable,
             findChannel: function(condition) {
                 return $http({
                     method: 'POST',
                     url: config.FINANCIAL_CONSOLE + '/financialchannel/list',
-                    data: condition
-                })
-                    .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
-                        }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
-            },
-            findFinancial: function(condition) {
-                return $http({
-                    method: 'POST',
-                    url: config.FINANCIAL_CONSOLE + '/financial/list',
                     data: condition
                 })
                     .then(function(resp) {
@@ -109,6 +96,7 @@ define(['common/config'], function(config) {
                     }
                 );
             }
+
         }
     }]]
 });

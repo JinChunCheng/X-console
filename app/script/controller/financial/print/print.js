@@ -73,127 +73,127 @@ define([], function() {
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'id',
+                        field: 'remitPrintId',
                         title: '打印号',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     },{
-                        field: 'workspace',
+                        field: 'remitPrintType',
                         title: '划账类型',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace2',
+                        field: 'amount',
                         title: '金额',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace3',
+                        field: 'arrivalDate',
                         title: '预期到账时间',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace4',
+                        field: 'status',
                         title: '状态',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace5',
+                        field: 'printCount',
                         title: '打印次数',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace6',
+                        field: 'payCapitalAccountId',
                         title: '付款资金账户标识',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace7',
+                        field: 'payCapitalAccountName',
                         title: '付款资金账户名',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace8',
+                        field: 'payCapitalAccount',
                         title: '付款资金账户',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace9',
+                        field: 'payBankName',
                         title: '付款开户行',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'payBankProvince',
                         title: '付款开户行省份',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'payBankCity',
                         title: '付款开户行地市',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveCapitalAccountId',
                         title: '收款资金账户标识',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveCapitalAccountName',
                         title: '收款资金账户名',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveCapitalAccount',
                         title: '收款资金账户',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankName',
                         title: '收款开户行',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankProvince',
                         title: '收款开户行省份',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'receiveBankCity',
                         title: '收款开户行地市',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'largePayBankCode',
                         title: '大额支付行号',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'op',
                         title: '操作员',
                         align: 'center',
                         valign: 'middle',
                         sortable: true
                     }, {
-                        field: 'workspace10',
+                        field: 'createDatetime',
                         title: '创建日期',
                         align: 'center',
                         valign: 'middle',
@@ -212,16 +212,9 @@ define([], function() {
             console.log('del');
         };
 
-        $scope.search = function() {
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
-
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
-
         var pageChange = function(num, size) {
             console.log(num + ' - ' + size);
         };
