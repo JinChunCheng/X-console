@@ -495,13 +495,55 @@ define(['common/config'], function(config) {
             value: [
                 { value: '1', text: '合同模板' }
             ]
-        }, {
+        },
+            //    financial
+            //        monitor
+        {
             key: 'TXQD', //提现渠道
             value: [
                 { value: 'EGBANK', text: '恒丰银行' },
                 { value: 'IBOXPAY', text: '盒子支付' },
             ]
-        }];
+        }, {
+            key: 'FSZT', //发送状态
+            value: [
+                { value: 'W', text: '等待发送' },
+                { value: 'F', text: '发送失败' },
+                { value: 'S', text: '发送成功' }
+            ]
+        }, {
+            key: 'HZZT', //发送状态
+            value: [
+                { value: 'W', text: '等待回执' },
+                { value: 'P', text: '部分回执失败' },
+                { value: 'S', text: '回执成功' },
+                { value: 'F', text: '回执失败' }
+            ]
+        }, {
+            key: 'CKLX', //出款类型
+            value: [
+                { value: 'PRJ', text: '项目出款' },
+                { value: 'WDR', text: '提现出款' }
+            ]
+        }, {
+            key: 'DYZT', //打印状态
+            value: [
+                { value: 'N', text: '已打印' },
+                { value: 'P', text: '未打印' }
+            ]
+        }, {
+            key: 'HZLX', //划账类型
+            value: [
+                { value: '2T1', text: '托管户=>盒子支付' },
+                { value: '3T6', text: '准备金=>恒丰银行' },
+                { value: '2T3', text: '托管户=>准备金' },
+                { value: '2T4', text: '托管户=>收益户' },
+                { value: '4T7', text: '收益户=>结算户打款' },
+                { value: '2T7E', text: '托管户=>恒丰结算户' },
+                { value: '2T7I', text: '托管户=>盒子结算户' },
+                { value: '8T2', text: '盒子还款户=>托管户' }
+            ]
+            }];
 
         //获取某项元数据列表
         var getMetaItem = function(code) {
