@@ -21,11 +21,19 @@ define([], function(config) {
         //投资人修改审核
         var investorCheckTable = $resource('http://172.21.20.12:8080/investorUpdate/list', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投标列表
+<<<<<<< HEAD
         var investorList = $resource('http://172.21.20.12:8080/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //投资人银行账户列表
         var bankListTable=$resource('http://172.21.20.12:8080/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //新增投资人银行信息
         var createBankAcc=$resource('http://172.21.20.12:8080/investor/addInvestorBank', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+=======
+        var tenderList = $resource('http://172.21.20.13:8080/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var tenderDetail = $resource('http://172.21.20.13:8080/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        //投资列表
+        var infoList=$resource('http://172.21.20.16:8080/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoDetail=$resource('http://172.21.20.16:8080/investment/4755', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+>>>>>>> ff1dabddc8f29e7c1c760eb51e7b57a9ed71c0d6
         return {
             resource: investorRes,
             //投标人列表
@@ -41,7 +49,14 @@ define([], function(config) {
 =======
             //投资人修改审核
             investorCheckTable:investorCheckTable,
+<<<<<<< HEAD
 >>>>>>> d18ab6ee6ea7d13aca550ef9fdc8e3577f120c55
+=======
+            tenderList:tenderList,
+            tenderDetail:tenderDetail,
+            infoList:infoList,
+            infoDetail:infoDetail,
+>>>>>>> ff1dabddc8f29e7c1c760eb51e7b57a9ed71c0d6
             /**
              * get investor list
              * @param  {string} data 

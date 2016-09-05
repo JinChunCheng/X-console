@@ -1,0 +1,232 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>投资信息</h2>
+</div>
+<div class="panel m-t-10">
+    <div class="panel-header"><i class="icon icon-user"></i>基本信息</div>
+    <div class="panel-body">
+        <form role="form" class="form-horizontal form-validation" novalidate>
+            <div class="form-group">
+                <div class="col-md-12 portlets">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <th class='w-120'>
+                                项目编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                项目名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.projectVO.projectName"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                投资人编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.investorId"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                投资人名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.name"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                还款方式
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.repaymentTypeName"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                期限
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.duration"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                开始日期
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtStartDate"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                结束日期
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtEndDate"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                状态
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.statusName"></label>
+                                    <button type="button" class="cancel btn  btn-primary" ng-click="vm.repayList()">投资还款计划列表</button>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                借款利率
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.interestRate"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.totalPrincipal"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                利息
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.totalInterest"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                已付本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.principalPaid"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                剩余本金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.principalBalance"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                合同生成标志
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.contractGenFlag"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                创建时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.createDatetime"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财渠道编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.fundChannelCode"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财渠道名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.fundChannelName"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                理财客户经理编号
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.fundAccountManagerId"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财客户经理代码
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.fundAccountManagerCode"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                理财客户经理名称
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investorVO.fundAccountManagerName"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class='w-120'>
+                                更新时间
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.updateDatetime"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                是否包含试投金
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.hasTrial"></label>
+                                </div>
+                            </th>
+                            <th class='w-120'>
+                                试投金金额
+                            </th>
+                            <th>
+                                <div class="col-sm-12">
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.trialAmt"></label>
+                                </div>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-5">
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

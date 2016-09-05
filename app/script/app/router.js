@@ -30,7 +30,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', null, true))
                 .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { services: ['service/asset'] }))
                 .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { services: ['service/asset'] }))
-                .state('asset.release.edit', lazyLoad.config('/edit/:id', 'view/asset/release/edit.html', 'controller/asset/release/edit', { services: ['service/asset', 'service/meta'] }))
+                .state('asset.release.edit', lazyLoad.config('/edit/:id', 'view/asset/release/edit.html', 'controller/asset/release/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
                 //asset module end 
 
             // borrower module start
@@ -63,16 +63,19 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
 
             //投资人修改审核列表
             .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
-            .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor'], filters: [] }))
                 //新增投标
-                .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.new.list', lazyLoad.config('/new', '/view/investor/new/list.html', 'controller/investor/new/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/investor'], filters: [] }, true))
+                .state('investor.new.list', lazyLoad.config('/new', '/view/investor/new/list.html', 'controller/investor/new/list', { directives: [], services: ['service/investor'], filters: [] }))
                 //投标列表
-                .state('investor.tender', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.tender.list', lazyLoad.config('/tender', '/view/investor/tender/list.html', 'controller/investor/tender/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.tender', lazyLoad.config('/tender', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('investor.tender.list', lazyLoad.config('/list', '/view/investor/tender/list.html', 'controller/investor/tender/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.tender.detail',lazyLoad.config('/detail/:id','/view/investor/tender/detail.html','controller/investor/tender/detail',{ directives: [], services: ['service/investor', 'service/meta'], filters: [] }))
+
                 //投资列表
-                .state('investor.info', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('investor.info.list', lazyLoad.config('/info', '/view/investor/info/list.html', 'controller/investor/info/list', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('investor.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
+                .state('investor.info.list', lazyLoad.config('/list', '/view/investor/info/list.html', 'controller/investor/info/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.info.detail',lazyLoad.config('/detail/:id','/view/investor/info/detail.html','controller/investor/info/detail',{ directives: [], services: ['service/investor', 'service/meta'], filters: [] }))
 
             // investor module end
 
@@ -191,8 +194,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('financial.print.print', lazyLoad.config('/print', '/view/financial/print/print.html', 'controller/financial/print/print', { services: ['service/financial'] }))
                 //提现出款监控
                 .state('financial.monitor', lazyLoad.config('/monitor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/borrower'], filters: [] }))
-                .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/financial'], filters: ['filter/common'] }))
+                .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/financial'], filters: [] }))
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))

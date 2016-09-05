@@ -143,7 +143,7 @@ define([], function() {
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn-primary': editRow
+                            'click .btn-info': editRow
                         }
                     }]
                 }
@@ -151,7 +151,7 @@ define([], function() {
 
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
                 ];
                 return btnHtml.join('');
             }
@@ -161,6 +161,15 @@ define([], function() {
         function editRow(e, value, row, index) {
             $state.go('system.user.detail', { id: row.id });
         }
+        $scope.search = function() {
+            $scope.listView.table.bootstrapTable('refresh');
+            console.log('aaa');
+        };
+
+        $scope.reset = function() {
+            $scope.listView.condition = angular.copy(defaultCondition);
+            console.log('aaa');
+        };
     }];
 });
 

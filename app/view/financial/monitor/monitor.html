@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">提现渠道</span>
-                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='c as c.title for c in listView.channel'>
+                                <select class="form-control form-white" ng-model="listView.condition.channel" ng-options='s.value as s.text for s in listView.channel'>
                                 </select>
                             </div>
                         </div>
@@ -97,8 +97,8 @@
 <div class="row">
     <div class="col-md-12 m-b-10">
         <button type="button" class="btn btn-success btn-xs" ng-click="listVM.check()"><i class="fa fa-search m-r-5"></i>查看明细</button>
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-mail-forward m-r-5"></i>重新发送</button>
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-mail-forward m-r-5"></i>回执对账</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.senf()"><i class="fa fa-mail-forward m-r-5"></i>重新发送</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="listVM.receipt()"><i class="fa fa-mail-forward m-r-5"></i>回执对账</button>
         <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-cloud-download m-r-5"></i>下载</button>
     </div>
 </div>
