@@ -7,61 +7,59 @@
             <tbody>
                 <tr>
                     <th class="w-120">产品编号</th>
-                    <td ng-bind="assetVM.data.id"></td>
+                    <td ng-bind="productVM.data.id"></td>
                     <th class="w-120">借款人</th>
-                    <td ng-bind="assetVM.data.name"></td>
+                    <td ng-bind="productVM.data.name"></td>
                     <th class="w-120">借款金额</th>
-                    <td ng-bind="assetVM.data.amount"></td>
+                    <td ng-bind="productVM.data.amount"></td>
                 </tr>
                 <tr>
                     <th class="w-120">产品类型</th>
-                    <td ng-bind="assetVM.data.assetType|meta:assetTypeList"></td>
+                    <td ng-bind="productVM.data.assetType|meta:assetTypeList"></td>
                     <th class="w-120">借款利率</th>
-                    <td ng-bind="(assetVM.data.loanRate||0) + '%'"></td>
-                    <th class="w-120">理财利率</th>
-                    <td></td>
+                    <td colspan="3" ng-bind="(productVM.data.loanRate||0) + '%'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">还款方式</th>
-                    <td ng-bind="assetVM.data.repaymentType|meta:repaymentTypeList"></td>
+                    <td ng-bind="productVM.data.repaymentType|meta:repaymentTypeList"></td>
                     <th class="w-120">理财期限</th>
-                    <td ng-bind="(assetVM.data.loanTermCount||0)+'天'"></td>
+                    <td ng-bind="(productVM.data.loanTermCount||0)+'天'"></td>
                     <th class="w-120">资产来源</th>
                     <td></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋担保</th>
-                    <td ng-bind="assetVM.data.houseGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.houseGuarantee?'有':'无'"></td>
                     <th class="w-120">房屋产权人</th>
-                    <td ng-bind="assetVM.data.houseOwner|meta:assetVM.ownerList"></td>
+                    <td ng-bind="productVM.data.houseOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">房屋评估价格</th>
-                    <td ng-bind="(assetVM.data.housePrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.housePrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋地址</th>
-                    <td colspan="5" ng-bind="assetVM.data.houseAddress"></td>
+                    <td colspan="5" ng-bind="productVM.data.houseAddress"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆担保</th>
-                    <td ng-bind="assetVM.data.carGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.carGuarantee?'有':'无'"></td>
                     <th class="w-120">车辆产权人</th>
-                    <td ng-bind="assetVM.data.carOwner|meta:assetVM.ownerList"></td>
+                    <td ng-bind="productVM.data.carOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">车辆价格</th>
-                    <td ng-bind="(assetVM.data.carPrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.carPrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆品牌</th>
-                    <td ng-bind="assetVM.data.carBrand"></td>
+                    <td ng-bind="productVM.data.carBrand"></td>
                     <th class="w-120">车辆所在地</th>
-                    <td colspan="3" ng-bind="assetVM.data.carLocation"></td>
+                    <td colspan="3" ng-bind="productVM.data.carLocation"></td>
                 </tr>
                 <tr>
                     <th class="w-120">借款用途</th>
-                    <td colspan="5" ng-bind="assetVM.data.loanUse"></td>
+                    <td colspan="5" ng-bind="productVM.data.loanUse"></td>
                 </tr>
             </tbody>
         </table>
-        <form name="productForm" class="form-validation" novalidate ng-submit="assetVM.submit()">
+        <form name="productForm" class="form-validation" novalidate ng-submit="productVM.submit()">
             <div class="row m-t-10">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
@@ -69,7 +67,7 @@
                             <div class="form-group">
                                 <label class="control-label">借款描述</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-bind="assetVM.data.des">
+                                    <input type="text" class="form-control" ng-bind="productVM.data.des">
                                 </div>
                             </div>
                         </div>
@@ -79,7 +77,7 @@
                             <div class="form-group">
                                 <label class="control-label">增信说明</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-bind="assetVM.data.zengxinDes">
+                                    <input type="text" class="form-control" ng-bind="productVM.data.zengxinDes">
                                 </div>
                             </div>
                         </div>
@@ -89,7 +87,7 @@
                             <div class="form-group">
                                 <label class="control-label">销售平台</label>
                                 <div>
-                                    <select class="form-control" ng-model="assetVM.data.saleplatformId" ng-options="item.id as item.text for item in assetVM.saleplatformList">
+                                    <select class="form-control" ng-model="productVM.data.saleplatformId" ng-options="item.id as item.text for item in productVM.saleplatformList">
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -99,7 +97,7 @@
                             <div class="form-group">
                                 <label class="control-label">结标方式</label>
                                 <div>
-                                    <select class="form-control" ng-model="assetVM.data.approveType" ng-options="item.value as item.text for item in assetVM.approveTypeList">
+                                    <select class="form-control" ng-model="productVM.data.approveType" ng-options="item.value as item.text for item in productVM.approveTypeList">
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -121,7 +119,7 @@
                             <div class="form-group">
                                 <label class="control-label">起投金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="assetVM.data.startAmount">
+                                    <input type="number" class="form-control" ng-bind="productVM.data.startAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -130,7 +128,7 @@
                             <div class="form-group">
                                 <label class="control-label">间隔金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="assetVM.data.stepAmount">
+                                    <input type="number" class="form-control" ng-bind="productVM.data.stepAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -139,7 +137,7 @@
                             <div class="form-group">
                                 <label class="control-label">上限金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="assetVM.ennAmount">
+                                    <input type="number" class="form-control" ng-bind="productVM.ennAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -150,7 +148,7 @@
                             <div class="form-group">
                                 <label class="control-label">借款开始日</label>
                                 <div class="append-icon">
-                                    <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.debtStartDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startDateOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtStartDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startDateOpened=true" />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
@@ -159,7 +157,7 @@
                             <div class="form-group">
                                 <label class="control-label">借款截止日</label>
                                 <div class="append-icon">
-                                    <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.debtEndDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endDateOpened=true" />
+                                    <input type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtEndDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endDateOpened=true" />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
@@ -170,7 +168,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-success m-r-10">确定上架</button>
-                    <button type="button" class="btn btn-default" ng-click="assetVM.cancel()">取消</button>
+                    <button type="button" class="btn btn-default" ng-click="productVM.cancel()">取消</button>
                 </div>
             </div>
         </form>

@@ -264,7 +264,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //statistics module start
             .state('statistics', lazyLoad.config('/statistics', '/view/shared/blank.html', '', null, true))
                 .state('statistics.user', lazyLoad.config('/user', '/view/statistics/user.html', 'controller/statistics/user', null))
-                .state('statistics.profit', lazyLoad.config('/profit', '/view/statistics/profit.html', 'controller/statistics/profit', null))
+                .state('statistics.profit', lazyLoad.config('/profit', '/view/statistics/profit.html', 'controller/statistics/profit', { services: ['service/statistics']}))
                 //statistics module end
 
 

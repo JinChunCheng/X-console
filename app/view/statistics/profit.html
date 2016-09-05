@@ -1,0 +1,79 @@
+<div class="panel m-t-10">
+    <div class="panel-header header-line">
+        <div class="row form-inline">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">从</span>
+                    <div class="input-group">
+                        <input type="text" class="form-control bd-r-0" datepicker-popup="yyyy-MM-dd" ng-model="vm.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
+                        <span class="input-group-addon">到</span>
+                        <input type="text" class="form-control bd-l-0" datepicker-popup ng-model="vm.condition.end" is-open="endOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endOpened=true" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" ng-click="profitVM.search()">统计</button>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <tabset class="tab-fade-in tab_left">
+            <tab>
+                <tab-heading>
+                    数据
+                </tab-heading>
+                <div class="p-l-10">
+                    <div class="row">
+                        <div class="panel">
+                            <div class="panel-header">
+                                <h3><i class="fa fa-table"></i> <strong>投资人数统计</strong></h3>
+                            </div>
+                            <div class="panel-content">
+                                <table class="table table-bordered th-bg">
+                                    <thead>
+                                        <tr>
+                                            <th>日期</th>
+                                            <th>充值利润</th>
+                                            <th>提现利润</th>
+                                            <th>项目利润</th>
+                                            <th>利息利润</th>
+                                            <th>合计</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in profitVM.data">
+                                            <td ng-bind="item.profitDate"></td>
+                                            <td ng-bind="item.depositProfit"></td>
+                                            <td ng-bind="item.withdrawProfit"></td>
+                                            <td ng-bind="item.projectProfit"></td>
+                                            <td ng-bind="item.investmentProfit"></td>
+                                            <td ng-bind="item.totalProfit"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>图表</tab-heading>
+                <div class="p-l-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="fa fa-pie-chart"></i> <strong>投资人数统计</strong></h3>
+                                </div>
+                                <div class="panel-content">
+                                    <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                    </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+    </div>
+</div>
