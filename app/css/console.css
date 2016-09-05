@@ -17,6 +17,7 @@
 /*table-th text-align:right*/
 table.th-right th{
   text-align:right !important;
+  font-weight: normal;
 }
 .main-content .page-content .header-right {
     position: absolute;

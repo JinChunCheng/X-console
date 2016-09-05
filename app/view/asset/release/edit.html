@@ -1,201 +1,75 @@
 <div class="panel m-t-10">
     <div class="panel-header header-line">
-        <h3 ng-bind="assetVM.title"></h3>
+        <h3 class="bold">标的信息</h3>
     </div>
     <div class="panel-body">
-        <form class="form-validation" novalidate ng-submit="assetVM.submit()">
+        <table class="table table-bordered th-right">
+            <tbody>
+                <tr>
+                    <th class="w-120">产品编号</th>
+                    <td ng-bind="assetVM.data.id"></td>
+                    <th class="w-120">借款人</th>
+                    <td ng-bind="assetVM.data.name"></td>
+                    <th class="w-120">借款金额</th>
+                    <td ng-bind="assetVM.data.amount"></td>
+                </tr>
+                <tr>
+                    <th class="w-120">产品类型</th>
+                    <td ng-bind="assetVM.data.assetType|meta:assetTypeList"></td>
+                    <th class="w-120">借款利率</th>
+                    <td ng-bind="(assetVM.data.loanRate||0) + '%'"></td>
+                    <th class="w-120">理财利率</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th class="w-120">还款方式</th>
+                    <td ng-bind="assetVM.data.repaymentType|meta:repaymentTypeList"></td>
+                    <th class="w-120">理财期限</th>
+                    <td ng-bind="(assetVM.data.loanTermCount||0)+'天'"></td>
+                    <th class="w-120">资产来源</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th class="w-120">房屋担保</th>
+                    <td ng-bind="assetVM.data.houseGuarantee?'有':'无'"></td>
+                    <th class="w-120">房屋产权人</th>
+                    <td ng-bind="assetVM.data.houseOwner|meta:assetVM.ownerList"></td>
+                    <th class="w-120">房屋评估价格</th>
+                    <td ng-bind="(assetVM.data.housePrice||0)+'元'"></td>
+                </tr>
+                <tr>
+                    <th class="w-120">房屋地址</th>
+                    <td colspan="5" ng-bind="assetVM.data.houseAddress"></td>
+                </tr>
+                <tr>
+                    <th class="w-120">车辆担保</th>
+                    <td ng-bind="assetVM.data.carGuarantee?'有':'无'"></td>
+                    <th class="w-120">车辆产权人</th>
+                    <td ng-bind="assetVM.data.carOwner|meta:assetVM.ownerList"></td>
+                    <th class="w-120">车辆价格</th>
+                    <td ng-bind="(assetVM.data.carPrice||0)+'元'"></td>
+                </tr>
+                <tr>
+                    <th class="w-120">车辆品牌</th>
+                    <td ng-bind="assetVM.data.carBrand"></td>
+                    <th class="w-120">车辆所在地</th>
+                    <td colspan="3" ng-bind="assetVM.data.carLocation"></td>
+                </tr>
+                <tr>
+                    <th class="w-120">借款用途</th>
+                    <td colspan="5" ng-bind="assetVM.data.loanUse"></td>
+                </tr>
+            </tbody>
+        </table>
+        <form name="productForm" class="form-validation" novalidate ng-submit="assetVM.submit()">
             <div class="row m-t-10">
                 <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">产品编号</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">借款人</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">借款金额</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">产品类别</label>
-                                <div>
-                                    <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
-                                        <option value="">- 请选择产品类型 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">借款利率</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">理财利率</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">还款方式</label>
-                                <div>
-                                    <select class="form-control" ng-model="assetVM.data.type" ng-options="item.value as item.text for item in assetVM.assetTypeList">
-                                        <option value="">- 请选择产品类型 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">理财期限</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">天</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">资产来源</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">房屋担保</label>
-                                <div class="checkbox checkbox-info">
-                                    <input id="chkHouseDB" class="styled" type="checkbox" ng-model="assetVM.data.houseDB">
-                                    <label for="chkHouseDB" ng-bind="assetVM.data.houseDB?'是':'否'"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" ng-if="assetVM.data.houseDB">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">房屋产权人</label>
-                                <div>
-                                    <select class="form-control" ng-model="assetVM.data.houseOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
-                                        <option value="">- 请选择产权人 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">房屋评估价格</label>
-                                <div class="append-icon">
-                                    <input type="text" class="form-control">
-                                    <i class="icon-calendar"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">房屋地址</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">车辆担保</label>
-                                <div class="checkbox checkbox-info">
-                                    <input id="chkCarDB" class="styled" type="checkbox" ng-model="assetVM.data.carDB">
-                                    <label for="chkCarDB" ng-bind="assetVM.data.carDB?'是':'否'"></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" ng-if="assetVM.data.carDB">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label">车辆产权人</label>
-                                <div>
-                                    <select class="form-control" ng-model="assetVM.data.carOwner" ng-options="item.value as item.text for item in assetVM.ownerList">
-                                        <option value="">- 请选择产权人 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label">车辆价格</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label">车辆品牌</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <label class="control-label">车辆所在地</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">借款用途</label>
-                                <div>
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label class="control-label">借款描述</label>
                                 <div>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" ng-bind="assetVM.data.des">
                                 </div>
                             </div>
                         </div>
@@ -205,25 +79,38 @@
                             <div class="form-group">
                                 <label class="control-label">增信说明</label>
                                 <div>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" ng-bind="assetVM.data.zengxinDes">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label">发售状态</label>
+                                <label class="control-label">销售平台</label>
                                 <div>
-                                    <input type="text" class="form-control">
+                                    <select class="form-control" ng-model="assetVM.data.saleplatformId" ng-options="item.id as item.text for item in assetVM.saleplatformList">
+                                        <option value="">- 请选择 -</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label">发售渠道</label>
+                                <label class="control-label">结标方式</label>
                                 <div>
-                                    <input type="text" class="form-control">
+                                    <select class="form-control" ng-model="assetVM.data.approveType" ng-options="item.value as item.text for item in assetVM.approveTypeList">
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="control-label">理财利率（未提供）</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control">
+                                    <span class="input-group-addon">%</span>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +121,7 @@
                             <div class="form-group">
                                 <label class="control-label">起投金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" ng-bind="assetVM.data.startAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -243,7 +130,7 @@
                             <div class="form-group">
                                 <label class="control-label">间隔金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" ng-bind="assetVM.data.stepAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -252,86 +139,7 @@
                             <div class="form-group">
                                 <label class="control-label">上限金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">结标方式</label>
-                                <div>
-                                    <select class="form-control" ng-model="assetVM.data.finishType" ng-options="item.value as item.text for item in assetVM.finishTypeList">
-                                        <option value="">- 请选择结标方式 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">投标进度</label>
-                                <div>
-                                    <input type="number" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">成交金额</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="m-t-10 m-b-10">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">本金总计</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">已付本金</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">剩余本金</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">利息总计</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">已付利息</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" ng-bind="assetVM.ennAmount">
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -342,7 +150,7 @@
                             <div class="form-group">
                                 <label class="control-label">借款开始日</label>
                                 <div class="append-icon">
-                                    <input type="number" class="form-control">
+                                    <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.debtStartDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startDateOpened=true" />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
@@ -351,7 +159,7 @@
                             <div class="form-group">
                                 <label class="control-label">借款截止日</label>
                                 <div class="append-icon">
-                                    <input type="number" class="form-control">
+                                    <input type="text" class="form-control" datepicker-popup ng-model="assetVM.data.debtEndDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endDateOpened=true" />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
