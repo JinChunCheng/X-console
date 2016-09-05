@@ -7,9 +7,10 @@ define([], function() {
          */
         var defaultCondition = {
             data: {},
-            pageNum: 1,
-            pageSize: 10
-          
+            paginate:{
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
@@ -76,7 +77,7 @@ define([], function() {
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'name',
+                        field: 'opname',
                         title: '用户名',
                         align: 'center',
                         valign: 'middle'
@@ -126,7 +127,7 @@ define([], function() {
                         align: 'center',
                         valign: 'top'
                     }, {
-                        field: 'workspace10',
+                        field: 'createTime',
                         title: '创建时间',
                         align: 'center',
                         valign: 'top'
