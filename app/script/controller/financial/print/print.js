@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'financialService','toaster',
-        function($scope, $http, $timeout, $modal, financialService,toaster) {
+    return ['$scope', '$http','metaService', '$timeout', '$modal', 'financialService','toaster',
+        function($scope, $http,metaService, $timeout, $modal, financialService,toaster) {
 
         /**
          * the default search condition
@@ -19,8 +19,8 @@ define([], function() {
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
             },
-            depositType:[{id:1,title:'托管户=>盒子支付'},{id:2,title:'准备金=>恒丰银行'},{id:3,title:'托管户=>准备金'},{id:4,title:'托管户=>收益户'},{id:5,title:'收益户=>结算户打款'},{id:6,title:'托管户=>恒丰结算户'},{id:7,title:'托管户=>盒子结算户'},{id:8,title:'盒子还款户=>托管户'}],
-            status:[{id:1,title:'未打印'},{id:2,title:'已打印'}]
+            //depositType:[{id:1,title:'托管户=>盒子支付'},{id:2,title:'准备金=>恒丰银行'},{id:3,title:'托管户=>准备金'},{id:4,title:'托管户=>收益户'},{id:5,title:'收益户=>结算户打款'},{id:6,title:'托管户=>恒丰结算户'},{id:7,title:'托管户=>盒子结算户'},{id:8,title:'盒子还款户=>托管户'}],
+            //status:[{id:1,title:'未打印'},{id:2,title:'已打印'}]
         };
 
         $scope.dateOptions = {
@@ -29,7 +29,15 @@ define([], function() {
             class: 'datepicker',
             showWeeks: false
         };
-
+            function initMetaData() {
+                metaService.getMeta('HZLX', function(data) {
+                    $scope.listView.remitPrintType = data;
+                });
+                metaService.getMeta('DYZT', function(data) {
+                    $scope.listView.status = data;
+                });
+            }
+            initMetaData();
             /**
              * do something after view loaded
              * @param  {string}     event type                       
@@ -76,128 +84,109 @@ define([], function() {
                         field: 'remitPrintId',
                         title: '打印号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     },{
                         field: 'remitPrintType',
                         title: '划账类型',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        formatter: remitPrintTypeFormatter
                     }, {
                         field: 'amount',
                         title: '金额',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'arrivalDate',
                         title: '预期到账时间',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'status',
                         title: '状态',
                         align: 'center',
                         valign: 'middle',
-                        sortable: true
+                        formatter: statusFormatter
                     }, {
                         field: 'printCount',
                         title: '打印次数',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payCapitalAccountId',
                         title: '付款资金账户标识',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payCapitalAccountName',
                         title: '付款资金账户名',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payCapitalAccount',
                         title: '付款资金账户',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payBankName',
                         title: '付款开户行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payBankProvince',
                         title: '付款开户行省份',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'payBankCity',
                         title: '付款开户行地市',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveCapitalAccountId',
                         title: '收款资金账户标识',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveCapitalAccountName',
                         title: '收款资金账户名',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveCapitalAccount',
                         title: '收款资金账户',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveBankName',
                         title: '收款开户行',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveBankProvince',
                         title: '收款开户行省份',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'receiveBankCity',
                         title: '收款开户行地市',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'largePayBankCode',
                         title: '大额支付行号',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'op',
                         title: '操作员',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }, {
                         field: 'createDatetime',
                         title: '创建日期',
                         align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        valign: 'middle'
                     }]
                 }
             };
@@ -208,8 +197,10 @@ define([], function() {
 
         })();
 
-        $scope.del = function() {
-            console.log('del');
+        function remitPrintTypeFormatter(value, row, index) {
+            return $filter('meta')(value, $scope.listView.remitPrintType);
+        };function statusFormatter(value, row, index) {
+            return $filter('meta')(value, $scope.listView.status);
         };
 
         function search() {

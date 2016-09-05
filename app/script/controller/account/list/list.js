@@ -173,6 +173,9 @@ define([], function() {
                 function dateFormatter(value, row, index) {
                     return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
                 };
+                function updateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
+                };
 
 
                 function flagFormatter(value, row, index) {

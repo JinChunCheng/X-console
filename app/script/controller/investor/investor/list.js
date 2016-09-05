@@ -8,13 +8,28 @@ define([], function() {
                 add: function() {
                     $state.go('investor.investor.add');
                 },
+                channelChange: function() {
+                    $scope.listVM.condition.fundAccountManagerId = null;
+                    console.log($scope.listVM.condition.fundChannelId)
+                },
+                fundChannelName:[],
+                getManagers: function(channelId) {
+                    var result = [];
+                    $scope.listVM.fundChannelName.forEach(function(item) {
+                        if (item.value == channelId) {
+                            result = item.children;
+                            return;
+                        }
+                    });
+                    return result;
+                },
             };
 
             function initMetaData() {
                 metaService.getMeta('ZT', function(data) {
                     $scope.listVM.status = data;
                 });
-                metaService.getMeta('ZCLX', function(data) {
+                metaService.getMeta('ZHUCLX', function(data) {
                     $scope.listVM.registerType = data;
                 });
                 metaService.getMeta('SFBGSYG', function(data) {
@@ -26,14 +41,20 @@ define([], function() {
                 metaService.getMeta('CZLY', function(data) {
                     $scope.listVM.operateOrigin = data;
                 });
+                metaService.getMeta('LCQD', function(data) {
+                    $scope.listVM.fundChannel = data;
+
+                });
                 metaService.getMeta('LCQDMC', function(data) {
                     $scope.listVM.fundChannelName = data;
+
                 });
                 metaService.getMeta('STJSFYSY', function(data) {
                     $scope.listVM.trialUsed = data;
                 });
                 metaService.getMeta('LCJLXM', function(data) {
                     $scope.listVM.fundAccountManagerName = data;
+
                 });
                 metaService.getMeta('SFXS', function(data) {
                     $scope.listVM.noviciate = data;
@@ -55,7 +76,6 @@ define([], function() {
 
             var getData = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                //var data = { "investorId": $scope.listVM.condition.investorId, "name": $scope.listVM.condition.name, 'loginName': $scope.listVM.condition.name, 'empFlag': $scope.listVM.condition.empFlag, 'mobile': $scope.listVM.condition.mobile , 'trialFlag': $scope.listVM.condition.trialFlag, 'operateOrigin': $scope.listVM.condition.operateOrigin, 'fundChannelCode': $scope.listVM.condition.fundChannelCode, 'fundAccountManagerId': $scope.listVM.condition.fundAccountManagerId, 'trialUsed': $scope.listVM.condition.trialUsed, 'idNo': $scope.listVM.condition.idNo,'createStartTime': $scope.listVM.condition.startDay,'createEndTime': $scope.listVM.condition.endDay,'bindIboxpayUser': $scope.listVM.condition.bindIboxpayUser};
                 var data = $scope.listVM.condition;
                 var queryCondition = { "data": data, "paginate": paganition };
                 investorService.investorListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
@@ -122,7 +142,7 @@ define([], function() {
                             title: '状态',
                             align: 'center',
                             valign: 'middle',
-                            formatter: statusFormatter
+                            formatter: statusFormatter,
 
                         }, {
                             field: 'fundAccountManagerId',
@@ -137,7 +157,7 @@ define([], function() {
                             valign: 'middle',
 
                         }, {
-                            field: 'fundAccountManagerName',
+                            field: 'fundAccountManagerId',
                             title: '理财客户经理姓名',
                             formatter: fundAccountManagerNameFormatter,
                             align: 'center',
@@ -150,7 +170,7 @@ define([], function() {
                             valign: 'middle',
 
                         }, {
-                            field: 'fundChannelName',
+                            field: 'fundChannelId',
                             title: '理财渠道名称',
                             formatter: fundChannelNameFormatter,
                             align: 'center',
@@ -161,7 +181,7 @@ define([], function() {
                             title: '注册类型',
                             align: 'center',
                             valign: 'middle',
-                            formatter: registerFormatter
+                            formatter: registerFormatter,
                         }, {
                             field: 'empFlag',
                             title: '是否本公司员工',
@@ -184,7 +204,7 @@ define([], function() {
                         }, {
                             field: 'noviciate',
                             title: '是否新手',
-                            formatter:noviciateFormatter,
+                            formatter: noviciateFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -224,14 +244,14 @@ define([], function() {
                         }, {
                             field: 'createDatetime',
                             title: '创建时间',
-                            formatter:dateFormatter,
+                            formatter: dateFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'updateDatetime',
                             title: '更新时间',
-                            formatter:updateFormatter,
+                            formatter: updateFormatter,
                             align: 'center',
                             valign: 'middle',
 
@@ -276,18 +296,21 @@ define([], function() {
                 }
 
                 function fundChannelNameFormatter(value, row, index) {
-                    return $filter('meta')(value, $scope.listVM.fundChannelName);
+                    return $filter('meta')(value, $scope.listVM.fundChannel);
                 }
 
                 function fundAccountManagerNameFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.fundAccountManagerName);
                 }
+
                 function noviciateFormatter(value, row, index) {
-                    return $filter('meta')(value, $scope.listVM.noviciateFormatter);
+                    return $filter('meta')(value, $scope.listVM.noviciate);
                 }
+
                 function dateFormatter(value, row, index) {
                     return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
                 }
+
                 function updateFormatter(value, row, index) {
                     return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
                 }
@@ -307,6 +330,7 @@ define([], function() {
             function detail(e, value, row, index) {
                 $state.go('investor.investor.detail', { id: row.investorId });
             }
+
             function bankMaintain(e, value, row, index) {
                 $state.go('investor.investor.maintain', { id: row.investorId });
             }

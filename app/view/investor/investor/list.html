@@ -83,7 +83,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道代码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundChannelCode" ng-options='c as c.text for c in listVM.fundChannelCode'>
+                                <select class="form-control form-white" ng-model="listVM.condition.fundChannelId" ng-change='listVM.channelChange()' ng-options='c.value as c.text for c in listVM.fundChannelName'>
                                 </select>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财客户经理</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundAccountManagerId" ng-options='m.code as m.name for m in listVM.condition.fundChannelCode.children'>
+                                <select class="form-control form-white" ng-model="listVM.condition.fundAccountManagerId" ng-options='m.value as m.text for m in listVM.getManagers(listVM.condition.fundChannelId)'>
                                 </select>
                             </div>
                         </div>

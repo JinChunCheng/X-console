@@ -39,8 +39,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //借款人列表
                 .state('borrower.info', lazyLoad.config('/info', '/view/shared/blank.html', '', null, true))
                 .state('borrower.info.list', lazyLoad.config('/list', '/view/borrower/borrower/list.html', 'controller/borrower/borrower/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
-                .state('borrower.info.add', lazyLoad.config('/add', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
-                .state('borrower.info.edit', lazyLoad.config('/edit/:id', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
+                .state('borrower.info.add', lazyLoad.config('/add', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower','service/public', 'service/meta'], filters: ['filter/common'] }))
+                .state('borrower.info.edit', lazyLoad.config('/edit/:id', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/public','service/meta'], filters: ['filter/common'] }))
                 .state('borrower.info.detail', lazyLoad.config('/detail/:id', '/view/borrower/borrower/detail.html', 'controller/borrower/borrower/detail', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
 
             //借款人还款列表
@@ -59,7 +59,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor.investor.add', lazyLoad.config('/add', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.edit', lazyLoad.config('/edit/:id', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.detail', lazyLoad.config('/detail/:id', '/view/investor/investor/detail.html', 'controller/investor/investor/detail', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
-                .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
+                .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor','service/public', 'service/meta'], filters: ['filter/common'] }))
 
             //投资人修改审核列表
             .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
@@ -181,20 +181,20 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('financial.list.edit', lazyLoad.config('/edit/:id', '/view/financial/list/edit.html', 'controller/financial/list/edit', { directives: [], services: ['service/borrower'], filters: [] }))
                 //提现出款
                 .state('financial.withdraw', lazyLoad.config('/withdraw', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/financial/withdraw/withdraw.html', 'controller/financial/withdraw/withdraw', { services: ['service/financial'] }))
+                .state('financial.withdraw.withdraw', lazyLoad.config('/withdraw', '/view/financial/withdraw/withdraw.html', 'controller/financial/withdraw/withdraw', { services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //满标出款
                 .state('financial.full', lazyLoad.config('/full', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.full.full', lazyLoad.config('/full', '/view/financial/full/full.html', 'controller/financial/full/full', { services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //出款指令列表
                 .state('financial.directive', lazyLoad.config('/directive', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.directive.directive', lazyLoad.config('/directive', '/view/financial/directive/directive.html', 'controller/financial/directive/directive', { directives: [], services: ['service/financial'], filters: [] }))
+                .state('financial.directive.directive', lazyLoad.config('/directive', '/view/financial/directive/directive.html', 'controller/financial/directive/directive', { directives: [], services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 .state('financial.directive.detail', lazyLoad.config('/directive/:id', '/view/financial/directive/detail.html', 'controller/financial/directive/detail', { services: ['service/financial'], filters: ['filter/common'] }))
                 //划款打印
                 .state('financial.print', lazyLoad.config('/print', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.print.print', lazyLoad.config('/print', '/view/financial/print/print.html', 'controller/financial/print/print', { services: ['service/financial'] }))
+                .state('financial.print.print', lazyLoad.config('/print', '/view/financial/print/print.html', 'controller/financial/print/print', { services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //提现出款监控
                 .state('financial.monitor', lazyLoad.config('/monitor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/financial'], filters: ['filter/common'] }))
+                .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/financial'], filters: [] }))
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
