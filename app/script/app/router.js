@@ -39,8 +39,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //借款人列表
                 .state('borrower.info', lazyLoad.config('/info', '/view/shared/blank.html', '', null, true))
                 .state('borrower.info.list', lazyLoad.config('/list', '/view/borrower/borrower/list.html', 'controller/borrower/borrower/list', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
-                .state('borrower.info.add', lazyLoad.config('/add', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
-                .state('borrower.info.edit', lazyLoad.config('/edit/:id', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
+                .state('borrower.info.add', lazyLoad.config('/add', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower','service/public', 'service/meta'], filters: ['filter/common'] }))
+                .state('borrower.info.edit', lazyLoad.config('/edit/:id', '/view/borrower/borrower/edit.html', 'controller/borrower/borrower/edit', { directives: [], services: ['service/borrower', 'service/public','service/meta'], filters: ['filter/common'] }))
                 .state('borrower.info.detail', lazyLoad.config('/detail/:id', '/view/borrower/borrower/detail.html', 'controller/borrower/borrower/detail', { directives: [], services: ['service/borrower', 'service/meta'], filters: ['filter/common'] }))
 
             //借款人还款列表
@@ -59,7 +59,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor.investor.add', lazyLoad.config('/add', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.edit', lazyLoad.config('/edit/:id', '/view/investor/investor/edit.html', 'controller/investor/investor/edit', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.detail', lazyLoad.config('/detail/:id', '/view/investor/investor/detail.html', 'controller/investor/investor/detail', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
-                .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
+                .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor','service/public', 'service/meta'], filters: ['filter/common'] }))
 
             //投资人修改审核列表
             .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))

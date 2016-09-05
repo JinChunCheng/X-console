@@ -249,16 +249,23 @@ define(['common/config'], function(config) {
                 { value: 'N', text: '否' },
             ]
         }, {
-            key: 'LCQDMC', //理财渠道名称
+            key: 'LCQDMC', //理财渠道名称+理财客户经理
             value: [
-                { id: 1, value: '1001', text: '管理系统', children: [{ id: 1, value: '1001', text: '管理系统' }] },
-                { id: 2, value: '1002', text: '钱盒', children: [{ id: 1, value: '2001', text: '钱盒' }] },
-                { id: 3, value: '1003', text: '开通宝', children: [{ id: 1, value: '3001', text: '开通宝' }] }
+                { value: "1", code: '1001', text: '管理系统', children: [{ value: "1", code: '1001', text: '管理系统' }] },
+                { value: "2", code: '1002', text: '钱盒', children: [{ value: "1", code: '2001', text: '钱盒' }] },
+                { value: "3", code: '1003', text: '开通宝', children: [{ value: "1", code: '3001', text: '开通宝' }] }
+            ]
+        }, {
+            key: 'LCQD', //理财渠道
+            value: [
+                { value: 1, code: '1001', text: '管理系统' },
+                { value: 2, code: '1002', text: '钱盒' },
+                { value: 3, code: '1003', text: '开通宝' }
             ]
         }, {
             key: 'SXQD', //授信渠道
             value: [
-                { id: 1, value: '0001', text: '汇和金服', children: [{ id: 1, value: '1001', text: '汇和金服' }] }
+                { value: 1, code: '0001', text: '汇和金服', children: [{ value: 1, code: '1001', text: '汇和金服' }] }
             ]
         }, {
             key: 'LCJLXM', //理财经理姓名
@@ -275,7 +282,7 @@ define(['common/config'], function(config) {
                 { value: 'P', text: '待定' }
             ]
         }, {
-            key: 'ZCLX', //注册类型
+            key: 'ZHUCLX', //注册类型
             value: [
                 { value: 'BACKEND', text: '代注册' },
                 { value: 'ONLINE', text: '自己注册' },
