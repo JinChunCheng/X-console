@@ -46,7 +46,7 @@ define([], function() {
         function getBank(bankName) {
             var result;
             var bankList = $scope.vm.bankList;
-            if (bankList && bankList.length > 0 && data && data.bankCode) {
+            if (bankList && bankList.length > 0) {
                 $scope.vm.bankList.forEach(function(item) {
                     if (item.bankName == bankName) {
                         result = item.bankCode;
@@ -58,10 +58,11 @@ define([], function() {
         }
 
         function getBankName(id) {
-            investorService.withdrawBackLabel.get({ id: id }).$promise.then(function(res) {
-                //基本信息
-                $scope.vm.data = res.data.result;
-                $scope.vm.data.bankAccount = res.data.withdraw.id;
+            investorService.getBankName.get({ id: id }).$promise.then(function(res) {
+                //TODO 该接口还未返回正确数据
+                $scope.vm.data.bankCode = res.data.bankName;
+                //存储bankName以便save的时候转化为code
+                $scope.vm.bankNameCode=res.data.bankCode;
 
             });
         }
@@ -180,7 +181,7 @@ define([], function() {
 
         function save() {
             //新增银行账号
-            $scope.vm.data.bankCode = getBank($scope.vm.data.bankName);;
+            $scope.vm.data.bankCode = $scope.vm.bankNameCode;
             $scope.vm.data.investorId = $stateParams.id;
 
             investorService.createBankAcc.save($scope.vm.data).$promise.then(function(res) {

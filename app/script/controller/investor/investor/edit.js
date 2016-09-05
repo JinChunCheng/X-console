@@ -7,17 +7,17 @@ define([], function() {
             action: action,
             title: $stateParams.id ? '修改投资人信息' : '新增投资人',
             data: {},
-            fundChannelCode:[],
             cancel: function() {
                 $state.go('investor.investor.list');
             },
-            fundChannelChange: function() {
-                $scope.vm.data.fundAccountManagerCode = null;
+            channelChange: function() {
+                $scope.vm.data.fundAccountManagerId = null;
             },
-            getManager: function(channelCode) {
+            fundChannelName: [],
+            getManagers: function(channelId) {
                 var result = [];
-                $scope.vm.fundChannelCode.forEach(function(item) {
-                    if (item.value == channelCode) {
+                $scope.vm.fundChannelName.forEach(function(item) {
+                    if (item.value == channelId) {
                         result = item.children;
                         return;
                     }
@@ -29,7 +29,7 @@ define([], function() {
 
         function initMetaData() {
             metaService.getMeta('LCQDMC', function(data) {
-                $scope.vm.fundChannelCode = data;
+                $scope.vm.fundChannelName = data;
             });
             metaService.getMeta('SFBGSYG', function(data) {
                 $scope.vm.empFlag = data;
@@ -39,9 +39,6 @@ define([], function() {
             });
             metaService.getMeta('SFRZZT', function(data) {
                 $scope.vm.idAuthFlag = data;
-            });
-            metaService.getMeta('LCJLXM', function(data) {
-                $scope.vm.fundAccountManagerCode = data;
             });
         }
         initMetaData();
@@ -72,7 +69,7 @@ define([], function() {
                     if (res.code == 200) {
                         toaster.pop('success', '新增投资人信息成功！');
                         $state.go("investor.investor.list");
-                    }else
+                    } else
                         toaster.pop('error', res.msg);
                 }, function(err) {
                     toaster.pop('error', '服务器连接失败！');
@@ -85,10 +82,10 @@ define([], function() {
                 if (res.code == 200) {
                     toaster.pop('success', '修改投资人信息成功！');
                     $state.go("investor.investor.list");
-                }else
-                        toaster.pop('error', res.msg);
-                }, function(err) {
-                    toaster.pop('error', '服务器连接失败！');
+                } else
+                    toaster.pop('error', res.msg);
+            }, function(err) {
+                toaster.pop('error', '服务器连接失败！');
             });
         }
 
