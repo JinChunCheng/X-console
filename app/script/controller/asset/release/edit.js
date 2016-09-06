@@ -4,7 +4,7 @@ define([], function() {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
-            $scope.assetVM = {
+            $scope.productVM = {
                 action: action,
                 title: '产品上架信息',
                 data: {},
@@ -19,9 +19,9 @@ define([], function() {
                 if (!id) {
                     return;
                 }
-                // assetService.asset.get({ id: id }).$promise.then(function(res) {
-                //     $scope.assetVM.data = res.data;
-                // }, function(err) {});
+                assetService.product.get({ id: id }).$promise.then(function(res) {
+                    $scope.productVM.data = res.data;
+                }, function(err) {});
 
             })($stateParams.id);
 
@@ -29,23 +29,23 @@ define([], function() {
             function initMetaData() {
                 assetService.platform.query(JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 100 } })).$promise.then(function(res) {
                     if (res.code == 200) {
-                        $scope.assetVM.saleplatformList = res.data.items;
+                        $scope.productVM.saleplatformList = res.data.items;
                     } else
                         console.log('获取销售平台失败：' + res.msg);
                 }, function(err) {
                     console.log('获取销售平台失败：服务器连接错误！')
                 });
                 metaService.getMeta('ZCLX', function(data) {
-                    $scope.assetVM.assetTypeList = data;
+                    $scope.productVM.assetTypeList = data;
                 });
                 metaService.getMeta('HKFS', function(data) {
-                    $scope.assetVM.repaymentTypeList = data;
+                    $scope.productVM.repaymentTypeList = data;
                 });
                 metaService.getMeta('CQR', function(data) {
-                    $scope.assetVM.ownerList = data;
+                    $scope.productVM.ownerList = data;
                 });
                 metaService.getMeta('JBFS', function(data) {
-                    $scope.assetVM.approveTypeList = data;
+                    $scope.productVM.approveTypeList = data;
                 });
             }
 
@@ -54,7 +54,7 @@ define([], function() {
                     return false;
                 }
 
-                assetService.product.save($scope.assetVM.data).$promise.then(function(res) {
+                assetService.onshelf($scope.productVM.data).then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '产品上架成功！');
                         $state.go('asset.release.todo');

@@ -9,10 +9,12 @@ define(['common/config'], function(config) {
         //var assetResource = $resource("http://172.21.22.31:8080" + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var platformResource = $resource('http://172.21.20.8:8089/saleplatform/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var productResource = $resource(config.PRODUCT_CONSOLE + '/product/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             channel: channelResource,
             asset: assetResource,
             platform: platformResource,
+            product: productResource,
             findChannel: function(condition) {
                 return $http({
                         method: 'POST',
@@ -103,6 +105,60 @@ define(['common/config'], function(config) {
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         url: 'http://172.21.20.8:8089/saleplatform/batch',
                         data: $.param(data)
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            findProduct: function(condition) {
+                return $http({
+                        method: 'POST',
+                        url: config.PRODUCT_CONSOLE + '/product/list',
+                        data: condition
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            onshelf: function(data) {
+                return $http({
+                        method: 'POST',
+                        url: config.PRODUCT_CONSOLE + '/product/onshelf',
+                        data: data
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            offshelf: function(id) {
+                return $http({
+                        method: 'POST',
+                        url: config.PRODUCT_CONSOLE + '/product/offshelf',
+                        data: { id: id }
                     })
                     .then(function(res) {
                             if (res) {

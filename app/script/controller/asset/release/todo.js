@@ -6,13 +6,12 @@ define([], function() {
              * the default search condition
              * @type {Object}
              */
-            var status = 1;
             var defaultCondition = {
                 paginate: {
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: { status: status }
+                data: { status: 1 }
             };
 
             $scope.listVM = {
@@ -42,7 +41,7 @@ define([], function() {
             });
 
             var findAsset = function(params) {
-                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                assetService.findProduct($scope.listVM.condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,

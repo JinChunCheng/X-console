@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService',
+        function($scope, $http, $timeout, $modal, $state, assetService) {
 
             /**
              * the default search condition
@@ -8,11 +8,10 @@ define([], function() {
              */
             var defaultCondition = {
                 paginate: {
-                    sort: 'update_time desc',
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: {}
+                data: { status: 2 }
             };
 
             $scope.listVM = {
@@ -22,8 +21,9 @@ define([], function() {
                 add: function() {
                     $state.go('asset.info.add');
                 },
-                batchUpload: function() {
-
+                search: search,
+                reset: function() {
+                    $scope.listVM.condition = angular.copy(defaultCondition);
                 }
             };
 
@@ -38,20 +38,12 @@ define([], function() {
 
 
             var getData = function(params) {
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+                assetService.findProduct($scope.listVM.condition).then(function(res) {
+                    res.data.paginate = res.data.paginate || { totalCount: 0 };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -80,8 +72,8 @@ define([], function() {
                             { field: 'workspace3', title: '还款方式', align: 'left', valign: 'top' },
                             { field: 'workspace3', title: '投放渠道', align: 'left', valign: 'top' },
                             { field: 'workspace3', title: '创建时间', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' },
-                            {   field: 'flag',
+                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                                field: 'flag',
                                 title: '操作',
                                 align: 'center',
                                 valign: 'middle',
@@ -118,6 +110,16 @@ define([], function() {
                             }
 
                             $scope.ok = function() {
+                                assetService.offshelf(row.id).then(function(res) {
+                                    if (res.code == 200) {
+                                        toaster.pop('success', '产品下架成功！');
+                                        $modalInstance.dismiss();
+                                        search();
+                                    } else
+                                        toaster.pop('error', res.msg);
+                                }, function(err) {
+                                    toaster.pop('error', '服务器连接失败！');
+                                });
                                 return true;
                             }
                         }
@@ -128,16 +130,8 @@ define([], function() {
 
             })();
 
-            $scope.search = function() {
+            function search() {
                 $scope.listVM.table.bootstrapTable('refresh');
-            };
-
-            $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-                console.log('page change');
             };
         }
     ];

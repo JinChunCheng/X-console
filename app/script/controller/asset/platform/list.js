@@ -102,9 +102,9 @@ define([], function() {
                         sidePagination: "server",
                         columns: [
                             { field: 'state', checkbox: true, align: 'center', valign: 'middle' },
-                            { field: 'id', title: '编号' },
+                            { field: 'code', title: '平台编号' },
                             { field: 'name', title: '平台名称' },
-                            { field: 'createTime', title: '上线时间' },
+                            { field: 'createTime', title: '上线时间', formatter: dateFormatter },
                             { field: 'content', title: '平台形式' },
                             { field: 'amount', title: '累计销售额' },
                             { field: 'number', title: '用户数' },
@@ -122,6 +122,10 @@ define([], function() {
                         ]
                     }
                 };
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value);
+                }
 
                 function flagFormatter(value, row, index) {
                     var buttons = [
