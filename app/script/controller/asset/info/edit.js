@@ -59,6 +59,9 @@ define([], function() {
                         });
                     }
                     return result;
+                },
+                showDraftBtn: function() {
+                    return action == 'add' || $scope.assetVM.data.status == -1;
                 }
             };
 
@@ -147,7 +150,7 @@ define([], function() {
 
             function showFiles(type, title) {
                 var allFiles = $scope.assetVM.data.files || [];
-                var files = $filter('filter')(allFiles, { type: type });
+                var files = $filter('filter')(allFiles, { fileUsageType: type });
                 title = title || '文件列表';
                 $modal.open({
                     templateUrl: 'view/asset/info/files.html',
@@ -199,7 +202,7 @@ define([], function() {
                 var preFiles = $scope.assetVM.data.files || [];
                 for (var i = preFiles.length - 1; i >= 0; i--) {
                     var file = preFiles[i];
-                    if (file.fileType == type)
+                    if (file.fileUsageType == type)
                         preFiles.splice(i, 1);
                 }
                 $scope.assetVM.data.files = preFiles.concat(files);
@@ -208,25 +211,6 @@ define([], function() {
             function saveAsset() {
                 var asset = $scope.assetVM.data;
 
-                var birthPlace = $scope.assetVM.birthPlace;
-                var localPlace = $scope.assetVM.localPlace;
-                // if (birthPlace) {
-                //     if (birthPlace.province)
-                //         asset.birthProvince = birthPlace.province.code;
-                //     if (birthPlace.city)
-                //         asset.birthCity = birthPlace.city.code;
-                //     if (birthPlace.district)
-                //         asset.birthDistrict = birthPlace.birthDistrict.code;
-                // }
-                // if (localPlace) {
-                //     if (localPlace.province)
-                //         asset.localProvince = localPlace.province.code;
-                //     if (localPlace.city)
-                //         asset.localCity = localPlace.city.code;
-                //     if (localPlace.district)
-                //         asset.localDistrict = localPlace.district.code;
-                // }
-                // asset.assetType = parseInt(asset.assetType);
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else

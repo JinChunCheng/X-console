@@ -79,8 +79,8 @@ define(['common/config'], function(config) {
                 return $http({
                         method: 'DELETE',
                         url: config.ASSET_CONSOLE + '/asset/' + id,
-                        //headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-                        data: null
+                        headers: { 'Content-Type': 'application/json' }, //DELETE方法必须写成JSON
+                        data: null //DELETE方法必须写data: null
                     })
                     .then(function(res) {
                             if (res) {
