@@ -61,8 +61,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor.investor.detail', lazyLoad.config('/detail/:id', '/view/investor/investor/detail.html', 'controller/investor/investor/detail', { services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.investor.maintain', lazyLoad.config('/maintain/:id', '/view/investor/investor/maintain.html', 'controller/investor/investor/maintain', { services: ['service/investor','service/public', 'service/meta'], filters: ['filter/common'] }))
 
-            //投资人修改审核列表
-            .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
+                //投资人修改审核列表
+                .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
                 .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor'], filters: [] }))
                 //新增投标
                 .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/investor'], filters: [] }, true))
@@ -195,7 +195,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //提现出款监控
                 .state('financial.monitor', lazyLoad.config('/monitor', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.monitor.monitor', lazyLoad.config('/monitor', '/view/financial/monitor/monitor.html', 'controller/financial/monitor/monitor', { directives: [], services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
-                .state('financial.monitor.detail', lazyLoad.config('/monitor', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/financial'], filters: [] }))
+                .state('financial.monitor.detail', lazyLoad.config('/detail/:id', '/view/financial/monitor/detail.html', 'controller/financial/monitor/detail', { directives: [], services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
