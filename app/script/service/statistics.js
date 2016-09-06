@@ -8,7 +8,7 @@ define(['common/config'], function(config) {
         return {
             findProfit: function(start, end) {
                 return $http({
-                        method: "POST",
+                        method: "GET",
                         url: "http://172.21.20.13:8080/reports/profit/date/" + start + "/" + end
                     })
                     .then(function(res) {
