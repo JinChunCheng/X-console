@@ -16,7 +16,7 @@ define(['common/config'], function(config) {
         var transferCashPrintTable = $resource('http://172.21.20.12:8080/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //提现出款监控
         var withdrawCashMonitorTable = $resource('http://172.21.20.16:8080/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var monitorDetailsTable = $resource('http://172.21.20.16:8080/paymentMonitor:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var monitorDetailsTable = $resource('http://172.21.20.16:8080/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
@@ -96,10 +96,10 @@ define(['common/config'], function(config) {
                     }
                 );
             },
-            senfAccept: function(id) {
+            sendAccept: function(remitPrintId) {
                 return $http({
                     method: 'PUT',
-                    url: 'http://172.21.20.16:8080/paymentMonitor/senf/' + id
+                    url: 'http://172.21.20.16:8080/paymentMonitor/send/' + remitPrintId
                 })
                     .then(function(resp) {
                         if (resp) {
@@ -113,10 +113,10 @@ define(['common/config'], function(config) {
                     }
                 );
             },
-            receiptAccept: function(id) {
+            receiptAccept: function(remitPrintId) {
                 return $http({
                     method: 'PUT',
-                    url: 'http://172.21.20.16:8080/paymentMonitor/receipt/' + id
+                    url: 'http://172.21.20.16:8080/paymentMonitor/receipt/' + remitPrintId
                 })
                     .then(function(resp) {
                         if (resp) {
