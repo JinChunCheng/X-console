@@ -5,9 +5,9 @@
                 <div class="input-group">
                     <span class="input-group-addon">从</span>
                     <div class="input-group">
-                        <input type="text" class="form-control bd-r-0" datepicker-popup="yyyy-MM-dd" ng-model="vm.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
+                        <input type="text" class="form-control bd-r-0" datepicker-popup="yyyy-MM-dd" ng-model="profitVM.condition.start" is-open="startOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startOpened=true" />
                         <span class="input-group-addon">到</span>
-                        <input type="text" class="form-control bd-l-0" datepicker-popup ng-model="vm.condition.end" is-open="endOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endOpened=true" />
+                        <input type="text" class="form-control bd-l-0" datepicker-popup ng-model="profitVM.condition.end" is-open="endOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endOpened=true" />
                     </div>
                 </div>
             </div>
@@ -26,10 +26,10 @@
                     <div class="row">
                         <div class="panel">
                             <div class="panel-header">
-                                <h3><i class="fa fa-table"></i> <strong>投资人数统计</strong></h3>
+                                <h3><i class="fa fa-table"></i> <strong>利润数据统计</strong></h3>
                             </div>
                             <div class="panel-content">
-                                <table class="table table-bordered th-bg">
+                                <table class="table table-bordered th-bg th-center">
                                     <thead>
                                         <tr>
                                             <th>日期</th>
@@ -43,11 +43,11 @@
                                     <tbody>
                                         <tr ng-repeat="item in profitVM.data">
                                             <td ng-bind="item.profitDate"></td>
-                                            <td ng-bind="item.depositProfit"></td>
-                                            <td ng-bind="item.withdrawProfit"></td>
-                                            <td ng-bind="item.projectProfit"></td>
-                                            <td ng-bind="item.investmentProfit"></td>
-                                            <td ng-bind="item.totalProfit"></td>
+                                            <td class="text-right" ng-bind="item.depositProfit"></td>
+                                            <td class="text-right" ng-bind="item.withdrawProfit"></td>
+                                            <td class="text-right" ng-bind="item.projectProfit"></td>
+                                            <td class="text-right" ng-bind="item.investmentProfit"></td>
+                                            <td class="text-right" ng-bind="item.totalProfit"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -63,11 +63,23 @@
                         <div class="col-md-12">
                             <div class="panel">
                                 <div class="panel-header">
-                                    <h3><i class="fa fa-pie-chart"></i> <strong>投资人数统计</strong></h3>
+                                    <h3><i class="fa fa-pie-chart"></i> <strong>利润占比图表</strong></h3>
                                 </div>
                                 <div class="panel-content">
-                                    <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                    <canvas class="chart chart-pie" chart-data="pie.data" chart-labels="pie.labels" chart-series="pie.series" chart-options="pie.options">
                                     </canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel">
+                                <div class="panel-header">
+                                    <h3><i class="fa fa-line-chart"></i> <strong>利润合计图表</strong></h3>
+                                </div>
+                                <div class="panel-content">
+                                    <canvas class="chart chart-line" chart-data="line.data" chart-labels="line.labels" chart-series="chart.series" chart-options="line.options" chart-dataset-override="line.datasetOverride"></canvas>
                                 </div>
                             </div>
                         </div>
