@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', '$filter', 'financialService','toaster',
-        function($scope, $http,metaService,$state,$timeout, $modal, $filter, financialService,toaster) {
+    return ['$scope', '$http','metaService','$stateParams','$state', '$timeout', '$modal', '$filter', 'financialService','toaster',
+        function($scope, $http,metaService,$stateParams,$state,$timeout, $modal, $filter, financialService,toaster) {
 
         /**
          * the default search condition
@@ -8,6 +8,7 @@ define([], function() {
          */
         var defaultCondition = {
             sorting: 'update_time desc',
+            //data:{},
             pageNum: 1,
             pageSize: 10
         };
@@ -15,9 +16,6 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            //channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}],
-            //sendStatus:[{id:1,title:'等待发送'},{id:2,title:'发送失败'},{id:3,title:'发送成功'}],
-            //receiptStatus:[{id:1,title:'等待回执'},{id:2,title:'部分回执失败'},{id:3,title:'回执成功'},{id:4,title:'回执失败'}],
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
@@ -46,56 +44,6 @@ define([], function() {
             showWeeks: false
         };
 
-        $scope.listVM = {
-            condition: angular.copy(defaultCondition),
-            table: null,
-            status: [{code:1,label:'正常'}, {code:2,label:'关闭'}],
-            //check: function() {
-            //    var selected = $scope.listView.table.bootstrapTable('getSelections');
-            //    if (!selected || selected.length === 0) {
-            //        var selected = $scope.listView.table.bootstrapTable('getSelections');
-            //        if (!selected || selected.length === 0) {
-            //            toaster.pop('error', '未选中行！');
-            //            return;
-            //        }
-            //
-            //    }
-            //    else {
-            //        var selectedId = selected[0].id;
-            //        $state.go('financial.monitor.detail', {id: selectedId});
-            //    }
-            //},
-            //重新发送
-            senf: function() {
-                var selected = $scope.listView.table.bootstrapTable('getSelections');
-                if (!selected || selected.length === 0) {
-                    var selected = $scope.listView.table.bootstrapTable('getSelections');
-                    if (!selected || selected.length === 0) {
-                        toaster.pop('error', '未选中行！');
-                        return;
-                    }
-
-                }
-                else {
-
-                }
-            },
-            //回执   只允许发送操作成功的状态
-            receipt: function() {
-                var selected = $scope.listView.table.bootstrapTable('getSelections');
-                if (!selected || selected.length === 0) {
-                    var selected = $scope.listView.table.bootstrapTable('getSelections');
-                    if (!selected || selected.length === 0) {
-                        toaster.pop('error', '未选中行！');
-                        return;
-                    }
-
-                }
-                else {
-                    var selectedId = selected[0].id;
-                    $state.go('financial.monitor.detail', {id: selectedId});}
-            }
-        };
             /**
              * do something after view loaded
              * @param  {string}     event type                       
@@ -126,7 +74,6 @@ define([], function() {
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
-                    onPageChange: pageChange,
                     sidePagination: "server",
                     columns: [
                         {
@@ -140,13 +87,13 @@ define([], function() {
                         align: 'center',
                         valign: 'middle'
                     },{
-                        field: 'exeChannelName',
+                        field: 'exeChannel',
                         title: '提现渠道',
                         align: 'center',
                         valign: 'middle',
                         formatter: channelFormatter
                     }, {
-                        field: 'execStatusName',
+                        field: 'execStatus',
                         title: '发送状态',
                         align: 'center',
                         valign: 'middle',
@@ -157,7 +104,7 @@ define([], function() {
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'receiptStatusName',
+                        field: 'receiptStatus',
                         title: '回执状态',
                         align: 'center',
                         valign: 'middle',
@@ -241,7 +188,7 @@ define([], function() {
                         formatter: flagFormatter,
                         events: {
                             'click .btn-check': check,
-                            'click .btn-senf': senf,
+                            'click .btn-send': send,
                             'click .btn-receipt': receipt,
                         }
                      }]
@@ -250,22 +197,22 @@ define([], function() {
             };
 
             function flagFormatter(value, row, index) {
-                var execStatus = $scope.listView.condition.execStatus;
-                var receiptStatus = $scope.listView.condition.receiptStatus;
+                var execStatus = row.execStatus;// $scope.listView.execStatus.value;
+                    //console.log($scope.listView.execStatus);
+                var receiptStatus = row.receiptStatus;// $scope.listView.condition.receiptStatus;
                 var btnHtml = [];
                 if(execStatus == 'F') {
+                    console.log("execStatus == 'F'"),
                     btnHtml = [
-                        '<button type="button" class="btn btn-xs btn-primary btn-senf"><i class="fa fa-edit"></i></button>',
-                        //'<button type="button" class="btn btn-xs btn-success btn-receipt"><i class="fa fa-cc-visa"></i></button>'
-
+                        '<button type="button" class="btn btn-xs btn-primary btn-send"><i class="fa fa-edit"></i></button>',
                     ];
                 }else if (execStatus == 'S' && receiptStatus != 'S') {
+                    console.log("execStatus == 'S'"),
                     btnHtml = [
-                        //'<button type="button" class="btn btn-xs btn-primary btn-senf"><i class="fa fa-edit"></i></button>',
                         '<button type="button" class="btn btn-xs btn-success btn-receipt"><i class="fa fa-cc-visa"></i></button>'
-
                     ];
                 }
+                console.log("push"),
                 btnHtml.push('<button type="button" class="btn btn-xs btn-info btn-check"><i class="fa fa-arrow-right"></i></button>');
 
                 return btnHtml.join('');
@@ -281,9 +228,9 @@ define([], function() {
         };
 
         function check(e, value, row, index) {
-            $state.go('financial.monitor.detail');
+            $state.go('financial.monitor.detail', {id: row.remitPrintId });
         }
-        function senf(e, value, row, index) {
+        function send(e, value, row, index) {
             var text = "是否重新发送？";
             $modal.open({
                 templateUrl: 'view/shared/confirm.html',
@@ -299,11 +246,9 @@ define([], function() {
                     };
                     $scope.ok = function () {
                         $scope.confirmData.processing = true;//请求数据的过程有个表示
-                        financialService.senfAccept({data:{
-                            id: $stateParams.id
-                        }}).then(function (res) {
+                        financialService.sendAccept(row.remitPrintId).then(function (res) {
                             if (res.code == 200) {
-                                toaster.pop('success', '操作成功！');
+                                toaster.pop('success', res.msg);
                                 //$modalInstance.close;
                             }
                             else
@@ -313,6 +258,7 @@ define([], function() {
                             toaster.pop('error', '服务器连接失败！');
                             $scope.confirmData.processing = false;
                         });
+                        $modalInstance.dismiss();
                         return true;
                     };
                 }
@@ -335,9 +281,7 @@ define([], function() {
                     };
                     $scope.ok = function () {
                         $scope.confirmData.processing = true;//请求数据的过程有个表示
-                        financialService.receiptAccept({data:{
-                            id: $stateParams.id
-                        }}).then(function (res) {
+                        financialService.receiptAccept(row.remitPrintId).then(function (res) {
                             if (res.code == 200) {
                                 toaster.pop('success', '操作成功！');
                                 //$modalInstance.close;
@@ -349,6 +293,7 @@ define([], function() {
                             toaster.pop('error', '服务器连接失败！');
                             $scope.confirmData.processing = false;
                         });
+                        $modalInstance.dismiss();
                         return true;
                     };
                 }
@@ -358,9 +303,6 @@ define([], function() {
 
             function search() {
             $scope.listView.table.bootstrapTable('refresh');
-        };
-        var pageChange = function(num, size) {
-            console.log(num + ' - ' + size);
         };
     }];
 });

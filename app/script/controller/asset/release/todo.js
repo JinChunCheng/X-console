@@ -6,13 +6,12 @@ define([], function() {
              * the default search condition
              * @type {Object}
              */
-            var status = 1;
             var defaultCondition = {
                 paginate: {
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: { status: status }
+                data: { status: 0 }
             };
 
             $scope.listVM = {
@@ -42,7 +41,7 @@ define([], function() {
             });
 
             var findAsset = function(params) {
-                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                assetService.findProduct($scope.listVM.condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,
@@ -62,14 +61,23 @@ define([], function() {
                         ajax: findAsset,
                         sidePagination: "server",
                         columns: [
-                            { field: 'id', title: '编号', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '类型', align: 'center', valign: 'middle' },
-                            { field: 'workspace', title: '借款概要', align: 'left', valign: 'top' },
-                            { field: 'workspace2', title: '来源', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款利率', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款周期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '收录日期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '过期时间', align: 'left', valign: 'top' }, {
+                            { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
+                            { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
+                            { field: 'source', title: '来源' }, {
+                                field: 'loanRate',
+                                title: '借款利率',
+                                formatter: function(value) {
+                                    return value ? value + '%' : '';
+                                }
+                            }, {
+                                field: 'loanTermCount',
+                                title: '借款周期',
+                                formatter: function(value) {
+                                    return value ? value + '天' : ''
+                                }
+                            },
+                            { field: 'createTime', title: '收录日期' },
+                            { field: 'loanDate', title: '过期时间', formatter: dateFormatter }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -83,6 +91,24 @@ define([], function() {
                         ]
                     }
                 };
+
+                function assetTypeFormatter(value, row, index) {
+                    return '车贷';
+                }
+
+                function loanRemarkFormatter(value, row, index) {
+                    var list = [];
+                    if (row.name)
+                        list.push(row.name);
+                    list.push('借款' + (row.amount || 0) + '元')
+                    if (row.loanUse)
+                        list.push('用于' + row.loanUse);
+                    return list.join('，');
+                }
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value);
+                }
 
                 function flagFormatter(value, row, index) {
                     var buttons = [

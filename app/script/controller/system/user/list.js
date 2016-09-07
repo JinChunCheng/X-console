@@ -7,15 +7,18 @@ define([], function() {
          */
         var defaultCondition = {
             data: {},
-            pageNum: 1,
-            pageSize: 10
-          
+            paginate:{
+                pageNum: 1,
+                pageSize: 10
+            }
         };
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-
+            add:function(){
+                $state.go('system.user.add')
+            }
         };
 
         /**
@@ -42,108 +45,79 @@ define([], function() {
 
             $scope.bsUsersListTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
                     height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    //onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
-                        align: 'center',
-                        valign: 'middle'
+                        align: 'center'
                     }, {
                         field: 'id',
                         title: '编号',
-                        align: 'center',
-                        valign: 'middle'
+                        align: 'center'
                     }, {
-                        field: 'name',
+                        field: 'opname',
                         title: '用户名',
-                        align: 'center',
-                        valign: 'middle'
+                        align: 'center'
                     }, {
                         field: 'workspace',
                         title: '部门',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace2',
                         title: '姓名',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace3',
                         title: 'Email',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace4',
                         title: '手机',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace5',
                         title: '电话',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace6',
                         title: '状态',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace7',
                         title: '加密等级',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace8',
                         title: '动态口令序列号',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace9',
                         title: '有效期',
                         align: 'center',
                         valign: 'top'
                     }, {
-                        field: 'workspace10',
+                        field: 'createTime',
                         title: '创建时间',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'workspace10',
                         title: '更新时间',
-                        align: 'center',
-                        valign: 'top'
+                        align: 'center'
                     }, {
                         field: 'flag',
                         title: '操作',
                         align: 'center',
-                        valign: 'middle',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn-info': editRow
+                            'click .btn-info': editRow,
+                            'click .btn-primary': revise,
                         }
                     }]
                 }
@@ -151,7 +125,8 @@ define([], function() {
 
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
+                    '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
                 ];
                 return btnHtml.join('');
             }
@@ -160,7 +135,10 @@ define([], function() {
 
         function editRow(e, value, row, index) {
             $state.go('system.user.detail', { id: row.id });
-        }
+        };
+        function revise(e, value, row, index) {
+            $state.go('system.user.edit', { id: row.id });
+        };
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
             console.log('aaa');
@@ -168,7 +146,6 @@ define([], function() {
 
         $scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
         };
     }];
 });

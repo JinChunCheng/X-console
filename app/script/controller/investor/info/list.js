@@ -207,7 +207,7 @@ define([], function () {
 
         })();
         function editRow(e, value, row, index) {
-            $state.go('investor.info.detail', {id: row.investorVO.investorId});
+            $state.go('investor.info.detail', {id: row.investmentVO.investmentId});
         }
 
 

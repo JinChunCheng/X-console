@@ -35,8 +35,9 @@ define([], function(config) {
         var tenderList = $resource('http://172.21.20.13:8080/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var tenderDetail = $resource('http://172.21.20.13:8080/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
-        var infoList=$resource('http://172.21.20.16:8080/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var infoDetail=$resource('http://172.21.20.16:8080/investment/4755', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoList=$resource('http://172.21.20.16:8088/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoDetail=$resource('http://172.21.20.16:8088/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoRepayList=$resource('http://172.21.20.16:8088/investment/getRepaymentPlanById',{ id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
             resource: investorRes,
@@ -56,6 +57,7 @@ define([], function(config) {
             tenderDetail:tenderDetail,
             infoList:infoList,
             infoDetail:infoDetail,
+            infoRepayList:infoRepayList,
             /**
              * get investor list
              * @param  {string} data 
@@ -151,7 +153,7 @@ define([], function(config) {
             approvalInvestor: function(id) {
                 return $http({
                     method: 'GET',
-                    url: 'http://172.21.20.12:8080/investorUpdate/approveInvestorUpdate/' + id
+                    url: 'http://172.21.20.12:8080/investorUpdate/approveInvestorUpdate/'+ id
                 })
                 .then(function(resp) {
                     if (resp) {
@@ -179,6 +181,24 @@ define([], function(config) {
                     function(errResp) {
                         return $q.reject(errResp);
                     });
+            },
+            repayList: function(id) {
+                return $http({
+                    method: 'GET',
+                    url:'http://172.21.20.16:8088/investment/getRepaymentPlanById/'+id
+                })
+                    .then(function(res) {
+                        if (res) {
+                            return res.data;
+
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errRes) {
+                        return $q.reject(errRes);
+                    }
+                );
             }
         }
     }]]

@@ -18,11 +18,10 @@ define([], function() {
                     action = 'draft';
                     title = '资产草稿';
                     buttons = [
-                        '<button name="btn-submit" class="btn btn-success btn-xs btn-transparent m-r-5" title="提交到待审核资产库"><i class="fa fa-check"></i></button>',
                         '<button name="btn-edit" class="btn btn-primary btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
                         '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
-                    optColWidth = 100;
+                    optColWidth = 80;
                     showAddBtn = true;
                     break;
                 case 'asset.info.todo':
@@ -30,11 +29,12 @@ define([], function() {
                     action = 'todo';
                     title = '未评审资产库';
                     buttons = [
+                        '<button name="btn-edit" class="btn btn-primary btn-xs btn-transparent m-r-5" title="修改资产信息"><i class="fa fa-edit"></i></button>',
                         '<button name="btn-pass" class="btn btn-success btn-xs btn-transparent m-r-5" title="审核通过"><i class="fa fa-check"></i></button>',
                         '<button name="btn-refuse" class="btn btn-warning btn-xs btn-transparent m-r-5" title="审核不通过"><i class="fa fa-minus-circle"></i></button>',
                         '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
-                    optColWidth = 100;
+                    optColWidth = 130;
                     showAddBtn = true;
                     break;
                 case 'asset.info.better':
@@ -42,23 +42,23 @@ define([], function() {
                     action = 'better';
                     title = '优质资产库';
                     buttons = [
-                        '<a href="" name="btn-view" class="m-r-5">查看</button>',
-                        '<a href="" name="btn-cancel" class="m-r-5">取消审核</a>',
-                        '<a href="" name="btn-delete" class="m-r-5 text-danger">删除</button>'
+                        // '<button name="btn-view" class="btn btn-default btn-xs btn-transparent m-r-5" title="查看"><i class="fa fa-file-o"></i></button>',
+                        '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
+                    optColWidth = 50;
                     break;
                 case 'asset.info.risk':
                     status = 3;
                     action = 'risk';
                     title = '风险资产库';
                     buttons = [
-                        '<a href="" name="btn-view" class="m-r-5">查看</button>',
-                        '<a href="" name="btn-pass" class="m-r-5">审核通过</a>',
-                        '<a href="" name="btn-delete" class="m-r-5 text-danger">删除</button>'
+                        // '<button name="btn-view" class="btn btn-default btn-xs btn-transparent m-r-5" title="查看"><i class="fa fa-file-o"></i></button>',
+                        '<button name="btn-pass" class="btn btn-success btn-xs btn-transparent m-r-5" title="审核通过"><i class="fa fa-check"></i></button>',
+                        '<button name="btn-delete" class="btn btn-danger btn-xs btn-transparent" title="删除"><i class="fa fa-times"></i></button>'
                     ];
                     break;
                 default:
-                    optColWidth = 120;
+                    optColWidth = 80;
                     break;
             }
 
@@ -157,10 +157,9 @@ define([], function() {
                                 events: {
                                     'click [name="btn-view"]': view,
                                     'click [name="btn-edit"]': edit,
-                                    'click [name="btn-submit"]': submit,
                                     'click [name="btn-pass"]': verifyPass,
                                     'click [name="btn-refuse"]': verifyRefuse,
-                                    'click [name="btn-cancel"]': verifyCancel,
+                                    // 'click [name="btn-cancel"]': verifyCancel,
                                     'click [name="btn-delete"]': deleteRow
                                 }
                             }
@@ -203,10 +202,6 @@ define([], function() {
                     $state.go('asset.info.edit', { id: row.id });
                 }
 
-                function submit(e, value, row, index) {
-                    verify(row.id, 0, '确定提交该资产到待审核？');
-                }
-
                 function verifyPass(e, value, row, index) {
                     verify(row.id, 1, '确定审核通过该资产？');
                 }
@@ -215,11 +210,9 @@ define([], function() {
                     verify(row.id, 3, '确定审核不通过该资产？');
                 }
 
-                function verifyCancel(e, value, row, index) {
-                    verify(row.id, 0, '确定取消审核该资产？');
-                    e.stopPropagation();
-                    e.preventDefault();
-                }
+                // function verifyCancel(e, value, row, index) {
+                //     verify(row.id, 0, '确定取消审核该资产？');
+                // }
 
                 function verify(id, status, text) {
                     $modal.open({

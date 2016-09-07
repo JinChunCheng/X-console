@@ -11,7 +11,10 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
+            table: null,
+            add:function(){
+                $state.go()
+            }
             /*operSource: ['管理系统', '钱盒'],
             status: ['待结标', '取消', '结标完成'],
             tenderWay: ['手动投标', '自动投标', '代理投标'],

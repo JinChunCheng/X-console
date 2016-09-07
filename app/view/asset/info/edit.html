@@ -623,7 +623,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label class="control-label">审批文件{{assetVM.data.files.length}}</label>
+                                            <label class="control-label">审批文件</label>
                                             <div>
                                                 <button type="button" class="btn btn-default" ng-click="assetVM.showFiles(1, '审批文件')">点击查看</button>
                                             </div>
@@ -679,7 +679,7 @@
             </tabset>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="button" class="btn btn-primary m-r-10" ng-click="assetVM.cache()">保存草稿</button>
+                    <button type="button" class="btn btn-primary m-r-10" ng-if="assetVM.showDraftBtn()" ng-click="assetVM.cache()" ng-cloak>保存草稿</button>
                     <button type="submit" class="btn btn-success m-r-10">保存并提交</button>
                     <button type="button" class="btn btn-default" ng-click="assetVM.cancel()">返回</button>
                 </div>
