@@ -1,5 +1,5 @@
 define([], function () {
-    return ['$scope', '$state',  '$modal', 'investorService', function ($scope, $state,  $modal, investorService) {
+    return ['$scope', '$state',  '$modal','$filter','metaService', 'investorService', function ($scope, $state,  $modal,$filter,metaService, investorService) {
 
         /**
          * the default search condition
@@ -16,9 +16,6 @@ define([], function () {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            /* status: ['还款中', '逾期', '异常关闭', '正常关闭', '转让中', '转让完成'],
-             channel: ['钱盒', '开通宝', '管理系统'],
-             isUsed: ['包含', '不包含'],*/
         };
 
         /**
@@ -32,7 +29,7 @@ define([], function () {
 
 
         var getData = function (params) {
-            //query: {where: JSON.stringify($scope.listVM.condition)}
+
             investorService.infoList.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function (res) {
                 res.data.paginate = res.data.paginate || {totalCount: 0};
                 params.success({
@@ -40,77 +37,19 @@ define([], function () {
                     rows: res.data.items
                 });
             });
-
-            //post: 
-            // var project = {};
-            // project.borrowerId = 1;
-            // project.contractTemplateId=1;
-            // project.projectName="console-前台添加";
-            // project.requestAmount=100000.00;
-            // project.repaymentType="IOP";
-            // project.duration=12;
-            // project.durationUnit="Y";
-            // project.periodCount=10;
-            // project.interestRate=0.8;
-            // project.interestRateTerm="Y";
-            // project.serviceFeeRate=0;
-            // project.serviceFeeRateTerm="Y";
-            // project.latePaymentFeeRateTerm="D";
-            // project.purpose="前端测试";
-            // project.mortgageFlag="N";
-            // project.mortgage="无";
-            // project.guaranteeFlag="N";
-            // project.guarantee="无";
-            // project.description="这是一个通过controller添加进来的project";
-            // project.biddingDeadline=new Date();
-            // project.biddingStartAmount=5000;
-            // project.biddingStepAmount=1000;
-            // project.biddingAmount=100000.00;
-            // project.status = "IRP";
-            // project.totalDays=100;
-            // project.totalInterest=100;
-            // project.totalServiceFee=0.0;
-            // project.debtStartDate=new Date();
-            // project.debtEndDate=new Date();
-            // project.principalPaid=0;
-            // project.PrincipalBalance=100;
-            // project.interestPaid=1;
-            // project.serviceFeePaid=0;
-            // project.memo="";
-            // project.creditChannelId=1;
-
-            // borrowerService.get(project).then(function(res) {
-            //     debugger
-            // });
         };
 
         (function init() {
 
             $scope.bsInvestmentListTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
                     height: 600,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    //onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true
@@ -132,10 +71,12 @@ define([], function () {
                         title: '还款方式'
                     }, {
                         field: 'investmentVO.debtStartDate',
-                        title: '开始日期'
+                        title: '开始日期',
+                        formatter:timeFormatter
                     }, {
                         field: 'investmentVO.debtEndDate',
-                        title: '结束日期'
+                        title: '结束日期',
+                        formatter:timeFormatter
                     }, {
                         field: 'investmentVO.statusName',
                         title: '状态'
@@ -177,10 +118,12 @@ define([], function () {
                         title: '合同生成标志'
                     }, {
                         field: 'investmentVO.createDatetime',
-                        title: '创建时间'
+                        title: '创建时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'investmentVO.updateDatetime',
-                        title: '更新时间'
+                        title: '更新时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'investmentVO.hasTrial',
                         title: '是否包含试投金'
@@ -198,6 +141,9 @@ define([], function () {
                     }]
                 }
             };
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'

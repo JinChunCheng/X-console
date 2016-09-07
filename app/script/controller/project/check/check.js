@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$state', 'projectService', function($scope, $state, projectService) {
+    return ['$scope', '$state','$filter', 'investorService', 'projectService', function($scope, $state,$filter,metaService, projectService) {
 
         var defaultCondition = {
             data: { status: 'BDF' },
@@ -87,16 +87,20 @@ define([], function() {
                         title: '状态'
                     }, {
                         field: 'publishTime',
-                        title: '发布时间'
+                        title: '发布时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'biddingDeadline',
-                        title: '满标时间'
+                        title: '满标时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'createDatetime',
-                        title: '创建时间'
+                        title: '创建时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'updateDatetime',
-                        title: '更新时间'
+                        title: '更新时间',
+                        formatter:timeFormatter
                     }, {
                         field: 'flag',
                         title: '查看',
@@ -108,7 +112,9 @@ define([], function() {
                     }]
                 }
             };
-
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'

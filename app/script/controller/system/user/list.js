@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope','$state','systemService', function($scope,$state, systemService) {
+    return ['$scope','$state','$filter', 'investorService','systemService', function($scope,$state, $filter,metaService, systemService) {
 
         /**
          * the default search condition
@@ -104,11 +104,13 @@ define([], function() {
                     }, {
                         field: 'createTime',
                         title: '创建时间',
-                        align: 'center'
+                        align: 'center',
+                        formatter:timeFormatter
                     }, {
                         field: 'workspace10',
                         title: '更新时间',
-                        align: 'center'
+                        align: 'center',
+                        formatter:timeFormatter
                     }, {
                         field: 'flag',
                         title: '操作',
@@ -122,7 +124,9 @@ define([], function() {
                     }]
                 }
             };
-
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
