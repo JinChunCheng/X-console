@@ -118,7 +118,8 @@ define([], function() {
                         field: 'exeDate',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }, {
                         field: 'fundOutType',
                         title: '出款类型',
@@ -169,8 +170,13 @@ define([], function() {
                 $scope.listView.statusList = items;
             });
         }
+
+        function timeFormatter(value, row, index) {
+            return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+        }
+
         function search() {
-            $scope.listView.table.bootstrapTable('refresh');
+        $scope.listView.table.bootstrapTable('refresh');
         };
         var pageChange = function(num, size) {
             console.log(num + ' - ' + size);

@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', 'metaService','$timeout', '$modal', 'financialService', 'toaster',
-        function($scope, $http,metaService, $timeout, $modal,financialService, toaster) {
+    return ['$scope', '$http', 'metaService','$timeout', '$modal', 'financialService', 'toaster','$filter',
+        function($scope, $http,metaService, $timeout, $modal,financialService, toaster,$filter) {
 
         /**
          * the default search condition
@@ -171,10 +171,16 @@ define([], function() {
                         field: 'exeDate',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }]
                 }
             };
+
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
+
             function exeChannelFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.channel);
             };
