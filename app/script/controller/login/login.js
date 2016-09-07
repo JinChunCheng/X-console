@@ -42,8 +42,8 @@ define(['common/config', 'common/session'], function(config, session) {
             }).success(function(res) {
                 if (res.code == 200) {
                     session.setTicket(res.data.token);
-                    session.setCookie('username', $scope.loginVM.name);
-                    var user = { id: 1, name: $scope.loginVM.name };
+                    session.setCookie('username', $scope.loginVM.userName);
+                    var user = { id: 1, name: $scope.loginVM.userName };
                     session.rememberLoginUser(user);
                     //广播到父级控制器做相关处理
                     $scope.$emit('login', user);
