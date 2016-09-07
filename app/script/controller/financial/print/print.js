@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','metaService', '$timeout', '$modal', 'financialService','toaster',
-        function($scope, $http,metaService, $timeout, $modal, financialService,toaster) {
+    return ['$scope', '$http','metaService', '$filter','$timeout', '$modal', 'financialService','toaster',
+        function($scope, $http,metaService, $filter,$timeout, $modal, financialService,toaster) {
 
         /**
          * the default search condition
@@ -18,9 +18,7 @@ define([], function() {
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
-            },
-            //depositType:[{id:1,title:'托管户=>盒子支付'},{id:2,title:'准备金=>恒丰银行'},{id:3,title:'托管户=>准备金'},{id:4,title:'托管户=>收益户'},{id:5,title:'收益户=>结算户打款'},{id:6,title:'托管户=>恒丰结算户'},{id:7,title:'托管户=>盒子结算户'},{id:8,title:'盒子还款户=>托管户'}],
-            //status:[{id:1,title:'未打印'},{id:2,title:'已打印'}]
+            }
         };
 
         $scope.dateOptions = {
@@ -35,6 +33,12 @@ define([], function() {
                 });
                 metaService.getMeta('DYZT', function(data) {
                     $scope.listView.status = data;
+                });
+                metaService.getProvinces(function(items) {
+                    $scope.listView.provinces = items;
+                });
+                metaService.getCities(function(items) {
+                    $scope.listView.cities = items;
                 });
             }
             initMetaData();
@@ -100,7 +104,8 @@ define([], function() {
                         field: 'arrivalDate',
                         title: '预期到账时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }, {
                         field: 'status',
                         title: '状态',
@@ -136,12 +141,14 @@ define([], function() {
                         field: 'payBankProvince',
                         title: '付款开户行省份',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: provinceFormatter
                     }, {
                         field: 'payBankCity',
                         title: '付款开户行地市',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: cityFormatter
                     }, {
                         field: 'receiveCapitalAccountId',
                         title: '收款资金账户标识',
@@ -166,12 +173,14 @@ define([], function() {
                         field: 'receiveBankProvince',
                         title: '收款开户行省份',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: provinceFormatter
                     }, {
                         field: 'receiveBankCity',
                         title: '收款开户行地市',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: cityFormatter
                     }, {
                         field: 'largePayBankCode',
                         title: '大额支付行号',
@@ -186,7 +195,8 @@ define([], function() {
                         field: 'createDatetime',
                         title: '创建日期',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }]
                 }
             };
@@ -196,10 +206,22 @@ define([], function() {
             }
 
         })();
+        function provinceFormatter(value, row, index) {
+            return $filter('metaPCA')(value + '0000', $scope.listView.provinces);
+        };
+
+        function cityFormatter(value, row, index) {
+            return $filter('metaPCA')(value + '00', $scope.listView.cities);
+        };
+
+        function timeFormatter(value, row, index) {
+            return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+        };
 
         function remitPrintTypeFormatter(value, row, index) {
             return $filter('meta')(value, $scope.listView.remitPrintType);
-        };function statusFormatter(value, row, index) {
+        };
+        function statusFormatter(value, row, index) {
             return $filter('meta')(value, $scope.listView.status);
         };
 

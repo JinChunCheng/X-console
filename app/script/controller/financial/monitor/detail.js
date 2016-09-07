@@ -18,6 +18,16 @@ define([], function() {
 
         };
 
+        function initMetaData() {
+            metaService.getProvinces(function(items) {
+                $scope.listView.provinces = items;
+            });
+            metaService.getCities(function(items) {
+                $scope.listView.cities = items;
+            });
+        }
+        initMetaData();
+
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#monitorDetailsTable');
         });
@@ -83,12 +93,14 @@ define([], function() {
                         field: 'province',
                         title: '省份',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: provinceFormatter
                     }, {
                         field: 'cityName',
                         title: '地市',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: cityFormatter
                     }, {
                         field: 'amount',
                         title: '出款金额',
@@ -103,7 +115,8 @@ define([], function() {
                         field: 'payBankProvince',
                         title: '付款开户行省份',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: provinceFormatter
                     }, {
                         field: 'memo',
                         title: '备注',
@@ -113,11 +126,23 @@ define([], function() {
                         field: 'createDatetime',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }]
             }
 
         };
+        function provinceFormatter(value, row, index) {
+            return $filter('metaPCA')(value + '0000', $scope.listView.provinces);
+        }
+
+        function cityFormatter(value, row, index) {
+            return $filter('metaPCA')(value + '00', $scope.listView.cities);
+        }
+
+        function timeFormatter(value, row, index) {
+            return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+        }
     })();
 
             (function(id) {
