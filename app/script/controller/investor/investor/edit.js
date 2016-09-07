@@ -70,7 +70,7 @@ define([], function() {
                         toaster.pop('success', '新增投资人信息成功！');
                         $state.go("investor.investor.list");
                     } else
-                        toaster.pop('error', res.msg);
+                        toaster.pop('success', res.msg);
                 }, function(err) {
                     toaster.pop('error', '服务器连接失败！');
 
@@ -78,7 +78,7 @@ define([], function() {
                 return;
             }
             //修改投资人
-            investorService.investorUpdate($scope.vm.data).then(function(res) {
+            investorService.updateInvestor.update($scope.vm.data).$promise.then(function(res) {
                 if (res.code == 200) {
                     toaster.pop('success', '修改投资人信息成功！');
                     $state.go("investor.investor.list");
