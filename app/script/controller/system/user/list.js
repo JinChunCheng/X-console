@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope','$state','$filter', 'investorService','systemService', function($scope,$state, $filter,metaService, systemService) {
+    return ['$scope','$state','$filter', 'metaService','systemService', function($scope,$state, $filter,metaService, systemService) {
 
         /**
          * the default search condition
