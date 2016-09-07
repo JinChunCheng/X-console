@@ -143,11 +143,11 @@ define([], function() {
             };
 
             function provinceFormatter(value, row, index) {
-                return $filter('metaPCA')(value + '0000', $scope.listView.bankProvince)
+                return $filter('metaPCA')(value, $scope.listView.bankProvince)
             };
 
             function cityFormatter(value, row, index) {
-                return $filter('metaPCA')(value + '00', $scope.listView.bankCity)
+                return $filter('metaPCA')(value, $scope.listView.bankCity)
             };
 
             function dateFormatter(value, row, index) {

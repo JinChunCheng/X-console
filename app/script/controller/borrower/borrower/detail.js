@@ -49,7 +49,7 @@ define([], function() {
                             formatter: subjectFormatter,
                             valign: 'middle'
                         }, {
-                            field: 'borrowerAccountLogType',
+                            field: 'accountLogType',
                             title: '账户变动类型',
                             align: 'center',
                             valign: 'middle',
@@ -152,7 +152,7 @@ define([], function() {
             function getDetailTable(params) {
                 //这里的params就是分页的json
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { data: { borrowerAccountNo: $scope.vm.data.borrowerAccountNo }, paginate: paganition };
+                var queryCondition = { data: { borrowerAccountNo: $scope.vm.data.accountNo }, paginate: paganition };
                 borrowerService.borrowerDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({

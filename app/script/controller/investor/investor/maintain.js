@@ -147,17 +147,10 @@ define([], function() {
             }
 
             function provinceFormatter(value, row, index) {
-                if (value.length == 2) {
-                    return $filter('metaPCA')(value + '0000', $scope.vm.bankProvince);
-                }
                 return $filter('metaPCA')(value, $scope.vm.bankProvince);
             }
 
             function cityFormatter(value, row, index) {
-                if (value.length == 4) {
-                    return $filter('metaPCA')(value + '00', $scope.vm.bankCity);
-
-                }
                 return $filter('metaPCA')(value, $scope.vm.bankCity);
             }
 

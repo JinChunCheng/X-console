@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$filter', '$timeout', '$modal', 'borrowerService', function($scope, $http,metaService,$filter, $timeout, $modal,borrowerService) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', 'borrowerService', function($scope, $http, metaService, $filter, $timeout, $modal, borrowerService) {
 
         /**
          * the default search condition
@@ -14,7 +14,7 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            channel:[{id:1,title:'盒子支付'},{id:2,title:'恒丰银行'}]
+            channel: [{ id: 1, title: '盒子支付' }, { id: 2, title: '恒丰银行' }]
         };
         /**
          * do something after view loaded
@@ -27,42 +27,42 @@ define([], function() {
         });
 
 
-                   var getDataTable1 = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items[0]
-                        });
-                    }, 500);
-                });
-            };
-                               var getDataTable2 = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
-                });
-            };
+        var getDataTable1 = function(params) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                //debugger
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items[0]
+                    });
+                }, 500);
+            });
+        };
+        var getDataTable2 = function(params) {
+            //query: {where: JSON.stringify($scope.listVM.condition)}
+            borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                //debugger
+                $timeout(function() {
+                    res.data.items.forEach(function(item) {
+                        item.id = parseInt(Math.random() * 100);
+                    });
+                    res.data.items.sort(function(a, b) {
+                        return Math.random() > .5 ? -1 : 1;
+                    });
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
+                }, 500);
+            });
+        };
 
         (function init() {
 
@@ -121,7 +121,7 @@ define([], function() {
                         align: 'left',
                         valign: 'top',
                     }]
-                }   
+                }
             };
             $scope.bsBankListTableControl = {
                 options: {
@@ -177,7 +177,7 @@ define([], function() {
                         align: 'left',
                         valign: 'top',
                     }]
-                }   
+                }
             };
 
         })();
