@@ -96,9 +96,6 @@
                 "text": "充值列表",
                 "state": "fund.charge.charge"
             }, {
-                "text": "提现",
-                "state": "fund.withdraw.withdraw"
-            }, {
                 "text": "提现审核",
                 "state": "fund.withdrawCheck.withdrawCheck"
             }, {

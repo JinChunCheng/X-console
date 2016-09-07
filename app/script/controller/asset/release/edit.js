@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'assetService', 'metaService',
-        function($scope, $timeout, $state, $stateParams, $modal, assetService, metaService) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'assetService', 'metaService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, assetService, metaService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -20,14 +20,17 @@ define([], function() {
                     return;
                 }
                 assetService.product.get({ id: id }).$promise.then(function(res) {
-                    $scope.productVM.data = res.data;
+                    if (res.code == 200)
+                        $scope.productVM.data = res.data;
+                    else
+                        toaster.pop('error', res.msg);
                 }, function(err) {});
 
             })($stateParams.id);
 
 
             function initMetaData() {
-                assetService.platform.query(JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 100 } })).$promise.then(function(res) {
+                assetService.platform.query({ where: JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 100 } }) }).$promise.then(function(res) {
                     if (res.code == 200) {
                         $scope.productVM.saleplatformList = res.data.items;
                     } else

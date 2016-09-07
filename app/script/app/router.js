@@ -4,7 +4,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
         function($stateProvider, $urlRouterProvider, $locationProvider, $controllerProvider) {
             $urlRouterProvider.otherwise('/404');
             $stateProvider
-                .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { directives: [], services: ['service/dashboard'], filters: [] }))
+                .state('dashboard', lazyLoad.config('', 'view/dashboard/dashboard.html', 'controller/dashboard/dashboard', { services: ['service/dashboard'] }))
                 .state('404', lazyLoad.config('/404', 'view/shared/404.html', '', null))
                 .state('login', lazyLoad.config('/login', 'view/login/login.html', 'controller/login/login', null))
 
@@ -28,8 +28,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('asset.platform.list', lazyLoad.config('/list', 'view/asset/platform/list.html', 'controller/asset/platform/list', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
 
             .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', null, true))
-                .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { services: ['service/asset'] }))
-                .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { services: ['service/asset'] }))
+                .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { services: ['service/asset'], filters: ['filter/common'] }))
+                .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { services: ['service/asset'], filters: ['filter/common'] }))
                 .state('asset.release.edit', lazyLoad.config('/edit/:id', 'view/asset/release/edit.html', 'controller/asset/release/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
                 //asset module end 
 

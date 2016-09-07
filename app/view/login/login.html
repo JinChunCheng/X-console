@@ -12,17 +12,17 @@
                     <i class="user-img icons-faces-users-03"></i>
                     <form name="loginForm" class="form-signin" novalidate ng-submit="login()">
                         <div class="append-icon">
-                            <input type="text" name="username" id="username" class="form-control form-white username" ng-disabled="loginVM.processing" placeholder="用户名" autocomplete="off" required ng-model="loginVM.name">
+                            <input type="text" name="username" id="username" class="form-control form-white username" ng-disabled="loginVM.processing" placeholder="用户名" autocomplete="off" required ng-model="loginVM.userName">
                             <i class="icon-user"></i>
                         </div>
                         <div class="append-icon">
                             <input type="password" name="password" class="form-control form-white password" placeholder="密码" required ng-model="loginVM.password">
                             <i class="icon-lock"></i>
                         </div>
-                        <div class="append-icon m-b-20">
+                        <!-- <div class="append-icon m-b-20">
                             <input type="password" name="dynamicKey" class="form-control form-white password" placeholder="动态口令" ng-model="loginVM.dynamicKey">
                             <i class="icon-key"></i>
-                        </div>
+                        </div> -->
                         <button id="submit-form" class="btn btn-lg btn-danger btn-block ladda-button" data-style="expand-left" ng-click="login()" ng-disabled="loginForm.$invalid||loginVM.processing"><i ng-if="loginVM.processing" class="fa fa-spinner faa-spin animated m-r-5"></i>登录</button>
                     </form>
                 </div>

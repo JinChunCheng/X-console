@@ -29,25 +29,45 @@ define([], function() {
                     showPlatformModal();
                 },
                 batchFreeze: function() {
-                    batch(3);
+                    batch(3, '批量冻结');
                 },
                 batchDelete: function() {
-                    batch(2);
+                    batch(2, '批量删除');
                 }
             };
 
-            function batch(status) {
+            function batch(status, title) {
+                var text = "确定" + title + "？";
                 var ids = $scope.listVM.checked.map(function(item) {
                     return item.id;
                 }).join(',');
-                assetService.batchUpdatePlatform({ ids: ids, status: status }).then(function(res) {
-                    if (res.code == 200) {
-                        toaster.pop('success', '批量操作成功！');
-                        search();
-                    } else
-                        toaster.pop('error', res.msg);
-                }, function(err) {
-                    toaster.pop('error', '服务器连接失败！');
+                $modal.open({
+                    templateUrl: 'view/shared/confirm.html',
+                    size: 'sm',
+                    controller: function($scope, $modalInstance) {
+                        $scope.confirmData = {
+                            text: text,
+                            processing: false
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        $scope.ok = function() {
+                            assetService.batchUpdatePlatform({ ids: ids, status: status }).then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '批量操作成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
+                            return true;
+                        }
+                    }
                 });
             }
 
@@ -105,10 +125,10 @@ define([], function() {
                             { field: 'code', title: '平台编号' },
                             { field: 'name', title: '平台名称' },
                             { field: 'createTime', title: '上线时间', formatter: dateFormatter },
-                            { field: 'content', title: '平台形式' },
+                            { field: 'content', title: '平台形式', formatter: typeFormatter },
                             { field: 'amount', title: '累计销售额' },
                             { field: 'number', title: '用户数' },
-                            { field: 'status', title: '状态', align: 'middle' }, {
+                            { field: 'status', title: '状态', formatter: statusFormatter }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -122,6 +142,14 @@ define([], function() {
                         ]
                     }
                 };
+
+                function typeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.platformTypeList);
+                }
+
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.platformStatusList);
+                }
 
                 function dateFormatter(value, row, index) {
                     return $filter('exDate')(value);
@@ -151,6 +179,9 @@ define([], function() {
                 });
                 metaService.getMeta('XSPTXS', function(data) {
                     $scope.listVM.platformTypeList = data;
+                });
+                metaService.getMeta('XSPTZT', function(data) {
+                    $scope.listVM.platformStatusList = data;
                 });
             }
 
@@ -200,6 +231,7 @@ define([], function() {
                             if (res.code == 200) {
                                 toaster.pop('success', '保存成功！');
                                 $modalInstance.dismiss();
+                                search();
                             } else
                                 toaster.pop('error', res.msg);
                         }

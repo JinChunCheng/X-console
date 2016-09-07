@@ -1,27 +1,27 @@
-define([], function(config) {
+define(['common/config'], function(config) {
     return ['accountService', ['$http', '$resource', '$q', function($http, $resource, $q) {
         var serverErrorData = {
             status: 500,
             msg: '服务器连接失败，请检查服务是否可用或联系管理员！'
         };
 
-        var accountList = $resource('http://172.21.20.13:8080/capitalAccount/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountDetailLabel = $resource('http://172.21.20.13:8080/capitalAccount/getById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountDetailTable = $resource('http://172.21.20.13:8080/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountListUpdate = $resource('http://172.21.20.13:8080/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountQueryList = $resource('http://172.21.20.13:8080/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountDetailLabel = $resource(config.CAPITAL_ACCOUNT_CONSOLE + 'capitalAccount/getById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountDetailTable = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountListUpdate = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountQueryList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             //
-            accountList:accountList,
+            accountList: accountList,
             //
-            accountDetailLabel:accountDetailLabel,
+            accountDetailLabel: accountDetailLabel,
             //
-            accountDetailTable:accountDetailTable,
+            accountDetailTable: accountDetailTable,
             //
-            accountListUpdate:accountListUpdate,
+            accountListUpdate: accountListUpdate,
             //
-            accountQueryList:accountQueryList,
+            accountQueryList: accountQueryList,
 
 
             /**

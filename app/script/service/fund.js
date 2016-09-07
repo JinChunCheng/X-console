@@ -9,16 +9,16 @@ define(['common/config'], function(config) {
         var fundRes = $resource('script/data/fund-list.json', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //return fundRes;
 
-        var chargeListTable = $resource('http://172.21.20.16:8080/recharge', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var chargeDetailLabel = $resource('http://172.21.20.16:8080/recharge/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawListTable = $resource('http://172.21.20.13:8080/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawDetailLabel = $resource('http://172.21.20.13:8080/withdraw/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawBackLabel = $resource('http://172.21.20.8:8080/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var backCheckTable = $resource('http://172.21.20.8:8080/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var backCheckOneDetail = $resource('http://172.21.20.8:8080/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var chargeListTable = $resource(config.RECHARGE_CONSOLE + '/recharge', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var chargeDetailLabel = $resource(config.RECHARGE_CONSOLE + '/recharge/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawListTable = $resource(config.WITHDRAW_CONSOLE + '/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawDetailLabel = $resource(config.WITHDRAW_CONSOLE + '/withdraw/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawBackLabel = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var backCheckTable = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var backCheckOneDetail = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         //提现审核
-        var withdrawCheckTable = $resource('http://172.21.20.13:8080/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawCheckTable = $resource(config.WITHDRAW_CONSOLE + '/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: fundRes,
@@ -97,7 +97,7 @@ define(['common/config'], function(config) {
                         method: 'POST',
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        url: 'http://172.21.20.8:8080/withdrawback/fallback/batch',
+                        url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback/batch',
 
                     })
                     .then(function(res) {
@@ -119,7 +119,7 @@ define(['common/config'], function(config) {
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 
-                        url: "http://172.21.20.13:8080/withdraw/reject",
+                        url: config.WITHDRAW_CONSOLE + "/withdraw/reject",
 
                     })
                     .then(function(res) {
@@ -140,7 +140,7 @@ define(['common/config'], function(config) {
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
 
-                        url: "http://172.21.20.13:8080/withdraw/approve",
+                        url: config.WITHDRAW_CONSOLE + "/withdraw/approve",
 
                     })
                     .then(function(res) {
