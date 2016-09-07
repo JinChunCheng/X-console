@@ -6,51 +6,33 @@ define(['common/config'], function(config) {
         };
 
         //提现出款
-        var withdrawCashTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawCashTable = $resource(config.CASHOUT_CONSOLE + '/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //满标出款
-        var endBiddingCashTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-       //出款指令列表
-        var cashDirectiveTable = $resource('http://172.21.20.13:8080/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var cashDetailsTable = $resource('http://172.21.20.13:8080/cashout/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var endBiddingCashTable = $resource(config.CASHOUT_CONSOLE + '/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //出款指令列表
+        var cashDirectiveTable = $resource(config.CASHOUT_CONSOLE + '/cashout/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var cashDetailsTable = $resource(config.CASHOUT_CONSOLE + '/cashout/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //划款打印
-        var transferCashPrintTable = $resource('http://172.21.20.12:8080/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var transferCashPrintTable = $resource(config.CASHOUT_CONSOLE + '/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //提现出款监控
-        var withdrawCashMonitorTable = $resource('http://172.21.20.16:8080/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var monitorDetailsTable = $resource('http://172.21.20.16:8080/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawCashMonitorTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var monitorDetailsTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
-            withdrawCashTable:withdrawCashTable,
-            endBiddingCashTable:endBiddingCashTable,
-            cashDirectiveTable:cashDirectiveTable,
-            cashDetailsTable:cashDetailsTable,
-            transferCashPrintTable:transferCashPrintTable,
-            withdrawCashMonitorTable:withdrawCashMonitorTable,
-            monitorDetailsTable:monitorDetailsTable,
-            findChannel: function(condition) {
-                return $http({
-                    method: 'POST',
-                    url: config.FINANCIAL_CONSOLE + '/financialchannel/list',
-                    data: condition
-                })
-                    .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
-                        }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
-            },
+            withdrawCashTable: withdrawCashTable,
+            endBiddingCashTable: endBiddingCashTable,
+            cashDirectiveTable: cashDirectiveTable,
+            cashDetailsTable: cashDetailsTable,
+            transferCashPrintTable: transferCashPrintTable,
+            withdrawCashMonitorTable: withdrawCashMonitorTable,
+            monitorDetailsTable: monitorDetailsTable,
             withdrawAccept: function(ids, exeChannel) {
-                    return $http({
+                return $http({
                         method: 'PUT',
-                        url: 'http://172.21.20.13:8080/cashout/withdraw/accept/' + ids + '/' + exeChannel
+                        url: config.CASHOUT_CONSOLE + '/cashout/withdraw/accept/' + ids + '/' + exeChannel
                     })
-                        .then(function(resp) {
+                    .then(function(resp) {
                             if (resp) {
                                 return resp.data;
                             } else {
@@ -64,71 +46,71 @@ define(['common/config'], function(config) {
             },
             fullAccept: function(ids) {
                 return $http({
-                    method: 'PUT',
-                    url: 'http://172.21.20.13:8080/cashout/project/accept/' + ids
-                })
+                        method: 'PUT',
+                        url: config.CASHOUT_CONSOLE + '/cashout/project/accept/' + ids
+                    })
                     .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
+                            if (resp) {
+                                return resp.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errResp) {
+                            return $q.reject(errResp);
                         }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
+                    );
             },
             fullAccept: function(ids) {
                 return $http({
-                    method: 'PUT',
-                    url: 'http://172.21.20.13:8080/cashout/project/accept/' + ids
-                })
+                        method: 'PUT',
+                        url: config.CASHOUT_CONSOLE + '/cashout/project/accept/' + ids
+                    })
                     .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
+                            if (resp) {
+                                return resp.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errResp) {
+                            return $q.reject(errResp);
                         }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
+                    );
             },
             sendAccept: function(remitPrintId) {
                 return $http({
-                    method: 'PUT',
-                    url: 'http://172.21.20.16:8080/paymentMonitor/send/' + remitPrintId
-                })
+                        method: 'PUT',
+                        url: config.CASHOUT_CONSOLE + '/paymentMonitor/send/' + remitPrintId
+                    })
                     .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
+                            if (resp) {
+                                return resp.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errResp) {
+                            return $q.reject(errResp);
                         }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
+                    );
             },
             receiptAccept: function(remitPrintId) {
                 return $http({
-                    method: 'PUT',
-                    url: 'http://172.21.20.16:8080/paymentMonitor/receipt/' + remitPrintId
-                })
+                        method: 'PUT',
+                        url: config.CASHOUT_CONSOLE + '/paymentMonitor/receipt/' + remitPrintId
+                    })
                     .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
+                            if (resp) {
+                                return resp.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errResp) {
+                            return $q.reject(errResp);
                         }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
+                    );
             }
 
         }

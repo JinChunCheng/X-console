@@ -9,7 +9,7 @@ define(['common/config'], function(config) {
             findProfit: function(start, end) {
                 return $http({
                         method: "GET",
-                        url: "http://172.21.20.13:8080/reports/profit/date/" + start + "/" + end
+                        url: config.REPORTS_CONSOLE + "/reports/profit/date/" + start + "/" + end
                     })
                     .then(function(res) {
                             if (res) {

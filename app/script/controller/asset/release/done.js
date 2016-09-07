@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService',
-        function($scope, $http, $timeout, $modal, $state, assetService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, assetService, toaster) {
 
             /**
              * the default search condition
@@ -56,23 +56,20 @@ define([], function() {
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        onPageChange: pageChange,
                         sidePagination: "server",
                         columns: [
-                            { field: 'id', title: '资产ID', align: 'center', valign: 'middle' },
-                            { field: 'name', title: '资产类型', align: 'center', valign: 'middle' },
-                            { field: 'workspace2', title: '资产来源', align: 'left', valign: 'top' },
-                            { field: 'workspace', title: '借款人', align: 'left', valign: 'top' },
-                            { field: 'workspace', title: '借款金额/投标金额', align: 'left', valign: 'top' },
-                            { field: 'workspace', title: '资金用途', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款利率', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '借款周期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '理财利率', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '投标截止日期', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '还款方式', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '投放渠道', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '创建时间', align: 'left', valign: 'top' },
-                            { field: 'workspace3', title: '状态', align: 'left', valign: 'top' }, {
+                            { field: 'assetType', title: '资产类型' },
+                            { field: 'assetChannelId', title: '资产渠道' },
+                            { field: 'name', title: '借款人' },
+                            { field: '', title: '借款金额/投标金额' },
+                            { field: 'loanUse', title: '资金用途' },
+                            { field: 'loanRate', title: '借款利率' },
+                            { field: 'loanTermCount', title: '借款周期' },
+                            { field: 'licaiRate', title: '理财利率' },
+                            { field: 'debtEndDate', title: '投标截止日期' },
+                            { field: 'repaymentType', title: '还款方式' },
+                            { field: 'saleplatform', title: '销售平台' },
+                            { field: 'status', title: '状态' }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',

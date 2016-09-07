@@ -33,6 +33,12 @@ define([], function() {
             metaService.getMeta('HZZT', function(data) {
                 $scope.listView.receiptStatus = data;
             });
+            metaService.getProvinces(function(items) {
+                $scope.listView.provinces = items;
+            });
+            metaService.getCities(function(items) {
+                $scope.listView.cities = items;
+            });
         }
         initMetaData();
 
@@ -101,8 +107,7 @@ define([], function() {
                     }, {
                         field: 'execDatetime',
                         title: '发送时间',
-                        align: 'center',
-                        valign: 'middle'
+                        formatter: timeFormatter
                     }, {
                         field: 'receiptStatus',
                         title: '回执状态',
@@ -112,8 +117,7 @@ define([], function() {
                     }, {
                         field: 'receiptDatetime',
                         title: '回执时间',
-                        align: 'center',
-                        valign: 'middle'
+                        formatter: timeFormatter
                     }, {
                         field: 'payCapitalAccountName',
                         title: '付款资金账户名',
@@ -137,13 +141,11 @@ define([], function() {
                     }, {
                         field: 'payBankProvince',
                         title: '付款开户行省份',
-                        align: 'center',
-                        valign: 'middle'
+                        formatter: provinceFormatter
                     }, {
                         field: 'payBankCity',
                         title: '付款开户行地市',
-                        align: 'center',
-                        valign: 'middle'
+                        formatter: cityFormatter
                     }, {
                         field: 'receiveCapitalAccountName',
                         title: '收款资金账户名',
@@ -177,8 +179,7 @@ define([], function() {
                     }, {
                         field: 'createDatetime',
                         title: '创建日期',
-                        align: 'center',
-                        valign: 'middle'
+                        formatter: timeFormatter
                     }, {
                         field: 'flag',
                         title: '操作',
@@ -195,6 +196,18 @@ define([], function() {
                 }
 
             };
+
+            function provinceFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '0000', $scope.listView.provinces);
+            }
+
+            function cityFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '00', $scope.listView.cities);
+            }
+
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
 
             function flagFormatter(value, row, index) {
                 var execStatus = row.execStatus;// $scope.listView.execStatus.value;

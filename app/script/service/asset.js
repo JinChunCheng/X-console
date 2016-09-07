@@ -8,7 +8,7 @@ define(['common/config'], function(config) {
         var channelResource = $resource(config.ASSET_CONSOLE + '/assetchannel/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //var assetResource = $resource("http://172.21.22.31:8080" + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var platformResource = $resource('http://172.21.20.8:8089/saleplatform/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var platformResource = $resource(config.SALEPLATFORM_CONSOLE + '/saleplatform/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var productResource = $resource(config.PRODUCT_CONSOLE + '/product/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
             channel: channelResource,
@@ -103,7 +103,7 @@ define(['common/config'], function(config) {
                 return $http({
                         method: 'POST',
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        url: 'http://172.21.20.8:8089/saleplatform/batch',
+                        url: config.SALEPLATFORM_CONSOLE + '/saleplatform/batch',
                         data: $.param(data)
                     })
                     .then(function(res) {
@@ -158,7 +158,8 @@ define(['common/config'], function(config) {
                 return $http({
                         method: 'POST',
                         url: config.PRODUCT_CONSOLE + '/product/offshelf',
-                        data: { id: id }
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        data: $.param({ id: id })
                     })
                     .then(function(res) {
                             if (res) {

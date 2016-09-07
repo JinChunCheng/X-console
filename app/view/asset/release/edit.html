@@ -87,7 +87,7 @@
                             <div class="form-group">
                                 <label class="control-label">销售平台</label>
                                 <div>
-                                    <select class="form-control" ng-model="productVM.data.saleplatformId" ng-options="item.id as item.text for item in productVM.saleplatformList">
+                                    <select class="form-control" ng-model="productVM.data.saleplatformCode" ng-options="item.code as item.name for item in productVM.saleplatformList">
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -105,9 +105,9 @@
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label class="control-label">理财利率（未提供）</label>
+                                <label class="control-label">理财利率</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control">
+                                    <input type="number" class="form-control" ng-model="productVM.data.licaiRate">
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>

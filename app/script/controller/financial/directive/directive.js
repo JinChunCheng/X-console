@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', 'financialService',"toaster",
-        function($scope, $http,metaService, $state,$timeout, $modal,financialService,toaster) {
+    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', 'financialService',"toaster",'$filter',
+        function($scope, $http,metaService, $state,$timeout, $modal,financialService,toaster,$filter) {
 
         /**
          * the default search condition
@@ -15,8 +15,6 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            //cashType:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
-            //status:[{id:1,title:'待出款'},{id:2,title:'出款确认'},{id:3,title:'出款完成'}],
             search: search,
             reset: function() {
                 $scope.listView.condition = angular.copy(defaultCondition);
@@ -52,6 +50,12 @@ define([], function() {
                 });
                 metaService.getMeta('CKZT', function(data) {
                     $scope.listView.status = data;
+                });
+                metaService.getProvinces(function(items) {
+                    $scope.listView.provinces = items;
+                });
+                metaService.getCities(function(items) {
+                    $scope.listView.cities = items;
                 });
             }
             initMetaData();
@@ -134,12 +138,14 @@ define([], function() {
                         field: 'bankProvince',
                         title: '省份',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: provinceFormatter
                     }, {
                         field: 'bankCity',
                         title: '地市',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: cityFormatter
                     }, {
                         field: 'amount',
                         title: '出款金额',
@@ -165,24 +171,40 @@ define([], function() {
                         field: 'exeDate',
                         title: '执行日期',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }, {
                         field: 'createDatetime',
                         title: '创建时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: timeFormatter
                     }]
                 }
             };
 
         })();
+            function provinceFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '0000', $scope.listView.provinces);
+            };
+
+            function cityFormatter(value, row, index) {
+                return $filter('metaPCA')(value + '00', $scope.listView.cities);
+            };
+
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            };
+
             function cashTypeFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.cashType);
-            };function statusFormatter(value, row, index) {
+            };
+            function statusFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.status);
             };
-        function search() {
-            $scope.listView.table.bootstrapTable('refresh');
-        };
+
+            function search() {
+                $scope.listView.table.bootstrapTable('refresh');
+            };
     }];
 });

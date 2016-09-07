@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope','$state', '$modal', 'investorService', function($scope,$state, $modal, investorService) {
+    return ['$scope','$state', '$modal', '$modal','$filter', 'investorService', function($scope,$state, $modal,$filter,metaService, investorService) {
 
         var defaultCondition = {
             data:{},
@@ -15,10 +15,6 @@ define([], function() {
             add:function(){
                 $state.go()
             }
-            /*operSource: ['管理系统', '钱盒'],
-            status: ['待结标', '取消', '结标完成'],
-            tenderWay: ['手动投标', '自动投标', '代理投标'],
-            isUsed: ['使用', '未使用']*/
         };
 
 
@@ -42,29 +38,12 @@ define([], function() {
 
             $scope.bsTenderListTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
-                    //height: getHeight(),
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
-                    //onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,
@@ -104,7 +83,8 @@ define([], function() {
                     }, {
                         field: 'biddingVO.biddingDatetime',
                         title: '投标时间',
-                        align: 'center'
+                        align: 'center',
+                        formatter:timeFormatter
                     }, {
                         field: 'biddingVO.op',
                         title: '代投标人',
@@ -134,7 +114,9 @@ define([], function() {
                     }]
                 }
             };
-
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'

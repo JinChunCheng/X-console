@@ -1,6 +1,24 @@
 define([], function() {
     // 数组[0]是指令的名字，数组[1][0]是需注入服务的全称,数组[1][1]是构造函数
     return ['baseSixtyFour', [function() {
+
+        function fileSuccess(scope, element, file, data) {
+            if (scope.baseSixtyFourSuccess && typeof scope.baseSixtyFourSuccess == 'function') {
+                scope.$apply(function() {
+                    var fd = new FormData();
+                    fd.append("file", file);
+
+                    scope.baseSixtyFourSuccess({
+                        file: file,
+                        data: data,
+                        formData: fd
+                    });
+                    //清空已选文件
+                    element.val('');
+                });
+            }
+        }
+
         return {
             restrict: 'AC',
             scope: {
@@ -63,22 +81,10 @@ define([], function() {
                                     alert('图片高度不能小于:' + minHeight + '，实际高度:' + img.height);
                                     return false;
                                 }
-
-                                if (scope.baseSixtyFourSuccess && typeof scope.baseSixtyFourSuccess == 'function') {
-                                    scope.$apply(function() {
-                                        var fd = new FormData();
-                                        fd.append("file", file);
-
-                                        scope.baseSixtyFourSuccess({
-                                            file: file,
-                                            data: data,
-                                            formData: fd
-                                        });
-                                        //清空已选文件
-                                        element.val('');
-                                    });
-                                }
+                                fileSuccess(scope, element, file, data);
                             };
+                        } else {
+                            fileSuccess(scope, element, file, data);
                         }
                     }
                 });

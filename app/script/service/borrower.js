@@ -1,4 +1,4 @@
-define([], function(config) {
+define(['common/config'], function(config) {
     return ['borrowerService', ['$http', '$resource', '$q', function($http, $resource, $q) {
         var serverErrorData = {
             status: 500,
@@ -9,27 +9,27 @@ define([], function(config) {
         var borrowerRes = $resource('script/data/borrower-list.json', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //return borrowerRes;
 
-        var borrowerDetail = $resource('http://172.21.20.8:8080/borrower/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var borrowerDetailTable = $resource('http://172.21.20.8:8080/borrower/list_account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var borrowerListTable = $resource('http://172.21.20.8:8080/borrower/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var updateBorrower = $resource('http://172.21.20.8:8080/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var borrowerRepaymentList = $resource('http://172.21.20.8:8080/borrower/repayment/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var borrowerRepaymentDetail = $resource('http://172.21.20.8:8080/borrower/repayment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerDetail = $resource(config.BORROWER_CONSOLE + '/borrower/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerDetailTable = $resource(config.BORROWER_CONSOLE + '/borrower/list_account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerListTable = $resource(config.BORROWER_CONSOLE + '/borrower/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var updateBorrower = $resource(config.BORROWER_CONSOLE + '/borrower/account', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerRepaymentList = $resource(config.BORROWER_CONSOLE + '/borrower/repayment/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var borrowerRepaymentDetail = $resource(config.BORROWER_CONSOLE + '/borrower/repayment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
             resource: borrowerRes,
             //借款人详情label
-            borrowerDetail:borrowerDetail,
+            borrowerDetail: borrowerDetail,
             //借款人详情table
-            borrowerDetailTable:borrowerDetailTable,
+            borrowerDetailTable: borrowerDetailTable,
             //借款人列表
-            borrowerListTable:borrowerListTable,
+            borrowerListTable: borrowerListTable,
             //修改借款人信息,新增借款人接口
-            updateBorrower:updateBorrower,
+            updateBorrower: updateBorrower,
             //借款人还款列表
-            borrowerRepaymentList:borrowerRepaymentList,
+            borrowerRepaymentList: borrowerRepaymentList,
             //借款人还款详情label
-            borrowerRepaymentDetail:borrowerRepaymentDetail,
+            borrowerRepaymentDetail: borrowerRepaymentDetail,
 
             /**
              * get borrower list
