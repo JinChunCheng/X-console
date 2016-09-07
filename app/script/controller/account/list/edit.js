@@ -52,8 +52,6 @@ define([], function() {
             accountService.accountDetailLabel.get({ id: $stateParams.id }).$promise.then(function(res) {
                 //基本信息展示
                 $scope.vm.data = res.data;
-                $scope.vm.data.bankProvince += '0000';
-                $scope.vm.data.bankCity += '00';
             })
             return;
         })();

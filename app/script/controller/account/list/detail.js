@@ -127,10 +127,10 @@ define([], function() {
                     return $filter('meta')(value, $scope.vm.capitalAccountNo)
                 };
                 function provinceFormatter(value, row, index) {
-                    return $filter('metaPCA')(value+'0000', $scope.vm.bankProvince)
+                    return $filter('metaPCA')(value, $scope.vm.bankProvince)
                 };
                 function cityFormatter(value, row, index) {
-                    return $filter('metaPCA')(value+'00', $scope.vm.bankCity)
+                    return $filter('metaPCA')(value, $scope.vm.bankCity)
                 };
                 function capitalAccountLogTypeFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.vm.capitalAccountLogType)

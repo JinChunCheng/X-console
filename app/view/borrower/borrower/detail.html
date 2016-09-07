@@ -15,7 +15,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.id"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -83,7 +83,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.bankProvince+'0000'|metaPCA:vm.provinces"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.bankProvince|metaPCA:vm.provinces"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -101,7 +101,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.borrowerAccountNo"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerDetail.accountNo"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>

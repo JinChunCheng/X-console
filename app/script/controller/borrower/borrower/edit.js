@@ -53,7 +53,6 @@ define([], function() {
             if (invalid) {
                 return;
             }
-            //TODO
             save();
             return true;
         };
@@ -77,14 +76,7 @@ define([], function() {
             if ($stateParams.id) {
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
-                    //$scope.vm.bank = getBankName(res.data.borrowerDetail.bankCode);
                     $scope.vm.data = res.data.borrowerDetail;
-                    if ($scope.vm.data.bankProvince.length == 2) {
-                        $scope.vm.data.bankProvince += '0000';
-                    }
-                    if ($scope.vm.data.bankCity.length == 4) {
-                        $scope.vm.data.bankCity += '00';
-                    }
                     getBank();
                 });
             }

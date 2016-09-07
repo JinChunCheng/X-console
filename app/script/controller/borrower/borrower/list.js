@@ -57,7 +57,7 @@ define([], function() {
                             align: 'center',
                             valign: 'middle'
                         }, {
-                            field: 'borrowerId',
+                            field: 'id',
                             title: '借款人编号',
                             align: 'center',
                             valign: 'middle',
@@ -152,18 +152,11 @@ define([], function() {
                 };
 
                 function provinceFormatter(value, row, index) {
-                    if (value.length == 2) {
-                        return $filter('metaPCA')(value + '0000', $scope.listVM.bankProvince);
-                    }
                     return $filter('metaPCA')(value, $scope.listVM.bankProvince);
                 };
 
                 function cityFormatter(value, row, index) {
-                    if (value.length == 4) {
-                        return $filter('metaPCA')(value + '00', $scope.listVM.bankCity);
-                    }
                     return $filter('metaPCA')(value, $scope.listVM.bankCity);
-
                 }
 
                 function dateFormatter(date) {
@@ -183,12 +176,12 @@ define([], function() {
             })();
 
             function detail(e, value, row, index) {
-                $state.go('borrower.info.detail', { id: row.borrowerId });
+                $state.go('borrower.info.detail', { id: row.id });
             }
 
             function editRow(e, value, row, index) {
                 console.log(row, value, e, index)
-                $state.go('borrower.info.edit', { id: row.borrowerId });
+                $state.go('borrower.info.edit', { id: row.id });
             }
 
             $scope.search = function() {

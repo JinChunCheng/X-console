@@ -167,7 +167,7 @@ define([], function() {
             };
 
             function provinceFormatter(value, row, index) {
-                return $filter("metaPCA")(value + '0000', $scope.listView.provinces)
+                return $filter("metaPCA")(value, $scope.listView.provinces)
             };
 
             function exeChannelFormatter(value, row, index) {
@@ -175,7 +175,7 @@ define([], function() {
             };
 
             function cityFormatter(value, row, index) {
-                return $filter('metaPCA')(value + '00', $scope.listView.bankCity);
+                return $filter('metaPCA')(value, $scope.listView.bankCity);
             };
             function dateFormatter(value, row, index) {
                 return $filter('exDate')(value,'yyyy-MM-dd HH:mm:ss');
