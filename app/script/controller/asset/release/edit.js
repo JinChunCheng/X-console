@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', 'assetService', 'metaService', 'toaster',
-        function($scope, $timeout, $state, $stateParams, $modal, assetService, metaService, toaster) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', '$filter', 'assetService', 'metaService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, $filter, assetService, metaService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -55,6 +55,14 @@ define([], function() {
             function submit(invalid) {
                 if (invalid) {
                     return false;
+                }
+                var data = $scope.productVM.data;
+                //处理时间
+                if (data.debtStartDate) {
+                    data.debtStartDate = $filter('exDate')(data.debtStartDate);
+                }
+                if (data.debtEndDate) {
+                    data.debtEndDate = $filter('exDate')(data.debtEndDate);
                 }
 
                 assetService.onshelf($scope.productVM.data).then(function(res) {

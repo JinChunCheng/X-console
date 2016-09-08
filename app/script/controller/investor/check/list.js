@@ -141,7 +141,7 @@ define([], function() {
                 var joinupTypeList = [];// $scope.listVM.joinupTypeList;
                 $modal.open({
                     templateUrl: 'view/investor/check/edit.html',
-                    size: 'md',
+                    size: 'lg',
                     controller: function($scope, $modalInstance) {
 
                         $scope.vm = {
