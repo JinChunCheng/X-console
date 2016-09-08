@@ -106,7 +106,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //充值列表
                 .state('fund.charge', lazyLoad.config('/charge', '/view/shared/blank.html', '', null, true))
                 .state('fund.charge.charge', lazyLoad.config('/charge', '/view/fund/charge/charge.html', 'controller/fund/charge/charge', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
-                .state('fund.charge.detail', lazyLoad.config('/detail/:projectId', '/view/fund/charge/detail.html', 'controller/fund/charge/detail', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
+                .state('fund.charge.detail', lazyLoad.config('/detail/:id', '/view/fund/charge/detail.html', 'controller/fund/charge/detail', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
 
             //提现列表
 
