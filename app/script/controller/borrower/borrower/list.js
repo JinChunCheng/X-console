@@ -189,7 +189,7 @@ define([], function() {
             };
 
             $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
+                $scope.listVM.condition = {};
             };
         }
     ];
