@@ -3,7 +3,7 @@ define(function() {
         BORROWER_CONSOLE: "http://172.21.1.205:8090/console-user-borrower",
         ASSET_CONSOLE: 'http://172.21.1.205:8090/console-asset',
         //ASSET_CONSOLE: 'http://172.21.22.31:8080',
-        PRODUCT_CONSOLE: 'http://172.21.1.205:8090/console-p2p',
+        PRODUCT_CONSOLE: 'http://172.21.1.205:8090/console-product-p2p',
         //PRODUCT_CONSOLE: 'http://172.21.22.31:8080',
         RPOJECT_CONSOLE: 'http://172.21.1.205:8090/console-product-hzq',
         //RPOJECT_CONSOLE: 'http://172.21.20.17:8080',
