@@ -152,7 +152,7 @@ define([], function() {
             function getDetailTable(params) {
                 //这里的params就是分页的json
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { data: { borrowerAccountNo: $scope.vm.data.accountNo }, paginate: paganition };
+                var queryCondition = { data: { accountNo: $scope.vm.data.borrowerDetail.accountNo }, paginate: paganition };
                 borrowerService.borrowerDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({
