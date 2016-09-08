@@ -5,7 +5,7 @@
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -39,16 +39,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <button class="btn btn-info">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    <div class="form-group">
+                        <button class="btn btn-info">查找</button>
+                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
         <table id="borrowerRepaymentsTable" table-full-size bs-table-control="bsRepaymentsTableControl"></table>
     </div>
