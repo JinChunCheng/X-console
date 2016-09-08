@@ -191,6 +191,7 @@ define([], function() {
             function getDetail(investorId) {
                 investorService.investorDetailLabel.get({ id: investorId }).$promise.then(function(res) {
                     //基本信息
+                    console.log(res)
                     $scope.vm.data.investorInfo = res.investorInfo;
                     //账户信息
                     $scope.vm.data.accountInfo = res.accountInfo;
@@ -204,7 +205,7 @@ define([], function() {
             function getDetailTable(params) {
                 //这里的params就是分页的json
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { data: { accountNo: $scope.vm.data.investorInfo.accountNo }, paginate: paganition };
+                var queryCondition = { data: { accountNo: params.accountNo }, paginate: paganition };
                 investorService.investorDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({

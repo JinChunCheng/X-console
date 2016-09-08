@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope','$state', '$modal', '$modal','$filter', 'investorService', function($scope,$state, $modal,$filter,metaService, investorService) {
+    return ['$scope','$state', '$modal', '$filter', 'metaService','investorService', function($scope,$state,$modal,$filter,metaService,investorService) {
 
         var defaultCondition = {
             data:{},
@@ -11,10 +11,10 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null,
-            add:function(){
+            table: null
+           /* add:function(){
                 $state.go()
-            }
+            }*/
         };
 
 
@@ -29,7 +29,7 @@ define([], function() {
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
                     total: res.paginate.totalCount,
-                    rows: res.data.items,
+                    rows: res.data.items
                 });
             });
         };
