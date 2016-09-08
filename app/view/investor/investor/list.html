@@ -51,6 +51,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">是否本公司员工</span>
                                 <select class="form-control form-white" ng-model="listVM.condition.empFlag" ng-options='i.value as i.text for i in listVM.empFlag'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -62,6 +63,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">试投金状态</span>
                                 <select class="form-control form-white" ng-model="listVM.condition.trialFlag" ng-options='s.value as s.text for s in listVM.trialFlag'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -73,6 +75,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
                                 <select class="form-control form-white" ng-model="listVM.condition.operateOrigin" ng-options='o.value as o.text for o in listVM.operateOrigin'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -82,8 +85,9 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">理财渠道代码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundChannelId" ng-change='listVM.channelChange()' ng-options='c.value as c.text for c in listVM.fundChannelName'>
+                                <span class="input-group-addon">理财渠道</span>
+                                <select class="form-control form-white" ng-model="listVM.fundChannel" ng-change='listVM.channelChange()' ng-options='c as c.text for c in listVM.fundChannelName'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -94,7 +98,8 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财客户经理</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.fundAccountManagerId" ng-options='m.value as m.text for m in listVM.getManagers(listVM.condition.fundChannelId)'>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.fundManagerName" ng-options='m.code as m.text for m in listVM.fundChannel.children'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -106,6 +111,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon">试投金是否已使用</span>
                                 <select class="form-control form-white" ng-model="listVM.condition.trialUsed" ng-options='i.value as i.text for i in listVM.trialUsed'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>

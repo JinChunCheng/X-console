@@ -281,6 +281,16 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '是' },
                     { value: 'P', text: '待定' }
                 ]
+            },{
+                key: 'TZLBZT', //投资列表状态
+                value: [
+                    { value: 'IRP', text: '还款中' },
+                    { value: 'OVD', text: '逾期' },
+                    { value: 'ECL', text: '异常关闭' },
+                    { value: 'NCL', text: '正常关闭' },
+                    { value: 'ITRS', text: '转让中' },
+                    { value: 'TRSF', text: '转让完成' },
+                ]
             }, {
                 key: 'ZHUCLX', //注册类型
                 value: [

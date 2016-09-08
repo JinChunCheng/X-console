@@ -31,6 +31,9 @@ define([], function () {
             metaService.getMeta('LCQDMC', function(data) {
                 $scope.listView.fundChannelName = data;
             });
+            metaService.getMeta('TZLBZT', function(data) {
+                $scope.listView.status = data;
+            });
         };
         initMetaData();
         var getData = function (params) {
@@ -45,6 +48,7 @@ define([], function () {
         };
 
         (function init() {
+            initMeta();
 
             $scope.bsInvestmentListTableControl = {
                 options: {
@@ -84,7 +88,8 @@ define([], function () {
                         formatter:timeFormatter
                     }, {
                         field: 'investmentVO.status',
-                        title: '状态'
+                        title: '状态',
+                        formatter:statusFormatter
                     }, {
                         field: 'investmentVO.interestRate',
                         title: '借款利率'
@@ -149,6 +154,9 @@ define([], function () {
             function timeFormatter(value, row, index) {
                 return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
+            function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.statusList);
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
@@ -157,6 +165,11 @@ define([], function () {
             }
 
         })();
+        function initMeta() {
+            metaService.getMeta('TZLBZT', function(items) {
+                $scope.listView.statusList = items;
+            });
+        }
         function editRow(e, value, row, index) {
             $state.go('investor.info.detail', {id: row.investmentVO.investmentId});
         }
