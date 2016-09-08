@@ -1,6 +1,7 @@
 define(function() {
     return {
         BORROWER_CONSOLE: "http://172.21.1.205:8089/console-user-borrower",
+        //BORROWER_CONSOLE: "http://172.21.20.8:8080",
         ASSET_CONSOLE: 'http://172.21.1.205:8089/console-asset',
         //ASSET_CONSOLE: 'http://172.21.22.31:8080',
         PRODUCT_CONSOLE: 'http://172.21.1.205:8090/console-product-p2p',

@@ -165,7 +165,7 @@ define([], function() {
         };
 
         $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
+            $scope.listView.condition = {};
         };
     }];
 });

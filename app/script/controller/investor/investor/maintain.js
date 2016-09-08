@@ -37,25 +37,10 @@ define([], function() {
             metaService.getCities(function(res) {
                 $scope.vm.bankCity = res;
             });
-            publicService.bankList.get().$promise.then(function(res) {
-                $scope.vm.bankList = res.data.items;
-            });
+
         }
         initMetaData();
-        //防止showContent()时，$scope.vm.bankList还没有加载出来而报错
-        function getBank(bankName) {
-            var result;
-            var bankList = $scope.vm.bankList;
-            if (bankList && bankList.length > 0) {
-                $scope.vm.bankList.forEach(function(item) {
-                    if (item.bankName == bankName) {
-                        result = item.bankCode;
-                        return;
-                    }
-                });
-            }
-            return result;
-        }
+
 
         function getBankName(id) {
             investorService.getBankName.get({ id: id }).$promise.then(function(res) {
@@ -63,7 +48,6 @@ define([], function() {
                     $scope.vm.data.bankCode = null;
                     return false;
                 }
-                //TODO 该接口还未返回正确数据
                 $scope.vm.data.bankCode = res.data.bankName;
                 //存储bankName以便save的时候转化为code
                 $scope.vm.bankNameCode = res.data.bankCode;
@@ -190,9 +174,6 @@ define([], function() {
                         toaster.pop('success', '新增银行账户成功！');
                         $scope.vm.data = {};
                         refresh();
-                    } else if (res.code == 501) {
-                        $scope.vm.data = {};
-                        toaster.pop('error', res.msg);
                     } else {
                         $scope.vm.data = {};
                         toaster.pop('error', res.msg);
