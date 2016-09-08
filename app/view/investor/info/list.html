@@ -30,7 +30,8 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.data.statusName" ng-options='status for status in listView.statusName'>
+                                <select class="form-control form-white" ng-model="listView.condition.data.statusName" ng-options='status as status.text for status in listView.status'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>

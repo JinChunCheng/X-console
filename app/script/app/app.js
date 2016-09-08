@@ -34,7 +34,7 @@ define([
                                 //不能直接注入，有循环引用问题
                                 var $state = $injector.get('$state');
                                 var stateName = $state.current.name;
-                                //保证多个异步接口返回401时，只提示并跳转一次
+                                //保证多个异步接口返回10001时，只提示并跳转一次
                                 if (stateName != 'login' && !$rootScope.isRedirectingToLogin) {
                                     //正在跳转
                                     //在$stateChangeSuccess时再改为false
@@ -42,11 +42,11 @@ define([
 
                                     toaster.pop('error', '登录超时，请重新登录！');
 
-                                    $state.go('login', {
-                                        r: location.hash
-                                    }, {
-                                        reload: true
-                                    });
+                                    // $state.go('login', {
+                                    //     r: location.hash
+                                    // }, {
+                                    //     reload: true
+                                    // });
                                 }
                                 //不再返回给原始请求
                                 var defer = $q.defer();
