@@ -35,9 +35,9 @@ define(['common/config'], function(config) {
         var tenderList = $resource(config.PURCHASE_CONSOLE + '/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var tenderDetail = $resource(config.PURCHASE_CONSOLE + '/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
-        var infoList = $resource(config.CASHOUT_CONSOLE + '/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var infoDetail = $resource(config.CASHOUT_CONSOLE + '/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var infoRepayList = $resource(config.CASHOUT_CONSOLE + '/investment/getRepaymentPlanById', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoList = $resource(config.INVESTMENT_CONSOLE + '/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoDetail = $resource(config.INVESTMENT_CONSOLE + '/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoRepayList = $resource(config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
             resource: investorRes,
@@ -185,7 +185,7 @@ define(['common/config'], function(config) {
             repayList: function(id) {
                 return $http({
                         method: 'GET',
-                        url: config.CASHOUT_CONSOLE + '/investment/getRepaymentPlanById/' + id
+                        url: config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById/' + id
                     })
                     .then(function(res) {
                             if (res) {
