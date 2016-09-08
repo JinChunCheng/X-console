@@ -6,7 +6,7 @@ define(['common/config'], function(config) {
         };
 
         var accountList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var accountDetailLabel = $resource(config.CAPITAL_ACCOUNT_CONSOLE + 'capitalAccount/getById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var accountDetailLabel = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/getById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountDetailTable = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountListUpdate = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountQueryList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
