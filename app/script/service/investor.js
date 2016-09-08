@@ -10,7 +10,7 @@ define(['common/config'], function(config) {
         //return investorRes;
 
         var investorListTable = $resource(config.INVESTOR_CONSOLE + '/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var investorDetailLabel = $resource(config.INVESTOR_CONSOLE + '/investor/getInvestorDetailsById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var investorDetailLabel = $resource(config.INVESTOR_CONSOLE + '/investor/getInvestorDetailsById/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         var investorDetailTable = $resource(config.INVESTOR_CONSOLE + '/investor/getAccountLogByAccountNo', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //修改投资人信息
