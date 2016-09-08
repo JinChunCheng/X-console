@@ -296,7 +296,7 @@ define(['common/config'], function(config) {
                 ]
             }, {
                 key: 'STJSFYSY', //试投金是否已使用
-                value: [
+                   value: [
                     { value: 'N', text: '未使用' },
                     { value: 'Y', text: '使用' },
                 ]

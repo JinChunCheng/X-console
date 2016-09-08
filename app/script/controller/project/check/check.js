@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$state','$filter', 'investorService', 'projectService', function($scope, $state,$filter,metaService, projectService) {
+    return ['$scope', '$state','$filter', 'metaService', 'projectService', function($scope, $state,$filter,metaService, projectService) {
 
         var defaultCondition = {
             data: { status: 'BDF' },

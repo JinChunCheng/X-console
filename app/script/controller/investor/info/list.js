@@ -15,7 +15,7 @@ define([], function () {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null,
+            table: null
         };
 
         /**
@@ -27,7 +27,12 @@ define([], function () {
             $scope.listView.table = $('#investmentListTable');
         });
 
-
+        function initMetaData() {
+            metaService.getMeta('LCQDMC', function(data) {
+                $scope.listView.fundChannelName = data;
+            });
+        };
+        initMetaData();
         var getData = function (params) {
 
             investorService.infoList.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function (res) {
@@ -78,7 +83,7 @@ define([], function () {
                         title: '结束日期',
                         formatter:timeFormatter
                     }, {
-                        field: 'investmentVO.statusName',
+                        field: 'investmentVO.status',
                         title: '状态'
                     }, {
                         field: 'investmentVO.interestRate',
@@ -159,12 +164,10 @@ define([], function () {
 
         $scope.search = function () {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
 
         $scope.reset = function () {
             $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
         };
 
     }];

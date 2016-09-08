@@ -145,7 +145,6 @@ define([], function() {
         };
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
 
         $scope.reset = function() {

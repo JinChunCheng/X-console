@@ -28,7 +28,7 @@ define(['common/config'], function(config) {
         //投标列表
         var investorList = $resource(config.INVESTOR_CONSOLE + '/investor/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //投资人银行账户列表
-        var bankListTable = $resource(config.INVESTOR_CONSOLE + '/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var bankListTable = $resource(config.INVESTOR_CONSOLE + '/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //新增投资人银行信息
         var createBankAcc = $resource(config.INVESTOR_CONSOLE + '/investor/addInvestorBank', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
 

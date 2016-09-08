@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">用户编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.id">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">用户名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.chargeCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.opname">
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorName">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.investorName">
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">动态口令序号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.referenceNum">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.referenceNum">
                             </div>
                         </div>
                     </div>
@@ -61,42 +61,14 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">Email</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.referenceNum">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.referenceNum">
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--  <div class="col-md-4">
-                     <div class="form-group">
-                         <div class="col-sm-12">
-                          <div class="input-group">
-                             <span class="input-group-addon">创建时间</span>
-                             <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                 <input type="date" class="input-sm form-control" ng-model="listView.condition.buildStartDate">
-                                 <span class="input-group-addon">~</span>
-                                 <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.buildEndDate">
-                             </div>
-                         </div>
-                         </div>
-                     </div>
-                 </div>
-                 <div class="col-md-4">
-                     <div class="form-group">
-                         <div class="col-sm-12">
-                          <div class="input-group">
-                             <span class="input-group-addon">充值完成日期</span>
-                             <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                 <input type="date" class="input-sm form-control" ng-model="listView.condition.chargeStartDate">
-                                 <span class="input-group-addon">~</span>
-                                 <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.chargeEndDate">
-                             </div>
-                         </div>
-                         </div>
-                     </div>
-                 </div>           -->
                 <div class="col-md-4 col-md-offset-5">
                     <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
+                        <button class="btn btn-info" ng-click="search()">查找</button>
                         <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                     </div>
                 </div>
