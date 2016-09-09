@@ -3,7 +3,7 @@
         <h3 ng-bind="assetVM.title"></h3>
     </div>
     <div class="panel-body">
-        <form class="form-validation" novalidate ng-submit="assetVM.submit()">
+        <form name="assetForm" class="form-validation" novalidate ng-submit="assetVM.submit()">
             <tabset class="tab-fade-in">
                 <tab>
                     <tab-heading>
@@ -20,6 +20,7 @@
                                                 <select class="form-control" ng-model="assetVM.data.assetType" ng-options="parseInt(item.value) as item.text for item in assetVM.assetTypeList">
                                                     <option value="">- 请选择 -</option>
                                                 </select>
+                                                <div class="form-error" ng-if="borrowerForm.name.$error.required">姓名不能为空!</div>
                                             </div>
                                         </div>
                                     </div>

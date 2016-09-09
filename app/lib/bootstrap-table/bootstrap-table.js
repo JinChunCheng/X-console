@@ -2361,7 +2361,7 @@
         if (this.options.sidePagination === 'server') {
             this.options.totalRows = data.total;
             fixedScroll = data.fixedScroll;
-            data = data[this.options.dataField];
+            data = data[this.options.dataField]||[];
         } else if (!$.isArray(data)) { // support fixedScroll
             fixedScroll = data.fixedScroll;
             data = data.data;
