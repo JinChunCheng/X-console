@@ -258,9 +258,9 @@ define(['common/config'], function(config) {
             }, {
                 key: 'LCQD', //理财渠道
                 value: [
-                    { value: 1, code: '1001', text: '管理系统' },
-                    { value: 2, code: '1002', text: '钱盒' },
-                    { value: 3, code: '1003', text: '开通宝' }
+                    { value: '1', code: '1001', text: '管理系统' },
+                    { value: '2', code: '1002', text: '钱盒' },
+                    { value: '3', code: '1003', text: '开通宝' }
                 ]
             }, {
                 key: 'SXQD', //授信渠道
@@ -270,9 +270,9 @@ define(['common/config'], function(config) {
             }, {
                 key: 'LCJLXM', //理财经理姓名
                 value: [
-                    { value: '1001', text: '管理系统' },
-                    { value: '2001', text: '钱盒' },
-                    { value: '3001', text: '开通宝' },
+                    { value: '1', code: '1001', text: '管理系统' },
+                    { value: '2',  code: '2001',text: '钱盒' },
+                    { value: '3',  code: '3001',text: '开通宝' },
                 ]
             }, {
                 key: 'SFBGSYG', //是否本公司员工
