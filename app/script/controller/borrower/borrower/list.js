@@ -38,6 +38,7 @@ define([], function() {
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items
+
                     });
                 });
             };

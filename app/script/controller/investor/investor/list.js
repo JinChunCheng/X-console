@@ -12,7 +12,7 @@ define([], function() {
                     $scope.listVM.condition.fundAccountManagerId = null;
                     console.log($scope.listVM.condition.fundChannelId)
                 },
-                fundChannelName:[],
+                fundChannelName: [],
                 getManagers: function(channelId) {
                     var result = [];
                     $scope.listVM.fundChannelName.forEach(function(item) {
