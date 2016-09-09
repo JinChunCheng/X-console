@@ -35,6 +35,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
@@ -67,33 +69,35 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">创建时间</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">创建时间</span>
                                 <div class="input-group">
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.createDatetimeStart" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
                                     <span class="input-group-addon">~</span>
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.createDatetimeEnd" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
                                 </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">充值完成日期</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">充值完成日期</span>
                                 <div class="input-group">
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.finishDatetimeStart" is-open="birthdayOpened3" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened3=true" />
                                     <span class="input-group-addon">~</span>
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.finishDatetimeEnd" is-open="birthdayOpened4" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened4=true" />
                                 </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -105,6 +109,8 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
@@ -117,14 +123,13 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info m-r-10">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
-                    </div>
+                    <button class="btn btn-info m-r-10">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                 </div>
             </div>
         </div>
-    </form>
+</div>
+</form>
 </div>
 <div class="panel panel-default">
     <div class="panel-body">

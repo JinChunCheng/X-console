@@ -20,7 +20,7 @@ define(function() {
         RECHARGE_CONSOLE: 'http://172.21.1.205:8087/console-recharge',
         PURCHASE_CONSOLE: 'http://172.21.1.205:8087/console-purchase',
         REPORTS_CONSOLE: 'http://172.21.1.205:8090/console-reports',
-        WITHDRAW_CONSOLE: 'http://172.21.1.205:8090/console-withdraw',
+        WITHDRAW_CONSOLE: 'http://172.21.1.205:8087/console-withdraw',
         INVESTMENT_CONSOLE: 'http://172.21.1.205:8087/console-investment'
     }
 });
