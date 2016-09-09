@@ -81,7 +81,7 @@
                     <div class="col-sm-12">
                         <div class="input-group">
                             <span class="input-group-addon">是否包含试投金</span>
-                            <select class="form-control form-white" ng-model="listView.condition.data.hasTrial" ng-options='isUsed for isUsed in listView.hasTrial'>
+                            <select class="form-control form-white" ng-model="listView.condition.data.hasTrial" ng-options='hasTrial as hasTrial.text for hasTrial in listView.hasTrial'>
                                 <option value="">- 请选择 -</option>
                             </select>
                         </div>

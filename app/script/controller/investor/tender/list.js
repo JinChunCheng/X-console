@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope','$state', '$modal', '$filter', 'metaService','investorService', function($scope,$state,$modal,$filter,metaService,investorService) {
+    return ['$scope','$state', '$modal', '$filter', 'metaService','investorService', 'toaster', function($scope,$state,$modal,$filter,metaService,investorService,toaster) {
 
         var defaultCondition = {
             data:{},
@@ -11,21 +11,56 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null
-           /* add:function(){
-                $state.go()
-            }*/
-        };
+            table: null,
+            revocation:function(){
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    toaster.pop('error', '未选中行！');
+                    return;
+                }
+                else{
+                    var status=$scope.listView.condition.biddingVO.status;
+                    console.log(status)
+                    if(status==!O){
+                        var text = "此标不允许撤销(只能撤销状态为待结标的标)!";
+                        $modal.open({
+                            templateUrl: 'view/shared/confirm.html',
+                            size: 'sm',
+                            controller:function($scope, $modalInstance){
+                                $scope.confirmData = {
+                                    text: text,
+                                    processing: false
+                                };
+                                $scope.ok = function() {
+                                    $modalInstance.dismiss();
+                                    return false;
+                                };
+                            }
+                        });
+                    }else{
+                            $state.go('investor.tender.cancel', { id: row.biddingVO.biddingId });
+                    }
 
+                }
+            }
+        };
 
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#tenderListTable');
         });
 
+        function initMetaData() {
+            metaService.getMeta('CZLY', function(data) {
+                $scope.listView.operateOrigin = data;
+            });
+            metaService.getMeta('ZT', function(data) {
+                $scope.listView.status = data;
+            });
+        }
+        initMetaData();
 
         var getData = function(params) {
             investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                console.log(res)
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
                     total: res.paginate.totalCount,
@@ -35,7 +70,7 @@ define([], function() {
         };
 
         (function init() {
-
+            initMeta();
             $scope.bsTenderListTableControl = {
                 options: {
                     cache: false,
@@ -75,11 +110,13 @@ define([], function() {
                     }, {
                         field: 'biddingVO.status',
                         title: '状态',
-                        align: 'center'
+                        align: 'center',
+                        formatter:statusFormatter
                     }, {
                         field: 'biddingVO.biddingType',
                         title: '投标方式',
-                        align: 'center'
+                        align: 'center',
+                        formatter:biddingTypeFormatter
                     }, {
                         field: 'biddingVO.biddingDatetime',
                         title: '投标时间',
@@ -92,11 +129,13 @@ define([], function() {
                     }, {
                         field: 'biddingVO.operateOrigin',
                         title: '操作来源',
-                        align: 'center'
+                        align: 'center',
+                        formatter:operateFormatter
                     }, {
                         field: 'biddingVO.hasTrial',
                         title: '包含试投金',
-                        align: 'center'
+                        align: 'center',
+                        formatter:hasTrialFormatter
                     }, {
                         field: 'biddingVO.trialAmt',
                         title: '试投金金额',
@@ -117,6 +156,18 @@ define([], function() {
             function timeFormatter(value, row, index) {
                 return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
+            function operateFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.operateList);
+            }
+            function hasTrialFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.hasTrialList);
+            }
+            function biddingTypeFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.biddingTypeList);
+            }
+            function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.statusList);
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
@@ -125,28 +176,32 @@ define([], function() {
             }
 
         })();
+        function initMeta() {
+            metaService.getMeta('CZLY', function(items) {
+                $scope.listView.operateList = items;
+            });
+            metaService.getMeta('SFXS', function(items) {
+                $scope.listView.hasTrialList = items;
+            });
+            metaService.getMeta('TBFS', function(items) {
+                $scope.listView.biddingTypeList = items;
+            });
+            metaService.getMeta('TBLBZT', function(items) {
+                $scope.listView.statusList = items;
+            });
+        }
         function editRow(e, value, row, index) {
-            //$state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
-            console.log(row)
             $state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
 
         }
-       /* $scope.del = function() {
-            console.log('del');
-        };*/
 
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
 
         $scope.reset = function() {
             $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
         };
 
-       /* var pageChange = function(num, size) {
-            console.log(num + ' - ' + size);
-        };*/
     }];
 });
