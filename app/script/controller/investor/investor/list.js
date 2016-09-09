@@ -12,7 +12,7 @@ define([], function() {
                     $scope.listVM.condition.fundAccountManagerId = null;
                     console.log($scope.listVM.condition.fundChannelId)
                 },
-                fundChannelName:[],
+                fundChannelName: [],
                 getManagers: function(channelId) {
                     var result = [];
                     $scope.listVM.fundChannelName.forEach(function(item) {
@@ -153,6 +153,8 @@ define([], function() {
                         }, {
                             field: 'fundAccountManagerCode',
                             title: '理财客户经理代码',
+                            formatter: fundAccountManagerCodeFormatter,
+
                             align: 'center',
                             valign: 'middle',
 
@@ -165,6 +167,7 @@ define([], function() {
 
                         }, {
                             field: 'fundChannelCode',
+                            formatter: fundChannelCodeFormatter,
                             title: '理财渠道代码',
                             align: 'center',
                             valign: 'middle',
@@ -301,6 +304,14 @@ define([], function() {
 
                 function fundAccountManagerNameFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.fundAccountManagerName);
+                }
+
+                function fundAccountManagerCodeFormatter(value, row, index) {
+                    return $filter('metaCM')(row.fundAccountManagerId, $scope.listVM.fundAccountManagerName);
+                }
+
+                function fundChannelCodeFormatter(value, row, index) {
+                    return $filter('metaCM')(row.fundChannelId, $scope.listVM.fundChannelName);
                 }
 
                 function noviciateFormatter(value, row, index) {
