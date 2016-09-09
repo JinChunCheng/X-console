@@ -291,11 +291,31 @@ define(['common/config'], function(config) {
                     { value: 'ITRS', text: '转让中' },
                     { value: 'TRSF', text: '转让完成' },
                 ]
+            },{
+                key: 'TBLBZT', //投标列表状态
+                value: [
+                    { value: 'O', text: '待结标' },
+                    { value: 'C', text: '取消' },
+                    { value: 'F', text: '结标完成' }
+                ]
             }, {
                 key: 'ZHUCLX', //注册类型
                 value: [
                     { value: 'BACKEND', text: '代注册' },
                     { value: 'ONLINE', text: '自己注册' },
+                ]
+            }, {
+                key: 'TBFS', //投标方式
+                value: [
+                    { value: 'MD', text: '手动投标' },
+                    { value: 'AD', text: '自动投标' },
+                    { value: 'PD', text: '代理投标' }
+                ]
+            },{
+                key: 'SFBHSTJ', //是否包含试投金
+                value: [
+                    { value: 'Y', text: '包含' },
+                    { value: 'N', text: '不包含' }
                 ]
             }, {
                 key: 'STJZT', //试投金状态

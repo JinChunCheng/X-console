@@ -31,9 +31,10 @@ define(['common/config'], function(config) {
         var bankListTable = $resource(config.INVESTOR_CONSOLE + '/investor/getInvestorBankCard/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //新增投资人银行信息
         var createBankAcc = $resource(config.INVESTOR_CONSOLE + '/investor/addInvestorBank', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
-
+        //投标列表
         var tenderList = $resource(config.PURCHASE_CONSOLE + '/bidding/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var tenderDetail = $resource(config.PURCHASE_CONSOLE + '/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var tenderCancel = $resource(config.PURCHASE_CONSOLE + '/bidding/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //投资列表
         var infoList = $resource(config.INVESTMENT_CONSOLE + '/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var infoDetail = $resource(config.INVESTMENT_CONSOLE + '/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
@@ -55,6 +56,7 @@ define(['common/config'], function(config) {
             investorCheckTable: investorCheckTable,
             tenderList: tenderList,
             tenderDetail: tenderDetail,
+            tenderCancel:tenderCancel,
             infoList: infoList,
             infoDetail: infoDetail,
             infoRepayList: infoRepayList,
@@ -132,6 +134,23 @@ define(['common/config'], function(config) {
                             return $q.reject(errResp);
                         }
                     );
+            },
+            finishCancel:function(id){
+                return $http({
+                    method: 'PUT',
+                    url: config.PURCHASE_CONSOLE + '/bidding/' + id
+                })
+                    .then(function(resp) {
+                        if (resp) {
+                            return resp.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errResp) {
+                        return $q.reject(errResp);
+                    }
+                );
             },
             getUpdateInvestor: function(id) {
                 return $http({
