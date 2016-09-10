@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'assetService', 'toaster',
-        function($scope, $http, $timeout, $modal, $state, assetService, toaster) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', '$filter', 'assetService', 'metaService', 'toaster',
+        function($scope, $http, $timeout, $modal, $state, $filter, assetService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -47,8 +47,14 @@ define([], function() {
                 });
             };
 
-            (function init() {
+            function initMeta() {
+                metaService.getMeta('HKFS', function(items) {
+                    $scope.listVM.repaymentTypeList = items;
+                });
+            }
 
+            (function init() {
+                initMeta();
                 $scope.tbControl = {
                     options: {
                         cache: false,
@@ -62,14 +68,28 @@ define([], function() {
                             { field: 'assetChannelId', title: '资产渠道' },
                             { field: 'name', title: '借款人' },
                             { field: '', title: '借款金额/投标金额' },
-                            { field: 'loanUse', title: '资金用途' },
-                            { field: 'loanRate', title: '借款利率' },
-                            { field: 'loanTermCount', title: '借款周期' },
-                            { field: 'licaiRate', title: '理财利率' },
-                            { field: 'debtEndDate', title: '投标截止日期' },
-                            { field: 'repaymentType', title: '还款方式' },
-                            { field: 'saleplatform', title: '销售平台' },
-                            { field: 'status', title: '状态' }, {
+                            { field: 'loanUse', title: '资金用途' }, {
+                                field: 'loanRate',
+                                title: '借款利率',
+                                formatter: function(value) {
+                                    return value ? value + '%' : '';
+                                }
+                            }, {
+                                field: 'loanTermCount',
+                                title: '借款周期',
+                                formatter: function(value) {
+                                    return value ? value + '天' : '';
+                                }
+                            }, {
+                                field: 'licaiRate',
+                                title: '理财利率',
+                                formatter: function(value) {
+                                    return value ? value + '%' : '';
+                                }
+                            },
+                            { field: 'debtEndDate', title: '投标截止日期', formatter: dateFormatter },
+                            { field: 'repaymentType', title: '还款方式', formatter: repaymentTypeFormatter },
+                            { field: 'saleplatform', title: '销售平台' }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -84,9 +104,17 @@ define([], function() {
                     }
                 };
 
+                function repaymentTypeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.repaymentTypeList);
+                }
+
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value);
+                }
+
                 function flagFormatter(value, row, index) {
                     var buttons = [
-                        '<a href="" name="btn-unrelease">取消上架</button>'
+                        '<button name="btn-unrelease" class="btn btn-warning btn-xs btn-transparent" title="下架产品"><i class="fa fa-arrow-down"></i></button>',
                     ]
                     return buttons.join('');
                 }

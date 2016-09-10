@@ -29,7 +29,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
 
             .state('asset.release', lazyLoad.config('/release', 'view/shared/blank.html', '', null, true))
                 .state('asset.release.todo', lazyLoad.config('/todo', 'view/asset/release/todo.html', 'controller/asset/release/todo', { services: ['service/asset'], filters: ['filter/common'] }))
-                .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { services: ['service/asset'], filters: ['filter/common'] }))
+                .state('asset.release.done', lazyLoad.config('/done', 'view/asset/release/done.html', 'controller/asset/release/done', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
                 .state('asset.release.edit', lazyLoad.config('/edit/:id', 'view/asset/release/edit.html', 'controller/asset/release/edit', { services: ['service/asset', 'service/meta'], filters: ['filter/common'] }))
                 //asset module end 
 

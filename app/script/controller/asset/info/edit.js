@@ -30,11 +30,11 @@ define([], function() {
                 },
                 cache: function() {
                     var asset = $scope.assetVM.data;
-                    if (!data.assetType) {
+                    if (!asset.assetType) {
                         toaster.pop('error', '请选择资产类型！');
                         return false;
                     }
-                    if (!data.assetType) {
+                    if (!asset.assetType) {
                         toaster.pop('error', '请选择资产类型！');
                         return false;
                     }
