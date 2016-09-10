@@ -263,16 +263,16 @@ define(['common/config'], function(config) {
                     { value: '3', code: '1003', text: '开通宝' }
                 ]
             }, {
-                key: 'SXQD', //授信渠道
-                value: [
-                    { value: 1, code: '0001', text: '汇和金服', children: [{ value: 1, code: '1001', text: '汇和金服' }] }
-                ]
-            }, {
                 key: 'LCJLXM', //理财经理姓名
                 value: [
                     { value: '1', code: '1001', text: '管理系统' },
-                    { value: '2',  code: '2001',text: '钱盒' },
-                    { value: '3',  code: '3001',text: '开通宝' },
+                    { value: '2', code: '2001', text: '钱盒' },
+                    { value: '3', code: '3001', text: '开通宝' },
+                ]
+            }, {
+                key: 'SXQD', //授信渠道
+                value: [
+                    { value: 1, code: '0001', text: '汇和金服', children: [{ value: 1, code: '1001', text: '汇和金服' }] }
                 ]
             }, {
                 key: 'SFBGSYG', //是否本公司员工
@@ -281,7 +281,7 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '是' },
                     { value: 'P', text: '待定' }
                 ]
-            },{
+            }, {
                 key: 'TZLBZT', //投资列表状态
                 value: [
                     { value: 'IRP', text: '还款中' },
@@ -291,7 +291,7 @@ define(['common/config'], function(config) {
                     { value: 'ITRS', text: '转让中' },
                     { value: 'TRSF', text: '转让完成' },
                 ]
-            },{
+            }, {
                 key: 'TBLBZT', //投标列表状态
                 value: [
                     { value: 'O', text: '待结标' },
@@ -311,7 +311,7 @@ define(['common/config'], function(config) {
                     { value: 'AD', text: '自动投标' },
                     { value: 'PD', text: '代理投标' }
                 ]
-            },{
+            }, {
                 key: 'SFBHSTJ', //是否包含试投金
                 value: [
                     { value: 'Y', text: '包含' },
@@ -326,7 +326,7 @@ define(['common/config'], function(config) {
                 ]
             }, {
                 key: 'STJSFYSY', //试投金是否已使用
-                   value: [
+                value: [
                     { value: 'N', text: '未使用' },
                     { value: 'Y', text: '使用' },
                 ]
@@ -588,6 +588,19 @@ define(['common/config'], function(config) {
                     { value: 2, text: '删除' },
                     { value: 3, text: '冻结' },
                     { value: 4, text: '待上线' }
+                ]
+            }, {
+                key: 'SJDW', //时间单位
+                value: [
+                    { value: 'D', text: '天' },
+                    { value: 'M', text: '月' },
+                    { value: 'Y', text: '年' }
+                ]
+            }, {
+                key: 'FBFS', //发布方式
+                value: [
+                    { value: 'I', text: '立即发布' },
+                    { value: 'T', text: '定时发送' }
                 ]
             }
         ];

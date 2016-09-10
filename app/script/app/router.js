@@ -86,7 +86,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('project.info', lazyLoad.config('/info', '/view/shared/blank.html', '', null, true))
                 .state('project.info.list', lazyLoad.config('/list', '/view/project/info/list.html', 'controller/project/info/list', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 .state('project.info.add', lazyLoad.config('/add', '/view/project/info/edit.html', 'controller/project/info/edit', { services: ['service/project', 'service/meta'] }))
-                .state('project.info.detail', lazyLoad.config('/detail/:id', '/view/project/info/detail.html', 'controller/project/info/detail', { services: ['service/project'], filters: ['filter/common'] }))
+                .state('project.info.detail', lazyLoad.config('/detail/:id', '/view/project/info/detail.html', 'controller/project/info/detail', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //发布审核
                 .state('project.release', lazyLoad.config('/release', '/view/shared/blank.html', '', null, true))
                 .state('project.release.list', lazyLoad.config('/list', '/view/project/release/list.html', 'controller/project/release/list', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))

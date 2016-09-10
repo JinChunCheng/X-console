@@ -3,16 +3,16 @@
         <h3>项目信息</h3>
     </div>
     <div class="panel-body">
-        <table class="table table-bordered th-right">
+        <table class="table table-bordered">
             <tbody>
                 <tr>
-                    <td colspan="6" class="bold">借款人信息</td>
+                    <th colspan="6">借款人信息</th>
                 </tr>
                 <tr>
                     <th class='w-140'>
                         借款人编号
                     </th>
-                    <td ng-bind="projectVM.borrower.borrowerId">
+                    <td ng-bind="projectVM.borrower.id">
                     </td>
                     <th class='w-140'>
                         借款人姓名
@@ -26,7 +26,7 @@
                     <td colspan="3" ng-bind="projectVM.borrower.idNo"></td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="bold">项目信息</td>
+                    <th colspan="4">项目信息</th>
                 </tr>
                 <tr>
                     <th class="w-140">项目编号</th>
@@ -38,53 +38,53 @@
                     <th class="w-140">产品分类</th>
                     <td ng-bind="projectVM.project.prodTypeId"></td>
                     <th class="w-140">项目类型</th>
-                    <td ng-bind="projectVM.project.projectType"></td>
+                    <td ng-bind="projectVM.project.projectType|meta:projectVM.projectTypeList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">还款方式</th>
-                    <td ng-bind="projectVM.project.repaymentType"></td>
+                    <td ng-bind="projectVM.project.repaymentType|meta:projectVM.repaymentTypeList"></td>
                     <th class="w-140">请求金额</th>
-                    <td ng-bind="projectVM.project.requestAmount"></td>
+                    <td ng-bind="(projectVM.project.requestAmount||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">服务费率</th>
-                    <td>---待提供---</td>
+                    <td ng-bind="(projectVM.project.serviceFeeRate||0)+'%/'+(projectVM.project.serviceFeeRateTerm|meta:projectVM.timeUnitList)"></td>
                     <th class="w-140">期限</th>
-                    <td ng-bind="projectVM.project.duration + projectVM.project.durationUnit"></td>
+                    <td ng-bind="projectVM.project.duration + (projectVM.project.durationUnit|meta:projectVM.timeUnitList)"></td>
                 </tr>
                 <tr>
                     <th class="w-140">借款利率</th>
-                    <td>---待提供---</td>
+                    <td ng-bind="(projectVM.project.loanRate||0)+'%'"></td>
                     <th class="w-140">包含的返利利率</th>
-                    <td ng-bind="projectVM.project.rebateRate + '缺少单位'"></td>
+                    <td ng-bind="(projectVM.project.rebateRate||0)+'%/年'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">可用自动投标金额</th>
-                    <td ng-bind="projectVM.project.autoBiddingAmount"></td>
+                    <td ng-bind="(projectVM.project.autoBiddingAmount||0)+'元'"></td>
                     <th class="w-140">可用自动投标余额</th>
-                    <td ng-bind="projectVM.project.autoBiddingBalance"></td>
+                    <td ng-bind="(projectVM.project.autoBiddingBalance||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">合同模板号</th>
                     <td ng-bind="projectVM.project.contractTemplateId"></td>
                     <th class="w-140">合同模板名称</th>
-                    <td>---待提供---</td>
+                    <td ng-bind="projectVM.project.contractTemplateId|meta:projectVM.contractList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">项目状态</th>
-                    <td colspan="3" ng-bind="projectVM.project.status"></td>
+                    <td colspan="3" ng-bind="projectVM.project.status|meta:projectVM.projectStatusList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">渠道编号</th>
-                    <td ng-bind="projectVM.project.creditChannelId + '是否用code替换？'"></td>
+                    <td ng-bind="projectVM.project.creditChannelId"></td>
                     <th class="w-140">渠道名称</th>
-                    <td>---待提供---</td>
+                    <td ng-bind="projectVM.project.creditChannelId|meta:projectVM.creditChannelList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">授信客户经理编号</th>
-                    <td ng-bind="projectVM.project.creditAccountManagerId + '是否用code替换'"></td>
+                    <td ng-bind="projectVM.project.creditAccountManagerId"></td>
                     <th class="w-140">授信客户经理名称</th>
-                    <td>---待提供---</td>
+                    <td ng-bind="projectVM.project.creditAccountManagerId|meta:projectVM.creditManagerList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">借款用途</th>
@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <th class="w-140">是否担保</th>
-                    <td colspan="3" ng-bind="projectVM.project.guaranteeFlag + '---需要过滤成文字'"></td>
+                    <td colspan="3" ng-bind="projectVM.project.guaranteeFlag|meta:projectVM.youwuList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">担保说明</th>
@@ -104,7 +104,7 @@
                 </tr>
                 <tr>
                     <th class="w-140">是否抵押</th>
-                    <td colspan="3" ng-bind="projectVM.project.mortgageFlag+'---需要过滤文字'"></td>
+                    <td colspan="3" ng-bind="projectVM.project.mortgageFlag|meta:projectVM.youwuList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">抵押说明</th>
@@ -115,65 +115,68 @@
                     <td colspan="3" ng-bind="projectVM.project.memo"></td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="bold">投标信息</td>
+                    <th colspan="4">投标信息</th>
                 </tr>
                 <tr>
                     <th class="w-140">起投金额</th>
-                    <td ng-bind="projectVM.project.biddingStartAmount"></td>
+                    <td ng-bind="(projectVM.project.biddingStartAmount||0)+'元'"></td>
                     <th class="w-140">间隔金额</th>
-                    <td ng-bind="projectVM.project.biddingStepAmount"></td>
+                    <td ng-bind="(projectVM.project.biddingStepAmount||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">上限金额</th>
-                    <td ng-bind="projectVM.project.biddingEndAmount"></td>
+                    <td ng-bind="(projectVM.project.biddingEndAmount||0)+'元'"></td>
                     <th class="w-140">截止时间</th>
                     <td ng-bind="projectVM.project.biddingDeadline|exDate"></td>
                 </tr>
                 <tr>
                     <th class="w-140">发布方式</th>
-                    <td ng-bind="projectVM.project.publishType + '---过滤成文字+发布时间'"></td>
+                    <td>
+                        <span class="m-r-5" ng-bind="projectVM.project.publishType|meta:projectVM.publishTypeList"></span>
+                        <span ng-bind="projectVM.project.publishTime|exDate:'yyyy-MM-dd HH:mm:ss'"></span>
+                    </td>
                     <th class="w-140">结标方式</th>
-                    <td ng-bind="projectVM.project.autoApprove + '---过滤文字'"></td>
+                    <td ng-bind="projectVM.project.autoApprove|meta:projectVM.approveTypeList"></td>
                 </tr>
                 <tr>
                     <th class="w-140">投标进度</th>
-                    <td ng-bind="projectVM.project.biddingProgress"></td>
+                    <td ng-bind="(projectVM.project.biddingProgress||0)+'%'"></td>
                     <th class="w-140">成交金额</th>
-                    <td ng-bind="projectVM.project.biddingAmount"></td>
+                    <td ng-bind="(projectVM.project.biddingAmount||0)+'元'"></td>
                 </tr>
                 <tr>
-                    <td colspan="4" class="bold">还款信息</td>
+                    <th colspan="4">还款信息</th>
                 </tr>
                 <tr>
                     <th class="w-140">借贷开始日期</th>
-                    <td ng-bind="projectVM.project.debtStartDate"></td>
+                    <td ng-bind="projectVM.project.debtStartDate|exDate"></td>
                     <th class="w-140">借贷结束日期</th>
-                    <td ng-bind="projectVM.project.debtEndDate"></td>
+                    <td ng-bind="projectVM.project.debtEndDate|exDate"></td>
                 </tr>
                 <tr>
                     <th class="w-140">本金总计</th>
-                    <td ng-bind="projectVM.project.totalPrinciple"></td>
+                    <td ng-bind="(projectVM.project.totalPrinciple||0)+'元'"></td>
                     <th class="w-140">已付本金</th>
-                    <td ng-bind="projectVM.project.principalPaid"></td>
+                    <td ng-bind="(projectVM.project.principalPaid||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">剩余本金</th>
-                    <td colspan="3" ng-bind="projectVM.project.principalBalance"></td>
+                    <td colspan="3" ng-bind="(projectVM.project.principalBalance||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">利息总计</th>
-                    <td ng-bind="projectVM.project.totalInterest"></td>
+                    <td ng-bind="(projectVM.project.totalInterest||0)+'元'"></td>
                     <th class="w-140">已付利息</th>
-                    <td ng-bind="projectVM.project.interestPaid"></td>
+                    <td ng-bind="(projectVM.project.interestPaid||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">服务费总计</th>
-                    <td ng-bind="projectVM.project.totalServiceFee"></td>
+                    <td ng-bind="(projectVM.project.totalServiceFee||0)+'元'"></td>
                     <th class="w-140">已付服务费</th>
-                    <td ng-bind="projectVM.project.serviceFeePaid"></td>
+                    <td ng-bind="(projectVM.project.serviceFeePaid||0)+'元'"></td>
                 </tr>
                 <tr>
-                    <td colspan="4">
+                    <td colspan="4" class="text-center">
                         <button class="btn btn-default" ng-click="projectVM.cancel();">返回</button>
                     </td>
                 </tr>
