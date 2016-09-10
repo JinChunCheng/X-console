@@ -31,7 +31,7 @@ define([], function() {
         }
 
         function batch() {
-            fundService.batchUpdatePlatform({ withdrawId: $scope.listView.withdraw.id, op: "靳春城",memo:$scope.listView.condition.memo }).then(function(res) {
+            fundService.batchUpdatePlatform({ withdrawId: $scope.listView.withdraw.id,memo:$scope.listView.condition.memo },'POST').then(function(res) {
                 if (res.code == 200) {
                     toaster.pop('success', '提现回退申请成功！');
                     $scope.listView.withdraw.id=null;

@@ -34,6 +34,9 @@ define([], function () {
             metaService.getMeta('TZLBZT', function(data) {
                 $scope.listView.status = data;
             });
+            metaService.getMeta('SFBHSTJ', function(data) {
+                $scope.listView.hasTrial = data;
+            });
         };
         initMetaData();
         var getData = function (params) {
@@ -64,85 +67,112 @@ define([], function () {
                         checkbox: true
                     }, {
                         field: 'projectVO.projectId',
-                        title: '项目编号'
+                        title: '项目编号',
+                        align: 'center'
 
                     }, {
                         field: 'projectVO.projectName',
-                        title: '项目名称'
+                        title: '项目名称',
+                        align: 'center'
                     }, {
                         field: 'investorVO.investorId',
-                        title: '投资人编号'
+                        title: '投资人编号',
+                        align: 'center'
                     }, {
                         field: 'investorVO.name',
-                        title: '投资人名称'
+                        title: '投资人名称',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.repaymentTypeName',
-                        title: '还款方式'
+                        title: '还款方式',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.debtStartDate',
                         title: '开始日期',
-                        formatter:timeFormatter
+                        formatter:timerFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.debtEndDate',
                         title: '结束日期',
-                        formatter:timeFormatter
+                        formatter:timerFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.status',
                         title: '状态',
-                        formatter:statusFormatter
+                        formatter:statusFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.interestRate',
-                        title: '借款利率'
+                        title: '借款利率',
+                        formatter:rateFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.totalPrincipal',
-                        title: '本金'
+                        title: '本金',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.investmentPrice',
-                        title: '买入价格'
+                        title: '买入价格',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.totalInterest',
-                        title: '利息'
+                        title: '利息',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.principalPaid',
-                        title: '已付本金'
+                        title: '已付本金',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.principalBalance',
-                        title: '剩余本金'
+                        title: '剩余本金',
+                        align: 'center'
                     }, {
                         field: 'investorVO.fundAccountManagerId',
-                        title: '理财客户经理编号'
+                        title: '理财客户经理编号',
+                        align: 'center'
                     }, {
                         field: 'investorVO.fundAccountManagerCode',
-                        title: '理财客户经理代码'
+                        title: '理财客户经理代码',
+                        align: 'center'
                     }, {
                         field: 'investorVO.fundAccountManagerName',
-                        title: '理财客户经理姓名'
+                        title: '理财客户经理姓名',
+                        align: 'center'
                     }, {
                         field: 'investorVO.fundChannelCode',
-                        title: '理财渠道代码'
+                        title: '理财渠道代码',
+                        align: 'center'
                     }, {
                         field: 'investorVO.fundChannelName',
-                        title: '理财渠道名称'
+                        title: '理财渠道名称',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.contractGenFlag',
-                        title: '合同生成标志'
+                        title: '合同生成标志',
+                        align: 'center'
                     }, {
                         field: 'investmentVO.createDatetime',
                         title: '创建时间',
-                        formatter:timeFormatter
+                        formatter:timeFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.updateDatetime',
                         title: '更新时间',
-                        formatter:timeFormatter
+                        formatter:timeFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.hasTrial',
-                        title: '是否包含试投金'
+                        title: '是否包含试投金',
+                        formatter:hasTrialFormatter,
+                        align: 'center'
                     }, {
                         field: 'investmentVO.trialAmt',
-                        title: '试投金金额'
+                        title: '试投金金额',
+                        align: 'center'
                     }, {
                         field: 'flag',
                         title: '操作',
+                        align: 'center',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
@@ -154,8 +184,17 @@ define([], function () {
             function timeFormatter(value, row, index) {
                 return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
+            function timerFormatter(value, row, index) {
+                return $filter('exDate')(value).slice(0,10);
+            }
             function statusFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.statusList);
+            }
+            function hasTrialFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.hasTrialList);
+            }
+            function rateFormatter(value, row, index) {
+                return parseFloat(value*100).toFixed(2)+'%/年';
             }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
@@ -168,6 +207,9 @@ define([], function () {
         function initMeta() {
             metaService.getMeta('TZLBZT', function(items) {
                 $scope.listView.statusList = items;
+            });
+            metaService.getMeta('SFBHSTJ', function(items) {
+                $scope.listView.hasTrialList = items;
             });
         }
         function editRow(e, value, row, index) {

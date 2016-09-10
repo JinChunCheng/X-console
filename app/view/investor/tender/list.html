@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">投资人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.investorId">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">项目编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.projectCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.projectId">
                             </div>
                         </div>
                     </div>
@@ -30,33 +30,34 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='status for status in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.data.status" ng-options='status as status.text for status in listView.status'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!--<div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">投标方式</span>
-                                <select class="form-control form-white" ng-model="listView.condition.tenderWay" ng-options='tenderWay for tenderWay in listView.tenderWay'>
+                                <select class="form-control form-white" ng-model="listView.condition.biddingType" ng-options='biddingType for biddingType in listView.biddingType'>
                                 </select>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                          <div class="input-group">
                             <span class="input-group-addon">投标时间</span>
-                            <div class="input-daterange b-datepicker input-group form-white" id="datepicker">
-                                <input type="date" class="input-sm form-control" ng-model="listView.condition.startDate">
-                                <span class="input-group-addon">~</span>
-                                <input type="date" class="input-sm form-control form-white" ng-model="listView.condition.endDate">
-                            </div>
+                             <!--<div class="input-group">-->
+                                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.biddingDatetime" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                <!-- <span class="input-group-addon">~</span>
+                                 <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.data.debtEndDate" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />-->
+                            <!-- </div>-->
                         </div>
                         </div>
                     </div>     
@@ -66,26 +67,27 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">操作来源</span>
-                                <select class="form-control form-white" ng-model="listView.condition.operSource" ng-options='operSource for operSource in listView.operSource'>
+                                <select class="form-control form-white" ng-model="listView.condition.data.operateOrigin" ng-options='operateOrigin as operateOrigin.text for operateOrigin in listView.operateOrigin'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!--<div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">是否包含试投金</span>
-                                <select class="form-control form-white" ng-model="listView.condition.isUsed" ng-options='isUsed for isUsed in listView.isUsed'>
+                                <select class="form-control form-white" ng-model="listView.condition.hasTrial" ng-options='hasTrial for hasTrial in listView.hasTrial'>
                                 </select>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
                 <div class="col-md-4 col-md-offset-5">
                     <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
+                        <button class="btn btn-info" ng-click="search()">查找</button>
                         <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                     </div>
                 </div>
