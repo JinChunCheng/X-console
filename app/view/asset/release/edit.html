@@ -59,55 +59,55 @@
                 </tr>
             </tbody>
         </table>
-        <form name="productForm" class="form-validation" novalidate ng-submit="productVM.submit()">
+        <form name="productForm" class="form-validation" novalidate ng-submit="productVM.submit(productForm.$invalid)">
             <div class="row m-t-10">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.description.$invalid && (productForm.description.$dirty||productVM.submitted)}">
                                 <label class="control-label">借款描述</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-bind="productVM.data.des">
+                                    <input name="description" type="text" class="form-control" ng-bind="productVM.data.des" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.zengxindes.$invalid && (productForm.zengxindes.$dirty||productVM.submitted)}">
                                 <label class="control-label">增信说明</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-bind="productVM.data.zengxinDes">
+                                    <input name="zengxindes" type="text" class="form-control" ng-bind="productVM.data.zengxinDes" required>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.saleplatform.$invalid && (productForm.saleplatform.$dirty||productVM.submitted)}">
                                 <label class="control-label">销售平台</label>
                                 <div>
-                                    <select class="form-control" ng-model="productVM.data.saleplatformCode" ng-options="item.code as item.name for item in productVM.saleplatformList">
+                                    <select name="saleplatform" class="form-control" ng-model="productVM.data.saleplatformCode" ng-options="item.code as item.name for item in productVM.saleplatformList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.approvetype.$invalid && (productForm.approvetype.$dirty||productVM.submitted)}">
                                 <label class="control-label">结标方式</label>
                                 <div>
-                                    <select class="form-control" ng-model="productVM.data.approveType" ng-options="item.value as item.text for item in productVM.approveTypeList">
+                                    <select name="approvetype" class="form-control" ng-model="productVM.data.approveType" ng-options="item.value as item.text for item in productVM.approveTypeList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.licairate.$invalid && (productForm.licairate.$dirty||productVM.submitted)}">
                                 <label class="control-label">理财利率</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-model="productVM.data.licaiRate">
+                                    <input name="licairate" type="number" class="form-control" ng-model="productVM.data.licaiRate" required>
                                     <span class="input-group-addon">%</span>
                                 </div>
                             </div>
@@ -116,19 +116,19 @@
                     <hr class="m-t-10 m-b-10">
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.startamount.$invalid && (productForm.startamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">起投金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="productVM.data.startAmount">
+                                    <input name="startamount" type="number" class="form-control" ng-bind="productVM.data.startAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.stepamount.$invalid && (productForm.stepamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">间隔金额</label>
                                 <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="productVM.data.stepAmount">
+                                    <input name="stepamount" type="number" class="form-control" ng-bind="productVM.data.stepAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label">上限金额</label>
-                                <div class="input-group">
-                                    <input type="number" class="form-control" ng-bind="productVM.ennAmount">
+                                <div class="input-group" ng-class="{'has-error':productForm.ennamount.$invalid && (productForm.ennamount.$dirty||productVM.submitted)}">
+                                    <input name="ennamount" type="number" class="form-control" ng-bind="productVM.ennAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -145,19 +145,19 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.debtstartdate.$invalid && (productForm.debtstartdate.$dirty||productVM.submitted)}">
                                 <label class="control-label">借款开始日</label>
                                 <div class="append-icon">
-                                    <input type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtStartDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startDateOpened=true" />
+                                    <input name="debtstartdate" type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtStartDate" is-open="startDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="startDateOpened=true" required />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':productForm.debtenddate.$invalid && (productForm.debtenddate.$dirty||productVM.submitted)}">
                                 <label class="control-label">借款截止日</label>
                                 <div class="append-icon">
-                                    <input type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtEndDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endDateOpened=true" />
+                                    <input name="debtenddate" type="text" class="form-control" datepicker-popup ng-model="productVM.data.debtEndDate" is-open="endDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="endDateOpened=true" required />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
