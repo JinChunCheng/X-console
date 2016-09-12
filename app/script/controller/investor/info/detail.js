@@ -1,8 +1,16 @@
 define([], function () {
     return ['$scope', '$state', '$stateParams', '$modal','$filter', 'metaService','investorService',
         function ($scope, $state, $stateParams, $modal,$filter, metaService,investorService) {
+            var defaultCondition = {
+                data:{},
+                paginate: {
+                    pageNum: 1,
+                    pageSize: 10
+                }
+            };
             $scope.vm = {
                 data: {},
+                condition: angular.copy(defaultCondition),
                 table: null,
                 cancel: function () {
                     $state.go('investor.info.list');
@@ -11,7 +19,7 @@ define([], function () {
                     showRepayList()
                 }
             };
-            function initMetaData() {
+                function initMetaData() {
                 metaService.getMeta('TZLBZT', function (data) {
                     $scope.vm.status = data;
                 });
@@ -30,18 +38,24 @@ define([], function () {
             getDetail($stateParams.id);
 
             var getData = function (params) {
-                investorService.repayList($stateParams.id).then(function (res) {
-                    console.log(res.data);
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                var data = $scope.vm.condition;
+
+                data.paginate = paganition;
+
+                investorService.infoRepayList.query({ where: JSON.stringify(data) }).$promise.then(function(res) {
+                    res.data = res.data || { paginate: paganition, items: [] };
+                    res.paginate = res.paginate || { totalCount: 0 };
                     params.success({
-                        total: res.data.length,
-                        rows: res.data
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
                     });
                 })
             }
 
             function showRepayList() {
                 var title = "投资还款计划列表";
-                //initMeta();
+
                 $modal.open({
                     templateUrl: 'view/investor/info/repayList.html',
                     size: 'lg',
@@ -85,7 +99,7 @@ define([], function () {
                                     field: 'investmentRepaymentPlanVO.status',
                                     title: '状态',
                                     align: 'center',
-                                    //formatter:statusFormatter
+                                    formatter:statusFormatter
                                 }, {
                                     field: 'investmentRepaymentPlanVO.principal',
                                     title: '当期本金',
@@ -121,22 +135,23 @@ define([], function () {
                                 }]
                             }
                         };
-                        /*function statusFormatter(value, row, index) {
-                            return $filter('meta')(value, $scope.vm.statusList);
-                        }*/
 
                         $scope.cancel = function () {
                             $modalInstance.dismiss();
                             return false;
                         };
-
                     }
+
                 })
-                /*function initMeta() {
-                    metaService.getMeta('TZHKJHZT', function(items) {
-                        $scope.listView.statusList = items;
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.vm.statusList);
+                }
+                function initMeta() {
+                    metaService.getMeta('HKLB', function(items) {
+                        $scope.vm.statusList = items;
                     });
-                }*/
+                }
+                initMeta();
             }
 
         }];
