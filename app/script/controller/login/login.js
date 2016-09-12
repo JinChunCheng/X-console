@@ -31,6 +31,7 @@ define(['common/config', 'common/session'], function(config, session) {
 
 
         $scope.login = function() {
+            session.deleteTicket();
             $scope.loginVM.processing = true;
             $http({
                 url: config.OPERATION_CONSOLE + '/mgr/login',

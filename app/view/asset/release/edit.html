@@ -11,7 +11,7 @@
                     <th class="w-120">借款人</th>
                     <td ng-bind="productVM.data.name"></td>
                     <th class="w-120">借款金额</th>
-                    <td ng-bind="productVM.data.amount"></td>
+                    <td ng-bind="(productVM.data.amount||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">产品类型</th>

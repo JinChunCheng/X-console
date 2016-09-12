@@ -171,9 +171,9 @@ define(['common/config'], function(config) {
             }, {
                 key: 'XSPTXS', //销售平台形式
                 value: [
-                        { value: '1', text: 'H5理财平台' },
-                        { value: '2', text: 'iOS' },
-                        { value: '3', text: 'Android' }
+                        { value: 1, text: 'H5理财平台' },
+                        { value: 2, text: 'iOS' },
+                        { value: 3, text: 'Android' }
                     ]
                     //===============================借款人============================
             }, {
@@ -595,6 +595,12 @@ define(['common/config'], function(config) {
                     { value: 'D', text: '天' },
                     { value: 'M', text: '月' },
                     { value: 'Y', text: '年' }
+                ]
+            }, {
+                key: 'SJDW2', //时间单位
+                value: [
+                    { value: 'D', text: '天' },
+                    { value: 'M', text: '月' }
                 ]
             }, {
                 key: 'FBFS', //发布方式

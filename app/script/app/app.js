@@ -55,7 +55,14 @@ define([
                             return response || $q.when(response);
                         },
                         request: function(config) {
-                            config.headers['token'] = session.getTicket();
+                            //console.log('token>>>>>>>>>>' + session.getTicket());
+
+                            var $state = $injector.get('$state');
+                            var stateName = $state.current.name;
+                            if (stateName != 'login') {
+                                var token = session.getTicket();
+                                config.headers['token'] = token;
+                            }
                             return config;
                         }
                     };
@@ -74,8 +81,7 @@ define([
                 //刷新cookie过期时间
                 session.refreshTicket();
                 //如果cookie失效，跳到login页
-                // if (toState.name != 'login' && !session.checkIsLogged()) {
-                if (toState.name != 'login' && !session.getLoginUserInfo()) {
+                if (toState.name != 'login' && !session.checkIsLogged()) {
                     //apply with $timeout
                     //i do not know why...
                     $timeout(function() {
