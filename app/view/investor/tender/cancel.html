@@ -75,7 +75,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.status"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.status|meta:vm.status"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -83,7 +83,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingDatetime"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.biddingDatetime|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                         </tr>
@@ -93,7 +93,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.createDatetime"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.createDatetime|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -101,7 +101,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.updateDatetime"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.updateDatetime|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -109,7 +109,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.hasTrial"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.biddingVO.hasTrial|meta:vm.hasTrial"></label>
                                 </div>
                             </th>
                         </tr>
@@ -129,7 +129,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-5">
-                    <button type="button" class="cancel btn btn-default" ng-if="flag" ng-click="vm.cancelTender()">撤销投标</button>
+                    <button type="button" class="cancel btn btn-default" ng-if="!flag" ng-click="vm.cancelTender()">撤销投标</button>
                 </div>
             </div>
         </form>

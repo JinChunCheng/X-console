@@ -42,6 +42,7 @@ define([], function () {
         var getData = function (params) {
 
             investorService.infoList.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function (res) {
+                //res.data = res.data || { paginate: paganition, items: [] };
                 res.data.paginate = res.data.paginate || {totalCount: 0};
                 params.success({
                     total: res.data.paginate.totalCount,
@@ -56,10 +57,10 @@ define([], function () {
             $scope.bsInvestmentListTableControl = {
                 options: {
                     cache: false,
-                    height: 600,
+                    //height: 600,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
                     columns: [{

@@ -1,11 +1,12 @@
 define([], function () {
-    return ['$scope', '$state','$modal', '$stateParams','investorService','toaster',
-        function ($scope, $state,$modal, $stateParams, investorService,toaster) {
+    return ['$scope', '$state','$modal', '$stateParams','metaService','investorService','toaster',
+        function ($scope, $state,$modal, $stateParams,metaService, investorService,toaster) {
             $scope.vm = {
                 data: {},
                 cancelTender: function () {
                     var flag=true;
-                    var text = "ÄúÈ·¶¨Òª³·Ïú´Ë´ÎÍ¶±êÂğ!";
+                    var text = "æ‚¨ç¡®å®šè¦æ’¤é”€æ­¤æ¬¡æŠ•æ ‡å—!";
+                    var data = $scope.vm.data;
                     $modal.open({
                         templateUrl: 'view/shared/confirm.html',
                         size: 'sm',
@@ -20,12 +21,13 @@ define([], function () {
                             };
                             $scope.ok = function () {
                                 $scope.confirmData.processing = true;
-                                investorService.finishCancel({data:{
-                                    biddingId: $stateParams.id
-                                    //status: 'O'
-                                }}).then(function (res) {
+                                investorService.finishCancel(
+                                    data.investorVO.investorId,
+                                    data.projectVO.projectId,
+                                    data.biddingVO.biddingId
+                                ).then(function (res) {
                                     if (res.code == 200) {
-                                        toaster.pop('success', '²Ù×÷³É¹¦£¡');
+                                        toaster.pop('success', 'æ“ä½œæˆåŠŸï¼');
                                         //$modalInstance.close($state.go('project.check.check'));
                                         flag=false;
                                         $modalInstance.dismiss();
@@ -34,7 +36,7 @@ define([], function () {
                                         toaster.pop('error', res.msg);
                                     $scope.confirmData.processing = false;
                                 }, function (err) {
-                                    toaster.pop('error', '·şÎñÆ÷Á¬½ÓÊ§°Ü£¡');
+                                    toaster.pop('error', 'æœåŠ¡å™¨è¿æ¥å¤±è´¥ï¼');
                                     $scope.confirmData.processing = false;
                                 });
                                 return true;
@@ -43,7 +45,15 @@ define([], function () {
                     });
                 }
             };
-
+            function initMetaData() {
+                metaService.getMeta('TBLBZT', function (data) {
+                    $scope.vm.status = data;
+                });
+                metaService.getMeta('SFBHSTJ', function(data) {
+                    $scope.vm.hasTrial = data;
+                });
+            };
+            initMetaData();
             function getDetail(id) {
                 investorService.tenderCancel.get({id: id}).$promise.then(function (res) {
                     $scope.vm.data = res.data;

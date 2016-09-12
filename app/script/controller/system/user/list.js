@@ -49,7 +49,7 @@ define([], function() {
                     height: 650,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
                     columns: [{

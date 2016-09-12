@@ -11,38 +11,7 @@ define([], function() {
 
         $scope.listView = {
             condition: angular.copy(defaultCondition),
-            table: null,
-            revocation:function(){
-                var selected = $scope.listView.table.bootstrapTable('getSelections');
-                if (!selected || selected.length === 0) {
-                    toaster.pop('error', '未选中行！');
-                    return;
-                }
-                else{
-                    var status=$scope.listView.condition.biddingVO.status;
-                    console.log(status)
-                    if(status==!O){
-                        var text = "此标不允许撤销(只能撤销状态为待结标的标)!";
-                        $modal.open({
-                            templateUrl: 'view/shared/confirm.html',
-                            size: 'sm',
-                            controller:function($scope, $modalInstance){
-                                $scope.confirmData = {
-                                    text: text,
-                                    processing: false
-                                };
-                                $scope.ok = function() {
-                                    $modalInstance.dismiss();
-                                    return false;
-                                };
-                            }
-                        });
-                    }else{
-                            $state.go('investor.tender.cancel', { id: row.biddingVO.biddingId });
-                    }
-
-                }
-            }
+            table: null
         };
 
         $scope.$on('$viewContentLoaded', function() {
@@ -53,7 +22,7 @@ define([], function() {
             metaService.getMeta('CZLY', function(data) {
                 $scope.listView.operateOrigin = data;
             });
-            metaService.getMeta('ZT', function(data) {
+            metaService.getMeta('TBLBZT', function(data) {
                 $scope.listView.status = data;
             });
         }
@@ -61,9 +30,10 @@ define([], function() {
 
         var getData = function(params) {
             investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                res.data = res.data || { paginate: paganition, items: [] };
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
-                    total: res.paginate.totalCount,
+                    total: res.data.paginate.totalCount,
                     rows: res.data.items
                 });
             });
@@ -76,7 +46,7 @@ define([], function() {
                     cache: false,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
                     columns: [{
@@ -148,7 +118,8 @@ define([], function() {
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
-                            'click .btn-info': editRow
+                            'click .btn-info': editRow,
+                            'click .btn-danger': revocation
                         }
                     }]
                 }
@@ -170,7 +141,8 @@ define([], function() {
             }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
+                    '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-edit"></i></button>'
                 ];
                 return btnHtml.join('');
             }
@@ -194,7 +166,33 @@ define([], function() {
             $state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
 
         }
-
+        function revocation(e, value, row, index) {
+            var status = row.biddingVO.status;
+                if(status !='O'){
+                    var text = "此标不允许撤销(只能撤销状态为待结标的标)!";
+                    $modal.open({
+                        templateUrl: 'view/shared/confirm.html',
+                        size: 'sm',
+                        controller:function($scope, $modalInstance){
+                            $scope.confirmData = {
+                                text: text,
+                                processing: false
+                            };
+                            $scope.ok = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            };
+                            $scope.cancel = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            };
+                        }
+                    });
+                }else{
+                    $state.go('investor.tender.cancel', { id:row.biddingVO.biddingId});
+                    //$state.go('investor.tender.detail', { id: row.biddingVO.biddingId });
+                }
+        }
         $scope.search = function() {
             $scope.listView.table.bootstrapTable('refresh');
         };

@@ -83,7 +83,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.statusName"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.status|meta:vm.status"></label>
                                     <button type="button" class="cancel btn  btn-primary" ng-click="vm.repayList()">投资还款计划列表</button>
                                 </div>
                             </th>
@@ -206,7 +206,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.hasTrial"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.hasTrial|meta:vm.hasTrial"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
