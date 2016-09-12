@@ -1,16 +1,47 @@
 define([], function() {
-    return ['$scope', '$state', '$stateParams', 'projectService', 'metaService',
-        function($scope, $state, $stateParams, projectService, metaService) {
+    return ['$scope', '$state', '$stateParams', 'projectService', 'assetService', 'metaService', 'toaster',
+        function($scope, $state, $stateParams, projectService, assetService, metaService, toaster) {
 
             $scope.projectVM = {
-                data: { status: 'NEW' },
+                data: { status: 'NEW', durationUnit: 'D', interestRateTerm: 'Y', serviceFeeRateTerm: 'Y' },
+                // data: {
+                //     "status": "NEW",
+                //     "durationUnit": "D",
+                //     "interestRateTerm": "Y",
+                //     "serviceFeeRateTerm": "Y",
+                //     "creditChannelId": 1,
+                //     "creditAccountManagerId": 1,
+                //     "borrowerId": "58",
+                //     "prodTypeId": "0101",
+                //     "projectType": "NOR",
+                //     "projectName": "YHY第一标",
+                //     "contractTemplateId": "1",
+                //     "displayChannelCode": "CASHBOXONE",
+                //     "repaymentType": "ETP",
+                //     "requestAmount": 1000000,
+                //     "duration": 128,
+                //     "interestRate": 15,
+                //     "serviceFeeRate": 1,
+                //     "biddingStartAmount": 1000,
+                //     "biddingStepAmount": 1000,
+                //     "biddingEndAmount": 100000,
+                //     "biddingDeadline": "2016-09-15T16:00:00.000Z",
+                //     "autoApprove": "B",
+                //     "purpose": "s",
+                //     "description": "ss",
+                //     "guaranteeFlag": "Y",
+                //     "guarantee": "sss",
+                //     "mortgageFlag": "Y",
+                //     "mortgage": "ssss",
+                //     "memo": "sssss"
+                // },
                 creditChannelList: [],
                 getManagerList: function() {
-                    if (!$scope.projectVM.data.creditChannelId)
-                        return [];
                     var result = [];
+                    if (!$scope.projectVM.data.creditChannelId)
+                        return result;
                     $scope.projectVM.creditChannelList.forEach(function(item) {
-                        if (item.id == $scope.projectVM.data.creditChannelId) {
+                        if (item.value == $scope.projectVM.data.creditChannelId) {
                             result = item.children;
                         }
                     });
@@ -20,6 +51,12 @@ define([], function() {
             };
 
             (function() {
+                assetService.platform.query({ where: JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 200 } }) }).$promise.then(function(res) {
+                    if (res.code == 200)
+                        $scope.projectVM.saleplatformList = res.data.items || [];
+                    else
+                        toaster.pop('error', res.msg);
+                });
                 metaService.getMeta('SXQD', function(items) {
                     $scope.projectVM.creditChannelList = items;
                 });
@@ -41,19 +78,25 @@ define([], function() {
                 metaService.getMeta('JBFS', function(items) {
                     $scope.projectVM.autoApproveList = items;
                 });
+                metaService.getMeta('SJDW2', function(items) {
+                    $scope.projectVM.timeUnitList = items;
+                });
             })();
 
 
-            function submit() {
-            	projectService.project.save($scope.projectVM.data).$promise.then(function(res) {
-            		if (res.code == 200) {
-            			toaster.pop('success', '添加成功！');
-            		}
-            		else
-            			toaster.pop('error', res.msg);
-            	}, function(err) {
-            		toaster.pop('error', '服务器连接失败！');
-            	});
+            function submit(invalid) {
+                $scope.projectVM.submitted = true;
+                if (invalid) {
+                    return false;
+                }
+                projectService.project.save($scope.projectVM.data).$promise.then(function(res) {
+                    if (res.code == 200) {
+                        toaster.pop('success', '添加成功！');
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
+                });
             }
 
         }
