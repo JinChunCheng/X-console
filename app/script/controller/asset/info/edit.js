@@ -29,10 +29,23 @@ define([], function() {
                     showFiles(type, title);
                 },
                 cache: function() {
+                    var asset = $scope.assetVM.data;
+                    if (!asset.assetType) {
+                        toaster.pop('error', '请选择资产类型！');
+                        return false;
+                    }
+                    if (!asset.assetType) {
+                        toaster.pop('error', '请选择资产类型！');
+                        return false;
+                    }
                     $scope.assetVM.data.status = -1;
                     saveAsset();
                 },
-                submit: function() {
+                submit: function(invalid) {
+                    $scope.assetVM.submitted = true;
+                    if (invalid) {
+                        return false;
+                    }
                     $scope.assetVM.data.status = 0;
                     saveAsset();
                 },

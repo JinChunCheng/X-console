@@ -42,11 +42,11 @@ define([
 
                                     toaster.pop('error', '登录超时，请重新登录！');
 
-                                    // $state.go('login', {
-                                    //     r: location.hash
-                                    // }, {
-                                    //     reload: true
-                                    // });
+                                    $state.go('login', {
+                                        r: location.hash
+                                    }, {
+                                        reload: true
+                                    });
                                 }
                                 //不再返回给原始请求
                                 var defer = $q.defer();
@@ -71,8 +71,8 @@ define([
         //启动应用程序
         app.run(['$rootScope', '$location', '$state', '$timeout', function($rootScope, $location, $state, $timeout) {
             $rootScope.$on("$stateChangeStart", function(evt, toState, toParams, fromState, fromParams) {
-                // //刷新cookie过期时间
-                // session.refreshTicket();
+                //刷新cookie过期时间
+                session.refreshTicket();
                 //如果cookie失效，跳到login页
                 // if (toState.name != 'login' && !session.checkIsLogged()) {
                 if (toState.name != 'login' && !session.getLoginUserInfo()) {

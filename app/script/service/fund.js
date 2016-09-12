@@ -72,12 +72,12 @@ define(['common/config'], function(config) {
                     });
             },
             //回退审核
-            batchUpdatePlatform: function(id, data, method) {
+            batchUpdatePlatform: function(data, method) {
                 return $http({
                         method: method,
                         data: data,
                         //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        url: url + id,
+                        url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback/batch',
 
                     })
                     .then(function(res) {

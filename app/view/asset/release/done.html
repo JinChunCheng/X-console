@@ -2,7 +2,7 @@
     <h3><i class="fa fa-files-o m-r-5"></i><span ng-bind="listVM.title"></span></h3>
 </div>
 <div class="row">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
+    <form class="form-horizontal" novalidate ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -33,4 +33,4 @@
         </div>
     </form>
 </div>
-<table id="tobeReleaseTable" table-full-size bs-table-control="tbControl"></table>
+<table id="releasedTable" table-full-size bs-table-control="tbControl"></table>

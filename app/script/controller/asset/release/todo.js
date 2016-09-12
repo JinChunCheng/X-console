@@ -112,7 +112,7 @@ define([], function() {
 
                 function flagFormatter(value, row, index) {
                     var buttons = [
-                        '<a href="" name="btn-release">上架</button>'
+                        '<button name="btn-release" class="btn btn-warning btn-xs btn-transparent" title="上架产品"><i class="fa fa-arrow-up"></i></button>',
                     ]
                     return buttons.join('');
                 }

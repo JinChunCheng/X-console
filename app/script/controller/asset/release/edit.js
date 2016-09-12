@@ -53,6 +53,7 @@ define([], function() {
             }
 
             function submit(invalid) {
+                $scope.productVM.submitted = true;
                 if (invalid) {
                     return false;
                 }
