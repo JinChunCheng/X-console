@@ -232,7 +232,10 @@ define([], function() {
                 function saveSuccess(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '资产保存成功！');
-                        $state.go('asset.info.draft');
+                        if ($scope.assetVM.showDraftBtn())
+                            $state.go('asset.info.draft');
+                        else
+                            $state.go('asset.info.todo');
                     } else
                         toaster.pop('error', res.msg);
                     $scope.assetVM.saving = false;
