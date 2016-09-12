@@ -15,13 +15,13 @@
                 </tr>
                 <tr>
                     <th class="w-120">产品类型</th>
-                    <td ng-bind="productVM.data.assetType|meta:assetTypeList"></td>
+                    <td ng-bind="productVM.data.assetType|meta:productVM.assetTypeList"></td>
                     <th class="w-120">借款利率</th>
                     <td colspan="3" ng-bind="(productVM.data.loanRate||0) + '%'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">还款方式</th>
-                    <td ng-bind="productVM.data.repaymentType|meta:repaymentTypeList"></td>
+                    <td ng-bind="productVM.data.repaymentType|meta:productVM.repaymentTypeList"></td>
                     <th class="w-120">理财期限</th>
                     <td ng-bind="(productVM.data.loanTermCount||0)+'天'"></td>
                     <th class="w-120">资产来源</th>
