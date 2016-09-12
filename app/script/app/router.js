@@ -71,6 +71,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('investor.tender', lazyLoad.config('/tender', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('investor.tender.list', lazyLoad.config('/list', '/view/investor/tender/list.html', 'controller/investor/tender/list', { directives: [], services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 .state('investor.tender.detail',lazyLoad.config('/detail/:id','/view/investor/tender/detail.html','controller/investor/tender/detail',{ directives: [], services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
+                .state('investor.tender.cancel',lazyLoad.config('/cancel/:id','/view/investor/tender/cancel.html','controller/investor/tender/cancel',{ directives: [], services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
 
                 //投资列表
                 .state('investor.info', lazyLoad.config('/info', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
