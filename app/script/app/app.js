@@ -76,7 +76,7 @@ define([
             });
 
         //启动应用程序
-        app.run(['$rootScope', '$location', '$state', '$timeout', function($rootScope, $location, $state, $timeout) {
+        app.run(['$rootScope', '$location', '$state', '$timeout', 'toaster', function($rootScope, $location, $state, $timeout, toaster) {
             $rootScope.$on("$stateChangeStart", function(evt, toState, toParams, fromState, fromParams) {
                 //刷新cookie过期时间
                 session.refreshTicket();
@@ -85,6 +85,7 @@ define([
                     //apply with $timeout
                     //i do not know why...
                     $timeout(function() {
+                        toaster.pop('error', '登录超时，请重新登录！');
                         $state.go('login', {
                             r: location.hash
                         }, {
