@@ -22,6 +22,7 @@ define(function() {
         PURCHASE_CONSOLE: 'http://172.21.1.205:8087/console-purchase',
         REPORTS_CONSOLE: 'http://172.21.1.205:8090/console-reports',
         WITHDRAW_CONSOLE: 'http://172.21.1.205:8087/console-withdraw',
-        INVESTMENT_CONSOLE: 'http://172.21.1.205:8087/console-investment'
+        INVESTMENT_CONSOLE: 'http://172.21.20.16:8088'
+        //INVESTMENT_CONSOLE: 'http://172.21.1.205:8087/console-investment'
     }
 });

@@ -29,7 +29,17 @@ define([], function() {
         initMetaData();
 
         var getData = function(params) {
-            investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var condition = $scope.listView.condition;
+            if(condition.data.startDate)
+                condition.data.startDate = $filter('exDate')(condition.data.startDate);
+            if(condition.data.endDate)
+                condition.data.endDate = $filter('exDate')(condition.data.endDate);
+
+            condition.paginate = paganition;
+
+           // var queryCondition = { "data":data,"paginate": paganition };
+            investorService.tenderList.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({

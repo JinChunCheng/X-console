@@ -317,6 +317,16 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '包含' },
                     { value: 'N', text: '不包含' }
                 ]
+            },{
+                key: 'HKLB', //投资还款计划列表
+                value: [
+                    { value: 'WP', text: '待还款' },
+                    { value: 'FP', text: '还清' },
+                    { value: 'PP', text: '部分还款' },
+                    { value: 'OD', text: '逾期' },
+                    { value: 'ITRS', text: '转让中' },
+                    { value: 'TRSF', text: '转让完成' }
+                ]
             }, {
                 key: 'STJZT', //试投金状态
                 value: [
