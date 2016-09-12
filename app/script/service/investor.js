@@ -138,7 +138,7 @@ define(['common/config'], function(config) {
             finishCancel:function(id, id1, id2){
                 return $http({
                     method: 'PUT',
-                    url: config.PURCHASE_CONSOLE + '/bidding/' + id + '/'+id1 + '/' + id2
+                    url: config.PURCHASE_CONSOLE + '/bidding/undoBidding/' + id + '/'+id1 + '/' + id2
                 })
                     .then(function(resp) {
                         if (resp) {

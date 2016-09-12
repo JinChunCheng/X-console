@@ -30,9 +30,10 @@ define([], function() {
 
         var getData = function(params) {
             investorService.tenderList.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                res.data = res.data || { paginate: paganition, items: [] };
                 res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
-                    total: res.paginate.totalCount,
+                    total: res.data.paginate.totalCount,
                     rows: res.data.items
                 });
             });
@@ -45,7 +46,7 @@ define([], function() {
                     cache: false,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
                     columns: [{
@@ -118,7 +119,7 @@ define([], function() {
                         formatter: flagFormatter,
                         events: {
                             'click .btn-info': editRow,
-                            'click .btn-danger': revocation,
+                            'click .btn-danger': revocation
                         }
                     }]
                 }
