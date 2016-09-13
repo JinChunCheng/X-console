@@ -83,7 +83,7 @@
                 "state": "project.release.list"
             }, {
                 "text": "结标审核",
-                "state": "project.check.check"
+                "state": "project.check.list"
             }, {
                 "text": "项目还款计划列表",
                 "state": "project.repayment.list"
@@ -156,6 +156,9 @@
             }, {
                 "text": "提现出款对账",
                 "state": "financial.recon.recon"
+            }, {
+                "text": "文件接口日志",
+                "state": "financial.file.file"
             }]
         }, {
             "text": "统计报表",

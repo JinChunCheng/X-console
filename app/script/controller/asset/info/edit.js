@@ -223,7 +223,7 @@ define([], function() {
 
             function saveAsset() {
                 var asset = $scope.assetVM.data;
-
+                console.log(JSON.stringify(asset));
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else
