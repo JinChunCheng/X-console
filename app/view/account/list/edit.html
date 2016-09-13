@@ -43,13 +43,25 @@
                     <label type="text" class="form-control" ng-bind="vm.data.balance"></label>
                 </div>
             </div>
-            <!-- TODO开户行这里需要一个能够搜索的下拉列表 -->
             <div class="form-group" ng-class="{'has-error':accountForm.bankCode.$invalid && (accountForm.bankCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">开户行</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="bankCode" ng-model="vm.data.bankCode" ng-options='b.code as b.name for b in vm.bankCode' required></select>
-                    <div class="form-error" ng-if="accountForm.bankCode.$error.required">开户行不能为空!</div>
-                </div>
+                <!--这里绑定的是你已经选择的options,是一个对象,用于传输给后台的code需要自己再做处理  -->
+                <ui-select ng-model="vm.bank" theme="bootstrap" name='bankCode' class="col-sm-9" required>
+                    <!--这里绑定的是你已经选择的options的name,用于显示  -->
+                    <ui-select-match placeholder="输入开户行名查询">{{vm.bank.bankName}}</ui-select-match>
+                    <!--这里循环的是根据你的查询条件获得的结果的json列表  -->
+                    <ui-select-choices repeat="item in vm.bankList | filter: $select.search">
+                        <!--这里绑定的是json列表的所有银行name,用于显示  -->
+                        <div ng-bind-html="item.bankName | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+                <span class="form-group-btn">
+                                <button type="button" ng-click="vm.bank=undefined" class="btn btn-default h-35" ng-if="!vm.bankLoading" ng-cloak>
+                                     <span class="glyphicon glyphicon-trash"></span>
+                </button>
+                <span class="btn btn-default h-35" ng-if="vm.bankLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
+                </span>
+                <div class="form-error col-sm-offset-2" ng-if="borrowerForm.bankCode.$error.required">开户行不能为空!</div>
             </div>
             <div class="form-group" ng-class="{'has-error':accountForm.bankProvince.$invalid && (accountForm.bankProvince.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">开户行省份</label>
@@ -91,7 +103,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
-                <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
+                    <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
                         <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
                         <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
                     </button>

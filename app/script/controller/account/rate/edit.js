@@ -1,28 +1,40 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'borrowerService', function($scope, $timeout, $state, $stateParams, borrowerService) {
+    return ['$scope', 'toaster','$timeout', '$state', '$stateParams', 'accountService',  'metaService', '$filter',function($scope, toaster,$timeout, $state, $stateParams, accountService, metaService, $filter) {
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
             action: action,
             title: $stateParams.id ? '修改费率' : '新增费率',
-            rateCode: [{ id: 1, title: '项目出款'}, { id: 2, title: '提现出款'}],
-            rateType: [{ id: 1, title: '百分比' }, { id: 2, title: '绝对值' }],
-            status: [{ id: 1, title: '正常' }, { id: 2, title: '关闭' }],
             data: {},
             cancel: function() {
                 $state.go('account.rate.rate');
-            }
+            },
+            submit:submit
         };
 
-        (function(id) {
-            if (!id) {
+        function initMetaData() {
+
+            metaService.getMeta('FLLX', function(data) {
+                $scope.vm.rateType = data;
+            });
+            metaService.getMeta('FLBM', function(data) {
+                $scope.vm.rateCode = data;
+            });
+            metaService.getMeta('ZT', function(data) {
+                $scope.vm.status = data;
+            });
+
+        }
+        initMetaData();
+
+        function submit(invalid) {
+            $scope.vm.submitted = true;
+            if (invalid) {
                 return;
             }
-            borrowerService.resource.get({ id: id }).$promise.then(function(res) {
-                $scope.vm.data = res.data;
-            }, function(err) {
-            });
-        })($stateParams.id);
+            save();
+            return true;
+        };
 
     }];
 });

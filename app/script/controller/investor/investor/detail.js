@@ -23,7 +23,7 @@ define([], function() {
                 metaService.getMeta('SFRZZT', function(data) {
                     $scope.vm.idAuthFlag = data;
                 });
-                metaService.getMeta('ZCLX', function(data) {
+                metaService.getMeta('ZHUCLX', function(data) {
                     $scope.vm.registerType = data;
                 });
                 metaService.getMeta('SFBGSYG', function(data) {

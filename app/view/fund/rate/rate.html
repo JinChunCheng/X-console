@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率编码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='r as r.title for r in listVM.rateCode'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='r.value as r.text for r in listVM.rateCode'>
                                 </select>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率类型</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='r as r.title for r in listVM.rateType'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='r.value as r.text for r in listVM.rateType'>
                                 </select>
                             </div>
                         </div>
@@ -42,16 +42,18 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s.value as s.text for s in listVM.status'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                <div class="row">
+                    <div class="col-md-offset-5">
+                        <div class="form-group">
+                            <button class="btn btn-info m-r-20">查找</button>
+                            <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,10 +61,11 @@
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
-        <div class="col-md-12 m-b-12">
-            <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+        <div class="row">
+            <div class="col-md-12 m-b-12">
+                <button type="button" class="btn btn-success btn-xs" ng-click="listVM.add()"><i class="icon icon-plus m-r-5"></i>新增</button>
+            </div>
         </div>
         <table id="ratePreserveTable" table-full-size bs-table-control="bsRatePreserveTableControl"></table>
     </div>

@@ -26,8 +26,8 @@ define([], function() {
 
 
             var getDataTable = function(params) {
-                paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { "paginate": paganition };
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                var queryCondition = { "data":{},"paginate": paganition };
 
                 accountService.accountList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
@@ -146,6 +146,7 @@ define([], function() {
                             field: 'flag',
                             title: '操作',
                             align: 'center',
+                            width:40,
                             valign: 'middle',
                             clickToSelect: false,
                             formatter: flagFormatter,

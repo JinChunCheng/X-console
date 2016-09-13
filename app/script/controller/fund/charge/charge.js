@@ -76,14 +76,12 @@ define([], function() {
                         valign: 'middle',
 
                     }, {
-                        //TODO  rechargeVO里面缺少
                         field: 'investorVO.name',
                         title: '投资人姓名',
                         align: 'center',
                         valign: 'middle',
 
                     }, {
-                        //TODO  rechargeVO里面缺少
                         field: 'investorVO.salesId',
                         title: '注册来源',
                         formatter: salesIdFormatter,

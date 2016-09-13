@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'toaster', 'fundService', function($scope, $http, metaService, $filter, $timeout, $modal, $state, toaster, fundService) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'toaster', 'fundService', 'publicService', function($scope, $http, metaService, $filter, $timeout, $modal, $state, toaster, fundService, publicService) {
 
         $scope.dateOptions = {
             formatYear: 'yy',
@@ -36,8 +36,10 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var data = $scope.listView.condition;
-            var queryCondition = { "data": data, "paginate": paganition };
+            var condition = $scope.listView.condition;
+            $scope.listView.condition.requestDateStart = $filter('exDate')($scope.listView.condition.requestDateStart, 'yyyy-MM-dd');
+            $scope.listView.condition.requestDateEnd = $filter('exDate')($scope.listView.condition.requestDateEnd, 'yyyy-MM-dd');
+            var queryCondition = { "data": condition, "paginate": paganition };
             fundService.withdrawListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
@@ -100,12 +102,12 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'bankCode',
+                        field: 'bankCodeName',
                         title: '银行名称',
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'branchCode',
+                        field: 'branchCodeName',
                         title: '开户支行名称',
                         align: 'center',
                         valign: 'middle',
@@ -140,7 +142,7 @@ define([], function() {
                     }, {
                         field: 'operateOrigin',
                         title: '操作来源',
-                        formatter:operateOriginFormatter,
+                        formatter: operateOriginFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -177,9 +179,11 @@ define([], function() {
             function cityFormatter(value, row, index) {
                 return $filter('metaPCA')(value, $scope.listView.bankCity);
             };
+
             function dateFormatter(value, row, index) {
-                return $filter('exDate')(value,'yyyy-MM-dd HH:mm:ss');
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
+
             function operateOriginFormatter(value, row, index) {
                 return $filter("meta")(value, $scope.listView.operateOrigin)
             };

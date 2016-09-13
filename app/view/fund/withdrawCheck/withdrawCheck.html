@@ -8,16 +8,16 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
-                         <div class="input-group">
-                            <span class="input-group-addon">申请时间</span>
+                            <div class="input-group">
+                                <span class="input-group-addon">申请时间</span>
                                 <div class="input-group">
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.requestDateStart" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
                                     <span class="input-group-addon">~</span>
                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.requestDateEnd" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
                                 </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -40,22 +40,21 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
-                    </div>
+                </div> -->
+                <div class="col-md-4">
+                    <button class="btn btn-info m-r-20">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>提现审核列表</div>
     <div class="panel-body">
+        <div class="row">
             <div class="col-md-12 m-b-12">
-            <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+                <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+            </div>
         </div>
         <table id="withdrawCheckTable" table-full-size bs-table-control="bsWithdrawCheckTableControl"></table>
     </div>

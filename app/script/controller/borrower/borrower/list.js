@@ -137,6 +137,7 @@ define([], function() {
                             title: '操作',
                             align: 'center',
                             valign: 'middle',
+                            width:100,
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {

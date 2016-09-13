@@ -10,19 +10,21 @@ define(['common/config'], function(config) {
         var accountDetailTable = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountListUpdate = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountQueryList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //费率
+        var rateListTable = $resource('http://172.21.20.12:8088/rate/ShowRatelist', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
-            //
-            accountList: accountList,
-            //
-            accountDetailLabel: accountDetailLabel,
-            //
-            accountDetailTable: accountDetailTable,
-            //
-            accountListUpdate: accountListUpdate,
-            //
-            accountQueryList: accountQueryList,
 
+            accountList: accountList,
+
+            accountDetailLabel: accountDetailLabel,
+
+            accountDetailTable: accountDetailTable,
+
+            accountListUpdate: accountListUpdate,
+
+            accountQueryList: accountQueryList,
+            rateListTable: rateListTable,
 
             /**
              * get account list

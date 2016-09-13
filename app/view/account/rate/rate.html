@@ -5,29 +5,29 @@
     <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率编码</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='c as c.title for c in listVM.rateCode'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateCode" ng-options='c.value as c.text for c in listVM.rateCode'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">费率类型</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='t as t.title for t in listVM.rateType'>
+                                <select class="form-control form-white" ng-model="listVM.condition.rateType" ng-options='t.value as t.text for t in listVM.rateType'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -37,21 +37,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s as s.title for s in listVM.status'>
+                                <select class="form-control form-white" ng-model="listVM.condition.status" ng-options='s.value as s.text for s in listVM.status'>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-md-offset-5">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info">查找</button>
-                        <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                <div class="row">
+                    <div class="col-md-offset-5">
+                        <div class="form-group">
+                            <button class="btn btn-info m-r-20">查找</button>
+                            <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +61,6 @@
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
         <div class="row">
     <div class="col-md-12 m-b-10">

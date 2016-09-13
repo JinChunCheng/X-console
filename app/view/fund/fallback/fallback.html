@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <div class="col-sm-6">
+                        <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
                                 <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s.value as s.text for s in listView.status'>
@@ -31,8 +31,8 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group col-md-4">
-                        <button class="btn btn-info"  ng-click="listView.search()">查找</button>
+                    <div class="form-group">
+                        <button class="btn btn-info m-r-20" ng-click="listView.search()">查找</button>
                         <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
                     </div>
                 </div>
@@ -41,10 +41,11 @@
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
-        <div class="col-md-12 m-b-12">
-            <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+        <div class="row">
+            <div class="col-md-12 m-b-12">
+                <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量审核</button>
+            </div>
         </div>
         <table id="fallbackCheckTable" table-full-size bs-table-control="bsFallbackCheckTableControl"></table>
     </div>

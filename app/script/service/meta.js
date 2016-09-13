@@ -251,9 +251,9 @@ define(['common/config'], function(config) {
             }, {
                 key: 'LCQDMC', //理财渠道名称+理财客户经理
                 value: [
-                    { value: "1", code: '1001', text: '管理系统', children: [{ value: "1", code: '1001', text: '管理系统' }] },
-                    { value: "2", code: '1002', text: '钱盒', children: [{ value: "1", code: '2001', text: '钱盒' }] },
-                    { value: "3", code: '1003', text: '开通宝', children: [{ value: "1", code: '3001', text: '开通宝' }] }
+                    { value: 1, code: '1001', text: '管理系统', children: [{ value: 1, code: '1001', text: '管理系统' }] },
+                    { value: 2, code: '1002', text: '钱盒', children: [{ value: 2, code: '2001', text: '钱盒' }] },
+                    { value: 3, code: '1003', text: '开通宝', children: [{ value: 3, code: '3001', text: '开通宝' }] }
                 ]
             }, {
                 key: 'LCQD', //理财渠道
@@ -402,6 +402,12 @@ define(['common/config'], function(config) {
                     { value: 'RESERVE', text: '风险准备金' },
                     { value: 'TRUSTEE_FEE', text: '托管费' },
                 ]
+            },{
+                key: 'FLBMA', //费率编码（账户管理）
+                value: [
+                    { value: 'PRJ', text: '项目出款' },
+                    { value: 'WDR', text: '提现出款' },
+                ]
             }, {
                 //===============================资金管理============================
                 key: 'CZQD', //充值渠道
@@ -477,7 +483,14 @@ define(['common/config'], function(config) {
                     { value: 'PERCENT', text: '百分比' },
                 ]
             }, {
-                key: 'FLBM', //费率编码
+                key: 'FLQD', //费率渠道
+                value: [
+                    { value: 'WALLET', text: 'POS刷卡' },
+                    { value: 'TRANSFER', text: '银联转账' },
+                    { value: 'IBOXPAY', text: '盒子支付' },
+                ]
+            }, {
+                key: 'FLBMF', //费率编码（资金管理）
                 value: [
                     { value: 'DEPOSIT', text: '充值' },
                     { value: 'WITHDRAW', text: '提现' },
@@ -490,6 +503,7 @@ define(['common/config'], function(config) {
                     { value: 'C', text: '出款确认' }
                 ]
             }, {
+                // ============================资产=========================
                 key: 'ZCZT', //资产状态
                 value: [
                     { value: '-1', text: '草稿' },

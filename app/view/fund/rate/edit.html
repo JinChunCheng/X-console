@@ -3,105 +3,138 @@
         <h3 ng-bind="vm.title"></h3>
     </div>
     <div class="panel-body">
-        <form role="form" class="form-horizontal form-validation" novalidate>
-            <div class="form-group" ng-show="vm.action=='edit'">
+        <form name="rateForm" class="form-horizontal form-validation" ng-submit="vm.submit(rateForm.$invalid)" novalidate>
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     费率标识
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateMark">
+                    <label type="text" class="form-control" ng-bind="vm.data.rateId"></label>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{'has-error':rateForm.rateName.$invalid && (rateForm.rateName.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
                     费率名称
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateName">
+                    <input type="text" name="rateName" class="form-control" ng-model="vm.data.rateName" required>
+                    <div class="form-error" ng-if="rateForm.rateName.$error.required">费率名称不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     费率编码
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateCode">
+                    <label type="text" class="form-control" ng-bind="vm.data.rateCode|meta:vm.rateCode"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.rateCode.$invalid && (rateForm.rateCode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
                     费率编码
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.rateCode" ng-options='r as r.title for r in vm.rateCode'>
+                    <select class="form-control form-white" name='rateCode' ng-model="vm.data.rateCode" ng-options='r.value as r.text for r in vm.rateCode' required>
                     </select>
+                    <div class="form-error" ng-if="rateForm.rateCode.$error.required">费率编码不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     费率类型
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateType">
+                    <label type="text" class="form-control" ng-bind="vm.data.rateType|meta:vm.rateType"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.rateType.$invalid && (rateForm.rateType.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
                     费率类型
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.rateType" ng-options='r as r.title for r in vm.rateType'>
+                    <select class="form-control form-white" name='rateType' ng-model="vm.data.rateType" ng-options='r.value as r.text for r in vm.rateType' required>
                     </select>
+                    <div class="form-error" ng-if="rateForm.rateType.$error.required">费率类型不能为空!</div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     费率值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.rateValue">
+                    <label type="text" class="form-control" ng-bind="vm.data.rateValue"></label>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.rateValue.$invalid && (rateForm.rateValue.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    费率值
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="rateValue" class="form-control" ng-model="vm.data.rateValue" required>
+                    <div class="form-error" ng-if="rateForm.rateValue.$error.required">费率值不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     封顶值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.capValue">
+                    <label type="text" class="form-control" ng-bind="vm.data.limitValue"></label>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.limitValue.$invalid && (rateForm.limitValue.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    封顶值
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="limitValue" class="form-control" ng-model="vm.data.limitValue" required>
+                    <div class="form-error" ng-if="rateForm.limitValue.$error.required">封顶值不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     最低值
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.lowestValue">
+                    <label type="text" class="form-control" ng-bind="vm.data.minValue"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.minValue.$invalid && (rateForm.minValue.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    最低值
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="minValue" class="form-control" ng-model="vm.data.minValue" required>
+                    <div class="form-error" ng-if="rateForm.minValue.$error.required">最低值不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     操作渠道
                 </label>
                 <div class="col-sm-10">
-                    <input type="text" name="name" class="form-control" ng-model="vm.data.channel">
+                    <label type="text" class="form-control" ng-bind="vm.data.operationChannel|meta:vm.operationChannel"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':rateForm.operationChannel.$invalid && (rateForm.operationChannel.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
                     操作渠道
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.channel" ng-options='r as r.label for r in vm.data.rateCode.content'>
+                    <select class="form-control form-white" name='operationChannel' ng-model="vm.data.operationChannel" ng-options='r.value as r.text for r in vm.operationChannel'required>
                     </select>
+                    <div class="form-error" ng-if="rateForm.operationChannel.$error.required">操作渠道不能为空!</div>
+
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'" ng-class="{'has-error':rateForm.status.$invalid && (rateForm.status.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
                     状态
                 </label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" ng-model="vm.data.status" ng-options='r as r.title for r in vm.status'>
+                    <select class="form-control form-white" name='status' ng-model="vm.data.status" ng-options='r.value as r.text for r in vm.status' required>
                     </select>
+                     <div class="form-error" ng-if="rateForm.status.$error.required">状态不能为空!</div>
                 </div>
             </div>
             <div class="form-group">
@@ -109,12 +142,15 @@
                     备注
                 </label>
                 <div class="col-sm-10">
-                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
+                    <textarea rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
-                    <button type="submit" class="btn btn-primary m-r-10">保存</button>
+                    <button type='submit' class="btn btn-primary m-r-10" ng-disabled="vm.processing">
+                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
+                    </button>
                     <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
                 </div>
             </div>

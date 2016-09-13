@@ -9,11 +9,26 @@ define([], function() {
         $scope.listView = {
             condition: {},
             table: null,
+            optionChange: function() {
+                $scope.listView.condition.capitalAccountLogType = null;
+            },
+            capitalAccount:[],
+            getLogType: function(type) {
+                var result = [];
+                $scope.listView.capitalAccount.forEach(function(item) {
+                    if (item.value == type) {
+                        result = item.children;
+                        console.log(result)
+                        return;
+                    }
+                });
+                return result;
+            },
         };
 
         function initMetaData() {
             metaService.getMeta('ZJZHMC', function(data) {
-                $scope.listView.capitalAccountNo = data;
+                $scope.listView.capitalAccount = data;
             });
             metaService.getMeta('ZJZHRZLX', function(data) {
                 $scope.listView.capitalAccountLogType = data;
@@ -34,8 +49,12 @@ define([], function() {
 
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var data = $scope.listView.condition;
-            var queryCondition = { "data": data, "paginate": paganition };
+            $scope.listView.condition.startDate=$filter('exDate')($scope.listView.condition.startDate, 'yyyy-MM-dd');
+            $scope.listView.condition.endDate=$filter('exDate')($scope.listView.condition.endDate, 'yyyy-MM-dd');
+
+
+            var condition = $scope.listView.condition;
+            var queryCondition = { "data": condition, "paginate": paganition };
             accountService.accountQueryList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
@@ -135,7 +154,7 @@ define([], function() {
             };
 
             function capitalAccountNoFormatter(value, row, index) {
-                return $filter('meta')(value, $scope.listView.capitalAccountNo)
+                return $filter('meta')(value, $scope.listView.capitalAccount)
             };
 
             function capitalAccountLogTypeFormatter(value, row, index) {

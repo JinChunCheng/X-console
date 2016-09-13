@@ -2,7 +2,7 @@
     <h2><i class="fa fa-dashboard"></i>资金账户流水查询</h2>
 </div>
 <div class="row" id="toolbar">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal" novalidate ng-submit="search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">资金账户类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.accountType" ng-options='a.value as a.text for a in listView.accountType' ng-change="listView.optionChange()">
+                                <select class="form-control form-white" ng-model="listView.condition.capitalAccountNo" ng-options='a.value as a.text for a in listView.capitalAccount' ng-change="listView.optionChange()">
                                 </select>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">日志类型</span>
-                                <select class="form-control form-white" ng-model="listView.condition.logType" ng-options='l.value as l.text for l in listView.getLogType(listView.condition.accountType)'>
+                                <select class="form-control form-white" ng-model="listView.condition.capitalAccountLogType" ng-options='l.value as l.text for l in listView.getLogType(listView.condition.capitalAccountNo)'>
                                 </select>
                             </div>
                         </div>

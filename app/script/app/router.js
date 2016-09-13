@@ -112,8 +112,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             //提现列表
 
             .state('fund.withdrawlist', lazyLoad.config('/withdrawlist', '/view/shared/blank.html', '', null, true))
-                .state('fund.withdrawlist.withdrawlist', lazyLoad.config('/withdrawlist', '/view/fund/withdrawlist/withdrawlist.html', 'controller/fund/withdrawlist/withdrawlist', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
-                .state('fund.withdrawlist.detail', lazyLoad.config('/detail/:id', '/view/fund/withdrawlist/detail.html', 'controller/fund/withdrawlist/detail', { directives: [], services: ['service/fund', 'service/meta'], filters: ['filter/common'] }))
+                .state('fund.withdrawlist.withdrawlist', lazyLoad.config('/withdrawlist', '/view/fund/withdrawlist/withdrawlist.html', 'controller/fund/withdrawlist/withdrawlist', { directives: [], services: ['service/fund', 'service/public','service/meta'], filters: ['filter/common'] }))
+                .state('fund.withdrawlist.detail', lazyLoad.config('/detail/:id', '/view/fund/withdrawlist/detail.html', 'controller/fund/withdrawlist/detail', { directives: [], services: ['service/fund','service/public', 'service/meta'], filters: ['filter/common'] }))
 
             //提现
             .state('fund.withdraw', lazyLoad.config('/withdraw', '/view/shared/blank.html', '', null, true))
@@ -151,9 +151,9 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             .state('account', lazyLoad.config('/account', '/view/shared/blank.html', '', null, true))
                 //资金账户列表
                 .state('account.list', lazyLoad.config('/list', '/view/shared/blank.html', '', null, true))
-                .state('account.list.list', lazyLoad.config('/list', '/view/account/list/list.html', 'controller/account/list/list', { directives: [], services: ['service/account', 'service/meta'], filters: ['filter/common'] }))
-                .state('account.list.edit', lazyLoad.config('/edit/:id', '/view/account/list/edit.html', 'controller/account/list/edit', { directives: [], services: ['service/account', 'service/meta'], filters: ['filter/common'] }))
-                .state('account.list.detail', lazyLoad.config('/detail/:id', '/view/account/list/detail.html', 'controller/account/list/detail', { directives: [], services: ['service/account', 'service/meta'], filters: ['filter/common'] }))
+                .state('account.list.list', lazyLoad.config('/list', '/view/account/list/list.html', 'controller/account/list/list', { directives: [], services: ['service/account', 'service/public','service/meta'], filters: ['filter/common'] }))
+                .state('account.list.edit', lazyLoad.config('/edit/:id', '/view/account/list/edit.html', 'controller/account/list/edit', { directives: [], services: ['service/account', 'service/public','service/meta'], filters: ['filter/common'] }))
+                .state('account.list.detail', lazyLoad.config('/detail/:id', '/view/account/list/detail.html', 'controller/account/list/detail', { directives: [], services: ['service/account','service/public', 'service/meta'], filters: ['filter/common'] }))
 
             //资金账户流水查询
             .state('account.query', lazyLoad.config('/query', '/view/shared/blank.html', '', null, true))

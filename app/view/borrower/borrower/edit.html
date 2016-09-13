@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body">
         <form name="borrowerForm" class="form-horizontal form-validation" ng-submit="vm.submit(borrowerForm.$invalid)" novalidate>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     借款人编号
                 </label>
@@ -12,7 +12,7 @@
                     <label type="text" class="form-control" ng-bind="vm.data.id"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     姓名
                 </label>
@@ -20,14 +20,14 @@
                     <label type="text" class="form-control" ng-bind="vm.data.name"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'" ng-class="{'has-error':borrowerForm.name.$invalid && (borrowerForm.name.$dirty||vm.submitted)}">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':borrowerForm.name.$invalid && (borrowerForm.name.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">姓名</label>
                 <div class="col-sm-10">
                     <input type="text" name="name" ng-model="vm.data.name" class="form-control" required>
                     <div class="form-error" ng-if="borrowerForm.name.$error.required">姓名不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     身份证号码
                 </label>
@@ -35,7 +35,7 @@
                     <label type="text" class="form-control" ng-bind="vm.data.idNo"></label>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'" ng-class="{'has-error':borrowerForm.idNo.$invalid && (borrowerForm.idNo.$dirty||vm.submitted)}">
+            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':borrowerForm.idNo.$invalid && (borrowerForm.idNo.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">身份证号码</label>
                 <div class="col-sm-10">
                     <input type="text" name="idNo" ng-model="vm.data.idNo" class="form-control" required ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/">
@@ -123,7 +123,7 @@
                     <div class="form-error" ng-if="borrowerForm.bankAccount.$error.pattern">银行账号长度必须在12-24位之间!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     状态
                 </label>
@@ -157,7 +157,7 @@
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
                     <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
-                        <span class="w2em" ng-if="!vm.processing" ng-cloak>确定</span>
+                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
                         <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
                     </button>
                     <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>

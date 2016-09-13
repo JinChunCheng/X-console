@@ -1,44 +1,43 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http', 'metaService', '$filter', '$timeout', '$modal', '$state', 'accountService',
+        function($scope, $http, metaService, $filter, $timeout, $modal, $state, accountService) {
 
             $scope.listVM = {
                 condition: {},
                 table: null,
-                rateCode:[{id:1,title:'项目出款'},{id:2,title:'提现出款'}],
-                rateType:[{id:1,title:'百分比'},{id:2,title:'绝对值'}],
-                status:[{id:1,title:'正常'},{id:2,title:'关闭'}],
-
                 add: function() {
-                    console.log('add');
                     $state.go('account.rate.add');
                 },
-                edit: function(id) {
-                    $state.go('account.rate.edit', { id: id });
-                }
             };
 
+            function initMetaData() {
+                metaService.getMeta('FLLX', function(data) {
+                    $scope.listVM.rateType = data;
+                });
+                metaService.getMeta('FLBMA', function(data) {
+                    $scope.listVM.rateCode = data;
+                });
+                metaService.getMeta('ZT', function(data) {
+                    $scope.listVM.status = data;
+                });
+
+            }
+            initMetaData();
             $scope.$on('$viewContentLoaded', function() {
                 $scope.listVM.table = $('#fundRatePreserveTable');
             });
 
-
             var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                var data=$scope.listVM.data;
+                var queryCondition = {"data":data,"paginate": paganition };
+
+                accountService.rateListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                    res.data = res.data || { paginate: paganition, items: [] };
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -46,100 +45,87 @@ define([], function() {
 
                 $scope.bsFundRatePreserveTableControl = {
                     options: {
-                        //data: rows,
-                        // rowStyle: function(row, index) {
-                        //     return { classes: 'none' };
-                        // },
-                        // fixedColumns: true,
-                        // fixedNumber: 2,
                         cache: false,
-                        //height: getHeight(),
-                        //striped: true,
                         pagination: true,
-                        pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        //autoLoad: true,
-                        onPageChange: pageChange,
                         sidePagination: "server",
-                    
+
                         columns: [{
-                            field: 'state',
-                            checkbox: true,
-                            align: 'center',
-                            valign: 'middle'
-                        }, {
-                            field: 'id',
-                            title: '编号',
+                            field: 'rateId',
+                            title: '费率标示',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
                         }, {
-                            field: 'name',
-                            title: '姓名',
+                            field: 'rateCode',
+                            title: '费率编码',
                             align: 'center',
                             valign: 'middle',
-                            sortable: true
                         }, {
-                            field: 'workspace',
-                            title: '身份证号码',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'rateName',
+                            title: '费率名称',
+                            formatter: rateNameFormatter,
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace2',
-                            title: '手机',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'rateType',
+                            title: '费率类型',
+                            formatter: rateTypeFormatter,
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace3',
-                            title: '固定电话',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'rateValue',
+                            title: '费率值',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace4',
-                            title: '邮箱',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'minValue',
+                            title: '最低值',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace5',
-                            title: '省份',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'limitValue',
+                            title: '封顶值',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace6',
-                            title: '城市',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'startValue',
+                            title: '起始值',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace7',
-                            title: '开户行',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            field: 'endValue',
+                            title: '截止值',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace8',
-                            title: '银行账号',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
-                        }, {
-                            field: 'workspace9',
+                            field: 'status',
+                            formatter: statusFormatter,
                             title: '状态',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
                         }, {
-                            field: 'workspace10',
+                            field: 'op',
+                            title: '操作员',
+                            align: 'center',
+                            valign: 'middle',
+                        }, {
+                            field: 'createDateTime',
+                            formatter: createDateFormatter,
                             title: '创建时间',
-                            align: 'left',
-                            valign: 'top',
-                            sortable: true
+                            align: 'center',
+                            valign: 'middle',
+                        }, {
+                            field: 'updateDateTime',
+                            title: '更新时间',
+                            formatter: refreshDateFormatter,
+                            align: 'center',
+                            valign: 'middle',
+                        }, {
+                            field: 'memo',
+                            title: '备注',
+                            align: 'center',
+                            valign: 'middle',
                         }, {
                             field: 'flag',
                             title: '操作',
@@ -148,66 +134,51 @@ define([], function() {
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {
-                                'click .btn-danger': deleteRow,
                                 'click .btn-primary': editRow
                             }
                         }]
                     }
                 };
 
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.status)
+                };
+
+                function rateNameFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.rateCode)
+                };
+
+                function rateTypeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.rateType)
+                };
+
+                function refreshDateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
+                };
+
+                function createDateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss')
+                };
+
                 function flagFormatter(value, row, index) {
                     var btnHtml = [
-                        '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>',
-                        '<button type="button" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i></button>'
+                        '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'
                     ];
                     return btnHtml.join('');
                 }
 
             })();
 
-            function deleteRow(e, value, row, index) {
-                var text = "确定删除此记录？";
-                //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
-                $modal.open({
-                    templateUrl: 'view/shared/confirm.html',
-                    size: 'sm',
-                    //backdrop: true,
-                    controller: function($scope, $modalInstance) {
-                        $scope.confirmData = {
-                            text: text,
-                            processing: false
-                        };
-                        $scope.cancel = function() {
-                            $modalInstance.dismiss();
-                            return false;
-                        }
-
-                        $scope.ok = function() {
-                            delUser(item.id, $scope, $modalInstance);
-                            return true;
-                        }
-                    }
-                });
-            };
-
             function editRow(e, value, row, index) {
-                $state.go('account.rate.edit', { id: row.id });
+                $state.go('account.rate.edit', { id: row.rateId });
             }
-
-            $scope.del = function() {
-
-            };
 
             $scope.search = function() {
                 $scope.listVM.table.bootstrapTable('refresh');
             };
 
             $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
-
-            var pageChange = function(num, size) {
-
+                $scope.listVM.condition = {};
             };
         }
     ];

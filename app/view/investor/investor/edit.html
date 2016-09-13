@@ -4,7 +4,7 @@
     </div>
     <div class="panel-body">
         <form name="investorForm" class="form-horizontal form-validation" ng-submit="vm.submit(investorForm.$invalid)" novalidate>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     编号
                 </label>
@@ -36,7 +36,7 @@
                     <div class="form-error" ng-if="investorForm.idNo.$error.pattern">身份证号码格式不正确!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     身份认证标识
                 </label>
@@ -77,20 +77,20 @@
                     <div class="form-error" ng-if="investorForm.zipCode.$error.pattern">邮编格式不正确!</div>
                 </div>
             </div>
-            <div class="form-group" ng-class="{'has-error':investorForm.fundChannelCode.$invalid && (investorForm.fundChannelCode.$dirty||vm.submitted)}">
+            <div class="form-group" ng-class="{'has-error':investorForm.fundChannelId.$invalid && (investorForm.fundChannelId.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财渠道</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundChannelCode" ng-model="vm.data.fundChannelId" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
+                    <select class="form-control form-white" name="fundChannelId" ng-model="vm.data.fundChannelId" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
                     </select>
-                    <div class="form-error" ng-if="investorForm.fundChannelCode.$error.required">理财渠道不能为空!</div>
+                    <div class="form-error" ng-if="investorForm.fundChannelId.$error.required">理财渠道不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-class="{'has-error':investorForm.fundAccountManagerCode.$invalid && (investorForm.fundAccountManagerCode.$dirty||vm.submitted)}">
+            <div class="form-group" ng-class="{'has-error':investorForm.fundAccountManagerId.$invalid && (investorForm.fundAccountManagerId.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">理财客户经理</label>
                 <div class="col-sm-10">
-                    <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerId" ng-options='c.value as c.text for c in vm.getManagers(vm.data.fundChannelId)' required>
+                    <select class="form-control form-white" name="fundAccountManagerId" ng-model="vm.data.fundAccountManagerId" ng-options='c.value as c.text for c in vm.getManagers(vm.data.fundChannelId)' required>
                     </select>
-                    <div class="form-error" ng-if="investorForm.fundAccountManagerCode.$error.required">理财客户经理不能为空!</div>
+                    <div class="form-error" ng-if="investorForm.fundAccountManagerId.$error.required">理财客户经理不能为空!</div>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':investorForm.empFlag.$invalid && (investorForm.empFlag.$dirty||vm.submitted)}">
@@ -101,7 +101,7 @@
                     <div class="form-error" ng-if="investorForm.empFlag.$error.required">是否本公司员工不能为空!</div>
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='edit'">
+            <div class="form-group" ng-if="vm.action=='edit'">
                 <label class="col-sm-2 control-label">
                     状态
                 </label>
@@ -126,7 +126,7 @@
                     <input type="text" class="form-control" ng-model="vm.data.bindIboxpayUser">
                 </div>
             </div>
-            <div class="form-group" ng-show="vm.action=='add'">
+            <div class="form-group" ng-if="vm.action=='add'">
                 <label class="col-sm-7  col-sm-offset-2">
                     注意：注册成功后，投资人的登录密码和资金密码由系统随机生成6位字符数字组合，并以短信的方式 通知！！
                 </label>

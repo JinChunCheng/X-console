@@ -1,48 +1,79 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state','metaService','$filter','$stateParams', 'borrowerService', function($scope, $timeout, $state,metaService,$filter, $stateParams, borrowerService) {
+    return ['$scope', 'toaster', '$timeout', '$state', 'metaService', '$filter', '$stateParams', 'fundService', function($scope, toaster, $timeout, $state, metaService, $filter, $stateParams, fundService) {
 
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
             action: action,
             title: $stateParams.id ? '修改费率信息' : '新增费率信息',
-            rateCode: [{ id: 1, title: '充值', content: [{ code: 1, label: 'POS刷卡' },{ code: 2, label: '银联转账' },{ code: 3, label: '其他' }] }, { id: 2, title: '提现', content: [{ code: 1, label: '盒子支付' },{ code: 2, label: '恒丰银行' }] }],
-            rateType:[{id:1,title:'百分比'},{id:2,title:'绝对值'}],
-            status:[{id:1,title:'正常'},{id:2,title:'关闭'}],
             data: {},
             cancel: function() {
                 $state.go('fund.rate.rate');
-            }
+            },
+            submit: submit
         };
 
-        function getDataLabel1(id) {
-            //query: {where: JSON.stringify($scope.listVM.condition)}
-            borrowerService.resource.query({ id: id }).$promise.then(function(res) {
-                console.log(res.data.items[0].id);
-                $scope.vm.data.rateMark = res.data.items[0].id;
-                $scope.vm.data.rateName = res.data.items[0].id;
-                $scope.vm.data.rateCode = res.data.items[0].id;
-                $scope.vm.data.rateType = res.data.items[0].id;
-                $scope.vm.data.rateValue = res.data.items[0].id;
-                $scope.vm.data.capValue = res.data.items[0].id;
-                $scope.vm.data.lowestValue = res.data.items[0].id;
-                $scope.vm.data.channel = res.data.items[0].id;
-                $scope.vm.data.status = res.data.items[0].id;
-                $scope.vm.data.memo = res.data.items[0].id;
+        function initMetaData() {
 
+            metaService.getMeta('FLLX', function(data) {
+                $scope.vm.rateType = data;
+            });
+            metaService.getMeta('FLBMF', function(data) {
+                $scope.vm.rateCode = data;
+            });
+            metaService.getMeta('ZT', function(data) {
+                $scope.vm.status = data;
+            });
+            metaService.getMeta('FLQD', function(data) {
+                $scope.vm.operationChannel = data;
             });
         }
-        getDataLabel1($stateParams.id);
-        // (function(id) {
-        //     if (!id) {
-        //         return;
-        //     }
-        //     borrowerService.resource.get({id: id}).$promise.then(function(res) {
-        //         $scope.vm.data = res.data;
-        //     }, function(err) {
-        //         debugger
-        //     });
-        // })($stateParams.id);
+        initMetaData();
 
+        function submit(invalid) {
+            $scope.vm.submitted = true;
+            if (invalid) {
+                return;
+            }
+            save();
+            return true;
+        };
+
+        function showContent() {
+            if ($stateParams.id) {
+                fundService.getRateDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
+                    $scope.vm.data = res;
+                });
+            }
+            return;
+        };
+        showContent();
+
+        function save() {
+            if (!$stateParams.id) {
+                //新增费率
+                fundService.createRate.save($scope.vm.data).$promise.then(function(res) {
+                    if (res.code == 200) {
+                        toaster.pop('success', '新增费率信息成功！');
+                        $state.go("fund.rate.rate");
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
+
+                });
+                return;
+            }
+            //修改费率
+            fundService.updateRate.update($scope.vm.data).$promise.then(function(res) {
+                if (res.code == 200) {
+                    toaster.pop('success', '修改费率信息成功！');
+                    $state.go("fund.rate.rate");
+                } else
+                    toaster.pop('error', res.msg);
+            }, function(err) {
+                toaster.pop('error', '服务器连接失败！');
+            });
+        }
     }];
 });

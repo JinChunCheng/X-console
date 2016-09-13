@@ -154,7 +154,7 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'memo',
+                        field: 'declareMemo',
                         title: '备注',
                         align: 'center',
                         valign: 'middle',
@@ -225,8 +225,8 @@ define([], function() {
                     initMetaData1();
 
                     $scope.cancel = function(id) {
-                        var data = { withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "D" };
-                        fundService.batchUpdatePlatform($scope.checkOneVM.withdrawBackId, data, "PUT").then(function(res) {
+                        var data = { withdrawBackId: $scope.checkOneVM.withdrawBackId, memo: $scope.checkOneVM.memo, status: "D" };
+                        fundService.fallbackCheckOne(data, "POST").then(function(res) {
                             if (res.code == 200) {
                                 toaster.pop('success', '提现回退请求拒绝成功！');
                                 $modalInstance.dismiss();
@@ -240,7 +240,7 @@ define([], function() {
                     };
 
                     $scope.ok = function() {
-                        fundService.batchUpdatePlatform($scope.checkOneVM.withdrawBackId, { withdrawBackId: $scope.checkOneVM.withdrawBackId, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" }, "PUT").then(function(res) {
+                        fundService.fallbackCheckOne({ withdrawBackId: $scope.checkOneVM.withdrawBackId, memo: $scope.checkOneVM.memo, status: "A" }, "POST").then(function(res) {
                             if (res.code == 200) {
                                 toaster.pop('success', '审核成功！');
                                 $modalInstance.dismiss();
@@ -288,8 +288,8 @@ define([], function() {
                     }).join(',');
                     $scope.checkVM.withdrawFee = withdrawFee.toFixed(2);
                     $scope.cancel = function() {
-                        var data = { withdrawBackIds: wbIds, op: "靳春城", memo: $scope.checkVM.memo, status: "D" };
-                        fundService.refuseCheckRows(data).then(function(res) {
+                        var data = { withdrawBackIds: wbIds, memo: $scope.checkVM.memo, status: "D" };
+                        fundService.fallbackCheckRows(data, "POST").then(function(res) {
                             if (res.code == 200) {
                                 toaster.pop('success', '提现回退请求拒绝成功！');
                                 $modalInstance.dismiss();
@@ -303,10 +303,10 @@ define([], function() {
                     };
 
                     $scope.ok = function() {
-                        var ids = $scope.listVM.checked.map(function(item) {
+                        var ids = text.map(function(item) {
                             return item.id;
                         }).join(',');
-                        fundService.batchUpdatePlatform({ withdrawBackIds: ids, op: "靳春城", memo: $scope.checkOneVM.memo, status: "A" }, "PUT").then(function(res) {
+                        fundService.fallbackCheckRows({ withdrawBackIds: ids, memo: $scope.checkVM.memo, status: "A" }, "POST").then(function(res) {
                             if (res.code == 200) {
                                 toaster.pop('success', '批量审核批准成功！');
                                 $modalInstance.dismiss();
