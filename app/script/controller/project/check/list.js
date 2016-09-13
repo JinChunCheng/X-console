@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', '$state','$filter', 'metaService', 'projectService', function($scope, $state,$filter,metaService, projectService) {
+    return ['$scope', '$state', '$filter', 'metaService', 'projectService', function($scope, $state, $filter, metaService, projectService) {
 
         var defaultCondition = {
             data: { status: 'BDF' },
@@ -21,6 +21,7 @@ define([], function() {
 
         var getData = function(params) {
             projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                res.data = res.data || { items: [], paginate: { totalCount: 0 } }
                 res.data.paginate = res.data.paginate || { totalCount: 0 };
                 params.success({
                     total: res.data.paginate.totalCount,
@@ -88,19 +89,19 @@ define([], function() {
                     }, {
                         field: 'publishTime',
                         title: '发布时间',
-                        formatter:timeFormatter
+                        formatter: timeFormatter
                     }, {
                         field: 'biddingDeadline',
                         title: '满标时间',
-                        formatter:timeFormatter
+                        formatter: timeFormatter
                     }, {
                         field: 'createDatetime',
                         title: '创建时间',
-                        formatter:timeFormatter
+                        formatter: timeFormatter
                     }, {
                         field: 'updateDatetime',
                         title: '更新时间',
-                        formatter:timeFormatter
+                        formatter: timeFormatter
                     }, {
                         field: 'flag',
                         title: '查看',
@@ -112,9 +113,11 @@ define([], function() {
                     }]
                 }
             };
+
             function timeFormatter(value, row, index) {
                 return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
+
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></button>'

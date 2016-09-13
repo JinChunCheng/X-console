@@ -83,7 +83,7 @@
                 "state": "project.release.list"
             }, {
                 "text": "结标审核",
-                "state": "project.check.check"
+                "state": "project.check.list"
             }, {
                 "text": "项目还款计划列表",
                 "state": "project.repayment.list"

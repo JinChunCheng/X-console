@@ -94,7 +94,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('project.release.verify', lazyLoad.config('/verify/:id', '/view/project/release/verify.html', 'controller/project/release/verify', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //结标审核
                 .state('project.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
+                .state('project.check.list', lazyLoad.config('/list', '/view/project/check/list.html', 'controller/project/check/list', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 .state('project.check.detail', lazyLoad.config('/detail/:id', '/view/project/check/detail.html', 'controller/project/check/detail', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //项目还款计划
                 .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', null, true))
