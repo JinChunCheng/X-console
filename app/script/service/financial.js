@@ -17,16 +17,26 @@ define(['common/config'], function(config) {
         //提现出款监控
         var withdrawCashMonitorTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var monitorDetailsTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //POS充值对账
+        var POSchargeReconTable = $resource(config.CASHOUT_CONSOLE + '/autoStatement/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var POSDetailsTable = $resource(config.CASHOUT_CONSOLE + '/autoStatement/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
             withdrawCashTable: withdrawCashTable,
+
             endBiddingCashTable: endBiddingCashTable,
+
             cashDirectiveTable: cashDirectiveTable,
             cashDetailsTable: cashDetailsTable,
+
             transferCashPrintTable: transferCashPrintTable,
+
             withdrawCashMonitorTable: withdrawCashMonitorTable,
             monitorDetailsTable: monitorDetailsTable,
+
+            POSchargeReconTable:POSchargeReconTable,
+            POSDetailsTable:POSDetailsTable,
             withdrawAccept: function(ids, exeChannel) {
                 return $http({
                         method: 'PUT',
