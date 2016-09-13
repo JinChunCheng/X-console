@@ -161,13 +161,12 @@ define([], function () {
                         align: 'center',
                         formatter:ManagerNameFormatter
                     }, {
-                        field: 'investorVO.fundChannelId',
+                        field: 'investmentVO.fundChannelId',
                         title: '理财渠道代码',
                         align: 'center',
                         formatter:fundChannelCodeFormatter
                     }, {
-                        //field: 'investorVO.fundChannelName',
-                        ield: 'investorVO.fundChannelId',
+                        field: 'investmentVO.fundChannelId',
                         title: '理财渠道名称',
                         align: 'center',
                         formatter:fundChannelNameFormatter
@@ -222,7 +221,7 @@ define([], function () {
                 return $filter('meta')(value, $scope.listView.fundChannelNameList);
             }
             function fundChannelCodeFormatter(value, row, index) {
-                return $filter('metaCM')(row.fundChannelId, $scope.listView.fundChannelCodeList);
+                return $filter('metaCM')(value, $scope.listView.fundChannelCodeList);
             }
             function ManagerNameFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.ManagerNameList);
