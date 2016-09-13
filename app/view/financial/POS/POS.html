@@ -2,7 +2,7 @@
     <h2><i class="fa fa-dashboard"></i>POS充值对账</h2>
 </div>
 <div class="row" id="toolbar">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listView.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
@@ -12,11 +12,11 @@
                                 <span class="input-group-addon">清算日期</span>
                                 <div class="input-group">
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
                                     </div>
                                     <span class="input-group-addon">~</span>
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
                                     </div>
                                 </div>
                             </div>
@@ -30,11 +30,11 @@
                                 <span class="input-group-addon">对账日期</span>
                                 <div class="input-group">
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation2" is-open="creation2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="creation2Opened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.data.creation2" is-open="creation2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="creation2Opened=true" />
                                     </div>
                                     <span class="input-group-addon">~</span>
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish2" is-open="finish2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="finish2Opened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.data.finish2" is-open="finish2Opened" datepicker-options="dateOptions" close-text="关闭" ng-click="finish2Opened=true" />
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s.value as s.text for s in listView.status'>
                                 </select>
                             </div>
                         </div>
@@ -66,15 +66,18 @@
             <div class="col-md-4  col-md-offset-5">
                 <div class="form-group col-md-4">
                     <button class="btn btn-info">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                    <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
-    <div class="panel-body">
-        <table id="POSchargeReconTable" table-full-size bs-table-control="bsPOSchargeReconTableControl"></table>
+<div class="row">
+    <div class="col-md-12 m-b-10">
+        <button type="button" class="btn btn-success btn-xs" ng-click="listView.check()"><i class="fa fa-check m-r-5"></i>查看</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="listView.doAuto()"><i class="fa fa-check m-r-5"></i>手动对账</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-cloud-download m-r-5"></i>下载</button>
     </div>
 </div>
+<table id="POSchargeReconTable" table-full-size bs-table-control="bsPOSchargeReconTableControl"></table>
+

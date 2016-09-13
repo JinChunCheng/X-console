@@ -602,6 +602,12 @@ define(['common/config'], function(config) {
                     { value: 'I', text: '立即发布' },
                     { value: 'T', text: '定时发送' }
                 ]
+            }, {
+                key: 'DZZT', //对账状态
+                value: [
+                    { value: 'S', text: '对账成功' },
+                    { value: 'F', text: '对账失败' }
+                ]
             }
         ];
 

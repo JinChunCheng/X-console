@@ -1,5 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'borrowerService', function($scope, $http, $timeout, $modal, borrowerService) {
+    return ['$scope', '$http','metaService','$state', '$timeout', '$modal', 'financialService',"toaster",'$filter',
+        function($scope, $http,metaService, $state,$timeout, $modal,financialService,toaster,$filter)  {
 
         /**
          * the default search condition
@@ -14,7 +15,20 @@ define([], function() {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            status: [{ id: 1, title: '对账成功' }, { id: 2, title: '对账失败' }]
+            search: search,
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            },
+            check: function() {
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    toaster.pop('error', '未选中行！');
+                    return;
+                }
+                else {
+                    var selectedId = selected[0].id;
+                    $state.go('financial.POS.detail', {id: selectedId});}
+            }
         };
 
         $scope.dateOptions = {
@@ -23,6 +37,12 @@ define([], function() {
             class: 'datepicker',
             showWeeks: false
         };
+        function initMetaData() {
+            metaService.getMeta('DZZT', function(data) {
+                $scope.listView.status = data;
+            });
+        }
+        initMetaData();
 
         /**
          * do something after view loaded
@@ -33,213 +53,83 @@ define([], function() {
             $scope.listView.table = $('#POSchargeReconTable');
         });
 
-
         var getData = function(params) {
-            //query: {where: JSON.stringify($scope.listVM.condition)}
-            borrowerService.resource.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                //debugger
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var data = $scope.listView.condition;
+            var queryCondition = { "data":data,"paginate": paganition };
+            financialService.POSchargeReconTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 $timeout(function() {
-                    res.data.items.forEach(function(item) {
-                        item.id = parseInt(Math.random() * 100);
-                    });
-                    res.data.items.sort(function(a, b) {
-                        return Math.random() > .5 ? -1 : 1;
-                    });
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items
                     });
                 }, 500);
             });
-
-            //post: 
-            // var project = {};
-            // project.borrowerId = 1;
-            // project.contractTemplateId=1;
-            // project.projectName="console-前台添加";
-            // project.requestAmount=100000.00;
-            // project.repaymentType="IOP";
-            // project.duration=12;
-            // project.durationUnit="Y";
-            // project.periodCount=10;
-            // project.interestRate=0.8;
-            // project.interestRateTerm="Y";
-            // project.serviceFeeRate=0;
-            // project.serviceFeeRateTerm="Y";
-            // project.latePaymentFeeRateTerm="D";
-            // project.purpose="前端测试";
-            // project.mortgageFlag="N";
-            // project.mortgage="无";
-            // project.guaranteeFlag="N";
-            // project.guarantee="无";
-            // project.description="这是一个通过controller添加进来的project";
-            // project.biddingDeadline=new Date();
-            // project.biddingStartAmount=5000;
-            // project.biddingStepAmount=1000;
-            // project.biddingAmount=100000.00;
-            // project.status = "IRP";
-            // project.totalDays=100;
-            // project.totalInterest=100;
-            // project.totalServiceFee=0.0;
-            // project.debtStartDate=new Date();
-            // project.debtEndDate=new Date();
-            // project.principalPaid=0;
-            // project.PrincipalBalance=100;
-            // project.interestPaid=1;
-            // project.serviceFeePaid=0;
-            // project.memo="";
-            // project.creditChannelId=1;
-
-            // borrowerService.get(project).then(function(res) {
-            //     debugger
-            // });
         };
 
         (function init() {
 
             $scope.bsPOSchargeReconTableControl = {
                 options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
                     cache: false,
                     height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
-                    //autoLoad: true,
                     onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
-                        checkbox: true,
-                        align: 'center',
-                        valign: 'middle'
+                        checkbox: true
                     }, {
-                        field: 'id',
-                        title: '编号',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        field: 'settleDatetime',
+                        title: '清算日期',
+                        formatter: timeFormatter
                     }, {
-                        field: 'name',
-                        title: '登录名',
-                        align: 'center',
-                        valign: 'middle',
-                        sortable: true
+                        field: 'tradeType',
+                        title: '交易类型'
                     }, {
                         field: 'workspace',
-                        title: '真实姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        title: '真实姓名'
                     }, {
-                        field: 'workspace2',
-                        title: '身份证号码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'tradeDatetime',
+                        title: '交易日期',
+                        formatter: timeFormatter
                     }, {
-                        field: 'workspace3',
-                        title: '手机号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'merchantNo',
+                        title: '商户编号'
                     }, {
-                        field: 'workspace4',
-                        title: '固话',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'investorId',
+                        title: '投资人编号'
                     }, {
-                        field: 'workspace5',
-                        title: '状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'investorName',
+                        title: '投资人姓名'
                     }, {
-                        field: 'workspace6',
-                        title: '理财客户经理编号',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'amount',
+                        title: '交易金额'
                     }, {
-                        field: 'workspace7',
-                        title: '理财客户经理代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'tradeNo',
+                        title: '交易流水号'
                     }, {
-                        field: 'workspace8',
-                        title: '理财客户经理姓名',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'serviceAmount',
+                        title: '手续费'
                     }, {
-                        field: 'workspace9',
-                        title: '理财渠道代码',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'batchNo',
+                        title: '批次号'
                     }, {
-                        field: 'workspace10',
-                        title: '理财渠道名称',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'depositId',
+                        title: '充值流水'
                     }, {
-                        field: 'workspace10',
-                        title: '注册类型',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'status',
+                        title: '状态'
                     }, {
-                        field: 'workspace10',
-                        title: '是否本公司员工',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '邮编',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '地址',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '是否新手',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
-                    }, {
-                        field: 'workspace10',
-                        title: '试投金状态',
-                        align: 'left',
-                        valign: 'top',
-                        sortable: true
+                        field: 'createDate',
+                        title: '创建时间',
+                        formatter: timeFormatter
                     }, {
                         field: 'flag',
                         title: '操作',
-                        align: 'center',
-                        valign: 'middle',
                         clickToSelect: false,
                         formatter: flagFormatter,
                         events: {
@@ -279,20 +169,21 @@ define([], function() {
 
         })();
 
-        $scope.del = function() {
-            console.log('del');
+        function timeFormatter(value, row, index) {
+            return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
         };
 
-        $scope.search = function() {
+
+
+        function search() {
             $scope.listView.table.bootstrapTable('refresh');
-            console.log('aaa');
         };
 
-        $scope.reset = function() {
-            $scope.listView.condition = angular.copy(defaultCondition);
-            console.log('aaa');
-        };
-
+        //$scope.reset = function() {
+        //    $scope.listView.condition = angular.copy(defaultCondition);
+        //    console.log('aaa');
+        //};
+        //
         var pageChange = function(num, size) {
             console.log(num + ' - ' + size);
         };
