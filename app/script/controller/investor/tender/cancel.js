@@ -1,6 +1,6 @@
 define([], function () {
-    return ['$scope', '$state','$modal', '$stateParams','investorService','toaster',
-        function ($scope, $state,$modal, $stateParams, investorService,toaster) {
+    return ['$scope', '$state','$modal', '$stateParams','metaService','investorService','toaster',
+        function ($scope, $state,$modal, $stateParams,metaService, investorService,toaster) {
             $scope.vm = {
                 data: {},
                 cancelTender: function () {
@@ -25,7 +25,6 @@ define([], function () {
                                     data.investorVO.investorId,
                                     data.projectVO.projectId,
                                     data.biddingVO.biddingId
-                                    //biddingId: $stateParams.id
                                 ).then(function (res) {
                                     if (res.code == 200) {
                                         toaster.pop('success', '操作成功！');
@@ -46,7 +45,15 @@ define([], function () {
                     });
                 }
             };
-
+            function initMetaData() {
+                metaService.getMeta('TBLBZT', function (data) {
+                    $scope.vm.status = data;
+                });
+                metaService.getMeta('SFBHSTJ', function(data) {
+                    $scope.vm.hasTrial = data;
+                });
+            };
+            initMetaData();
             function getDetail(id) {
                 investorService.tenderCancel.get({id: id}).$promise.then(function (res) {
                     $scope.vm.data = res.data;

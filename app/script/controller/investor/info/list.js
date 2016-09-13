@@ -40,8 +40,14 @@ define([], function () {
         };
         initMetaData();
         var getData = function (params) {
-
-            investorService.infoList.query({where: JSON.stringify($scope.listView.condition)}).$promise.then(function (res) {
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var condition = $scope.listView.condition;
+            if($scope.listView.fundChannel) {
+                condition.data.fundChannelId = $scope.listView.fundChannel.value;
+            }
+            condition.paginate = paganition;
+            investorService.infoList.query({where: JSON.stringify(condition)}).$promise.then(function (res) {
+                res.data = res.data || { paginate: paganition, items: [] };
                 res.data.paginate = res.data.paginate || {totalCount: 0};
                 params.success({
                     total: res.data.paginate.totalCount,
@@ -56,10 +62,10 @@ define([], function () {
             $scope.bsInvestmentListTableControl = {
                 options: {
                     cache: false,
-                    height: 600,
+                    //height: 600,
                     pagination: true,
                     pageSize: 10,
-                    pageList: "[10, 25, 50, 100, 200]",
+                    pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
                     sidePagination: "server",
                     columns: [{
@@ -139,7 +145,7 @@ define([], function () {
                         title: '理财客户经理姓名',
                         align: 'center'
                     }, {
-                        field: 'investorVO.fundChannelCode',
+                        field: 'investorVO.fundChannelId',
                         title: '理财渠道代码',
                         align: 'center'
                     }, {

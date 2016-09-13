@@ -17,10 +17,12 @@ define(function() {
         CAPITAL_ACCOUNT_CONSOLE: 'http://172.21.1.205:8089/console-capital-account',
         CASHOUT_CONSOLE: 'http://172.21.1.205:8089/console-cashout',
         SALEPLATFORM_CONSOLE: 'http://172.21.1.205:8087/console-saleplatform',
+        //SALEPLATFORM_CONSOLE: 'http://172.21.20.8:8089',
         RECHARGE_CONSOLE: 'http://172.21.1.205:8087/console-recharge',
         PURCHASE_CONSOLE: 'http://172.21.1.205:8087/console-purchase',
         REPORTS_CONSOLE: 'http://172.21.1.205:8090/console-reports',
         WITHDRAW_CONSOLE: 'http://172.21.1.205:8087/console-withdraw',
+        //INVESTMENT_CONSOLE: 'http://172.21.20.16:8088'
         INVESTMENT_CONSOLE: 'http://172.21.1.205:8087/console-investment'
     }
 });

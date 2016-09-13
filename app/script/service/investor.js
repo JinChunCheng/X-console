@@ -38,7 +38,8 @@ define(['common/config'], function(config) {
         //投资列表
         var infoList = $resource(config.INVESTMENT_CONSOLE + '/investment/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var infoDetail = $resource(config.INVESTMENT_CONSOLE + '/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var infoRepayList = $resource(config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        //var infoRepayList = $resource(config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var infoRepayList = $resource(config.INVESTMENT_CONSOLE +'/investment/getRepaymentPlanList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
             resource: investorRes,
@@ -138,7 +139,7 @@ define(['common/config'], function(config) {
             finishCancel:function(id, id1, id2){
                 return $http({
                     method: 'PUT',
-                    url: config.PURCHASE_CONSOLE + '/bidding/' + id + '/'+id1 + '/' + id2
+                    url: config.PURCHASE_CONSOLE + '/bidding/undoBidding/' + id + '/'+id1 + '/' + id2
                 })
                     .then(function(resp) {
                         if (resp) {
@@ -201,10 +202,10 @@ define(['common/config'], function(config) {
                             return $q.reject(errResp);
                         });
             },
-            repayList: function(id) {
+           /* repayList: function(id) {
                 return $http({
                         method: 'GET',
-                        url: config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById/' + id
+                        url: config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanList'
                     })
                     .then(function(res) {
                             if (res) {
@@ -218,7 +219,7 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
-            }
+            }*/
         }
     }]]
 });

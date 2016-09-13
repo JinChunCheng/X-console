@@ -63,14 +63,19 @@ define([], function() {
                                 formatter: function(value) {
                                     return $filter('meta')(value, $scope.listVM.productTypeList);
                                 }
+                            }, {
+                                field: 'projectType',
+                                title: '项目类型',
+                                formatter: function(value) {
+                                    return $filter('meta')(value, $scope.listVM.projectTypelist);
+                                }
                             },
-                            { field: 'projectType', title: '项目类型' },
                             { field: 'status', title: '状态', formatter: statusFormatter },
                             { field: 'borrowerId', title: '借款人编号' },
                             { field: 'borrowerName', title: '借款人' },
                             { field: 'requestAmount', title: '借款金额' },
                             { field: 'purpose', title: '借款用途' },
-                            { field: 'displayChannelCode', title: '显示渠道' }, {
+                            { field: 'displayChannelCode', title: '销售平台' }, {
                                 field: 'repaymentType',
                                 title: '还款方式',
                                 formatter: function(value) {
@@ -95,15 +100,25 @@ define([], function() {
                                     return (value || 0) + '%';
                                 }
                             },
-                            { field: 'biddingDeadline', title: '投标截止时间', formatter: dateFormatter },
-                            { field: 'rebateRate', title: '返利利率' }, {
-                                field: 'biddingProgress',
-                                title: '投标进度',
-                                function(value) {
+                            { field: 'biddingDeadline', title: '投标截止时间', formatter: dateFormatter }, {
+                                field: 'rebateRate',
+                                title: '返利利率',
+                                formatter: function(value) {
                                     return (value || 0) + '%';
                                 }
+                            }, {
+                                field: 'biddingProgress',
+                                title: '投标进度',
+                                formatter: function(value) {
+                                    return (value || 0) + '%';
+                                }
+                            }, {
+                                field: 'biddingAmount',
+                                title: '投标金额',
+                                formatter: function(value) {
+                                    return (value || 0) + '元';
+                                }
                             },
-                            { field: 'biddingAmount', title: '投标金额' },
                             { field: 'creditChannelId', title: '授信渠道编号' }, {
                                 field: 'creditChannelName',
                                 title: '授信渠道名称',
@@ -119,8 +134,8 @@ define([], function() {
                                 }
                             },
                             // { field: '', title: '满标时间' },
-                            { field: 'createDatetime', title: '创建时间', formatter: dateTimeFormatter },
-                            { field: 'updateDatetime', title: '更新时间', formatter: dateTimeFormatter }, {
+                            { field: 'createDatetime', title: '创建时间', width: 200, formatter: dateTimeFormatter },
+                            { field: 'updateDatetime', title: '更新时间', width: 200, formatter: dateTimeFormatter }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -167,6 +182,9 @@ define([], function() {
                 });
                 metaService.getMeta('SJDW', function(items) {
                     $scope.listVM.timeUnitList = items;
+                });
+                metaService.getMeta('XMLX', function(items) {
+                    $scope.listVM.projectTypelist = items;
                 });
                 metaService.getMeta('SXQD', function(items) {
                     $scope.listVM.creditChannelList = items;

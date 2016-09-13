@@ -3,7 +3,10 @@ define(['common/config', 'common/session'], function(config, session) {
 
         $scope.loginVM = {
             processing: false,
-            userName: session.getCookie('username') || ''
+            userName: session.getCookie('username') || '',
+            inputChanged: function() {
+                $scope.loginVM.msg = '';
+            }
         };
 
         $scope.$on('$viewContentLoaded', function() {
@@ -31,6 +34,7 @@ define(['common/config', 'common/session'], function(config, session) {
 
 
         $scope.login = function() {
+            session.deleteTicket();
             $scope.loginVM.processing = true;
             $http({
                 url: config.OPERATION_CONSOLE + '/mgr/login',
@@ -48,14 +52,15 @@ define(['common/config', 'common/session'], function(config, session) {
                     //广播到父级控制器做相关处理
                     $scope.$emit('login', user);
                     $state.go('dashboard');
-                }
-                else {
-                    toaster.pop('error', res.msg);
+                } else {
+                    //toaster.pop('error', res.msg);
+                    $scope.loginVM.msg = res.msg;
                 }
                 $scope.loginVM.processing = false;
 
             }).error(function(err) {
-                toaster.pop('error', '服务器连接失败，请联系管理员！')
+                //toaster.pop('error', '服务器连接失败，请联系管理员！');
+                $scope.loginVM.msg = '服务器连接失败，请联系管理员！';
                 $scope.loginVM.processing = false;
 
             });
