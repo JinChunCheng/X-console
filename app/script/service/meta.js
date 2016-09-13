@@ -593,11 +593,11 @@ define(['common/config'], function(config) {
             }, {
                 key: 'XSPTZT', //销售平台状态
                 value: [
-                    { value: 0, text: '默认' },
+                    // { value: 0, text: '默认' },
                     { value: 1, text: '正常' },
                     { value: 2, text: '删除' },
                     { value: 3, text: '冻结' },
-                    { value: 4, text: '待上线' }
+                    // { value: 4, text: '待上线' }
                 ]
             }, {
                 key: 'SJDW', //时间单位

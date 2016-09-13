@@ -165,7 +165,7 @@ define([], function() {
                 }
 
                 function flagFormatter(value, row, index) {
-                    return '<button name="btnDetail" class="btn btn-xs btn-transparent btn-default" title="查看项目信息"><i class="fa fa-file-o"></i></button>';
+                    return '<button name="btnDetail" class="btn btn-xs btn-transparent btn-default" title="查看项目信息"><i class="fa fa-file-text-o"></i></button>';
                 }
 
             })();
