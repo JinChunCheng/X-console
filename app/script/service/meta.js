@@ -171,9 +171,9 @@ define(['common/config'], function(config) {
             }, {
                 key: 'XSPTXS', //销售平台形式
                 value: [
-                        { value: '1', text: 'H5理财平台' },
-                        { value: '2', text: 'iOS' },
-                        { value: '3', text: 'Android' }
+                        { value: 1, text: 'H5理财平台' },
+                        { value: 2, text: 'iOS' },
+                        { value: 3, text: 'Android' }
                     ]
                     //===============================借款人============================
             }, {
@@ -316,6 +316,16 @@ define(['common/config'], function(config) {
                 value: [
                     { value: 'Y', text: '包含' },
                     { value: 'N', text: '不包含' }
+                ]
+            },{
+                key: 'HKLB', //投资还款计划列表
+                value: [
+                    { value: 'WP', text: '待还款' },
+                    { value: 'FP', text: '还清' },
+                    { value: 'PP', text: '部分还款' },
+                    { value: 'OD', text: '逾期' },
+                    { value: 'ITRS', text: '转让中' },
+                    { value: 'TRSF', text: '转让完成' }
                 ]
             }, {
                 key: 'STJZT', //试投金状态
@@ -597,11 +607,11 @@ define(['common/config'], function(config) {
             }, {
                 key: 'XSPTZT', //销售平台状态
                 value: [
-                    { value: 0, text: '默认' },
+                    // { value: 0, text: '默认' },
                     { value: 1, text: '正常' },
                     { value: 2, text: '删除' },
                     { value: 3, text: '冻结' },
-                    { value: 4, text: '待上线' }
+                    // { value: 4, text: '待上线' }
                 ]
             }, {
                 key: 'SJDW', //时间单位
@@ -611,10 +621,22 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '年' }
                 ]
             }, {
+                key: 'SJDW2', //时间单位
+                value: [
+                    { value: 'D', text: '天' },
+                    { value: 'M', text: '月' }
+                ]
+            }, {
                 key: 'FBFS', //发布方式
                 value: [
                     { value: 'I', text: '立即发布' },
                     { value: 'T', text: '定时发送' }
+                ]
+            }, {
+                key: 'DZZT', //对账状态
+                value: [
+                    { value: 'S', text: '对账成功' },
+                    { value: 'F', text: '对账失败' }
                 ]
             }
         ];

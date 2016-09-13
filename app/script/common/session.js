@@ -5,7 +5,7 @@
         setTicket: function(ticketObj) {
             var exp = new Date();
             exp.setTime(exp.getTime() + 20 * 60 * 1000);//20分钟
-            document.cookie = ticket + "=" + escape(ticketObj) + ";expires=" + exp.toGMTString();
+            document.cookie = ticket + "=" + escape(ticketObj) + ";path=/;expires=" + exp.toGMTString();
         },
         getTicket: function() {
             var arr, reg = new RegExp("(^| )" + ticket + "=([^;]*)(;|$)");

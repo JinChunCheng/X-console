@@ -3,25 +3,25 @@
         <h3>新增项目</h3>
     </div>
     <div class="panel-body">
-        <form class="form-validation" novalidate ng-submit="projectVM.submit()">
+        <form name="projectForm" class="form-validation" novalidate ng-submit="projectVM.submit(projectForm.$invalid)">
             <div class="row m-t-10">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.creditchannel.$invalid && (projectForm.creditchannel.$dirty||projectVM.submitted)}">
                                 <label class="control-label">授信渠道</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.creditChannelId" ng-options="parseInt(item.id) as item.text for item in projectVM.creditChannelList">
+                                    <select name="creditchannel" class="form-control" ng-model="projectVM.data.creditChannelId" ng-options="item.value as item.text for item in projectVM.creditChannelList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.creditmanager.$invalid && (projectForm.creditmanager.$dirty||projectVM.submitted)}">
                                 <label class="control-label">授信客户经理</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.creditManagerId" ng-options="item.id as item.text for item in projectVM.getManagerList()">
+                                    <select name="creditmanager" class="form-control" ng-model="projectVM.data.creditAccountManagerId" ng-options="item.value as item.text for item in projectVM.getManagerList()" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -30,38 +30,36 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.borrowerid.$invalid && (projectForm.borrowerid.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款人编号</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.borrowerId">
+                                    <input name="borrowerid" type="text" class="form-control" ng-model="projectVM.data.borrowerId" required>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">借款人姓名</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.borrowerName">
-                                </div>
+                                <div class="form-control" ng-bind="projectVM.data.borrowerName"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.prodtype.$invalid && (projectForm.prodtype.$dirty||projectVM.submitted)}">
                                 <label class="control-label">产品类型</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.prodTypeId" ng-options="p.value as p.text for p in projectVM.productTypeList">
+                                    <select name="prodtype" class="form-control" ng-model="projectVM.data.prodTypeId" ng-options="p.value as p.text for p in projectVM.productTypeList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.projecttype.$invalid && (projectForm.projecttype.$dirty||projectVM.submitted)}">
                                 <label class="control-label">项目类型</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.projectTypeId" ng-options="c.value as c.text for c in projectVM.projectTypeList">
+                                    <select name="projecttype" class="form-control" ng-model="projectVM.data.projectType" ng-options="c.value as c.text for c in projectVM.projectTypeList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -69,129 +67,147 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="form-group" ng-class="{'has-error':projectForm.projectname.$invalid && (projectForm.projectname.$dirty||projectVM.submitted)}">
                                 <label class="control-label">项目名称</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.projectName">
+                                    <input name="projectname" type="text" class="form-control" ng-model="projectVM.data.projectName" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <!-- <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="control-label">秒杀项目别名</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.promotionTitle">
+                                    <input type="text" class="form-control" ng-model="projectVM.data.promotionTitle" required>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.contract.$invalid && (projectForm.contract.$dirty||projectVM.submitted)}">
                                 <label class="control-label">合同模板</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.contractTemplateId" ng-options="p.value as p.text for p in projectVM.contractList">
+                                    <select name="contract" class="form-control" ng-model="projectVM.data.contractTemplateId" ng-options="p.value as p.text for p in projectVM.contractList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="control-label">显示渠道</label>
+                            <div class="form-group" ng-class="{'has-error':projectForm.platform.$invalid && (projectForm.platform.$dirty||projectVM.submitted)}">
+                                <label class="control-label">销售平台</label>
                                 <div>
+                                    <select name="platform" class="form-control" ng-model="projectVM.data.displayChannelCode" ng-options="item.code as item.name for item in projectVM.saleplatformList" required>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.repaymenttype.$invalid && (projectForm.repaymenttype.$dirty||projectVM.submitted)}">
                                 <label class="control-label">还款方式</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.repaymentType" ng-options="p.value as p.text for p in projectVM.repaymentTypeList">
+                                    <select name="repaymenttype" class="form-control" ng-model="projectVM.data.repaymentType" ng-options="p.value as p.text for p in projectVM.repaymentTypeList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.requestamount.$invalid && (projectForm.requestamount.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款需求金额</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.requestAmount">
+                                <div class="input-group">
+                                    <input name="requestamount" type="number" class="form-control" ng-model="projectVM.data.requestAmount" required>
+                                    <span class="input-group-addon">元</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
+                        <div class="col-sm-3 p-r-5">
+                            <div class="form-group" ng-class="{'has-error':projectForm.duration.$invalid && (projectForm.duration.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款期限</label>
                                 <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.duration"> + 单位
+                                    <input name="duration" type="number" class="form-control" ng-model="projectVM.data.duration" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-1 p-l-0">
+                            <div class="form-group" ng-class="{'has-error':projectForm.durationunit.$invalid && (projectForm.durationunit.$dirty||projectVM.submitted)}">
+                                <label class="control-label">单位</label>
+                                <div>
+                                    <select name="durationunit" class="form-control" ng-model="projectVM.data.durationUnit" ng-options="p.value as p.text for p in projectVM.timeUnitList" required>
+                                    </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.interestrate.$invalid && (projectForm.interestrate.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款利息</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.interestRate"> + 单位
+                                <div class="input-group">
+                                    <input name="interestrate" type="number" class="form-control" ng-model="projectVM.data.interestRate" required>
+                                    <span class="input-group-addon">%/年</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
-                                <label class="control-label">服务费</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.serviceFeeRate">
+                            <div class="form-group" ng-class="{'has-error':projectForm.servicefeerate.$invalid && (projectForm.servicefeerate.$dirty||projectVM.submitted)}">
+                                <label class="control-label">服务费率</label>
+                                <div class="input-group">
+                                    <input name="servicefeerate" type="number" class="form-control" ng-model="projectVM.data.serviceFeeRate" required>
+                                    <span class="input-group-addon">%/年</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.biddingstart.$invalid && (projectForm.biddingstart.$dirty||projectVM.submitted)}">
                                 <label class="control-label">投标起步金额</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.biddingStartAmount">
+                                <div class="input-group">
+                                    <input name="biddingstart" type="number" class="form-control" ng-model="projectVM.data.biddingStartAmount" required>
+                                    <span class="input-group-addon">元</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.biddingstep.$invalid && (projectForm.biddingstep.$dirty||projectVM.submitted)}">
                                 <label class="control-label">投标间隔金额</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.biddingStepAmount">
+                                <div class="input-group">
+                                    <input name="biddingstep" type="number" class="form-control" ng-model="projectVM.data.biddingStepAmount" required>
+                                    <span class="input-group-addon">元</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-4" ng-class="{'has-error':projectForm.biddingend.$invalid && (projectForm.biddingend.$dirty||projectVM.submitted)}">
                             <div class="form-group">
                                 <label class="control-label">投标上限金额</label>
-                                <div>
-                                    <input type="text" class="form-control" ng-model="projectVM.data.biddingEndAmount">
+                                <div class="input-group">
+                                    <input name="biddingend" type="number" class="form-control" ng-model="projectVM.data.biddingEndAmount" required>
+                                    <span class="input-group-addon">天</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.biddingdeadline.$invalid && (projectForm.biddingdeadline.$dirty||projectVM.submitted)}">
                                 <label class="control-label">投标截止日期</label>
                                 <div class="append-icon">
-                                    <input type="text" class="form-control" ng-model="projectVM.data.biddingDeadline">
+                                    <input name="biddingdeadline" type="text" class="form-control" datepicker-popup ng-model="projectVM.data.biddingDeadline" is-open="biddingDeadlineOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="biddingDeadlineOpened=true" required />
                                     <i class="icon-calendar"></i>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.autoapprove.$invalid && (projectForm.autoapprove.$dirty||projectVM.submitted)}">
                                 <label class="control-label">结标方式</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.autoApprove" ng-options="c.value as c.text for c in projectVM.autoApproveList">
+                                    <select name="autoapprove" class="form-control" ng-model="projectVM.data.autoApprove" ng-options="c.value as c.text for c in projectVM.autoApproveList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -200,30 +216,30 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.purpose.$invalid && (projectForm.purpose.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款用途</label>
                                 <div>
-                                    <textarea class="form-control" rows="3" ng-model="projectVM.data.purpose"></textarea>
+                                    <textarea name="purpose" class="form-control" rows="3" ng-model="projectVM.data.purpose" required></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.description.$invalid && (projectForm.description.$dirty||projectVM.submitted)}">
                                 <label class="control-label">借款情况描述</label>
                                 <div>
-                                    <textarea class="form-control" rows="3" ng-model="projectVM.data.description"></textarea>
+                                    <textarea name="description" class="form-control" rows="3" ng-model="projectVM.data.description" required></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.guaranteeflag.$invalid && (projectForm.guaranteeflag.$dirty||projectVM.submitted)}">
                                 <label class="control-label">是否担保</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.guaranteeFlag" ng-options="item.value as item.text for item in projectVM.youwuList">
+                                    <select name="guaranteeflag" class="form-control" ng-model="projectVM.data.guaranteeFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -232,20 +248,20 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.guarantee.$invalid && (projectForm.guarantee.$dirty||projectVM.submitted)}">
                                 <label class="control-label">担保情况说明</label>
                                 <div>
-                                    <textarea class="form-control" rows="3" ng-model="projectVM.data.guarantee"></textarea>
+                                    <textarea name="guarantee" class="form-control" rows="3" ng-model="projectVM.data.guarantee" required></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group" ng-class="{'has-error':projectForm.mortgageflag.$invalid && (projectForm.mortgageflag.$dirty||projectVM.submitted)}">
                                 <label class="control-label">是否抵押</label>
                                 <div>
-                                    <select class="form-control" ng-model="projectVM.data.mortgageFlag" ng-options="item.value as item.text for item in projectVM.youwuList">
+                                    <select name="mortgageflag" class="form-control" ng-model="projectVM.data.mortgageFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -253,11 +269,11 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" ng-class="{'has-error':projectForm.mortgage.$invalid && (projectForm.mortgage.$dirty||projectVM.submitted)}">
                             <div class="form-group">
                                 <label class="control-label">抵押情况说明</label>
                                 <div>
-                                    <textarea class="form-control" rows="3" ng-model="projectVM.data.mortgage"></textarea>
+                                    <textarea name="mortgage" class="form-control" rows="3" ng-model="projectVM.data.mortgage" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -277,8 +293,9 @@
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-success m-r-10">提交</button>
-<!--                     <button type="button" class="btn btn-default" ng-click="projectVM.cancel()">返回</button>
- -->                </div>
+                    <!--                     <button type="button" class="btn btn-default" ng-click="projectVM.cancel()">返回</button>
+ -->
+                </div>
             </div>
         </form>
     </div>

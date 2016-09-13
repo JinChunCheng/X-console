@@ -64,6 +64,8 @@ define([], function() {
 
 
             var findChannel = function(params) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
                 assetService.findChannel($scope.listVM.condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({

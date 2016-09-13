@@ -754,3 +754,8 @@ table{outline: none;}
 .table-bordered.th-bg th {
     background-color: #F0F4F8;
 }
+/*
+td {
+    white-space: nowrap;
+}
+*/

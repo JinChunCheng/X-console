@@ -11,6 +11,11 @@ define([], function() {
                 cancel: function() {
                     $state.go('asset.release.todo');
                 },
+                canBeSubmitted: function() {
+                    var status = $scope.productVM.data.status;
+                    //to be on shelf or off shelf
+                    return status === 0 || status === 1;
+                },
                 submit: submit
             };
 
@@ -30,7 +35,7 @@ define([], function() {
 
 
             function initMetaData() {
-                assetService.platform.query({ where: JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 100 } }) }).$promise.then(function(res) {
+                assetService.platform.query({ where: JSON.stringify({ data: { status: 1 }, paginate: { pageNum: 1, pageSize: 100 } }) }).$promise.then(function(res) {
                     if (res.code == 200) {
                         $scope.productVM.saleplatformList = res.data.items;
                     } else

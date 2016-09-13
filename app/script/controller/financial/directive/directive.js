@@ -95,89 +95,57 @@ define([], function() {
                     columns: [
                         {
                         field: 'state',
-                        checkbox: true,
-                        align: 'center',
-                        valign: 'middle'
+                        checkbox: true
                     }, {
                         field: 'id',
-                        title: '编号',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '编号'
                     },{
                         field: 'fundOutType',
                         title: '出款类型',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: cashTypeFormatter
                     }, {
                         field: 'referenceId',
-                        title: '发起方编号',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '发起方编号'
                     }, {
                         field: 'bankAccountName',
-                        title: '账户名称',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '账户名称'
                     }, {
                         field: 'bankAccount',
-                        title: '卡号',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '卡号'
                     }, {
                         field: 'bankName',
-                        title: '银行',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '银行'
                     }, {
                         field: 'workspace6',
-                        title: '开户支行名称',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '开户支行名称'
                     }, {
                         field: 'bankProvince',
                         title: '省份',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: provinceFormatter
                     }, {
                         field: 'bankCity',
                         title: '地市',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: cityFormatter
                     }, {
                         field: 'amount',
-                        title: '出款金额',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '出款金额'
                     }, {
                         field: 'statusName',
                         title: '状态',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: statusFormatter
                     }, {
                         field: 'fundOutCount',
-                        title: '出款笔数',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '出款笔数'
                     }, {
                         field: 'memo',
-                        title: '备注',
-                        align: 'center',
-                        valign: 'middle'
+                        title: '备注'
                     }, {
                         field: 'exeDate',
                         title: '执行日期',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: timeFormatter
                     }, {
                         field: 'createDatetime',
                         title: '创建时间',
-                        align: 'center',
-                        valign: 'middle',
                         formatter: timeFormatter
                     }]
                 }

@@ -110,6 +110,12 @@
             }, {
                 "text": "回退审核",
                 "state": "fund.fallback.fallback"
+            }, {
+                "text": "充值查询(客服)",
+                "state": "fund.query.query"
+            }, {
+                "text": "提现查询(客服)",
+                "state": "fund.wquery.wquery"
             }]
         }, {
             "text": "资金账户",
@@ -124,6 +130,12 @@
             }, {
                 "text": "资金费率维护",
                 "state": "account.rate.rate"
+            }, {
+                "text": "利润提取",
+                "state": "account.withdraw.withdraw"
+            }, {
+                "text": "利润提取列表",
+                "state": "account.profitlist.profitlist"
             }]
         }, {
             "text": "财务管理",

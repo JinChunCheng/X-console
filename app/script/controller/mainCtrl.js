@@ -40,6 +40,9 @@
             }
 
             function initMenus() {
+                if ($scope.appView.menus && $scope.appView.menus.length > 0) {
+                    return false;
+                }
                 applicationService.menuResource.query().$promise.then(function(res) {
                     $scope.appView.menus = res.data.items;
                     $timeout(function() {

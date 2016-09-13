@@ -196,6 +196,7 @@ define([], function() {
                         $scope.platformVM = {
                             title: title,
                             processing: false,
+                            data: {},
                             platformTypeList: platformTypeList,
                             submit: submit,
                             cancel: cancel
@@ -203,6 +204,8 @@ define([], function() {
 
                         (function() {
                             if (!platform) {
+                                //initial status to 1 when 'add'
+                                $scope.platformVM.data.status = 1;
                                 return;
                             }
                             assetService.platform.get({ id: platform.id }).$promise.then(function(res) {

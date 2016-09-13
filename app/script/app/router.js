@@ -86,7 +86,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //项目列表
                 .state('project.info', lazyLoad.config('/info', '/view/shared/blank.html', '', null, true))
                 .state('project.info.list', lazyLoad.config('/list', '/view/project/info/list.html', 'controller/project/info/list', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
-                .state('project.info.add', lazyLoad.config('/add', '/view/project/info/edit.html', 'controller/project/info/edit', { services: ['service/project', 'service/meta'] }))
+                .state('project.info.add', lazyLoad.config('/add', '/view/project/info/edit.html', 'controller/project/info/edit', { services: ['service/project', 'service/asset', 'service/meta'] }))
                 .state('project.info.detail', lazyLoad.config('/detail/:id', '/view/project/info/detail.html', 'controller/project/info/detail', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //发布审核
                 .state('project.release', lazyLoad.config('/release', '/view/shared/blank.html', '', null, true))
@@ -94,7 +94,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('project.release.verify', lazyLoad.config('/verify/:id', '/view/project/release/verify.html', 'controller/project/release/verify', { services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //结标审核
                 .state('project.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('project.check.check', lazyLoad.config('/check', '/view/project/check/check.html', 'controller/project/check/check', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
+                .state('project.check.list', lazyLoad.config('/list', '/view/project/check/list.html', 'controller/project/check/list', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 .state('project.check.detail', lazyLoad.config('/detail/:id', '/view/project/check/detail.html', 'controller/project/check/detail', { directives: [], services: ['service/project', 'service/meta'], filters: ['filter/common'] }))
                 //项目还款计划
                 .state('project.repayment', lazyLoad.config('/repayment', '/view/shared/blank.html', '', null, true))
@@ -202,7 +202,8 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
                 //POS充值对账
                 .state('financial.POS', lazyLoad.config('/POS', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.POS.POS', lazyLoad.config('/POS', '/view/financial/POS/POS.html', 'controller/financial/POS/POS', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.POS.POS', lazyLoad.config('/POS', '/view/financial/POS/POS.html', 'controller/financial/POS/POS', {services: ['service/financial', 'service/meta'], filters: ['filter/common']  }))
+                .state('financial.POS.detail', lazyLoad.config('/detail', '/view/financial/POS/detail.html', 'controller/financial/POS/detail', {  services: ['service/financial', 'service/meta'], filters: ['filter/common']  }))
                 //提现出款对账
                 .state('financial.recon', lazyLoad.config('/recon', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.recon.recon', lazyLoad.config('/recon', '/view/financial/recon/recon.html', 'controller/financial/recon/recon', { directives: [], services: ['service/borrower'], filters: [] }))
