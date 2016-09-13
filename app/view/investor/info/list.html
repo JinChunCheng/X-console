@@ -65,11 +65,25 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">投资开始日期</span>
+                                <span class="input-group-addon">起息日</span>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.data.debtStartDate" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.debtStartDateStart" is-open="birthdayOpened1" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened1=true" />
                                     <span class="input-group-addon">~</span>
-                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.condition.data.debtEndDate" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.debtStartDateEnd" is-open="birthdayOpened2" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened2=true" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">结息日</span>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.debtEndDateStart" is-open="birthdayOpened3" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened3=true" />
+                                    <span class="input-group-addon">~</span>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.debtEndDateEnd" is-open="birthdayOpened4" datepicker-options="dateOptions" close-text="关闭" ng-click="birthdayOpened4=true" />
                                 </div>
                             </div>
                         </div>

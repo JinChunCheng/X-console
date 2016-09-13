@@ -20,7 +20,11 @@ define([], function() {
 
 
         var getData = function(params) {
+            //var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            //var condition = $scope.listView.condition;
+            //condition.paginate = paganition;
             projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
+                //res.data = res.data || { paginate: paganition, items: [] };
                 res.data.paginate = res.data.paginate || { totalCount: 0 };
                 params.success({
                     total: res.data.paginate.totalCount,

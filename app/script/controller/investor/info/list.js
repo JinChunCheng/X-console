@@ -45,6 +45,21 @@ define([], function () {
             if($scope.listView.fundChannel) {
                 condition.data.fundChannelId = $scope.listView.fundChannel.value;
             }
+            if($scope.listView.condition.data.statusName){
+                condition.data.status= $scope.listView.condition.data.statusName;
+            }
+            if(condition.data.debtStartDateStart){
+                condition.data.debtStartDateStart = $filter('exDate')(condition.data.debtStartDateStart);
+            }
+            if(condition.data.debtStartDateEnd){
+                condition.data.debtStartDateEnd = $filter('exDate')(condition.data.debtStartDateEnd);
+            }
+            if(condition.data.debtEndDateStart){
+                condition.data.debtEndDateStart = $filter('exDate')(condition.data.debtEndDateStart);
+            }
+            if(condition.data.debtEndDateEnd){
+                condition.data.debtEndDateEnd = $filter('exDate')(condition.data.debtEndDateEnd);
+            }
             condition.paginate = paganition;
             investorService.infoList.query({where: JSON.stringify(condition)}).$promise.then(function (res) {
                 res.data = res.data || { paginate: paganition, items: [] };
@@ -136,22 +151,26 @@ define([], function () {
                         field: 'investorVO.fundAccountManagerId',
                         title: '理财客户经理编号',
                         align: 'center'
-                    }, {
+                    }, /*{
                         field: 'investorVO.fundAccountManagerCode',
                         title: '理财客户经理代码',
                         align: 'center'
-                    }, {
-                        field: 'investorVO.fundAccountManagerName',
+                    }, */{
+                        field: 'investorVO.fundAccountManagerId',
                         title: '理财客户经理姓名',
-                        align: 'center'
+                        align: 'center',
+                        formatter:ManagerNameFormatter
                     }, {
                         field: 'investorVO.fundChannelId',
                         title: '理财渠道代码',
-                        align: 'center'
+                        align: 'center',
+                        formatter:fundChannelCodeFormatter
                     }, {
-                        field: 'investorVO.fundChannelName',
+                        //field: 'investorVO.fundChannelName',
+                        ield: 'investorVO.fundChannelId',
                         title: '理财渠道名称',
-                        align: 'center'
+                        align: 'center',
+                        formatter:fundChannelNameFormatter
                     }, {
                         field: 'investmentVO.contractGenFlag',
                         title: '合同生成标志',
@@ -199,6 +218,15 @@ define([], function () {
             function hasTrialFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.hasTrialList);
             }
+            function fundChannelNameFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.fundChannelNameList);
+            }
+            function fundChannelCodeFormatter(value, row, index) {
+                return $filter('metaCM')(row.fundChannelId, $scope.listView.fundChannelCodeList);
+            }
+            function ManagerNameFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.ManagerNameList);
+            }
             function rateFormatter(value, row, index) {
                 return parseFloat(value*100).toFixed(2)+'%/年';
             }
@@ -217,11 +245,19 @@ define([], function () {
             metaService.getMeta('SFBHSTJ', function(items) {
                 $scope.listView.hasTrialList = items;
             });
+            metaService.getMeta('LCQD', function(items) {
+                $scope.listView.fundChannelNameList=items;
+            });
+            metaService.getMeta('LCJLXM', function(items) {
+                $scope.listView.ManagerNameList=items;
+            });
+            metaService.getMeta('LCQDMC', function(items) {
+                $scope.listView.fundChannelCodeList=items;
+            });
         }
         function editRow(e, value, row, index) {
             $state.go('investor.info.detail', {id: row.investmentVO.investmentId});
         }
-
 
         $scope.search = function () {
             $scope.listView.table.bootstrapTable('refresh');
