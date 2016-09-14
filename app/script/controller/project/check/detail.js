@@ -4,7 +4,7 @@ define([], function () {
             $scope.vm = {
                 data: {},
                 cancel: function () {
-                    $state.go('project.check.check');
+                    $state.go('project.check.list');
                 },
                 pass: function () {
                     var text = "您确定批准吗？";
@@ -60,7 +60,7 @@ define([], function () {
                                 return false;
                             };
                             $scope.ok = function () {
-                                $modalInstance.close($state.go('project.check.check'));
+                                $modalInstance.close($state.go('project.check.list'));
                                 projectService.finishAudit({
                                     data:{
                                         projectId: $stateParams.id,
