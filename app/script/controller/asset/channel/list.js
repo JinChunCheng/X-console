@@ -90,8 +90,7 @@ define([], function() {
                             { field: 'createTime', title: '录入时间' },
                             { field: 'joinupType', title: '接入方式', formatter: joinupTypeFormatter },
                             { field: 'creditLimit', title: '授信额度' },
-                            { field: 'assetCount', title: '接入资产' },
-                            { field: 'status', title: '状态' }, {
+                            { field: 'assetCount', title: '接入资产' }, {
                                 field: 'flag',
                                 title: '操作',
                                 width: 60,
