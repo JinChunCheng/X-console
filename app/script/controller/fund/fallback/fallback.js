@@ -44,8 +44,11 @@ define([], function() {
         });
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var data = $scope.listView.condition;
-            var queryCondition = { "data": data, "paginate": paganition };
+            var condition = $scope.listView.condition;
+            $scope.listView.condition.requestDateStart=$filter('exDate')($scope.listView.condition.requestDateStart,'yyyy-MM-dd');
+
+            $scope.listView.condition.requestDateEnd=$filter('exDate')($scope.listView.condition.requestDateEnd,'yyyy-MM-dd');
+            var queryCondition = { "data": condition, "paginate": paganition };
             fundService.backCheckTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
