@@ -104,9 +104,10 @@ define([], function () {
                         title: '投资人名称',
                         align: 'center'
                     }, {
-                        field: 'investmentVO.repaymentTypeName',
+                        field: 'investmentVO.repaymentType',
                         title: '还款方式',
-                        align: 'center'
+                        align: 'center',
+                        formatter:repaymentTypeFormatter,
                     }, {
                         field: 'investmentVO.debtStartDate',
                         title: '开始日期',
@@ -226,6 +227,9 @@ define([], function () {
             function ManagerNameFormatter(value, row, index) {
                 return $filter('meta')(value, $scope.listView.ManagerNameList);
             }
+            function repaymentTypeFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.repaymentTypeList);
+            }
             function rateFormatter(value, row, index) {
                 return parseFloat(value*100).toFixed(2)+'%/年';
             }
@@ -252,6 +256,9 @@ define([], function () {
             });
             metaService.getMeta('LCQDMC', function(items) {
                 $scope.listView.fundChannelCodeList=items;
+            });
+            metaService.getMeta('HKFS', function(items) {
+                $scope.listView.repaymentTypeList=items;
             });
         }
         function editRow(e, value, row, index) {

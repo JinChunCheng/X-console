@@ -202,7 +202,7 @@ define(['common/config'], function(config) {
                             return $q.reject(errResp);
                         });
             },
-           /* repayList: function(id) {
+            repayList: function(id) {
                 return $http({
                         method: 'GET',
                         url: config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanList'
@@ -219,7 +219,7 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
-            }*/
+            }
         }
     }]]
 });
