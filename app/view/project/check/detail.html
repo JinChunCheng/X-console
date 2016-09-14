@@ -18,7 +18,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.borrowerId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.borrowerVO.id"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -91,7 +91,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectType|meta:vm.projectTypeList"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -99,7 +99,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.repaymentType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.repaymentType|meta:vm.repaymentTypeList"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -125,7 +125,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.loanRate"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.interestRate"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -133,7 +133,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.rebateRate"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -159,7 +159,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guaranteeFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.guaranteeFlag|meta:vm.guaranteeFlagList"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -177,7 +177,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgageFlag"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.mortgageFlag|meta:vm.guaranteeFlagList"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -215,7 +215,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            <tr>
+                            <tr >
                                 <th colspan="6">投标信息</th>
                             </tr>
                             <tr>
@@ -258,7 +258,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind=""></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.autoApprove|meta:vm.autoApproveList"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>

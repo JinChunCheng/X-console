@@ -20,9 +20,12 @@ define([], function() {
 
 
         var getData = function(params) {
-            projectService.project.query({ where: JSON.stringify($scope.listView.condition) }).$promise.then(function(res) {
-                res.data = res.data || { items: [], paginate: { totalCount: 0 } }
-                res.data.paginate = res.data.paginate || { totalCount: 0 };
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var condition = $scope.listView.condition;
+            condition.paginate = paganition;
+            projectService.project.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
+                res.data = res.data || { paginate: paganition, items: [] };
+                res.paginate = res.paginate || { totalCount: 0 };
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items
@@ -78,16 +81,21 @@ define([], function() {
                         title: '借款用途'
                     }, {
                         field: 'repaymentType',
-                        title: '还款方式'
+                        title: '还款方式',
+                        formatter: function(value) {
+                            return $filter('meta')(value, $scope.listView.repaymentTypeList);
+                        }
                     }, {
                         field: 'duration',
                         title: '借款期限'
                     }, {
                         field: 'interestRate',
-                        title: '借款利率'
+                        title: '借款利率',
+                        formatter:rateFormatter
                     }, {
                         field: 'serviceFeeRate',
-                        title: '服务费率'
+                        title: '服务费率',
+                        formatter:rateFormatter
                     }, {
                         field: 'workspace10',
                         title: '返利利率',
@@ -131,7 +139,9 @@ define([], function() {
             function timeFormatter(value, row, index) {
                 return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
             }
-
+            function rateFormatter(value, row, index) {
+                return parseFloat(value).toFixed(2)+'%/年';
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
                     '<button type="button" class="btn btn-xs btn-primary"><i class="fa fa-file-text-o"></i></button>'
@@ -150,6 +160,9 @@ define([], function() {
             });
             metaService.getMeta('XMLX', function(items) {
                 $scope.listView.projectTypelist = items;
+            });
+            metaService.getMeta('HKFS', function(items) {
+                $scope.listView.repaymentTypeList = items;
             });
         }
 
