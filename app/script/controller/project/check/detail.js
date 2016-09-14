@@ -1,10 +1,10 @@
 define([], function () {
-    return ['$scope', '$state', '$stateParams', '$modal',  'projectService', 'toaster',
-        function ($scope, $state, $stateParams, $modal, projectService, toaster) {
+    return ['$scope', '$state', '$stateParams', '$modal', 'metaService', 'projectService', 'toaster',
+        function ($scope, $state, $stateParams, $modal,metaService,projectService, toaster) {
             $scope.vm = {
                 data: {},
                 cancel: function () {
-                    $state.go('project.check.check');
+                    $state.go('project.check.list');
                 },
                 pass: function () {
                     var text = "您确定批准吗？";
@@ -31,7 +31,7 @@ define([], function () {
                                 }}).then(function (res) {
                                     if (res.code == 200) {
                                         toaster.pop('success', '操作成功！');
-                                        $modalInstance.close($state.go('project.check.check'));
+                                        $modalInstance.close($state.go('project.check.list'));
                                     }
                                     else
                                         toaster.pop('error', res.msg);
@@ -60,7 +60,7 @@ define([], function () {
                                 return false;
                             };
                             $scope.ok = function () {
-                                $modalInstance.close($state.go('project.check.check'));
+                                $modalInstance.close($state.go('project.check.list'));
                                 projectService.finishAudit({
                                     data:{
                                         projectId: $stateParams.id,
@@ -75,10 +75,27 @@ define([], function () {
                 }
 
             };
-
+            function initMetaData() {
+                metaService.getMeta('XMLX', function (data) {
+                    $scope.vm.projectTypeList = data;
+                });
+                metaService.getMeta('HKFS', function (data) {
+                    $scope.vm.repaymentTypeList = data;
+                });
+                metaService.getMeta('YOUWU', function (data) {
+                    $scope.vm.guaranteeFlagList = data;
+                });
+                metaService.getMeta('JBFS', function (data) {
+                    $scope.vm.autoApproveList = data;
+                });
+            }
+            initMetaData();
             function getDetail(id) {
                 projectService.project.get({id: id}).$promise.then(function (res) {
                     $scope.vm.data = res.data;
+                    $scope.vm.data.projectVO.serviceFeeRate= parseFloat($scope.vm.data.projectVO.serviceFeeRate).toFixed(2)+'%/年';
+                    $scope.vm.data.projectVO.interestRate= parseFloat($scope.vm.data.projectVO.interestRate).toFixed(2)+'%/年';
+                    $scope.vm.data.projectVO.rebateRate=( $scope.vm.data.projectVO.rebateRate||0)+'%/年';
                 });
             }
 

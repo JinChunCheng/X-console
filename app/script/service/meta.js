@@ -275,6 +275,14 @@ define(['common/config'], function(config) {
                     { value: 1, code: '0001', text: '汇和金服', children: [{ value: 1, code: '1001', text: '汇和金服' }] }
                 ]
             }, {
+                key: 'HKFS', //还款方式
+                value: [
+                    { value: 'ETP', text: '等额本息还款' },
+                    { value: 'EPP', text: '等本还款' },
+                    { value: 'IPO', text: '每期偿还利息' },
+                    { value: 'SPM', text: '到期还本付息' }
+                ]
+            }, {
                 key: 'SFBGSYG', //是否本公司员工
                 value: [
                     { value: 'N', text: '否' },

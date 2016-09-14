@@ -51,8 +51,6 @@ define([], function() {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             $scope.listView.condition.startDate=$filter('exDate')($scope.listView.condition.startDate, 'yyyy-MM-dd');
             $scope.listView.condition.endDate=$filter('exDate')($scope.listView.condition.endDate, 'yyyy-MM-dd');
-
-
             var condition = $scope.listView.condition;
             var queryCondition = { "data": condition, "paginate": paganition };
             accountService.accountQueryList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {

@@ -29,8 +29,10 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var data = $scope.listVM.condition;
-            var queryCondition = { "data": data, "paginate": paganition };
+            var condition = $scope.listVM.condition;
+            $scope.listVM.condition.repaymentDateStart=$filter('exDate')($scope.listVM.condition.repaymentDateStart,'yyyy-MM-dd');
+            $scope.listVM.condition.repaymentDateEnd=$filter('exDate')($scope.listVM.condition.repaymentDateEnd,'yyyy-MM-dd');
+            var queryCondition = { "data": condition, "paginate": paganition };
             borrowerService.borrowerRepaymentList.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({

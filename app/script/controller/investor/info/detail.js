@@ -9,7 +9,7 @@ define([], function () {
                 }
             };
             $scope.vm = {
-                data: {},
+                //data: {},
                 condition: angular.copy(defaultCondition),
                 table: null,
                 cancel: function () {
@@ -26,7 +26,16 @@ define([], function () {
                 metaService.getMeta('SFBHSTJ', function(data) {
                     $scope.vm.hasTrial = data;
                 });
-            };
+                metaService.getMeta('HKFS', function(data) {
+                    $scope.vm.repaymentType = data;
+                });
+                metaService.getMeta('LCQD', function(data) {
+                    $scope.vm.fundChannelName = data;
+                });
+                metaService.getMeta('LCJLXM', function(data) {
+                    $scope.vm.fundAccountManagerName = data;
+                });
+            }
             initMetaData();
             function getDetail(id) {
                 investorService.infoDetail.get({id: id}).$promise.then(function (res) {
@@ -42,7 +51,7 @@ define([], function () {
                 var data = $scope.vm.condition;
 
                 data.paginate = paganition;
-
+                data.data.investmentId=$stateParams['id'];
                 investorService.infoRepayList.query({ where: JSON.stringify(data) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     res.paginate = res.paginate || { totalCount: 0 };
