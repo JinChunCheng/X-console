@@ -204,23 +204,6 @@ define([], function() {
                             });
                         }
 
-                        //function saveChannel(data) {
-                        //    if (channel) {
-                        //        assetService.channel.update({ id: data.id }, data).$promise.then(saveSuccess, saveError);
-                        //    } else {
-                        //        assetService.channel.save(data).$promise.then(saveSuccess, saveError);
-                        //    }
-                        //};
-
-                        //function saveSuccess(res) {
-                        //    toaster.pop('success', '保存成功！');
-                        //    $modalInstance.dismiss();
-                        //    refreshChannel();
-                        //}
-                        //
-                        //function saveError(res) {
-                        //    toaster.pop('error', '连接服务器出错，请重试');
-                        //}
                     }
                 });
             }

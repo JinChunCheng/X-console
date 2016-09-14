@@ -18,8 +18,13 @@ define(['common/config'], function(config) {
         var withdrawCashMonitorTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var monitorDetailsTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //POS充值对账
-        var POSchargeReconTable = $resource(config.CASHOUT_CONSOLE + '/autoStatement/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var POSDetailsTable = $resource(config.CASHOUT_CONSOLE + '/autoStatement/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var POSchargeReconTable = $resource(config.RECHARGE_CONSOLE + '/recharge/autoStatement/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var POSchargeReconTable = $resource('http://172.21.20.16:8080/recharge/autoStatement/allList',  null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var POSDetailsTable = $resource(config.RECHARGE_CONSOLE + '/recharge/autoStatement/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var POSDetailsTable = $resource('http://172.21.20.16:8080/recharge/autoStatement/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+
+        //文件接口日志
+        var fileInterfaceLogTable = $resource(config.CASHOUT_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
 
@@ -37,6 +42,9 @@ define(['common/config'], function(config) {
 
             POSchargeReconTable:POSchargeReconTable,
             POSDetailsTable:POSDetailsTable,
+
+            fileInterfaceLogTable:fileInterfaceLogTable,
+
             withdrawAccept: function(ids, exeChannel) {
                 return $http({
                         method: 'PUT',

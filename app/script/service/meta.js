@@ -620,6 +620,21 @@ define(['common/config'], function(config) {
                     { value: 'M', text: '月' },
                     { value: 'Y', text: '年' }
                 ]
+            },{
+                key: 'WJRZLX', //文件日志类型
+                value: [
+                    { value: 'STLM', text: '对账文件' },
+                    { value: 'PROMPT', text: '催款文件' },
+                    { value: 'FUNDOUT', text: '资金文件' },
+                    { value: 'ERP', text: 'ERP数据' }
+                ]
+            },{
+                key: 'WJRZZT', //文件日志状态
+                value: [
+                    { value: 'S', text: '成功' },
+                    { value: 'F', text: '失败' },
+                    { value: 'L', text: '锁定' }
+                ]
             }, {
                 key: 'SJDW2', //时间单位
                 value: [

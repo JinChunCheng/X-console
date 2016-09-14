@@ -16,6 +16,7 @@ define(function() {
         INVESTOR_CONSOLE: 'http://172.21.1.205:8090/console-user-investor',
         CAPITAL_ACCOUNT_CONSOLE: 'http://172.21.1.205:8089/console-capital-account',
         CASHOUT_CONSOLE: 'http://172.21.1.205:8089/console-cashout',
+        RECHARGE01_CONSOLE: 'http://127.0.0.1:8080/recharge',
         SALEPLATFORM_CONSOLE: 'http://172.21.1.205:8087/console-saleplatform',
         //SALEPLATFORM_CONSOLE: 'http://172.21.20.8:8089',
         RECHARGE_CONSOLE: 'http://172.21.1.205:8087/console-recharge',

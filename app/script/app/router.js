@@ -203,13 +203,13 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //POS充值对账
                 .state('financial.POS', lazyLoad.config('/POS', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.POS.POS', lazyLoad.config('/POS', '/view/financial/POS/POS.html', 'controller/financial/POS/POS', {services: ['service/financial', 'service/meta'], filters: ['filter/common']  }))
-                .state('financial.POS.detail', lazyLoad.config('/detail', '/view/financial/POS/detail.html', 'controller/financial/POS/detail', {  services: ['service/financial', 'service/meta'], filters: ['filter/common']  }))
+                .state('financial.POS.detail', lazyLoad.config('/detail/:id', '/view/financial/POS/detail.html', 'controller/financial/POS/detail', {  services: ['service/financial', 'service/meta'], filters: ['filter/common']  }))
                 //提现出款对账
                 .state('financial.recon', lazyLoad.config('/recon', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.recon.recon', lazyLoad.config('/recon', '/view/financial/recon/recon.html', 'controller/financial/recon/recon', { directives: [], services: ['service/borrower'], filters: [] }))
                 //文件接口日志
                 .state('financial.file', lazyLoad.config('/file', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
-                .state('financial.file.file', lazyLoad.config('/file', '/view/financial/file/file.html', 'controller/financial/file/file', { directives: [], services: ['service/borrower'], filters: [] }))
+                .state('financial.file.file', lazyLoad.config('/file', '/view/financial/file/file.html', 'controller/financial/file/file', { services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
                 //ERP接口
                 .state('financial.ERP', lazyLoad.config('/ERP', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.ERP.ERP', lazyLoad.config('/ERP', '/view/financial/ERP/ERP.html', 'controller/financial/ERP/ERP', { directives: [], services: ['service/borrower'], filters: [] }))
