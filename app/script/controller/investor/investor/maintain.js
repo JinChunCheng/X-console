@@ -43,6 +43,7 @@ define([], function() {
 
 
         function getBankName(id) {
+            $scope.vm.data.bankCode = null;
             investorService.getBankName.get({ id: id }).$promise.then(function(res) {
                 if (res.data == null || res.data == undefined) {
                     $scope.vm.data.bankCode = null;
@@ -148,7 +149,13 @@ define([], function() {
             if (invalid) {
                 return;
             }
-            save();
+            if ($scope.vm.data.bankCode == null || $scope.vm.data.bankCode == undefined) {
+                toaster.pop('error', '银行名称不能为空，请输入正确的银行卡号！');
+                return false;
+            }else{
+                 save();
+            }
+           
             return true;
         };
 
@@ -163,12 +170,7 @@ define([], function() {
         function save() {
             //新增银行账号
             $scope.vm.data.bankCode = $scope.vm.bankNameCode;
-            console.log($scope.vm.data.bankCode)
             $scope.vm.data.investorId = $stateParams.id;
-            if ($scope.vm.data.bankCode == null || $scope.vm.data.bankCode == undefined) {
-                toaster.pop('error', '银行名称不能为空，请输入正确的银行卡号！');
-                return false;
-            }
             investorService.createBankAcc.save($scope.vm.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '新增银行账户成功！');

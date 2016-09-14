@@ -38,8 +38,12 @@ define([], function() {
 
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-            var data = $scope.listView.condition;
-            var queryCondition = { "data": data, "paginate": paganition };
+            var condition = $scope.listView.condition;
+            $scope.listView.condition.createDatetimeStart=$filter('exDate')($scope.listView.condition.createDatetimeStart,'yyyy-MM-dd');
+            $scope.listView.condition.createDatetimeEnd=$filter('exDate')($scope.listView.condition.createDatetimeEnd,'yyyy-MM-dd');
+            $scope.listView.condition.finishDatetimeStart=$filter('exDate')($scope.listView.condition.finishDatetimeStart,'yyyy-MM-dd');
+            $scope.listView.condition.finishDatetimeEnd=$filter('exDate')($scope.listView.condition.finishDatetimeEnd,'yyyy-MM-dd');
+            var queryCondition = { "data": condition, "paginate": paganition };
             fundService.chargeListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
