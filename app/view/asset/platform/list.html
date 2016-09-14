@@ -5,7 +5,7 @@
     <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -15,7 +15,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
@@ -25,7 +25,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control" ng-model="listVM.condition.data.status" ng-options="item.value as item.text for item in listVM.platformStatusList">
+                                    <option value="">- 全部 -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <button class="btn btn-primary m-r-5">查找</button>
                     <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
                 </div>
