@@ -176,6 +176,8 @@ define([], function() {
                         toaster.pop('success', '新增银行账户成功！');
                         $scope.vm.data = {};
                         refresh();
+                        $scope.vm.submitted = false;
+                        $scope.maintainForm.$setPristine();
                     } else {
                         $scope.vm.data = {};
                         toaster.pop('error', res.msg);

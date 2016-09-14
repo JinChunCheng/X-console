@@ -14,9 +14,9 @@
             <div class="form-group" ng-class="{'has-error':maintainForm.bankAccount.$invalid && (maintainForm.bankAccount.$dirty||vm.submitted)}">
                 <label class="col-sm-1 control-label">银行账号</label>
                 <div class="col-sm-11">
-                    <input type="text" name="bankAccount" ng-model="vm.data.bankAccount" ng-change='vm.getBankName(vm.data.bankAccount)' class="form-control" required ng-pattern="/^[A-Za-z0-9]{12,24}$/">
+                    <input type="text" name="bankAccount" ng-model="vm.data.bankAccount" ng-change='vm.getBankName(vm.data.bankAccount)' class="form-control" required ng-pattern="/^[A-Za-z0-9]{12,19}$/">
                     <div class="form-error" ng-if="maintainForm.bankAccount.$error.required">银行账号不能为空!</div>
-                    <div class="form-error" ng-if="maintainForm.bankAccount.$error.pattern">银行账号长度必须在12-24位之间!</div>
+                    <div class="form-error" ng-if="maintainForm.bankAccount.$error.pattern">银行账号长度必须在12-19位之间!</div>
                 </div>
             </div>
             <div class="form-group" ng-class="{'has-error':maintainForm.bankCode.$invalid && (maintainForm.bankCode.$dirty||vm.submitted)}">
