@@ -589,6 +589,13 @@ define(['common/config'], function(config) {
                     { value: 'F', text: '回执失败' }
                 ]
             }, {
+                key: 'WJZT', //发送状态
+                value: [
+                    { value: 'W', text: '等待处理' },
+                    { value: 'S', text: '成功' },
+                    { value: 'F', text: '失败' }
+                ]
+            }, {
                 key: 'CKLX', //出款类型
                 value: [
                     { value: 'PRJ', text: '项目出款' },
