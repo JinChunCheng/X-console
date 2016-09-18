@@ -1,0 +1,142 @@
+<form name="pageForm" class="bs-example form-horizontal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()"><i class="icons-office-52"></i></button>
+        <h4 class="modal-title">确认操作</h4>
+    </div>
+    <div class="modal-body p-r">
+        <div class="form-group">
+            <div class="col-md-12 portlets">
+                <table class="table table-bordered th-right">
+                    <tbody>
+                    <tr>
+                        <th class='w-120'>
+                            催款标识
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.promptId"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            催款日期
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.promptDate|exDate:'yyyy-MM-dd'"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            项目标识
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.projectId"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            项目名称
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.projectName"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            期数
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.periodNo"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            借款人名称
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.borrowerName"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            最后还款日
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.paymentDueDate|exDate:'yyyy-MM-dd'"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            当期本金
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.principal"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            贷款利息
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.loanInterest"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            当期手续费
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.serviceFee"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            延期回款费用
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.latePaymentFee"></label>
+                            </div>
+                        </th>
+                        <th class='w-120'>
+                            总回款
+                        </th>
+                        <th>
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.totalPayment"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th class='w-120'>
+                            创建时间
+                        </th>
+                        <th colspan="3">
+                            <div class="col-sm-12">
+                                <label type="text" name="name" ng-bind="checkOneVM.createDatetime|exDate:'yyyy-MM-dd'"></label>
+                            </div>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="ok()" ng-disabled="confirmData.processing">
+            <span class="w2em" ng-if="!confirmData.processing" ng-cloak>批准</span>
+            <i class="fa fa-spin fa-spinner w2em" ng-if="confirmData.processing" ng-cloak></i>
+        </button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">拒绝</button>
+        <button type="button" class="btn btn-default" ng-click="close()"></button>
+    </div>
+</form>

@@ -1,61 +1,63 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', 'borrowerService',
-        function($scope, $http, $timeout, $modal, $state, borrowerService) {
+    return ['$scope', '$http','metaService','$stateParams','$state', '$timeout', '$modal', '$filter', 'financialService','toaster',
+        function($scope, $http,metaService,$stateParams,$state,$timeout, $modal, $filter, financialService,toaster) {
 
             /**
              * the default search condition
              * @type {Object}
              */
             var defaultCondition = {
-                paginate: {
-                    sort: 'update_time desc',
-                    pageNum: 1,
-                    pageSize: 10
-                },
-                data: {}
+                sorting: 'update_time desc',
+                data:{},
+                pageNum: 1,
+                pageSize: 10
             };
 
-            $scope.listVM = {
+            $scope.listView = {
                 condition: angular.copy(defaultCondition),
                 table: null,
-                check: function() {
-                    var selected = $scope.listView.table.bootstrapTable('getSelections');
-                    if (!selected || selected.length === 0) {
-                        var text = "未选中行";
-                        $modal.open({
-                            templateUrl: 'view/shared/confirm.html',
-                            size: 'sm',
-                            controller: function($scope, $modalInstance) {
-                                $scope.confirmData = {
-                                    text: text,
-                                    processing: false
-                                };
-                                $scope.cancel = function() {
-                                    $modalInstance.dismiss();
-                                    return false;
-                                }
-                                $scope.ok = function() {
-                                    $modalInstance.dismiss();
-                                    return false;
-                                }
-                            }
-                        });
-                        return;
-                    }
-                    else {showChannelModal();}
-                },
-                status:[{id:1,title:'等待处理'},{id:2,title:'失败'},{id:3,title:'成功'}],
-                edit: function(id) {
-                    $state.go('financial.list.edit', { id: id });
+                search: search,
+                reset: function() {
+                    $scope.listView.condition = angular.copy(defaultCondition);
                 }
+                //check: function() {
+                //    var selected = $scope.listView.table.bootstrapTable('getSelections');
+                //    if (!selected || selected.length === 0) {
+                //        var text = "未选中行";
+                //        $modal.open({
+                //            templateUrl: 'view/shared/confirm.html',
+                //            size: 'sm',
+                //            controller: function($scope, $modalInstance) {
+                //                $scope.confirmData = {
+                //                    text: text,
+                //                    processing: false
+                //                };
+                //                $scope.cancel = function() {
+                //                    $modalInstance.dismiss();
+                //                    return false;
+                //                }
+                //                $scope.ok = function() {
+                //                    $modalInstance.dismiss();
+                //                    return false;
+                //                }
+                //            }
+                //        });
+                //        return;
+                //    }
+                //    else {showChannelModal();}
+                //},
+                //status:[{id:1,title:'等待处理'},{id:2,title:'失败'},{id:3,title:'成功'}],
+                //edit: function(id) {
+                //    $state.go('financial.list.edit', { id: id });
+                //}
             };
+            function initMetaData() {
+                metaService.getMeta('WJZT', function(data) {
+                    $scope.listView.status = data;
+                });
 
-            $scope.dateOptions = {
-                formatYear: 'yy',
-                startingDay: 1,
-                class: 'datepicker',
-                showWeeks: false
-            };
+            }
+            initMetaData();
 
             /**
              * do something after view loaded
@@ -63,26 +65,19 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#promptListTable');
+                $scope.listView.table = $('#promptListTable');
             });
 
 
             var getData = function(params) {
-                //query: {where: JSON.stringify($scope.listVM.condition)}
-                borrowerService.resource.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
-                    //debugger
-                    $timeout(function() {
-                        res.data.items.forEach(function(item) {
-                            item.id = parseInt(Math.random() * 100);
-                        });
-                        res.data.items.sort(function(a, b) {
-                            return Math.random() > .5 ? -1 : 1;
-                        });
-                        params.success({
-                            total: res.data.paginate.totalCount,
-                            rows: res.data.items
-                        });
-                    }, 500);
+                var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                var data = $scope.listView.condition;
+                var queryCondition = { "data":data,"paginate": paganition };
+                financialService.promptListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                    params.success({
+                        total: res.data.paginate.totalCount,
+                        rows: res.data.items
+                    });
                 });
             };
 
@@ -95,122 +90,77 @@ define([], function() {
                         pageSize: 10,
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
-                        onPageChange: pageChange,
                         sidePagination: "server",
                         columns: [{
                             field: 'state',
-                            checkbox: true,
-                            align: 'center',
-                            valign: 'middle'
+                            checkbox: true
                         },{
-                            field: 'id',
-                            title: '催款标识',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'promptId',
+                            title: '催款标识'
                         },{
-                            field: 'workspace',
-                            title: '姓名',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'borrowerName',
+                            title: '姓名'
                         }, {
-                            field: 'workspace2',
-                            title: '手机',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'mobile',
+                            title: '手机'
                         }, {
-                            field: 'workspace3',
-                            title: '邮箱',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'email',
+                            title: '邮箱'
                         }, {
-                            field: 'workspace4',
+                            field: 'promptDate',
                             title: '催款日期',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            formatter: timeFormatter
                         }, {
-                            field: 'workspace5',
+                            field: 'paymentDueDate',
                             title: '最后还款日期',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            formatter: timeFormatter
                         }, {
-                            field: 'workspace6',
-                            title: '当期本金',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'principal',
+                            title: '当期本金'
                         }, {
-                            field: 'workspace7',
-                            title: '贷款利息',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'loanInterest',
+                            title: '贷款利息'
                         }, {
-                            field: 'workspace8',
-                            title: '当期手续费',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'serviceFee',
+                            title: '当期手续费'
                         }, {
-                            field: 'workspace9',
-                            title: '延期回款费用',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'latePaymentFee',
+                            title: '延期回款费用'
                         }, {
-                            field: 'workspace10',
-                            title: '总回款',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'totalPayment',
+                            title: '总回款'
                         }, {
-                            field: 'workspace10',
-                            title: '状态',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'status',
+                            title: '状态'
                         }, {
-                            field: 'workspace10',
-                            title: '审核状态',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'auditStatus',
+                            title: '审核状态'
                         }, {
-                            field: 'workspace10',
-                            title: '审核员工',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            field: 'auditOp',
+                            title: '审核员工'
                         }, {
-                            field: 'workspace10',
+                            field: 'auditDatetime',
                             title: '审核时间',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            formatter: timeFormatter
                         }, {
-                            field: 'workspace10',
+                            field: 'createDatetime',
                             title: '创建时间',
-                            align: 'center',
-                            valign: 'middle',
-                            sortable: true
+                            formatter: timeFormatter
                         }, {
                             field: 'flag',
                             title: '操作',
-                            align: 'center',
-                            valign: 'middle',
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {
-                                'click .btn-danger': deleteRow,
-                                'click .btn-primary': editRow
+                                'click .btn-info': detailCheck
+
                             }
                         }]
                     }
+                };
+
+                function timeFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
                 };
 
                 function flagFormatter(value, row, index) {
@@ -224,79 +174,99 @@ define([], function() {
 
             })();
 
-            function deleteRow(e, value, row, index) {
-                var text = "确定删除此记录？";
-                //text = JSON.stringify($scope.listVM.table.bootstrapTable('getSelections'));
+            function detailCheck(e, value, row, index) {
                 $modal.open({
-                    templateUrl: 'view/shared/confirm.html',
-                    size: 'sm',
-                    //backdrop: true,
+                    templateUrl: 'view/financial/list/checkOne.html',
+                    size: 'lg',
                     controller: function($scope, $modalInstance) {
-                        $scope.confirmData = {
-                            text: text,
-                            processing: false
-                        };
-                        $scope.cancel = function() {
-                            $modalInstance.dismiss();
-                            return false;
-                        }
+                        $scope.checkOneView = {};
+                        $scope.checkOneMeta = {};
+
+
+                        (function getDetail() {
+                            financialService.backCheckOneDetail.get({ id: row.id }).$promise.then(function(res) {
+                                $scope.checkOneView = res.data.result;
+                            });
+                        })();
 
                         $scope.ok = function() {
-                            delUser(item.id, $scope, $modalInstance);
+                            financialService.fallbackCheckOne({ promptId: $scope.checkOneView.promptId, status: "A" }, "POST").then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '审核成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
                             return true;
-                        }
-                    }
-                });
-            };
-
-            function showChannelModal(channel) {
-                var title = "催款单明细";
-                var dataSourceList = $scope.listVM.dataSourceList;
-                $modal.open({
-                    templateUrl: 'view/financial/list/check.html',
-                    size: 'md',
-                    controller: function($scope, $modalInstance) {
-
-                        $scope.channelVM = {
-                            title: title,
-                            processing: false,
-                            dataSourceList: dataSourceList,
-                            submit: submit,
-                            cancel: cancel
                         };
 
-                        function cancel() {
-                            $modalInstance.dismiss();
-                            return false;
-                        }
-
-                        function submit() {
-                            saveChannel(item.id, $scope, $modalInstance);
+                        $scope.cancel = function(id) {
+                            var data = { promptId: $scope.checkOneView.promptId,status: "D" };
+                            financialService.fallbackCheckOne(data, "POST").then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '提现回退请求拒绝成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
                             return true;
+                        };
+
+                        $scope.close = function() {
+                            $modalInstance.dismiss();
                         }
                     }
                 });
-            }
-
-            function editRow(e, value, row, index) {
-                $state.go('financial.list.edit', { id: row.id });
-            }
-
-            $scope.del = function() {
 
             };
 
-            $scope.search = function() {
-                $scope.listVM.table.bootstrapTable('refresh');
+            //function showChannelModal(channel) {
+            //    var title = "催款单明细";
+            //    var dataSourceList = $scope.listView.dataSourceList;
+            //    $modal.open({
+            //        templateUrl: 'view/financial/list/check.html',
+            //        size: 'md',
+            //        controller: function($scope, $modalInstance) {
+            //
+            //            $scope.channelView = {
+            //                title: title,
+            //                processing: false,
+            //                dataSourceList: dataSourceList,
+            //                submit: submit,
+            //                cancel: cancel
+            //            };
+            //
+            //            function cancel() {
+            //                $modalInstance.dismiss();
+            //                return false;
+            //            }
+            //
+            //            function submit() {
+            //                saveChannel(item.id, $scope, $modalInstance);
+            //                return true;
+            //            }
+            //        }
+            //    });
+            //}
+
+
+            function search() {
+                $scope.listView.table.bootstrapTable('refresh');
             };
 
-            $scope.reset = function() {
-                $scope.listVM.condition = angular.copy(defaultCondition);
-            };
+            //$scope.reset = function() {
+            //    $scope.listView.condition = angular.copy(defaultCondition);
+            //};
 
-            var pageChange = function(num, size) {
-
-            };
+            //var pageChange = function(num, size) {
+            //
+            //};
         }
     ];
 });
