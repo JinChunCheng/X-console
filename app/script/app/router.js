@@ -283,7 +283,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
             .state('system.user', lazyLoad.config('/user', '/view/shared/blank.html', '', null, true))
             .state('system.user.list', lazyLoad.config('/list', '/view/system/user/list.html', 'controller/system/user/list', { services: ['service/system', 'service/meta'], filters: ['filter/common'] }))
                 .state('system.user.detail',lazyLoad.config('/detail/:id','/view/system/user/detail.html','controller/system/user/detail',{ directives: [], services: ['service/system', 'service/meta'], filters: ['filter/common'] }))
-                .state('system.user.add', lazyLoad.config('/add', '/view/system/user/edit.html', 'controller/system/user/edit', { services: ['service/system', 'service/meta'], filters: ['filter/common'] }))
+                .state('system.user.add', lazyLoad.config('/add', '/view/system/user/add.html', 'controller/system/user/edit', { services: ['service/system', 'service/meta'], filters: ['filter/common'] }))
             .state('system.user.edit', lazyLoad.config('/edit/:id', '/view/system/user/edit.html', 'controller/system/user/edit', { services: ['service/system', 'service/meta'], filters: ['filter/common'] }))
             //.state('system.role', lazyLoad.config('/role', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
             //.state('system.role.list', lazyLoad.config('/list', '/view/system/role/list.html', 'controller/system/role/list', { directives: [], services: ['service/borrower'], filters: [] }))

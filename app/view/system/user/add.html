@@ -1,0 +1,137 @@
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <h3 ng-bind="vm.title"></h3>
+    </div>
+    <div class="panel-body">
+        <form name="systemForm" class="form-horizontal form-validation" ng-submit="vm.submit(systemForm.$invalid)" novalidate>
+            <div class="form-group" ng-class="{'has-error':systemForm.opname.$invalid && (systemForm.opname.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    用户名
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="opname" class="form-control" ng-model="vm.data.opname" required>
+                    <div class="form-error" ng-if="systemForm.opname.$error.required">用户名不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':systemForm.opcode.$invalid && (systemForm.opcode.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    操作员编码
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="opcode" class="form-control" ng-model="vm.data.opcode" required>
+                    <div class="form-error" ng-if="systemForm.opcode.$error.required">操作员编码不能为空!</div>
+                </div>
+            </div>
+            <!--<div class="form-group" ng-class="{'has-error':systemForm.loginName.$invalid && (systemForm.loginName.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    姓名
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="loginName" class="form-control" ng-model="vm.data.loginName" required>
+                    <div class="form-error" ng-if="systemForm.loginName.$error.required">姓名不能为空!</div>
+                </div>
+            </div>-->
+            <div class="form-group" ng-class="{'has-error':systemForm.pwd.$invalid && (systemForm.pwd.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">登录密码</label>
+                <div class="col-sm-10">
+                    <input type="text" name="pwd" class="form-control" ng-model="vm.data.pwd" required>
+                    <div class="form-error" ng-if="systemForm.pwd.$error.required">登录密码不能为空!</div>
+                </div>
+            </div>
+            <!--<div class="form-group" ng-class="{'has-error':(vm.data.cfmpwd != vm.data.pwd || investorForm.cfmpwd.$invalid) && (investorForm.cfmpwd.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">确认密码</label>
+                <div class="col-sm-10">
+                    <input type="text" name="cfmpwd" ng-model="vm.data.cfmpwd" class="form-control" required ng-match="vm.data.pwd" >
+                    <div class="form-error" ng-if="true">两次密码输入不匹配!</div>
+                    <div class="form-error" ng-if="systemForm.cfmpwd.$error.required">确认密码不能为空!</div>
+                </div>
+            </div>-->
+           <!-- <div class="form-group" ng-show="vm.action=='edit'">
+                <label class="col-sm-2 control-label">
+                    动态口令序列号
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control form-white" ng-model="vm.data.idAuthFlag" ng-options='i.value as i.text for i in vm.idAuthFlag'>
+                    </select>
+                </div>
+            </div>-->
+            <!--<div class="form-group" ng-class="{'has-error':systemForm.mobile.$invalid && (systemForm.mobile.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">手机号</label>
+                <div class="col-sm-10">
+                    <input type="text" name="mobile" ng-model="vm.data.mobile" class="form-control" required ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
+                    <div class="form-error" ng-if="systemForm.mobile.$error.required">手机号码不能为空!</div>
+                    <div class="form-error" ng-if="systemForm.mobile.$error.pattern">手机号码格式不正确!</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    固话
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="vm.data.telephone">
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':systemForm.email.$invalid && (systemForm.email.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" name="email" ng-model="vm.data.email" class="form-control" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" required>
+                    <div class="form-error" ng-if="systemForm.email.$error.pattern">邮箱格式不正确!</div>
+                    <div class="form-error" ng-if="systemForm.email.$error.required">邮箱不能为空！</div>
+
+                </div>
+            </div>-->
+            <!--<div class="form-group" ng-class="{'has-error':systemForm.zipCode.$invalid && (systemForm.zipCode.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">部门</label>
+                <div class="col-sm-10">
+                    <input type="text" name="zipCode" ng-model="vm.data.zipCode" class="form-control" ng-pattern="/^[1-9]\d{5}$/">
+                    <div class="form-error" ng-if="systemForm.zipCode.$error.pattern"> </div>
+                </div>
+            </div>-->
+            <!--<div class="form-group" ng-class="{'has-error':systemForm.fundChannelCode.$invalid && (systemForm.fundChannelCode.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">加密等级</label>
+                <div class="col-sm-10">
+                    <select class="form-control form-white" name="fundChannelCode" ng-model="vm.data.password" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
+                        <option value="">加密</option>
+                    </select>
+                    <div class="form-error" ng-if="systemForm.fundChannelCode.$error.required">此项不能为空</div>
+                </div>
+            </div>-->
+            <!--<div class="form-group" ng-class="{'has-error':systemForm.fundAccountManagerCode.$invalid && (systemForm.fundAccountManagerCode.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">角色</label>
+                <div class="col-sm-10">
+                   &lt;!&ndash; <select class="form-control form-white" name="fundAccountManagerCode" ng-model="vm.data.fundAccountManagerId" ng-options='c.value as c.text for c in vm.getManagers(vm.data.fundChannelId)' required>
+                    </select>
+                    <div class="form-error" ng-if="systemForm.fundAccountManagerCode.$error.required">角色不能为空!</div>&ndash;&gt;
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>角色编号</td>
+                            <td>角色名称</td>
+                            <td>描述</td>
+                        </tr>
+                        <tr>
+                            <td><label type="text" name="name" ng-bind=""></label></td>
+                            <td><label type="text" name="name" ng-bind=""></label></td>
+                            <td><label type="text" name="name" ng-bind=""></label></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>-->
+            <div class="form-group" ng-class="{'has-error':systemForm.empFlag.$invalid && (systemForm.empFlag.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">备注</label>
+                <div class="col-sm-10">
+                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
+                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
+                    </button>
+                    <!--<button type="submit" class="btn btn-primary" ng-click="vm.submit()"> 保存</button>-->
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
