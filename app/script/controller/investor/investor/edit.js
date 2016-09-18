@@ -58,9 +58,6 @@ define([], function() {
                 investorService.updateInvestorDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
                     $scope.vm.data = res;
-                    //     $scope.vm.data.fundChannelId=$filter("meta")(res.fundChannelId,$scope.vm.fundChannelId);
-                    //     $scope.vm.data.fundAccountManagerId=$filter("meta")(res.fundAccountManagerId,$scope.vm.fundManagerId);
-                    // console.log($scope.vm.data.fundChannelId,$scope.vm.data.fundChannelId)
                 });
             }
             return;

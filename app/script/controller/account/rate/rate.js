@@ -29,9 +29,8 @@ define([], function() {
 
             var getData = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var data=$scope.listVM.data;
-                var queryCondition = {"data":data,"paginate": paganition };
-
+                var data = $scope.listVM.condition;
+                var queryCondition = { "data": data, "paginate": paganition };
                 accountService.rateListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({
@@ -39,6 +38,7 @@ define([], function() {
                         rows: res.data.items
                     });
                 });
+
             };
 
             (function init() {
@@ -50,7 +50,6 @@ define([], function() {
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
                         sidePagination: "server",
-
                         columns: [{
                             field: 'rateId',
                             title: '费率标示',

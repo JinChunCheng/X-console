@@ -220,7 +220,7 @@ define([], function() {
 
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>',
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-check"></i></button>',
                 ];
                 return btnHtml.join('');
             }
