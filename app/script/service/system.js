@@ -13,7 +13,7 @@ define(['common/config'], function(config) {
         var updateDetail = $resource(config.OPERATION_CONSOLE + '/mgr/operator/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var updateSystem = $resource(config.OPERATION_CONSOLE + '/mgr/operator/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //新增
-        var createSystem = $resource(config.OPERATION_CONSOLE + '/mgr/operator', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+        var createSystem = $resource(config.OPERATION_CONSOLE + '/mgr/operator',null, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         return {
             system: systemResource,
             systemDetail: systemDetail,
@@ -37,6 +37,22 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
+            },
+            save: function(params) {
+                return systemResource.save(params).$promise
+                    .then(function(res) {
+                        return res ? res : serverErrorData;
+                    }, function(res) {
+                        return $q.reject(res);
+                    });
+            },
+            update: function(params) {
+                return systemResource.put(params).$promise
+                    .then(function(res) {
+                        return res ? res : serverErrorData;
+                    }, function(res) {
+                        return $q.reject(res);
+                    });
             }
         }
     }]]
