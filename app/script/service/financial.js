@@ -25,7 +25,8 @@ define(['common/config'], function(config) {
 
         //文件接口日志
         var fileInterfaceLogTable = $resource(config.CASHOUT_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-
+        //催款单审核
+        var financialRes =  $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         return {
 
             withdrawCashTable: withdrawCashTable,
@@ -44,6 +45,8 @@ define(['common/config'], function(config) {
             POSDetailsTable:POSDetailsTable,
 
             fileInterfaceLogTable:fileInterfaceLogTable,
+            //催款单审核
+            resource: financialRes,
 
             withdrawAccept: function(ids, exeChannel) {
                 return $http({
