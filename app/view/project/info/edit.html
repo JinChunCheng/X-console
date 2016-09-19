@@ -46,7 +46,7 @@
                                         <ui-select-match placeholder="输入借款人编号">{{projectVM.borrower.name}}</ui-select-match>
                                         <ui-select-choices repeat="item in projectVM.borrowerList | filter: $select.search" refresh="projectVM.refreshBorrower($select.search)" refresh-delay="500">
                                             <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                            <small ng-bind-html="item.id | highlight: $select.search"></small>
+                                            <small ng-bind-html="'编号：'+item.id | highlight: $select.search"></small>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>

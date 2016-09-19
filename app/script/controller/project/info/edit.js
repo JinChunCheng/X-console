@@ -101,9 +101,16 @@ define([], function() {
                 if (invalid) {
                     return false;
                 }
+                var borrower = $scope.projectVM.borrower;
+                var projectInfo = $scope.projectVM.data;
+                if (borrower) {
+                    projectInfo.borrowerId = borrower.id;
+                    projectInfo.borrowerName = borrower.name;
+                }
                 projectService.project.save($scope.projectVM.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '添加成功！');
+                        $state.go('project.info.list');
                     } else
                         toaster.pop('error', res.msg);
                 }, function(err) {
