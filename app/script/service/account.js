@@ -10,11 +10,9 @@ define(['common/config'], function(config) {
         var accountDetailTable = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountListUpdate = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccount/editCapitalAccount', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var accountQueryList = $resource(config.CAPITAL_ACCOUNT_CONSOLE + '/capitalAccountLog/findAll', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //费率列表
-        var rateListTable = $resource('http://172.21.20.12:8088/rate/ShowRatelist', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var getRateDetail = $resource('http://172.21.20.12:8088/rate/getRateByRateId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var updateRate = $resource('http://172.21.20.12:8088/rate/editRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var createRate = $resource('http://172.21.20.12:8088/rate/addRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //费率
+        var rateListTable = $resource('http://172.21.20.20:8088/capitalRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var getRateDetail = $resource('http://172.21.20.20:8088/capitalRate/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         return {
 
@@ -29,8 +27,6 @@ define(['common/config'], function(config) {
             accountQueryList: accountQueryList,
             rateListTable: rateListTable,
             getRateDetail: getRateDetail,
-            updateRate: updateRate,
-            createRate: createRate,
 
             /**
              * get account list
