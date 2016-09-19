@@ -12,6 +12,8 @@ define([], function() {
                     $state.go('asset.release.todo');
                 },
                 canBeSubmitted: function() {
+                    if (!$scope.productVM.data)
+                        return false;
                     var status = $scope.productVM.data.status;
                     //to be on shelf or off shelf
                     return status === 0 || status === 1;
@@ -69,6 +71,17 @@ define([], function() {
                 }
                 if (data.debtEndDate) {
                     data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                }
+                if (data.saleplatformId) {
+                    var saleplatformList = $scope.productVM.saleplatformList;
+                    if (saleplatformList) {
+                        saleplatformList.forEach(function(item) {
+                            if (item.id == data.saleplatformId) {
+                                data.saleplatform = item.name;
+                                return;
+                            }
+                        });
+                    }
                 }
 
                 assetService.onshelf($scope.productVM.data).then(function(res) {

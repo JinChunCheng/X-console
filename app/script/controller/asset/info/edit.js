@@ -226,7 +226,15 @@ define([], function() {
 
             function saveAsset() {
                 var asset = $scope.assetVM.data;
-                console.log(JSON.stringify(asset));
+                var channelList = $scope.assetVM.channelList;
+                if (asset.assetChannelId != null && asset.assetChannelId != undefined && channelList) {
+                    channelList.forEach(function(item) {
+                        if (item.id == asset.assetChannelId) {
+                            asset.assetChannel = item.name;
+                            return;
+                        }
+                    });
+                }
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else

@@ -51,6 +51,9 @@ define([], function() {
                 metaService.getMeta('HKFS', function(items) {
                     $scope.listVM.repaymentTypeList = items;
                 });
+                metaService.getMeta('ZCLX', function(items) {
+                    $scope.listVM.assetTypeList = items;
+                });
             }
 
             (function init() {
@@ -64,11 +67,11 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'assetType', title: '资产类型' },
-                            { field: 'assetChannelId', title: '资产渠道' },
+                            { field: 'asset.assetType', title: '资产类型', formatter: assetTypeFormatter },
+                            { field: 'asset.assetChannel', title: '资产渠道' },
                             { field: 'name', title: '借款人' },
                             { field: '', title: '借款金额/投标金额' },
-                            { field: 'loanUse', title: '资金用途' }, {
+                            { field: 'asset.loanUse', title: '资金用途' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
@@ -103,6 +106,10 @@ define([], function() {
                         ]
                     }
                 };
+
+                function assetTypeFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.assetTypeList);
+                }
 
                 function repaymentTypeFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.repaymentTypeList);
