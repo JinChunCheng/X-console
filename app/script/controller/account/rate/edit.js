@@ -17,7 +17,7 @@ define([], function() {
             metaService.getMeta('FLLX', function(data) {
                 $scope.vm.rateType = data;
             });
-            metaService.getMeta('FLBM', function(data) {
+            metaService.getMeta('FLBMA', function(data) {
                 $scope.vm.rateCode = data;
             });
             metaService.getMeta('ZT', function(data) {
@@ -39,7 +39,7 @@ define([], function() {
         function showContent() {
             if ($stateParams.id) {
                 accountService.getRateDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
-                    $scope.vm.data = res;
+                    $scope.vm.data = res.data;
                 });
             }
             return;
@@ -49,7 +49,7 @@ define([], function() {
         function save() {
             if (!$stateParams.id) {
                 //新增费率
-                accountService.createRate.save($scope.vm.data).$promise.then(function(res) {
+                accountService.rateListTable.save($scope.vm.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '新增费率信息成功！');
                         $state.go("account.rate.rate");
@@ -62,7 +62,7 @@ define([], function() {
                 return;
             }
             //修改费率
-            accountService.updateRate.update($scope.vm.data).$promise.then(function(res) {
+            accountService.rateListTable.update($scope.vm.data).$promise.then(function(res) {
                 if (res.code == 200) {
                     toaster.pop('success', '修改费率信息成功！');
                     $state.go("account.rate.rate");
