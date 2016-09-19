@@ -668,8 +668,21 @@ define(['common/config'], function(config) {
                     { value: 'S', text: '对账成功' },
                     { value: 'F', text: '对账失败' }
                 ]
+            },{
+                //===============================财务管理============================
+                key: 'SHLBZT', //审核列表状态
+                value: [
+                    { value: 'W', text: '等待处理' },
+                    { value: 'P', text: '失败' },
+                    { value: 'S', text: '成功' }
+                ]
             }
         ];
+
+
+
+
+
 
         //获取某项元数据列表
         var getMetaItem = function(code) {

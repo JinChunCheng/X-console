@@ -24,19 +24,16 @@ define(['common/config'], function(config) {
         var fileInterfaceLogTable = $resource(config.FILE_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //催款单列表
         //var promptListTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var promptListTable = $resource('http://172.21.20.13:8080//prompt/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //var promptListTable = $resource('http://172.21.20.13:8080//prompt/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //var monitorDetailsTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var promptListTable = $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var promptLikeListTable = $resource('http://172.21.20.13:8080/prompt/promptDetail/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //催款单审核
-        //var POSchargeReconTable = $resource(config.RECHARGE_CONSOLE + '/recharge/autoStatement/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //var POSDetailsTable = $resource(config.RECHARGE_CONSOLE + '/recharge/autoStatement/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var financialRes =  $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         var POSDetailsTable = $resource('http://172.21.20.16:8080/recharge/autoStatement/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         //文件接口日志
         var fileInterfaceLogTable = $resource(config.CASHOUT_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        //催款单审核
-        var financialRes =  $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+
 
         return {
 
@@ -60,6 +57,7 @@ define(['common/config'], function(config) {
             resource: financialRes,
 
             promptListTable:promptListTable,
+            promptLikeListTable:promptLikeListTable,
 
             withdrawAccept: function(ids, exeChannel) {
                 return $http({
@@ -129,6 +127,14 @@ define(['common/config'], function(config) {
                         }
                     );
             },
+            update: function(params) {
+                return promptListTable.put(params).$promise
+                    .then(function(res) {
+                        return res ? res : serverErrorData;
+                    }, function(res) {
+                        return $q.reject(res);
+                    });
+            },
             receiptAccept: function(remitPrintId) {
                 return $http({
                         method: 'PUT',
@@ -145,6 +151,24 @@ define(['common/config'], function(config) {
                             return $q.reject(errResp);
                         }
                     );
+            },
+            promptDetail: function(id) {
+                return $http({
+                    method: 'GET',
+                    url: 'http://172.21.20.13:8080/prompt/promptDetail/'+id
+                })
+                    .then(function(res) {
+                        if (res) {
+                            return res.data;
+
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errRes) {
+                        return $q.reject(errRes);
+                    }
+                );
             }
 
         }

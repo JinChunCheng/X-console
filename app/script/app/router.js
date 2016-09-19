@@ -200,6 +200,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
                 //催款单列表
                 .state('financial.list', lazyLoad.config('/list', '/view/shared/blank.html', '', null, true))
                 .state('financial.list.list', lazyLoad.config('/list', '/view/financial/list/list.html', 'controller/financial/list/list', { directives: [], services: ['service/financial', 'service/meta'], filters: ['filter/common'] }))
+
                 //催款单审核
                 .state('financial.check', lazyLoad.config('/check', '/view/shared/blank.html', '', { directives: [], services: ['service/borrower'], filters: [] }, true))
                 .state('financial.check.check', lazyLoad.config('/check', '/view/financial/check/check.html', 'controller/financial/check/check', { directives: [], services: ['service/borrower'], filters: [] }))
