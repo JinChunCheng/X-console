@@ -1,5 +1,5 @@
 define([], function() {
-    return ['$scope', 'toaster','$timeout', '$state', '$stateParams', 'accountService',  'metaService', '$filter',function($scope, toaster,$timeout, $state, $stateParams, accountService, metaService, $filter) {
+    return ['$scope', 'toaster', '$timeout', '$state', '$stateParams', 'accountService', 'metaService', '$filter', function($scope, toaster, $timeout, $state, $stateParams, accountService, metaService, $filter) {
         var action = $stateParams.id ? 'edit' : 'add';
 
         $scope.vm = {
@@ -9,7 +9,7 @@ define([], function() {
             cancel: function() {
                 $state.go('account.rate.rate');
             },
-            submit:submit
+            submit: submit
         };
 
         function initMetaData() {
@@ -17,7 +17,7 @@ define([], function() {
             metaService.getMeta('FLLX', function(data) {
                 $scope.vm.rateType = data;
             });
-            metaService.getMeta('FLBM', function(data) {
+            metaService.getMeta('FLBMA', function(data) {
                 $scope.vm.rateCode = data;
             });
             metaService.getMeta('ZT', function(data) {
@@ -36,5 +36,41 @@ define([], function() {
             return true;
         };
 
+        function showContent() {
+            if ($stateParams.id) {
+                accountService.getRateDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
+                    $scope.vm.data = res.data;
+                });
+            }
+            return;
+        };
+        showContent();
+
+        function save() {
+            if (!$stateParams.id) {
+                //新增费率
+                accountService.rateListTable.save($scope.vm.data).$promise.then(function(res) {
+                    if (res.code == 200) {
+                        toaster.pop('success', '新增费率信息成功！');
+                        $state.go("account.rate.rate");
+                    } else
+                        toaster.pop('error', res.msg);
+                }, function(err) {
+                    toaster.pop('error', '服务器连接失败！');
+
+                });
+                return;
+            }
+            //修改费率
+            accountService.rateListTable.update($scope.vm.data).$promise.then(function(res) {
+                if (res.code == 200) {
+                    toaster.pop('success', '修改费率信息成功！');
+                    $state.go("account.rate.rate");
+                } else
+                    toaster.pop('error', res.msg);
+            }, function(err) {
+                toaster.pop('error', '服务器连接失败！');
+            });
+        }
     }];
 });

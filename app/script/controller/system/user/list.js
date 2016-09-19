@@ -64,7 +64,8 @@ define([], function() {
                         field: 'opname',
                         title: '用户名',
                         align: 'center'
-                    }, {
+                    },
+                       /* {
                         field: 'workspace',
                         title: '部门',
                         align: 'center'
@@ -101,17 +102,17 @@ define([], function() {
                         title: '有效期',
                         align: 'center',
                         valign: 'top'
-                    }, {
+                    }, */{
                         field: 'createTime',
                         title: '创建时间',
                         align: 'center',
                         formatter:timeFormatter
-                    }, {
+                    }, /*{
                         field: 'workspace10',
                         title: '更新时间',
                         align: 'center',
                         formatter:timeFormatter
-                    }, {
+                    },*/ {
                         field: 'flag',
                         title: '操作',
                         align: 'center',

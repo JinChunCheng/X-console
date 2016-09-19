@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', 'toaster', 'financialService',
-        function($scope, $timeout, $state, $stateParams, toaster, financialService) {
+    return ['$scope', '$timeout','metaService', '$state', '$stateParams', 'toaster', 'financialService',
+        function($scope, $timeout, metaService,$state, $stateParams, toaster, financialService) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -11,7 +11,12 @@ define([], function() {
                     $state.go('financial.POS.POS');
                 }
             };
-
+            function initMetaData() {
+                metaService.getMeta('DZZT', function(data) {
+                    $scope.vm.status = data;
+                });
+            }
+            initMetaData();
             (function(id) {
                 if(!id)
                     return;

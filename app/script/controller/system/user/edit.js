@@ -6,15 +6,16 @@
 
         $scope.vm = {
             action: action,
-            title: $stateParams.id ? '修改投资人信息' : '新增投资人',
+            title: $stateParams.id ? '修改用户信息' : '新增用户',
             data: {},
             cancel: function() {
                 $state.go('system.user.list');
             },
-            submit: submit
+            submit: submit,
+            processing:false
         };
 
-        function initMetaData() {
+       /* function initMetaData() {
             metaService.getMeta('LCQDMC', function(data) {
                 $scope.vm.fundChannelName = data;
             });
@@ -28,13 +29,16 @@
                 $scope.vm.idAuthFlag = data;
             });
         }
-        initMetaData();
+        initMetaData();*/
 
         function submit(invalid) {
+            console.log(invalid)
             $scope.vm.submitted = true;
             if (invalid) {
+                console.log(2)
                 return false;
             }
+            console.log(1)
             save();
             return true;
         };
@@ -52,10 +56,10 @@
 
         function save() {
             if (!$stateParams.id) {
-                //新增投资人
                 systemService.createSystem.save($scope.vm.data).$promise.then(function(res) {
+                    console.log($scope.vm.data)
                     if (res.code == 200) {
-                        toaster.pop('success', '新增投资人信息成功！');
+                        toaster.pop('success', '新增用户信息成功！');
                         $state.go("system.user.list");
                     } else
                         toaster.pop('error', res.msg);
@@ -65,10 +69,10 @@
                 });
                 return;
             }
-            //修改投资人
-            systemService.updateSystem  ($scope.vm.data).then(function(res) {
+            //修改用户
+            systemService.updateSystem.update($scope.vm.data).$promise.then(function(res) {
                 if (res.code == 200) {
-                    toaster.pop('success', '修改投资人信息成功！');
+                    toaster.pop('success', '修改用户信息成功！');
                     $state.go("system.user.list");
                 } else
                     toaster.pop('error', res.msg);

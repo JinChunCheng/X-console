@@ -29,9 +29,8 @@ define([], function() {
 
             var getData = function(params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var data=$scope.listVM.data;
-                var queryCondition = {"data":data,"paginate": paganition };
-
+                var data = $scope.listVM.condition;
+                var queryCondition = { "data": data, "paginate": paganition };
                 accountService.rateListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({
@@ -39,6 +38,7 @@ define([], function() {
                         rows: res.data.items
                     });
                 });
+
             };
 
             (function init() {
@@ -50,21 +50,20 @@ define([], function() {
                         pageList: [10, 25, 50, 100, 200],
                         ajax: getData,
                         sidePagination: "server",
-
                         columns: [{
-                            field: 'rateId',
+                            field: 'capitalRateId',
                             title: '费率标示',
                             align: 'center',
                             valign: 'middle',
                         }, {
                             field: 'rateCode',
+                            formatter: rateCodeFormatter,
                             title: '费率编码',
                             align: 'center',
                             valign: 'middle',
                         }, {
                             field: 'rateName',
                             title: '费率名称',
-                            formatter: rateNameFormatter,
                             align: 'center',
                             valign: 'middle',
                         }, {
@@ -110,13 +109,13 @@ define([], function() {
                             align: 'center',
                             valign: 'middle',
                         }, {
-                            field: 'createDateTime',
+                            field: 'createTime',
                             formatter: createDateFormatter,
                             title: '创建时间',
                             align: 'center',
                             valign: 'middle',
                         }, {
-                            field: 'updateDateTime',
+                            field: 'modifyTime',
                             title: '更新时间',
                             formatter: refreshDateFormatter,
                             align: 'center',
@@ -144,7 +143,7 @@ define([], function() {
                     return $filter('meta')(value, $scope.listVM.status)
                 };
 
-                function rateNameFormatter(value, row, index) {
+                function rateCodeFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.rateCode)
                 };
 
@@ -170,7 +169,7 @@ define([], function() {
             })();
 
             function editRow(e, value, row, index) {
-                $state.go('account.rate.edit', { id: row.rateId });
+                $state.go('account.rate.edit', { id: row.capitalRateId });
             }
 
             $scope.search = function() {

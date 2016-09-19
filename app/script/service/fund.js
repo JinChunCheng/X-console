@@ -16,7 +16,7 @@ define(['common/config'], function(config) {
         var withdrawBackLabel = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckTable = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var backCheckOneDetail = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        //TODO费率列表
+        //费率列表
         var rateListTable = $resource('http://172.21.20.12:8088/rate/ShowRatelist', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var getRateDetail=$resource('http://172.21.20.12:8088/rate/getRateByRateId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var updateRate=$resource('http://172.21.20.12:8088/rate/editRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
