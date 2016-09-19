@@ -37,6 +37,7 @@ define([], function () {
                 });
             }
             initMetaData();
+
             function getDetail(id) {
                 investorService.infoDetail.get({id: id}).$promise.then(function (res) {
                     $scope.vm.data = res.data;
@@ -45,7 +46,6 @@ define([], function () {
             }
 
             getDetail($stateParams.id);
-
             var getData = function (params) {
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
                 var data = $scope.vm.condition;

@@ -20,6 +20,7 @@ define(['common/config'], function(config) {
         var createInvestor = $resource(config.INVESTOR_CONSOLE + '/investor/register', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
         //投资人修改审核
         var investorCheckTable = $resource(config.INVESTOR_CONSOLE + '/investorUpdate/list', { id: "@id" }, { 'query': { isArray: false }, 'save': { method: 'POST' } });
+
         //银行账号获取银行名称
         var getBankName = $resource(config.METADATA_CONSOLE + '/bank/card/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
