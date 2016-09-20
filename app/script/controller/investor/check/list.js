@@ -28,32 +28,7 @@ define([], function() {
 
         function refreshTable() {
             $scope.listView.table.bootstrapTable('refresh');
-        }
-        /*function initMetaData(){
-            /!*metaService.getMeta('LCQD', function(data) {
-                $scope.listView.fundChannelName = data;
-            });
-            metaService.getMeta('LCJLXM', function(data) {
-                $scope.listView.fundAccountManagerName = data;
-            });*!/
-            metaService.getMeta('SFBGSYG', function(data) {
-                $scope.listView.empFlagList = data;
-            });
-            metaService.getMeta('TZRZT', function(data) {
-                $scope.listView.status = data;
-            });
-            metaService.getMeta('SFRZZT', function(data) {
-                $scope.vm.idAuthFlagstatus = data;
-            });//
-            metaService.getMeta('LCQDMC', function(data) {
-                $scope.listView.fundChannelName = data;
-            });
-            metaService.getMeta('LCJLXM', function(data) {
-                $scope.listView.fundAccountManagerName = data;
-
-            });
-        }
-        initMetaData()*/
+        }   
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var data = $scope.listView.condition;
