@@ -27,8 +27,14 @@ define([], function() {
                     return;
                 }
                 assetService.product.get({ id: id }).$promise.then(function(res) {
-                    if (res.code == 200)
-                        $scope.productVM.data = res.data;
+                    if (res.code == 200) {
+                        var data = res.data;
+                        if(data) {
+                            data.debtStartDate = $filter('exDate')(data.debtStartDate);
+                            data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                        }
+                        $scope.productVM.data = data;
+                    }
                     else
                         toaster.pop('error', res.msg);
                 }, function(err) {});
@@ -65,13 +71,17 @@ define([], function() {
                     return false;
                 }
                 var data = $scope.productVM.data;
-                // //处理时间
-                // if (data.debtStartDate) {
-                //     data.debtStartDate = $filter('exDate')(data.debtStartDate);
-                // }
-                // if (data.debtEndDate) {
-                //     data.debtEndDate = $filter('exDate')(data.debtEndDate);
-                // }
+                //处理时间
+                if (data.debtStartDate) {
+                    data.debtStartDate = $filter('exDate')(data.debtStartDate);
+                }
+                if (data.debtEndDate) {
+                    data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                }
+                if (data.debtStartDate >= data.debtEndDate) {
+                    toaster.pop('error', '借款截止日期必须大于开始日期！');
+                    return false;
+                }
                 if (data.saleplatformId) {
                     var saleplatformList = $scope.productVM.saleplatformList;
                     if (saleplatformList) {

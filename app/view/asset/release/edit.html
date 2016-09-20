@@ -87,7 +87,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.saleplatform.$invalid && (productForm.saleplatform.$dirty||productVM.submitted)}">
                                 <label class="control-label">销售平台</label>
                                 <div>
-                                    <select name="saleplatform" class="form-control" ng-model="productVM.data.saleplatformCode" ng-options="item.code as item.name for item in productVM.saleplatformList" required>
+                                    <select name="saleplatform" class="form-control" ng-model="productVM.data.saleplatformId" ng-options="item.id as item.name for item in productVM.saleplatformList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
