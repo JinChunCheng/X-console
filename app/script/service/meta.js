@@ -209,6 +209,12 @@ define(['common/config'], function(config) {
                     { value: 'CONSOLE', text: '管理系统' },
                 ]
             }, {
+                key: 'TZRZT', //投资人状态
+                value: [
+                    { value: 'P', text: '正常' },
+                    { value: 'C', text: '关闭' }
+                ]
+            }, {
                 key: 'SFRZZT', //身份认证状态
                 value: [
                     { value: 'Y', text: '认证通过' },
@@ -668,20 +674,13 @@ define(['common/config'], function(config) {
                     { value: 'S', text: '对账成功' },
                     { value: 'F', text: '对账失败' }
                 ]
-            },{
+            }, {
                 //===============================财务管理============================
-                key: 'SHLBZT', //审核列表状态
-                value: [
-                    { value: 'W', text: '等待处理' },
-                    { value: 'P', text: '失败' },
-                    { value: 'S', text: '成功' }
-                ]
-            },{
                 key: 'SHZT', //催款单审核状态
                 value: [
                     { value: 'W', text: '待审核' },
-                    { value: 'A', text: '已到账' },
-                    { value: 'S', text: '已转账' }
+                    { value: 'S', text: '审核通过' },
+                    { value: 'F', text: '审核失败' }
                 ]
             }
         ];

@@ -67,7 +67,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtStartDate"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtStartDate|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -75,7 +75,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtEndDate"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.debtEndDate|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -146,7 +146,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.createDatetime"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.createDatetime|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
@@ -198,7 +198,7 @@
                             </th>
                             <th>
                                 <div class="col-sm-12">
-                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.updateDatetime"></label>
+                                    <label type="text" name="name" ng-bind="vm.data.investmentVO.updateDatetime|date:'yyyy-MM-dd HH:mm:ss'"></label>
                                 </div>
                             </th>
                             <th class='w-120'>
