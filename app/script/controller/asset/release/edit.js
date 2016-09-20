@@ -65,13 +65,13 @@ define([], function() {
                     return false;
                 }
                 var data = $scope.productVM.data;
-                //处理时间
-                if (data.debtStartDate) {
-                    data.debtStartDate = $filter('exDate')(data.debtStartDate);
-                }
-                if (data.debtEndDate) {
-                    data.debtEndDate = $filter('exDate')(data.debtEndDate);
-                }
+                // //处理时间
+                // if (data.debtStartDate) {
+                //     data.debtStartDate = $filter('exDate')(data.debtStartDate);
+                // }
+                // if (data.debtEndDate) {
+                //     data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                // }
                 if (data.saleplatformId) {
                     var saleplatformList = $scope.productVM.saleplatformList;
                     if (saleplatformList) {

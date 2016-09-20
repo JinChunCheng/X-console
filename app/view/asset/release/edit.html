@@ -67,7 +67,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.description.$invalid && (productForm.description.$dirty||productVM.submitted)}">
                                 <label class="control-label">借款描述</label>
                                 <div>
-                                    <input name="description" type="text" class="form-control" ng-bind="productVM.data.des" required>
+                                    <input name="description" type="text" class="form-control" ng-model="productVM.data.des" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.zengxindes.$invalid && (productForm.zengxindes.$dirty||productVM.submitted)}">
                                 <label class="control-label">增信说明</label>
                                 <div>
-                                    <input name="zengxindes" type="text" class="form-control" ng-bind="productVM.data.zengxinDes" required>
+                                    <input name="zengxindes" type="text" class="form-control" ng-model="productVM.data.zengxinDes" required>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.startamount.$invalid && (productForm.startamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">起投金额</label>
                                 <div class="input-group">
-                                    <input name="startamount" type="number" class="form-control" ng-bind="productVM.data.startAmount" required>
+                                    <input name="startamount" type="number" class="form-control" ng-model="productVM.data.startAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.stepamount.$invalid && (productForm.stepamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">间隔金额</label>
                                 <div class="input-group">
-                                    <input name="stepamount" type="number" class="form-control" ng-bind="productVM.data.stepAmount" required>
+                                    <input name="stepamount" type="number" class="form-control" ng-model="productVM.data.stepAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -137,7 +137,7 @@
                             <div class="form-group">
                                 <label class="control-label">上限金额</label>
                                 <div class="input-group" ng-class="{'has-error':productForm.ennamount.$invalid && (productForm.ennamount.$dirty||productVM.submitted)}">
-                                    <input name="ennamount" type="number" class="form-control" ng-bind="productVM.ennAmount" required>
+                                    <input name="ennamount" type="number" class="form-control" ng-model="productVM.ennAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>

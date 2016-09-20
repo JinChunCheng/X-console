@@ -25,7 +25,7 @@ define([], function() {
                 //     "biddingStartAmount": 1000,
                 //     "biddingStepAmount": 1000,
                 //     "biddingEndAmount": 100000,
-                //     "biddingDeadline": "2016-09-15T16:00:00.000Z",
+                //     "biddingDeadline": "2016-09-19",
                 //     "autoApprove": "B",
                 //     "purpose": "s",
                 //     "description": "ss",
