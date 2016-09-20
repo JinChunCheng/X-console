@@ -173,7 +173,6 @@ define([], function() {
 
             function showDetail(id) {
 
-
                 $modal.open({
                     templateUrl: 'view/financial/list/detail.html',
                     size: 'lg',
@@ -288,7 +287,11 @@ define([], function() {
 
             function search() {
                 $scope.listView.table.bootstrapTable('refresh');
-            }
+            };
+            $scope.reset = function () {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            };
+
         }
     ];
 });

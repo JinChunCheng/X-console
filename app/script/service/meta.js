@@ -676,6 +676,13 @@ define(['common/config'], function(config) {
                     { value: 'P', text: '失败' },
                     { value: 'S', text: '成功' }
                 ]
+            },{
+                key: 'SHZT', //催款单审核状态
+                value: [
+                    { value: 'W', text: '待审核' },
+                    { value: 'A', text: '已到账' },
+                    { value: 'S', text: '已转账' }
+                ]
             }
         ];
 

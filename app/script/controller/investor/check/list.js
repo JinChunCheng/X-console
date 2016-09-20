@@ -151,6 +151,7 @@ define([], function() {
                             title: title,
                             processing: false,
                             joinupTypeList: joinupTypeList,
+                            //data: {},
                             cancel: cancel,
                             approve:approve,
                             reject: reject
