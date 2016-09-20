@@ -28,7 +28,7 @@ define([], function() {
 
         function refreshTable() {
             $scope.listView.table.bootstrapTable('refresh');
-        }   
+        }
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var data = $scope.listView.condition;
