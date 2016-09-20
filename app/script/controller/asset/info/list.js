@@ -168,7 +168,7 @@ define([], function() {
                 };
 
                 function assetTypeFormatter(value, row, index) {
-                    return '车贷';
+                    return $filter('meta')(value, $scope.listVM.assetTypeList);
                 }
 
                 function loanRemarkFormatter(value, row, index) {
@@ -288,6 +288,9 @@ define([], function() {
             function initMeta() {
                 metaService.getMeta('ZCZT', function(items) {
                     $scope.listVM.assetStatusList = items;
+                });
+                metaService.getMeta('ZCLX', function(items) {
+                    $scope.listVM.assetTypeList = items;
                 });
             }
         }
