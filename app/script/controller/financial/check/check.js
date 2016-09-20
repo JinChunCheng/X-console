@@ -1,10 +1,6 @@
 define([], function () {
-    return ['$scope', '$http', '$timeout', '$modal', '$filter', 'metaService', 'financialService', function ($scope, $http, $timeout, $modal, $filter, metaService, financialService) {
+    return ['$scope', '$http','metaService','$stateParams','$state', '$timeout', '$modal', '$filter', 'financialService','toaster', function ($scope, $http,metaService,$stateParams,$state,$timeout, $modal, $filter, financialService,toaster) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
         var defaultCondition = {
             data: {},
             paginate: {
@@ -16,62 +12,97 @@ define([], function () {
         $scope.listView = {
             condition: angular.copy(defaultCondition),
             table: null,
-            /*check: function () {
-             showChannelModal();
-             },*/
-            status: [{id: 1, title: '待审核'}, {id: 2, title: '已到账'}, {id: 3, title: '已转账'}]
+            search: function(){
+                $scope.listView.table.bootstrapTable('refresh');
+            },
+            reset: function() {
+                $scope.listView.condition = angular.copy(defaultCondition);
+            },
+            checkRow: function() {
+                var selected = $scope.listView.table.bootstrapTable('getSelections');
+                if (!selected || selected.length === 0) {
+                    toaster.pop('error', '未选中行！');
+                    return;
+                }
+                else{
+                    var text = "您确定执行批量到账处理吗？";
+                    $modal.open({
+                        templateUrl: 'view/shared/confirm.html',
+                        size: 'sm',
+                        controller: function($scope, $modalInstance) {
+                            $scope.confirmData = {
+                                text: text,
+                                processing: false
+                            };
+                            $scope.cancel = function() {
+                                $modalInstance.dismiss();
+                                return false;
+                            }
+                            var ids = selected.map(function(item) {
+                                return item.promptId;
+                            }).join(',');
+                            $scope.ok = function() {
+                                var valid = true;
+                                selected.map(function(item) {
+                                    if(item.auditStatus != 'W') {
+                                       /* toaster.pop('error', '待审核状态才能确认到账！');
+                                        $modalInstance.dismiss();
+                                        refreshTable();*/
+                                        valid = false;
+                                    }
+
+                                });
+
+
+                                if(valid){
+                                    //return false;
+                                    financialService.financialCheckList(ids).then(function(res) {
+                                        if(res.code == 200) {
+                                            toaster.pop('success', '操作成功！');
+                                            $modalInstance.dismiss();
+                                            refreshTable();
+                                        }
+                                        else
+                                            toaster.pop('error', res.msg);
+                                            refreshTable();
+                                    }, function(err) {
+                                        toaster.pop('error', '服务器连接失败！');
+                                    });
+                                }else{
+                                     toaster.pop('error', '待审核状态才能确认到账！');
+                                     $modalInstance.dismiss();
+                                     refreshTable();
+                                }
+
+
+                                    return true;
+                            }
+                        }
+                    });
+                };
+            }
         };
-
-       /* $scope.dateOptions = {
-            formatYear: 'yy',
-            startingDay: 1,
-            class: 'datepicker',
-            showWeeks: false
-        };*/
-
-        /**
-         * do something after view loaded
-         * @param  {string}     event type
-         * @param  {function}   callback function
-         */
+        function initMetaData() {
+           /* metaService.getMeta('WJZT', function(data) {
+                $scope.listView.status = data;
+            });*/
+            metaService.getMeta('SHZT', function(items) {
+                $scope.listView.auditStatus = items;
+            });
+        }
+        initMetaData();
+        function refreshTable(){
+            $scope.listView.table.bootstrapTable('refresh');
+        }
         $scope.$on('$viewContentLoaded', function () {
             $scope.listView.table = $('#promptCheckTable');
         });
 
-        /*   function showChannelModal(channel) {
-         var title = "催款单明细";
-         var dataSourceList = $scope.listView.dataSourceList;
-         $modal.open({
-         templateUrl: 'view/financial/list/check.html',
-         size: 'md',
-         controller: function ($scope, $modalInstance) {
-
-         $scope.channelVM = {
-         title: title,
-         processing: false,
-         dataSourceList: dataSourceList,
-         submit: submit,
-         cancel: cancel
-         };
-
-         function cancel() {
-         $modalInstance.dismiss();
-         return false;
-         }
-
-         function submit() {
-         saveChannel(item.id, $scope, $modalInstance);
-         return true;
-         }
-         }
-         });
-         }*/
-
-
         var getData = function (params) {
             var paganition = {pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort};
             var condition = $scope.listView.condition;
-            financialService.resource.query({where: JSON.stringify(condition)}).$promise.then(function (res) {
+            condition.paginate = paganition;
+            financialService.promptListTable.query({where: JSON.stringify(condition)}).$promise.then(function (res) {
                 res.data = res.data || {paginate: paganition, items: []};
                 res.data.paginate = res.data.paginate || {totalCount: 0};
                 params.success({
@@ -94,79 +125,116 @@ define([], function () {
                     sidePagination: "server",
                     columns: [
                         {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
-                        {field: 'id', title: '催款标识', align: 'center', valign: 'middle'},
-                        {field: 'workspace', title: '审核状态', align: 'center', valign: 'middle'},
-                        {field: 'workspace2', title: '审核员工', align: 'center', valign: 'middle'},
-                        {field: 'workspace3', title: '审核时间', align: 'center', valign: 'middle'},
-                        {field: 'workspace', title: '姓名', align: 'center', valign: 'middle'},
-                        {field: 'workspace2', title: '手机', align: 'center', valign: 'middle'},
-                        {field: 'workspace3', title: '邮箱', align: 'center', valign: 'middle'},
-                        {field: 'workspace4', title: '催款日期', align: 'center', valign: 'middle'},
-                        {field: 'workspace5', title: '最后还款日期', align: 'center', valign: 'middle'},
-                        {field: 'workspace6', title: '当期本金', align: 'center', valign: 'middle'},
-                        {field: 'workspace7', title: '贷款利息', align: 'center', valign: 'middle'},
-                        {field: 'workspace8', title: '当期手续费', align: 'center', valign: 'middle'},
-                        {field: 'workspace9', title: '延期回款费用', align: 'center', valign: 'middle'},
-                        {field: 'workspace10', title: '总回款', align: 'center', valign: 'middle'},
-                        {field: 'workspace10', title: '审核时间', align: 'center', valign: 'middle'},
-                        {field: 'workspace10', title: '创建时间', align: 'center', valign: 'middle'},
+                        {field: 'promptId', title: '催款标识', align: 'center',valign: 'middle'},
+                        {field: 'auditStatus', title: '审核状态', align: 'center', valign: 'middle',formatter:statusFormatter},
+                        {field: 'auditOp', title: '审核员工', align: 'center', valign: 'middle'},
+                        {field: 'auditDatetime', title: '审核时间', align: 'center', valign: 'middle',formatter: timeFormatter},
+                        {field: 'borrowerName', title: '姓名', align: 'center', valign: 'middle'},
+                        {field: 'mobile', title: '手机', align: 'center', valign: 'middle'},
+                        {field: 'email', title: '邮箱', align: 'center', valign: 'middle'},
+                        {field: 'promptDate', title: '催款日期', align: 'center', valign: 'middle',formatter: timerFormatter},
+                        {field: 'paymentDueDate', title: '最后还款日期', align: 'center', valign: 'middle',formatter: timerFormatter},
+                        {field: 'principal', title: '当期本金', align: 'center', valign: 'middle'},
+                        {field: 'loanInterest', title: '贷款利息', align: 'center', valign: 'middle'},
+                        {field: 'serviceFee', title: '当期手续费', align: 'center', valign: 'middle'},
+                        {field: 'latePaymentFee', title: '延期回款费用', align: 'center', valign: 'middle'},
+                        {field: 'totalPayment', title: '总回款', align: 'center', valign: 'middle'},
+                        {field: 'createDatetime', title: '创建时间', align: 'center', valign: 'middle',formatter: timeFormatter},
                         {
                             field: 'flag', title: '操作', align: 'center', clickToSelect: false, formatter: flagFormatter,
                             events: {
-                                'click [name="btn-right"]': editRow
+                                'click .btn-info': edit
                             }
                         }]
                 }
             };
-
+            function timeFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            };
+            function timerFormatter(value, row, index) {
+                return $filter('exDate')(value).slice(0,10);
+            };
+            function statusFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.auditStatus);
+            }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
-                    '<button name="btn-right" type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
+                    '<button type="button" class="btn btn-xs btn-info"><i class="fa fa-arrow-right"></i></button>'
                 ];
                 return btnHtml.join('');
             }
 
-            function editRow(e, value, row, index) {
-                showFinancialDetail(row);
+            function edit(e, value, row, index) {
+                showDetail(row.promptId);
                 e.stopPropagation();
                 e.preventDefault();
             }
 
         })();
 
-        function showFinancialDetail(promptId) {
-            var title = "催款单明细";
+        function showDetail(id) {
+
             $modal.open({
                 templateUrl: 'view/financial/check/detail.html',
                 size: 'lg',
                 controller: function ($scope, $modalInstance) {
+                    $scope.detailView = {
+                        data:{},
+                        table:null
+                    };
+                    function getLikeList(id) {
+                        console.log(id)
+                        financialService.promptLikeListTable.get({id: id}).$promise.then(function (res) {
+                            console.log(res);
+                            $scope.detailView.data = res.data;
+                        });
+                    }
+                    getLikeList(id);
+                    var getData = function (params) {
+                        var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+                        var data = $scope.detailView.data;
+
+                        data.paginate = paganition;
+
+                        financialService.promptLikeListTable.query({id:id}).$promise.then(function(res) {
+                            res.data = res.data || { paginate: paganition, items: [] };
+                            res.paginate = res.paginate || { totalCount: 0 };
+                            params.success({
+                                rows: res.data
+                            });
+                        })
+                    }
+                    $scope.$on('$viewContentLoaded', function() {
+                        $scope.detailView.table = $('#financialListTable');
+                    });
+
                     $scope.bsFinancialListTableControl = {
                         options: {
                             cache: false,
-                            pagination: true,
-                            pageSize: 10,
-                            pageList: [10, 25, 50, 100, 200],
+                            //pagination: true,
+                            //pageSize: 10,
+                            //pageList: [10, 25, 50, 100, 200],
                             ajax: getData,
                             sidePagination: "server",
                             columns: [
-                                {field: 'investmentRepaymentPlanVO.projectId', title: '项目编号', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.projectName', title: '项目名称', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.periodNo', title: '还款期数', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.periodStartDate', title: '当前开始日期', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.periodEndDate', title: '当期结束日期', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.paymentDueDate', title: '最后还款日', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.status', title: '状态', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.principal', title: '当期本金', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.interest', title: '当期利息', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.totalPayment', title: '当期总共应还', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.principalPaid', title: '当期已还本金', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.interestPaid', title: '当期已还利息', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.createDatetime', title: '创建时间', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.updateDatetime', title: '更新时间', align: 'center'},
-                                {field: 'investmentRepaymentPlanVO.memeo', title: '备注', align: 'center'}]
+                                {field: 'promptId', title: '催款标识', align: 'center', valign: 'middle'},
+                                {field: 'promptDate', title: '催款日期', align: 'center', valign: 'middle'},
+                                {field: 'projectId', title: '项目标识', align: 'center'},
+                                {field: 'projectName', title: '项目名称', align: 'center'},
+                                {field: 'periodNo', title: '期数', align: 'center'},
+                                {field: 'borrowerName', title: '借款人名称', align: 'center'},
+                                {field: 'paymentDueDate', title: '最后还款日', align: 'center'},
+                                {field: 'principal', title: '当期本金', align: 'center'},
+                                {field: 'loanInterest', title: '贷款利息', align: 'center'},
+                                {field: 'serviceFee', title: '当期手续费', align: 'center'},
+                                {field: 'latePaymentFee', title: '延期回款费用', align: 'center'},
+                                {field: 'totalPayment', title: '总回款', align: 'center'},
+                                {field: 'createDatetime', title: '创建时间', align: 'center', formatter: timeFormatter}]
                         }
                     };
-
+                    function timeFormatter(value, row, index) {
+                        return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+                    };
                     $scope.cancel = function () {
                         $modalInstance.dismiss();
                         return false;
