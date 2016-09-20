@@ -19,11 +19,8 @@ define([], function() {
                 }
             };
             function initMetaData() {
-                metaService.getMeta('WJZT', function(data) {
-                    $scope.listView.status = data;
-                });
-                metaService.getMeta('SHLBZT', function(items) {
-                    $scope.listView.statusList = items;
+                metaService.getMeta('SHZT', function(items) {
+                    $scope.listView.status = items;
                 });
             }
             initMetaData();
@@ -116,11 +113,11 @@ define([], function() {
                             title: '状态',
                             align: 'center',
                             formatter:statusFormatter
-                        }, {
+                        }, /*{
                             field: 'auditStatus',
                             title: '审核状态',
                             align: 'center'
-                        }, {
+                        },*/ {
                             field: 'auditOp',
                             title: '审核员工',
                             align: 'center'
@@ -154,7 +151,7 @@ define([], function() {
                     return $filter('exDate')(value).slice(0,10);
                 };
                 function statusFormatter(value, row, index) {
-                    return $filter('meta')(value, $scope.listView.statusList);
+                    return $filter('meta')(value, $scope.listView.status);
                 }
                 function flagFormatter(value, row, index) {
                     var btnHtml = [

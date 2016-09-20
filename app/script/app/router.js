@@ -63,7 +63,7 @@ define(['app', 'lazy-load'], function(app, lazyLoad) {
 
                 //投资人修改审核列表
                 .state('investor.check', lazyLoad.config('/investor', '/view/shared/blank.html', '', null, true))
-                .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor'], filters: [] }))
+                .state('investor.check.list', lazyLoad.config('/check', '/view/investor/check/list.html', 'controller/investor/check/list', { directives: [], services: ['service/investor', 'service/meta'], filters: ['filter/common'] }))
                 //新增投标
                 .state('investor.new', lazyLoad.config('/investor', '/view/shared/blank.html', '', { directives: [], services: ['service/investor'], filters: [] }, true))
                 .state('investor.new.list', lazyLoad.config('/new', '/view/investor/new/list.html', 'controller/investor/new/list', { directives: [], services: ['service/investor'], filters: [] }))

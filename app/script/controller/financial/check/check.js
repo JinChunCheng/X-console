@@ -44,7 +44,7 @@ define([], function () {
                             $scope.ok = function() {
                                 var valid = true;
                                 selected.map(function(item) {
-                                    if(item.auditStatus != 'W') {
+                                    if(item.status != 'W') {
                                        /* toaster.pop('error', '待审核状态才能确认到账！');
                                         $modalInstance.dismiss();
                                         refreshTable();*/
@@ -83,11 +83,8 @@ define([], function () {
             }
         };
         function initMetaData() {
-           /* metaService.getMeta('WJZT', function(data) {
-                $scope.listView.status = data;
-            });*/
             metaService.getMeta('SHZT', function(items) {
-                $scope.listView.auditStatus = items;
+                $scope.listView.status = items;
             });
         }
         initMetaData();
@@ -124,22 +121,22 @@ define([], function () {
                     ajax: getData,
                     sidePagination: "server",
                     columns: [
-                        {field: 'state', checkbox: true, align: 'center', valign: 'middle'},
-                        {field: 'promptId', title: '催款标识', align: 'center',valign: 'middle'},
-                        {field: 'auditStatus', title: '审核状态', align: 'center', valign: 'middle',formatter:statusFormatter},
-                        {field: 'auditOp', title: '审核员工', align: 'center', valign: 'middle'},
-                        {field: 'auditDatetime', title: '审核时间', align: 'center', valign: 'middle',formatter: timeFormatter},
-                        {field: 'borrowerName', title: '姓名', align: 'center', valign: 'middle'},
-                        {field: 'mobile', title: '手机', align: 'center', valign: 'middle'},
-                        {field: 'email', title: '邮箱', align: 'center', valign: 'middle'},
-                        {field: 'promptDate', title: '催款日期', align: 'center', valign: 'middle',formatter: timerFormatter},
-                        {field: 'paymentDueDate', title: '最后还款日期', align: 'center', valign: 'middle',formatter: timerFormatter},
-                        {field: 'principal', title: '当期本金', align: 'center', valign: 'middle'},
-                        {field: 'loanInterest', title: '贷款利息', align: 'center', valign: 'middle'},
-                        {field: 'serviceFee', title: '当期手续费', align: 'center', valign: 'middle'},
-                        {field: 'latePaymentFee', title: '延期回款费用', align: 'center', valign: 'middle'},
-                        {field: 'totalPayment', title: '总回款', align: 'center', valign: 'middle'},
-                        {field: 'createDatetime', title: '创建时间', align: 'center', valign: 'middle',formatter: timeFormatter},
+                        {field: 'state', checkbox: true},
+                        {field: 'promptId', title: '催款标识', align: 'center'},
+                        {field: 'status', title: '审核状态',align: 'center',formatter:statusFormatter},
+                        {field: 'auditOp', title: '审核员工'},
+                        {field: 'auditDatetime', title: '审核时间', formatter: timeFormatter, align: 'center'},
+                        {field: 'borrowerName', title: '姓名', align: 'center'},
+                        {field: 'mobile', title: '手机', align: 'center'},
+                        {field: 'email', title: '邮箱', align: 'center'},
+                        {field: 'promptDate', title: '催款日期', align: 'center', formatter: timerFormatter},
+                        {field: 'paymentDueDate', title: '最后还款日期', align: 'center',formatter: timerFormatter},
+                        {field: 'principal', title: '当期本金', align: 'center'},
+                        {field: 'loanInterest', title: '贷款利息', align: 'center'},
+                        {field: 'serviceFee', title: '当期手续费', align: 'center'},
+                        {field: 'latePaymentFee', title: '延期回款费用', align: 'center'},
+                        {field: 'totalPayment', title: '总回款', align: 'center'},
+                        {field: 'createDatetime', title: '创建时间', align: 'center',formatter: timeFormatter},
                         {
                             field: 'flag', title: '操作', align: 'center', clickToSelect: false, formatter: flagFormatter,
                             events: {
@@ -155,7 +152,7 @@ define([], function () {
                 return $filter('exDate')(value).slice(0,10);
             };
             function statusFormatter(value, row, index) {
-                return $filter('meta')(value, $scope.listView.auditStatus);
+                return $filter('meta')(value, $scope.listView.status);
             }
             function flagFormatter(value, row, index) {
                 var btnHtml = [
