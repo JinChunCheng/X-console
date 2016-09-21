@@ -101,7 +101,7 @@ define([], function() {
             })($stateParams.id);
 
             function initMetaData() {
-                assetService.findChannel({ data: {}, paginate: { pageNum: 1, pageSize: 2 } }).then(function(res) {
+                assetService.findChannel({ data: { status: 1 }, paginate: { pageNum: 1, pageSize: 200 } }).then(function(res) {
                     if (res.code == 200)
                         $scope.assetVM.channelList = res.data.items || [];
                     else

@@ -143,7 +143,7 @@ define([], function() {
                             title: title,
                             processing: false,
                             joinupTypeList: joinupTypeList,
-                            data: channel || {},
+                            data: channel || { status: 1 },
                             submit: submit,
                             cancel: cancel
                         };

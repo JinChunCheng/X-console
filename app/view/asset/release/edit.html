@@ -9,53 +9,53 @@
                     <th class="w-120">产品编号</th>
                     <td ng-bind="productVM.data.id"></td>
                     <th class="w-120">借款人</th>
-                    <td ng-bind="productVM.data.name"></td>
+                    <td ng-bind="productVM.data.asset.name"></td>
                     <th class="w-120">借款金额</th>
-                    <td ng-bind="(productVM.data.amount||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.amount||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">产品类型</th>
-                    <td ng-bind="productVM.data.assetType|meta:productVM.assetTypeList"></td>
+                    <td ng-bind="productVM.data.asset.assetType|meta:productVM.assetTypeList"></td>
                     <th class="w-120">借款利率</th>
-                    <td colspan="3" ng-bind="(productVM.data.loanRate||0) + '%'"></td>
+                    <td colspan="3" ng-bind="(productVM.data.asset.loanRate||0) + '%'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">还款方式</th>
-                    <td ng-bind="productVM.data.repaymentType|meta:productVM.repaymentTypeList"></td>
+                    <td ng-bind="productVM.data.asset.repaymentType|meta:productVM.repaymentTypeList"></td>
                     <th class="w-120">理财期限</th>
-                    <td ng-bind="(productVM.data.loanTermCount||0)+'天'"></td>
+                    <td ng-bind="(productVM.data.asset.loanTermCount||0)+'天'"></td>
                     <th class="w-120">资产来源</th>
-                    <td></td>
+                    <td ng-bind="productVM.data.asset.assetChannel"></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋担保</th>
-                    <td ng-bind="productVM.data.houseGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.asset.houseGuarantee?'有':'无'"></td>
                     <th class="w-120">房屋产权人</th>
-                    <td ng-bind="productVM.data.houseOwner|meta:productVM.ownerList"></td>
+                    <td ng-bind="productVM.data.asset.houseOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">房屋评估价格</th>
-                    <td ng-bind="(productVM.data.housePrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.housePrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋地址</th>
-                    <td colspan="5" ng-bind="productVM.data.houseAddress"></td>
+                    <td colspan="5" ng-bind="productVM.data.asset.houseAddress"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆担保</th>
-                    <td ng-bind="productVM.data.carGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.asset.carGuarantee?'有':'无'"></td>
                     <th class="w-120">车辆产权人</th>
-                    <td ng-bind="productVM.data.carOwner|meta:productVM.ownerList"></td>
+                    <td ng-bind="productVM.data.asset.carOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">车辆价格</th>
-                    <td ng-bind="(productVM.data.carPrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.carPrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆品牌</th>
-                    <td ng-bind="productVM.data.carBrand"></td>
+                    <td ng-bind="productVM.data.asset.carBrand"></td>
                     <th class="w-120">车辆所在地</th>
-                    <td colspan="3" ng-bind="productVM.data.carLocation"></td>
+                    <td colspan="3" ng-bind="productVM.data.asset.carLocation"></td>
                 </tr>
                 <tr>
                     <th class="w-120">借款用途</th>
-                    <td colspan="5" ng-bind="productVM.data.loanUse"></td>
+                    <td colspan="5" ng-bind="productVM.data.asset.loanUse"></td>
                 </tr>
             </tbody>
         </table>

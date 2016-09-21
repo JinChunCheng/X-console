@@ -134,7 +134,7 @@ define([], function() {
                         columns: [
                             { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
                             { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
-                            { field: 'source', title: '来源' }, {
+                            { field: 'assetChannel', title: '来源' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
