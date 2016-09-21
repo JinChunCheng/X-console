@@ -110,7 +110,9 @@ define([], function() {
             };
 
             var findAsset = function(params) {
-                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                assetService.findAsset(condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,

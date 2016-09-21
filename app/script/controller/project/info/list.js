@@ -35,7 +35,9 @@ define([], function() {
 
 
             var getData = function(params) {
-                projectService.project.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                projectService.project.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,

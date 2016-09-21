@@ -5,6 +5,8 @@ define(['common/config'], function(config) {
             msg: '服务器连接失败，请检查服务是否可用或联系管理员！'
         };
 
+        var userResource = $resource(config.INVESTMENT_CONSOLE + '/investment/report/statistics', null, { 'query': { isArray: false } });
+        //var userResource = $resource('http://172.21.20.16:8088/investment/report/statistics', null, { 'query': { isArray: false } });
         return {
             findProfit: function(start, end) {
                 return $http({
@@ -22,6 +24,9 @@ define(['common/config'], function(config) {
                             return $q.reject(errRes);
                         }
                     );
+            },
+            findUser: function(start, end) {
+                return userResource.query({ where: JSON.stringify({ data: { createDatetimeStart: start, createDatetimeEnd: end } }) }).$promise;
             }
         }
     }]]

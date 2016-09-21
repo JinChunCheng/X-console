@@ -38,7 +38,9 @@ define([], function() {
 
 
             var getData = function(params) {
-                assetService.findProduct($scope.listVM.condition).then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                assetService.findProduct(condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,

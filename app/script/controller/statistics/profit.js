@@ -22,12 +22,16 @@ define([], function() {
             function search() {
                 var startDate = $scope.profitVM.condition.start;
                 var endDate = $scope.profitVM.condition.end;
+                startDate = $filter('exDate')(startDate);
+                endDate = $filter('exDate')(endDate);
                 if (!startDate || !endDate) {
                     toaster.pop('error', '请选择开始和结束日期！');
                     return false;
                 }
-                startDate = $filter('exDate')(startDate);
-                endDate = $filter('exDate')(endDate);
+                if (startDate > endDate) {
+                    toaster.pop('error', '结束日期不能小于开始日期！');
+                    return false;
+                }
 
                 statisticsService.findProfit(startDate, endDate).then(function(res) {
                     if (res.code == 200) {
