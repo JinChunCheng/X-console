@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', 'investorService','toaster',
-        function($scope, $http, $timeout, $modal,investorService,toaster) {
+    return ['$scope', '$http', '$timeout', '$modal','$state','$filter','metaService', 'investorService','toaster',
+        function($scope, $http, $timeout, $modal,$state,$filter,metaService,investorService,toaster) {
 
         /**
          * the default search condition
@@ -26,7 +26,9 @@ define([], function() {
             $scope.listView.table = $('#investorCheckTable');
         });
 
-
+        function refreshTable() {
+            $scope.listView.table.bootstrapTable('refresh');
+        }
         var getData = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var data = $scope.listView.condition;
@@ -51,7 +53,6 @@ define([], function() {
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],
                     ajax: getData,
-                    onPageChange: pageChange,
                     sidePagination: "server",
                     columns: [
                         {
@@ -80,20 +81,22 @@ define([], function() {
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'fundChannelName',
+                        field: 'fundChannelId',
                         title: '渠道名称',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter:fundChannelNameFormatter
                     }, {
                         field: 'fundAccountManagerId',
                         title: '理财经理编号',
                         align: 'center',
                         valign: 'middle'
                     }, {
-                        field: 'fundAccountManagerName',
+                        field: 'fundAccountManagerId',
                         title: '理财经理姓名',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter:fundAccountManagerNameFormatter
                     }, {
                         field: 'bindIboxpayUser ',
                         title: '绑定钱盒商户',
@@ -103,7 +106,8 @@ define([], function() {
                         field: 'submitDateTime',
                         title: '申请时间',
                         align: 'center',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter: dateFormatter
                     }, {
                         field: 'submitOp',
                         title: '操作员',
@@ -122,7 +126,15 @@ define([], function() {
                     }]
                 }
             };
-
+            function fundChannelNameFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.fundChannelName);
+            }
+            function fundAccountManagerNameFormatter(value, row, index) {
+                return $filter('meta')(value, $scope.listView.fundAccountManagerName);
+            }
+            function dateFormatter(value, row, index) {
+                return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+            }
             function flagFormatter(value, row, index) {
                 var buttons = [
                     '<button name="btn-edit" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></button>'
@@ -138,7 +150,7 @@ define([], function() {
         })();
             function showChannelModal(updateId, investorId) {
                 var title = "审核操作";
-                var joinupTypeList = [];// $scope.listVM.joinupTypeList;
+                var joinupTypeList = [];
                 $modal.open({
                     templateUrl: 'view/investor/check/edit.html',
                     size: 'lg',
@@ -154,15 +166,39 @@ define([], function() {
                             reject: reject
                         };
 
+
                         (function() {
+                            //修改前
                             investorService.getUpdateInvestor(updateId).then(function(res) {
+                                console.log(res)
                                 $scope.vm.data = res;
                                 $scope.vm.loading = false;
+                                function initMetaData(){
+                                    metaService.getMeta('SFBGSYG', function(data) {
+                                        $scope.vm.empFlagList = data;
+                                    });
+                                    metaService.getMeta('TZRZT', function(data) {
+                                        $scope.vm.status = data;
+                                    });
+                                    metaService.getMeta('SFRZZT', function(data) {
+                                        $scope.vm.idAuthFlagstatus = data;
+                                    });//
+                                    metaService.getMeta('LCQDMC', function(data) {
+                                        $scope.vm.fundChannelName = data;
+                                    });
+                                    metaService.getMeta('LCJLXM', function(data) {
+                                        $scope.vm.fundAccountManagerName = data;
+
+                                    });
+                                }
+                                initMetaData()
                             }, function() {
                                 $scope.vm.loading = false;
                                 toaster.pop('error', '服务器连接出错，请稍候再试！')
                             });
+                            //修改后
                             investorService.updateInvestorDetail.get({ id: investorId }).$promise.then(function(res) {
+                                console.log(res)
                                 $scope.vm.data1 = res;
                                 $scope.vm.loading = false;
                             }, function() {
@@ -182,6 +218,7 @@ define([], function() {
                                 if(res.code == 200) {
                                     toaster.pop('success', '操作成功！');
                                     $modalInstance.dismiss();
+                                    refreshTable();
                                 }
                                 else
                                     toaster.pop('error', res.msg);
@@ -196,6 +233,7 @@ define([], function() {
                                 if(res.code == 200) {
                                     toaster.pop('success', '操作成功！');
                                     $modalInstance.dismiss();
+                                    refreshTable();
                                 }
                                 else
                                     toaster.pop('error', res.msg);
@@ -207,8 +245,5 @@ define([], function() {
                     }
                 });
             }
-        var pageChange = function(num, size) {
-            console.log(num + ' - ' + size);
-        };
     }];
 });

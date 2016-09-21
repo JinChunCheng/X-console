@@ -54,9 +54,9 @@
                 </tr>
                 <tr>
                     <th class="w-140">借款利率</th>
-                    <td ng-bind="projectVM.project.loanRate"></td>
+                    <td ng-bind="(projectVM.project.loanRate||0)+'%'"></td>
                     <th class="w-140">包含的返利利率</th>
-                    <td ng-bind="projectVM.project.rebateRate + '缺少单位'"></td>
+                    <td ng-bind="(projectVM.project.rebateRate||0)+'%'"></td>
                 </tr>
                 <tr>
                     <th class="w-140">可用自动投标金额</th>

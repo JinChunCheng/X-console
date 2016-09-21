@@ -85,7 +85,7 @@ define([
                     //apply with $timeout
                     //i do not know why...
                     $timeout(function() {
-                        toaster.pop('error', '登录超时，请重新登录！');
+                        //toaster.pop('error', '登录超时，请重新登录！');
                         $state.go('login', {
                             r: location.hash
                         }, {

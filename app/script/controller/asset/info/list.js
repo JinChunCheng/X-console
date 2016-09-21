@@ -110,7 +110,9 @@ define([], function() {
             };
 
             var findAsset = function(params) {
-                assetService.findAsset($scope.listVM.condition).then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                assetService.findAsset(condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,
@@ -132,7 +134,7 @@ define([], function() {
                         columns: [
                             { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
                             { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
-                            { field: 'source', title: '来源' }, {
+                            { field: 'assetChannel', title: '来源' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
@@ -168,7 +170,7 @@ define([], function() {
                 };
 
                 function assetTypeFormatter(value, row, index) {
-                    return '车贷';
+                    return $filter('meta')(value, $scope.listVM.assetTypeList);
                 }
 
                 function loanRemarkFormatter(value, row, index) {
@@ -288,6 +290,9 @@ define([], function() {
             function initMeta() {
                 metaService.getMeta('ZCZT', function(items) {
                     $scope.listVM.assetStatusList = items;
+                });
+                metaService.getMeta('ZCLX', function(items) {
+                    $scope.listVM.assetTypeList = items;
                 });
             }
         }

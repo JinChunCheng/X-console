@@ -3,6 +3,9 @@ define([], function () {
         function ($scope, $state,$modal, $stateParams,metaService, investorService,toaster) {
             $scope.vm = {
                 data: {},
+                cancel: function () {
+                    $state.go('investor.tender.list');
+                },
                 cancelTender: function () {
                     var flag=true;
                     var text = "您确定要撤销此次投标吗!";

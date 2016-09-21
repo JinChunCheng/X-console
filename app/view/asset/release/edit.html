@@ -9,53 +9,53 @@
                     <th class="w-120">产品编号</th>
                     <td ng-bind="productVM.data.id"></td>
                     <th class="w-120">借款人</th>
-                    <td ng-bind="productVM.data.name"></td>
+                    <td ng-bind="productVM.data.asset.name"></td>
                     <th class="w-120">借款金额</th>
-                    <td ng-bind="(productVM.data.amount||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.amount||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">产品类型</th>
-                    <td ng-bind="productVM.data.assetType|meta:productVM.assetTypeList"></td>
+                    <td ng-bind="productVM.data.asset.assetType|meta:productVM.assetTypeList"></td>
                     <th class="w-120">借款利率</th>
-                    <td colspan="3" ng-bind="(productVM.data.loanRate||0) + '%'"></td>
+                    <td colspan="3" ng-bind="(productVM.data.asset.loanRate||0) + '%'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">还款方式</th>
-                    <td ng-bind="productVM.data.repaymentType|meta:productVM.repaymentTypeList"></td>
+                    <td ng-bind="productVM.data.asset.repaymentType|meta:productVM.repaymentTypeList"></td>
                     <th class="w-120">理财期限</th>
-                    <td ng-bind="(productVM.data.loanTermCount||0)+'天'"></td>
+                    <td ng-bind="(productVM.data.asset.loanTermCount||0)+'天'"></td>
                     <th class="w-120">资产来源</th>
-                    <td></td>
+                    <td ng-bind="productVM.data.asset.assetChannel"></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋担保</th>
-                    <td ng-bind="productVM.data.houseGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.asset.houseGuarantee?'有':'无'"></td>
                     <th class="w-120">房屋产权人</th>
-                    <td ng-bind="productVM.data.houseOwner|meta:productVM.ownerList"></td>
+                    <td ng-bind="productVM.data.asset.houseOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">房屋评估价格</th>
-                    <td ng-bind="(productVM.data.housePrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.housePrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">房屋地址</th>
-                    <td colspan="5" ng-bind="productVM.data.houseAddress"></td>
+                    <td colspan="5" ng-bind="productVM.data.asset.houseAddress"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆担保</th>
-                    <td ng-bind="productVM.data.carGuarantee?'有':'无'"></td>
+                    <td ng-bind="productVM.data.asset.carGuarantee?'有':'无'"></td>
                     <th class="w-120">车辆产权人</th>
-                    <td ng-bind="productVM.data.carOwner|meta:productVM.ownerList"></td>
+                    <td ng-bind="productVM.data.asset.carOwner|meta:productVM.ownerList"></td>
                     <th class="w-120">车辆价格</th>
-                    <td ng-bind="(productVM.data.carPrice||0)+'元'"></td>
+                    <td ng-bind="(productVM.data.asset.carPrice||0)+'元'"></td>
                 </tr>
                 <tr>
                     <th class="w-120">车辆品牌</th>
-                    <td ng-bind="productVM.data.carBrand"></td>
+                    <td ng-bind="productVM.data.asset.carBrand"></td>
                     <th class="w-120">车辆所在地</th>
-                    <td colspan="3" ng-bind="productVM.data.carLocation"></td>
+                    <td colspan="3" ng-bind="productVM.data.asset.carLocation"></td>
                 </tr>
                 <tr>
                     <th class="w-120">借款用途</th>
-                    <td colspan="5" ng-bind="productVM.data.loanUse"></td>
+                    <td colspan="5" ng-bind="productVM.data.asset.loanUse"></td>
                 </tr>
             </tbody>
         </table>
@@ -67,7 +67,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.description.$invalid && (productForm.description.$dirty||productVM.submitted)}">
                                 <label class="control-label">借款描述</label>
                                 <div>
-                                    <input name="description" type="text" class="form-control" ng-bind="productVM.data.des" required>
+                                    <input name="description" type="text" class="form-control" ng-model="productVM.data.des" required>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.zengxindes.$invalid && (productForm.zengxindes.$dirty||productVM.submitted)}">
                                 <label class="control-label">增信说明</label>
                                 <div>
-                                    <input name="zengxindes" type="text" class="form-control" ng-bind="productVM.data.zengxinDes" required>
+                                    <input name="zengxindes" type="text" class="form-control" ng-model="productVM.data.zengxinDes" required>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.saleplatform.$invalid && (productForm.saleplatform.$dirty||productVM.submitted)}">
                                 <label class="control-label">销售平台</label>
                                 <div>
-                                    <select name="saleplatform" class="form-control" ng-model="productVM.data.saleplatformCode" ng-options="item.code as item.name for item in productVM.saleplatformList" required>
+                                    <select name="saleplatform" class="form-control" ng-model="productVM.data.saleplatformId" ng-options="item.id as item.name for item in productVM.saleplatformList" required>
                                         <option value="">- 请选择 -</option>
                                     </select>
                                 </div>
@@ -119,7 +119,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.startamount.$invalid && (productForm.startamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">起投金额</label>
                                 <div class="input-group">
-                                    <input name="startamount" type="number" class="form-control" ng-bind="productVM.data.startAmount" required>
+                                    <input name="startamount" type="number" class="form-control" ng-model="productVM.data.startAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -128,7 +128,7 @@
                             <div class="form-group" ng-class="{'has-error':productForm.stepamount.$invalid && (productForm.stepamount.$dirty||productVM.submitted)}">
                                 <label class="control-label">间隔金额</label>
                                 <div class="input-group">
-                                    <input name="stepamount" type="number" class="form-control" ng-bind="productVM.data.stepAmount" required>
+                                    <input name="stepamount" type="number" class="form-control" ng-model="productVM.data.stepAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -136,8 +136,8 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="control-label">上限金额</label>
-                                <div class="input-group" ng-class="{'has-error':productForm.ennamount.$invalid && (productForm.ennamount.$dirty||productVM.submitted)}">
-                                    <input name="ennamount" type="number" class="form-control" ng-bind="productVM.ennAmount" required>
+                                <div class="input-group" ng-class="{'has-error':productForm.endamount.$invalid && (productForm.endamount.$dirty||productVM.submitted)}">
+                                    <input name="endamount" type="number" class="form-control" ng-model="productVM.data.endAmount" required>
                                     <span class="input-group-addon">元</span>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-12">
-                    <button type="submit" class="btn btn-success m-r-10" ng-if="canBeSubmitted()" ng-cloak>
+                    <button type="submit" class="btn btn-success m-r-10" ng-if="productVM.canBeSubmitted()" ng-cloak>
                         确定上架
                     </button>
                     <button type="button" class="btn btn-default" ng-click="productVM.cancel()">

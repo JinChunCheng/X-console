@@ -6,5 +6,11 @@ define(['common/path-helper'], function(helper) {
             dashboardService.setHeights()
         });
 
+        $scope.dashboardVM = {
+        	dataRange: 1,
+        	changeDataRange: function(dataRange) {
+        		$scope.dashboardVM.dataRange = dataRange;
+        	}
+        }
     }];
 });

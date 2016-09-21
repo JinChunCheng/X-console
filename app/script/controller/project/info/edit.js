@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$state', '$stateParams', 'projectService', 'assetService', 'metaService', 'toaster',
-        function($scope, $state, $stateParams, projectService, assetService, metaService, toaster) {
+    return ['$scope', '$state', '$stateParams', 'projectService', 'assetService', 'borrowerService', 'metaService', 'toaster',
+        function($scope, $state, $stateParams, projectService, assetService, borrowerService, metaService, toaster) {
 
             $scope.projectVM = {
                 data: { status: 'NEW', durationUnit: 'D', interestRateTerm: 'Y', serviceFeeRateTerm: 'Y' },
@@ -25,7 +25,7 @@ define([], function() {
                 //     "biddingStartAmount": 1000,
                 //     "biddingStepAmount": 1000,
                 //     "biddingEndAmount": 100000,
-                //     "biddingDeadline": "2016-09-15T16:00:00.000Z",
+                //     "biddingDeadline": "2016-09-19",
                 //     "autoApprove": "B",
                 //     "purpose": "s",
                 //     "description": "ss",
@@ -47,11 +47,12 @@ define([], function() {
                     });
                     return result;
                 },
+                refreshBorrower: refreshBorrower,
                 submit: submit
             };
 
             (function() {
-                assetService.platform.query({ where: JSON.stringify({ data: {}, paginate: { pageNum: 1, pageSize: 200 } }) }).$promise.then(function(res) {
+                assetService.platform.query({ where: JSON.stringify({ data: { status: 1 }, paginate: { pageNum: 1, pageSize: 200 } }) }).$promise.then(function(res) {
                     if (res.code == 200)
                         $scope.projectVM.saleplatformList = res.data.items || [];
                     else
@@ -83,15 +84,33 @@ define([], function() {
                 });
             })();
 
+            function refreshBorrower(txt) {
+                if (!txt) {
+                    return;
+                }
+                var condition = { data: { id: txt }, paginate: { pageNum: 1, pageSize: 10 } };
+                borrowerService.borrowerListTable.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
+                    if (res.code == 200 && res.data) {
+                        $scope.projectVM.borrowerList = res.data.items;
+                    }
+                });
+            }
 
             function submit(invalid) {
                 $scope.projectVM.submitted = true;
                 if (invalid) {
                     return false;
                 }
+                var borrower = $scope.projectVM.borrower;
+                var projectInfo = $scope.projectVM.data;
+                if (borrower) {
+                    projectInfo.borrowerId = borrower.id;
+                    projectInfo.borrowerName = borrower.name;
+                }
                 projectService.project.save($scope.projectVM.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '添加成功！');
+                        $state.go('project.info.list');
                     } else
                         toaster.pop('error', res.msg);
                 }, function(err) {

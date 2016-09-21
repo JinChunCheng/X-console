@@ -101,7 +101,7 @@ define([], function() {
             })($stateParams.id);
 
             function initMetaData() {
-                assetService.findChannel({ data: {}, paginate: { pageNum: 1, pageSize: 2 } }).then(function(res) {
+                assetService.findChannel({ data: { status: 1 }, paginate: { pageNum: 1, pageSize: 200 } }).then(function(res) {
                     if (res.code == 200)
                         $scope.assetVM.channelList = res.data.items || [];
                     else
@@ -226,7 +226,15 @@ define([], function() {
 
             function saveAsset() {
                 var asset = $scope.assetVM.data;
-                console.log(JSON.stringify(asset));
+                var channelList = $scope.assetVM.channelList;
+                if (asset.assetChannelId != null && asset.assetChannelId != undefined && channelList) {
+                    channelList.forEach(function(item) {
+                        if (item.id == asset.assetChannelId) {
+                            asset.assetChannel = item.name;
+                            return;
+                        }
+                    });
+                }
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else

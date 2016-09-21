@@ -209,6 +209,12 @@ define(['common/config'], function(config) {
                     { value: 'CONSOLE', text: '管理系统' },
                 ]
             }, {
+                key: 'TZRZT', //投资人状态
+                value: [
+                    { value: 'P', text: '正常' },
+                    { value: 'C', text: '关闭' }
+                ]
+            }, {
                 key: 'SFRZZT', //身份认证状态
                 value: [
                     { value: 'Y', text: '认证通过' },
@@ -325,7 +331,7 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '包含' },
                     { value: 'N', text: '不包含' }
                 ]
-            },{
+            }, {
                 key: 'HKLB', //投资还款计划列表
                 value: [
                     { value: 'WP', text: '待还款' },
@@ -420,7 +426,7 @@ define(['common/config'], function(config) {
                     { value: 'RESERVE', text: '风险准备金' },
                     { value: 'TRUSTEE_FEE', text: '托管费' },
                 ]
-            },{
+            }, {
                 key: 'FLBMA', //费率编码（账户管理）
                 value: [
                     { value: 'PRJ', text: '项目出款' },
@@ -635,7 +641,7 @@ define(['common/config'], function(config) {
                     { value: 'M', text: '月' },
                     { value: 'Y', text: '年' }
                 ]
-            },{
+            }, {
                 key: 'WJRZLX', //文件日志类型
                 value: [
                     { value: 'STLM', text: '对账文件' },
@@ -643,7 +649,7 @@ define(['common/config'], function(config) {
                     { value: 'FUNDOUT', text: '资金文件' },
                     { value: 'ERP', text: 'ERP数据' }
                 ]
-            },{
+            }, {
                 key: 'WJRZZT', //文件日志状态
                 value: [
                     { value: 'S', text: '成功' },
@@ -668,8 +674,29 @@ define(['common/config'], function(config) {
                     { value: 'S', text: '对账成功' },
                     { value: 'F', text: '对账失败' }
                 ]
+            }, {
+                //===============================财务管理============================
+                key: 'SHZT', //催款单审核状态
+                value: [
+                    { value: 'W', text: '待审核' },
+                    { value: 'S', text: '审核通过' },
+                    { value: 'F', text: '审核失败' }
+                ]
+            }, {
+                key: 'XMHKJHZT', //项目还款计划状态
+                value: [
+                    { value: 'WP', text: '待还款' },
+                    { value: 'FP', text: '还清' },
+                    { value: 'PP', text: '部分还款' },
+                    { value: 'OD', text: '逾期' }
+                ]
             }
         ];
+
+
+
+
+
 
         //获取某项元数据列表
         var getMetaItem = function(code) {

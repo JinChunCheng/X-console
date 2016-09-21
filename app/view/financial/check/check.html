@@ -2,7 +2,7 @@
     <h2><i class="fa fa-dashboard"></i>催款单审核</h2>
 </div>
 <div class="row">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listView.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4">
@@ -10,7 +10,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">借款人编号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.borrowerCode">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.borrowerId">
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.name">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.borrowerName">
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">邮箱</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.mail">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.email">
                             </div>
                         </div>
                     </div>
@@ -39,8 +39,10 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">状态</span>
-                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='s as s.title for s in listView.status'>
+                                <span class="input-group-addon">审核状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.data.status
+" ng-options='s.value as s.text for s in listView.status'>
+                                    <option value="">- 请选择 -</option>
                                 </select>
                             </div>
                         </div>
@@ -53,11 +55,11 @@
                                 <span class="input-group-addon">日期</span>
                                 <div class="input-group">
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.creation" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listView.condition.data.datetStart" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
                                     </div>
                                     <span class="input-group-addon">~</span>
                                     <div>
-                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finish" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.finishlistView.condition.data.datetEnd" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
                                     </div>
                                 </div>
                             </div>
@@ -69,16 +71,18 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">手机号</span>
-                                <input type="text" class="form-control form-white" ng-model="listView.condition.phoneNum">
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.data.mobile">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4  col-md-offset-5">
-                <div class="form-group col-md-4">
-                    <button class="btn btn-info">查找</button>
-                    <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-5">
+                    <div class="form-group">
+                        <button class="btn btn-primary m-r-10" ng-click="listView.search()">查找</button>
+                        <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,7 +91,7 @@
 <div class="row">
     <div class="col-md-12 m-b-10">
         <!--<button type="button" class="btn btn-success btn-xs" ng-click="listView.check()"><i class="fa fa-search m-r-5"></i>催款明细</button>-->
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-check m-r-5"></i>批量到账确认</button>
+        <button type="button" class="btn btn-success btn-xs" ng-click="listView.checkRow()"><i class="fa fa-check m-r-5"></i>批量到账确认</button>
     </div>
 </div>
 <table id="promptCheckTable" table-full-size bs-table-control="bsPromptCheckTableControl"></table>

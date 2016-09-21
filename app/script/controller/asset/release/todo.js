@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$timeout', '$modal', '$state', '$filter', 'assetService',
-        function($scope, $http, $timeout, $modal, $state, $filter, assetService) {
+    return ['$scope', '$http', '$timeout', '$modal', '$state', '$filter', 'assetService', 'metaService',
+        function($scope, $http, $timeout, $modal, $state, $filter, assetService, metaService) {
 
             /**
              * the default search condition
@@ -41,7 +41,9 @@ define([], function() {
             });
 
             var findAsset = function(params) {
-                assetService.findProduct($scope.listVM.condition).then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                assetService.findProduct(condition).then(function(res) {
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,
@@ -50,8 +52,14 @@ define([], function() {
                 });
             };
 
-            (function init() {
+            function initMeta() {
+                metaService.getMeta('ZCLX', function(items) {
+                    $scope.listVM.assetTypeList = items;
+                });
+            }
 
+            (function init() {
+                initMeta();
                 $scope.tbControl = {
                     options: {
                         cache: false,
@@ -61,9 +69,9 @@ define([], function() {
                         ajax: findAsset,
                         sidePagination: "server",
                         columns: [
-                            { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
+                            { field: 'asset.assetType', title: '类型', formatter: assetTypeFormatter },
                             { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
-                            { field: 'source', title: '来源' }, {
+                            { field: 'asset.assetChannel', title: '来源' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
@@ -76,7 +84,7 @@ define([], function() {
                                     return value ? value + '天' : ''
                                 }
                             },
-                            { field: 'createTime', title: '收录日期' },
+                            { field: 'createTime', title: '收录日期', formatter: dateFormatter },
                             { field: 'loanDate', title: '过期时间', formatter: dateFormatter }, {
                                 field: 'flag',
                                 title: '操作',
@@ -93,7 +101,7 @@ define([], function() {
                 };
 
                 function assetTypeFormatter(value, row, index) {
-                    return '车贷';
+                    return $filter('meta')(value, $scope.listVM.assetTypeList);
                 }
 
                 function loanRemarkFormatter(value, row, index) {
@@ -112,7 +120,7 @@ define([], function() {
 
                 function flagFormatter(value, row, index) {
                     var buttons = [
-                        '<button name="btn-release" class="btn btn-warning btn-xs btn-transparent" title="上架产品"><i class="fa fa-arrow-up"></i></button>',
+                        '<button name="btn-release" class="btn btn-success btn-xs btn-transparent" title="上架产品"><i class="fa fa-arrow-up"></i></button>',
                     ]
                     return buttons.join('');
                 }

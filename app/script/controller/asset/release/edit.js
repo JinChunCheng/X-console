@@ -12,6 +12,8 @@ define([], function() {
                     $state.go('asset.release.todo');
                 },
                 canBeSubmitted: function() {
+                    if (!$scope.productVM.data)
+                        return false;
                     var status = $scope.productVM.data.status;
                     //to be on shelf or off shelf
                     return status === 0 || status === 1;
@@ -25,8 +27,14 @@ define([], function() {
                     return;
                 }
                 assetService.product.get({ id: id }).$promise.then(function(res) {
-                    if (res.code == 200)
-                        $scope.productVM.data = res.data;
+                    if (res.code == 200) {
+                        var data = res.data;
+                        if(data) {
+                            data.debtStartDate = $filter('exDate')(data.debtStartDate);
+                            data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                        }
+                        $scope.productVM.data = data;
+                    }
                     else
                         toaster.pop('error', res.msg);
                 }, function(err) {});
@@ -69,6 +77,21 @@ define([], function() {
                 }
                 if (data.debtEndDate) {
                     data.debtEndDate = $filter('exDate')(data.debtEndDate);
+                }
+                if (data.debtStartDate >= data.debtEndDate) {
+                    toaster.pop('error', '借款截止日期必须大于开始日期！');
+                    return false;
+                }
+                if (data.saleplatformId) {
+                    var saleplatformList = $scope.productVM.saleplatformList;
+                    if (saleplatformList) {
+                        saleplatformList.forEach(function(item) {
+                            if (item.id == data.saleplatformId) {
+                                data.saleplatform = item.name;
+                                return;
+                            }
+                        });
+                    }
                 }
 
                 assetService.onshelf($scope.productVM.data).then(function(res) {
