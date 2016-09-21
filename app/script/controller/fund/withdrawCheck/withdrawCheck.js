@@ -101,7 +101,7 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'bankCode',
+                        field: 'bankCodeName',
                         title: '银行名称',
                         align: 'center',
                         valign: 'middle',

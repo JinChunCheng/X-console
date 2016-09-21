@@ -11,16 +11,16 @@ define(['common/config'], function(config) {
 
         var chargeListTable = $resource(config.RECHARGE_CONSOLE + '/recharge/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var chargeDetailLabel = $resource(config.RECHARGE_CONSOLE + '/recharge/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawListTable = $resource(config.WITHDRAW_CONSOLE + '/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawDetailLabel = $resource(config.WITHDRAW_CONSOLE + '/withdraw/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var withdrawBackLabel = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var backCheckTable = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var backCheckOneDetail = $resource(config.WITHDRAW_CONSOLE + '/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawListTable = $resource(config.WITHDRAW_CONSOLE +'/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawDetailLabel = $resource(config.WITHDRAW_CONSOLE +'/withdraw/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var withdrawBackLabel = $resource(config.WITHDRAW_CONSOLE +'/withdrawback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var backCheckTable = $resource(config.WITHDRAW_CONSOLE +'/withdrawback/fallback/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var backCheckOneDetail = $resource(config.WITHDRAW_CONSOLE +'/withdrawback/fallback/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //费率列表
-        var rateListTable = $resource('http://172.21.20.12:8088/rate/ShowRatelist', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var getRateDetail=$resource('http://172.21.20.12:8088/rate/getRateByRateId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var updateRate=$resource('http://172.21.20.12:8088/rate/editRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var createRate=$resource('http://172.21.20.12:8088/rate/addRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var rateListTable = $resource(config.WITHDRAW_CONSOLE +'http://172.21.20.12:8088/rate/ShowRatelist', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var getRateDetail=$resource(config.WITHDRAW_CONSOLE +'http://172.21.20.12:8088/rate/getRateByRateId/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var updateRate=$resource(config.WITHDRAW_CONSOLE +'http://172.21.20.12:8088/rate/editRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var createRate=$resource(config.WITHDRAW_CONSOLE +'http://172.21.20.12:8088/rate/addRate', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         
         //提现审核
         var withdrawCheckTable = $resource(config.WITHDRAW_CONSOLE + '/withdraw/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
@@ -107,8 +107,8 @@ define(['common/config'], function(config) {
                         method: method,
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        //url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback/batch',
-                        url: 'http://172.21.20.8:8080/withdrawback/fallback/batch'
+                        url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback/batch',
+                        //url: 'http://172.21.20.8:8080/withdrawback/fallback/batch'
 
                     })
                     .then(function(res) {
@@ -130,7 +130,7 @@ define(['common/config'], function(config) {
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback',
-                        // url:'http://172.21.20.8:8080/withdrawback/fallback'
+                        //url:'http://172.21.20.8:8080/withdrawback/fallback'
 
                     })
                     .then(function(res) {
@@ -172,8 +172,9 @@ define(['common/config'], function(config) {
                         method: "POST",
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-
                         url: config.WITHDRAW_CONSOLE + "/withdraw/approve",
+
+                        //url:"http://172.21.20.8:8080/withdraw/approve",
 
                     })
                     .then(function(res) {

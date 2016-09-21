@@ -45,9 +45,9 @@ define([], function() {
         var getDataTable = function(params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var condition = $scope.listView.condition;
-            $scope.listView.condition.requestDateStart=$filter('exDate')($scope.listView.condition.requestDateStart,'yyyy-MM-dd');
+            $scope.listView.condition.requestDateStart = $filter('exDate')($scope.listView.condition.requestDateStart, 'yyyy-MM-dd');
 
-            $scope.listView.condition.requestDateEnd=$filter('exDate')($scope.listView.condition.requestDateEnd,'yyyy-MM-dd');
+            $scope.listView.condition.requestDateEnd = $filter('exDate')($scope.listView.condition.requestDateEnd, 'yyyy-MM-dd');
             var queryCondition = { "data": condition, "paginate": paganition };
             fundService.backCheckTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                 res.data = res.data || { paginate: paganition, items: [] };
@@ -79,6 +79,7 @@ define([], function() {
                     }, {
                         field: 'requestDatetime',
                         title: '申请时间',
+                        formatter: dateFormatter,
                         align: 'center',
                         valign: 'middle',
                     }, {
@@ -113,12 +114,12 @@ define([], function() {
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'bankCode',
+                        field: 'bankName',
                         title: '银行名称',
                         align: 'center',
                         valign: 'middle',
                     }, {
-                        field: 'branchCode',
+                        field: 'bankBranch',
                         title: '开户支行名称',
                         align: 'center',
                         valign: 'middle',
@@ -178,6 +179,10 @@ define([], function() {
 
             function statusFormatter(value, row, index) {
                 return $filter("meta")(value, $scope.listView.status)
+            };
+
+            function dateFormatter(value, row, index) {
+                return $filter("exDate")(value, 'yyyy-MM-dd HH:mm:ss')
             };
 
             function provinceFormatter(value, row, index) {
