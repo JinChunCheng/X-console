@@ -95,14 +95,16 @@ define([], function () {
                                 }, {
                                     field: 'investmentRepaymentPlanVO.periodStartDate',
                                     title: '当前开始日期',
+                                    formatter:dateFormatter,
                                     align: 'center'
                                 }, {
                                     field: 'investmentRepaymentPlanVO.periodEndDate',
                                     title: '当期结束日期',
-                                    align: 'center'
+                                    formatter:dateFormatter,align: 'center'
                                 }, {
                                     field: 'investmentRepaymentPlanVO.paymentDueDate',
                                     title: '最后还款日',
+                                    formatter:dateFormatter,
                                     align: 'center'
                                 }, {
                                     field: 'investmentRepaymentPlanVO.status',
@@ -132,10 +134,12 @@ define([], function () {
                                 }, {
                                     field: 'investmentRepaymentPlanVO.createDatetime',
                                     title: '创建时间',
+                                    formatter:dateFormatter,
                                     align: 'center'
                                 }, {
                                     field: 'investmentRepaymentPlanVO.updateDatetime',
                                     title: '更新时间',
+                                    formatter:dateFormatter,
                                     align: 'center'
                                 }, {
                                     field: 'investmentRepaymentPlanVO.memeo',
@@ -154,6 +158,9 @@ define([], function () {
                 })
                 function statusFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.vm.statusList);
+                }
+                function dateFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd');
                 }
                 function initMeta() {
                     metaService.getMeta('HKLB', function(items) {

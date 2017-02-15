@@ -82,27 +82,27 @@ define([], function() {
                             valign: 'middle',
 
                         }, {
-                            field: 'telephone',
-                            title: '固定电话',
+                            field: 'enterpriseName',
+                            title: '企业名称',
                             align: 'center',
                             valign: 'middle',
 
                         }, {
-                            field: 'email',
-                            title: '邮箱',
+                            field: 'creditLimit',
+                            title: '授信额度',
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'bankProvince',
-                            title: '省份',
+                            title: '开户行省份',
                             formatter: provinceFormatter,
                             align: 'center',
                             valign: 'middle',
 
                         }, {
                             field: 'bankCity',
-                            title: '地市',
+                            title: '开户行地市',
                             formatter: cityFormatter,
                             align: 'center',
                             valign: 'middle',
@@ -137,7 +137,7 @@ define([], function() {
                             title: '操作',
                             align: 'center',
                             valign: 'middle',
-                            width:100,
+                            width: 100,
                             clickToSelect: false,
                             formatter: flagFormatter,
                             events: {
@@ -182,7 +182,6 @@ define([], function() {
             }
 
             function editRow(e, value, row, index) {
-                console.log(row, value, e, index)
                 $state.go('borrower.info.edit', { id: row.id });
             }
 

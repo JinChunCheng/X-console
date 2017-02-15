@@ -35,7 +35,10 @@ define([], function() {
 
 
             var getData = function(params) {
-                projectService.project.query({ where: JSON.stringify($scope.listVM.condition) }).$promise.then(function(res) {
+                var condition = $scope.listVM.condition;
+                condition.paginate = params.paginate;
+                projectService.project.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
+                    res.data = res.data || {};
                     res.data.paginate = res.data.paginate || { totalCount: 0 };
                     params.success({
                         total: res.data.paginate.totalCount,
@@ -56,7 +59,7 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'projectId', title: '编号', align: 'center' },
+                            { field: 'id', title: '编号', align: 'center' },
                             { field: 'projectName', title: '项目名称' }, {
                                 field: 'prodTypeId',
                                 title: '产品类型',
@@ -77,6 +80,7 @@ define([], function() {
                                     return $filter('meta')(row.creditChannelId, $scope.listVM.creditChannelList);
                                 }
                             },
+                            { field: 'guaranteeOrg', title: '担保机构' },
                             { field: 'borrowerId', title: '借款人编号' },
                             { field: 'borrowerName', title: '借款人' }, {
                                 field: 'requestAmount',
@@ -101,19 +105,19 @@ define([], function() {
                                 field: 'interestRate',
                                 title: '借款利率',
                                 formatter: function(value) {
-                                    return (value || 0) + '%';
+                                    return ((value || 0)*100).toFixed(2) + '%';
+                                }
+                            }, {
+                                field: 'discountRate',
+                                title: '优惠利率',
+                                formatter: function(value) {
+                                    return ((value || 0)*100).toFixed(2) + '%';
                                 }
                             }, {
                                 field: 'serviceFeeRate',
                                 title: '服务费率',
                                 formatter: function(value) {
-                                    return (value || 0) + '%';
-                                }
-                            }, {
-                                field: 'rebateRate',
-                                title: '返利利率',
-                                formatter: function(value) {
-                                    return (value || 0) + '%';
+                                    return ((value || 0)*100).toFixed(2) + '%';
                                 }
                             },
                             { field: 'createDatetime', title: '创建时间', formatter: dateTimeFormatter },
@@ -126,7 +130,7 @@ define([], function() {
                                 formatter: flagFormatter,
                                 events: {
                                     'click [name="btnDetail"]': function(e, value, row, index) {
-                                        $state.go('project.release.verify', { id: row.projectId });
+                                        $state.go('project.release.verify', { id: row.id });
                                     }
                                 }
                             }

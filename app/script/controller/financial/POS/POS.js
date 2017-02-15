@@ -90,7 +90,7 @@ define([], function() {
 
             financialService.POSchargeReconTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
-                    res.data.paginate = res.data.paginate || { totalCount: 0 };
+                    res.data.paginate.totalCount = res.data.paginate.totalCount || 0;
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items
@@ -102,7 +102,6 @@ define([], function() {
             $scope.bsPOSchargeReconTableControl = {
                 options: {
                     cache: false,
-                    height: 650,
                     pagination: true,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],

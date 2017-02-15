@@ -1,0 +1,65 @@
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <h3 ng-bind="vm.title"></h3>
+    </div>
+    <div class="panel-body">
+        <form name="marketingForm" class="form-horizontal form-validation" ng-submit="vm.submit(marketingForm.$invalid)" novalidate>
+
+            <div class="form-group" ng-class="{'has-error':marketingForm.name.$invalid && (marketingForm.name.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">模板名称</label>
+                <div class="col-sm-10">
+                    <input type="text" name="name" ng-model="vm.data.name" class="form-control" required>
+                    <div class="form-error" ng-if="marketingForm.name.$error.required">模板名称不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':marketingForm.idNo.$invalid && (marketingForm.idNo.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">参与标的</label>
+                <div class="col-sm-4">
+                    <select class="form-control form-white" name="fundChannelId" ng-model="vm.data.fundChannelId" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
+                    </select>                </div>
+                <label class="col-sm-1 control-label">周期</label>
+                <div class="col-sm-4">
+                    <select class="form-control form-white" name="fundChannelId" ng-model="vm.data.fundChannelId" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error':marketingForm.value.$invalid && (marketingForm.value.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">加息力度</label>
+                <div class="col-sm-10">
+                    <select class="form-control form-white" name="fundChannelId" ng-model="vm.data.fundChannelId" ng-change="vm.channelChange()" ng-options='c.value as c.text for c in vm.fundChannelName' required>
+                    </select>
+                    <div class="form-error" ng-if="marketingForm.value.$error.required">加息力度不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':marketingForm.effectiveDays.$invalid && (marketingForm.effectiveDays.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">有效期</label>
+                <div class="col-sm-10">
+                    <select class="form-control form-white" name="fundAccountManagerId" ng-model="vm.data.fundAccountManagerId" ng-options='c.value as c.text for c in vm.getManagers(vm.data.fundChannelId)' required>
+                    </select>
+                    <div class="form-error" ng-if="marketingForm.effectiveDays.$error.required">有效期不能为空!</div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    备注
+                </label>
+                <div class="col-sm-10">
+                    <!--<input type="textarea" class="form-control" ng-model="vm.data.bindIboxpayUser">-->
+                    <textarea name="" id=""  rows="10" style="width: 100%" ng-model="vm.data.memo"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
+                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
+                        <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
+                    </button>
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

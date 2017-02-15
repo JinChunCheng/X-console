@@ -59,27 +59,27 @@
                 </div>
             </div>
             <div class="col-md-4">
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                         <div class="input-group">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <div class="input-group">
                             <span class="input-group-addon">日期</span>
-                             <div class="input-group">
-                                 <div>
-                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.startDate" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
-                                 </div>
-                                 <span class="input-group-addon">~</span>
-                                 <div>
-                                     <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.endDate" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
-                                 </div>
-                             </div>
+                            <div class="input-group">
+                                <div>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.startDate" is-open="creationOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="creationOpened=true" />
+                                </div>
+                                <span class="input-group-addon">~</span>
+                                <div>
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="listVM.data.endDate" is-open="finishOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="finishOpened=true" />
+                                </div>
+                            </div>
                         </div>
-                        </div>
-                    </div>     
+                    </div>
                 </div>
+            </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-5">
                     <div class="form-group">
-                        <button class="btn btn-primary m-r-10" ng-click="listView.search()">查找</button>
+                        <button class="btn btn-primary m-r-10">查找</button>
                         <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
                     </div>
                 </div>
@@ -87,11 +87,9 @@
         </div>
     </form>
 </div>
-<div class="row">
-    <div class="col-md-12 m-b-10">
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-print m-r-5"></i>打印</button>
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-cloud-download m-r-5"></i>下载</button>
-        <button type="button" class="btn btn-success btn-xs" ng-click="checkRow()"><i class="fa fa-sign-out m-r-5"></i>导出投资明细Excel</button>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="transferCashPrintTable" bs-table-control="bsTransferCashPrintTableControl"></table>
     </div>
 </div>
-<table id="transferCashPrintTable" bs-table-control="bsTransferCashPrintTableControl"></table>

@@ -106,7 +106,6 @@ define([], function() {
                     // fixedColumns: true,
                     // fixedNumber: 2,
                     cache: false,
-                    height: 650,
                     //striped: true,
                     pagination: true,
                     pageSize: 10,

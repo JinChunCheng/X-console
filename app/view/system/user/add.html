@@ -4,22 +4,22 @@
     </div>
     <div class="panel-body">
         <form name="systemForm" class="form-horizontal form-validation" ng-submit="vm.submit(systemForm.$invalid)" novalidate>
-            <div class="form-group" ng-class="{'has-error':systemForm.opname.$invalid && (systemForm.opname.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">
-                    用户名
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" name="opname" class="form-control" ng-model="vm.data.opname" required>
-                    <div class="form-error" ng-if="systemForm.opname.$error.required">用户名不能为空!</div>
-                </div>
-            </div>
             <div class="form-group" ng-class="{'has-error':systemForm.opcode.$invalid && (systemForm.opcode.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">
-                    操作员编码
+                    登录账号
                 </label>
                 <div class="col-sm-10">
                     <input type="text" name="opcode" class="form-control" ng-model="vm.data.opcode" required>
-                    <div class="form-error" ng-if="systemForm.opcode.$error.required">操作员编码不能为空!</div>
+                    <div class="form-error" ng-if="systemForm.opcode.$error.required">登录账号不能为空!</div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error':systemForm.opname.$invalid && (systemForm.opname.$dirty||vm.submitted)}">
+                <label class="col-sm-2 control-label">
+                    真实姓名
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" name="opname" class="form-control" ng-model="vm.data.opname" required>
+                    <div class="form-error" ng-if="systemForm.opname.$error.required">真实姓名不能为空!</div>
                 </div>
             </div>
             <!--<div class="form-group" ng-class="{'has-error':systemForm.loginName.$invalid && (systemForm.loginName.$dirty||vm.submitted)}">
@@ -116,12 +116,12 @@
                     </table>
                 </div>
             </div>-->
-            <div class="form-group" ng-class="{'has-error':systemForm.empFlag.$invalid && (systemForm.empFlag.$dirty||vm.submitted)}">
+            <!-- <div class="form-group" ng-class="{'has-error':systemForm.empFlag.$invalid && (systemForm.empFlag.$dirty||vm.submitted)}">
                 <label class="col-sm-2 control-label">备注</label>
                 <div class="col-sm-10">
                     <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-2">
                     <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">

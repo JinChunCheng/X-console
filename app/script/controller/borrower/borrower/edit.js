@@ -5,15 +5,12 @@ define([], function() {
 
         $scope.vm = {
             action: action,
-            title: $stateParams.id ? '修改借款人信息' : '新增借款人信息',
+            title: $stateParams.id ? '修改资产方信息' : '新增资产方信息',
             data: {},
             bank: {},
             provinces: [],
             cancel: function() {
                 $state.go('borrower.info.list');
-            },
-            bankProvinceChange: function() {
-                $scope.vm.data.bankCity = null;
             },
             getCities: function(provinceCode) {
                 var result = [];
@@ -24,6 +21,28 @@ define([], function() {
                     }
                 });
                 return result;
+            },
+            getDistricts: function(provinceCode, cityCode) {
+                var result = [];
+                var cities = $scope.vm.getCities(provinceCode);
+                if (cities.length > 0) {
+                    cities.forEach(function(item) {
+                        if (item.code == cityCode) {
+                            result = item.children;
+                            return;
+                        }
+                    });
+                }
+                return result;
+            },
+            registeredProvinceChange: function() {
+                $scope.vm.registeredCity = null;
+            },
+            addressProvinceChange: function() {
+                $scope.vm.addressCity = null;
+            },
+            bankProvinceChange: function() {
+                $scope.vm.bankCity = null;
             },
             submit: submit
         };
@@ -40,6 +59,18 @@ define([], function() {
             });
             metaService.getMeta('ZT', function(data) {
                 $scope.vm.status = data;
+            });
+            metaService.getMeta('DWXZ', function(data) {
+                $scope.vm.enterpriseNature = data;
+            });
+            metaService.getMeta('XB', function(data) {
+                $scope.vm.sex = data;
+            });
+            metaService.getMeta('HYZK', function(data) {
+                $scope.vm.marriage = data;
+            });
+            metaService.getMeta('SJJRFS', function(data) {
+                $scope.vm.joinupType = data;
             });
             publicService.bankList.get().$promise.then(function(res) {
                 $scope.vm.bankList = res.data.items;
@@ -68,8 +99,13 @@ define([], function() {
                     }
                 });
             }
-        }
+        };
 
+        function splitPCA(str) {
+            var PCAarr;
+            PCAarr = str.split('-');
+            return PCAarr;
+        };
         showContent();
 
         function showContent() {
@@ -77,6 +113,12 @@ define([], function() {
                 borrowerService.borrowerDetail.get({ id: $stateParams.id }).$promise.then(function(res) {
                     //基本信息展示
                     $scope.vm.data = res.data.borrowerDetail;
+                    $scope.vm.data.addressProvince = splitPCA(res.data.borrowerDetail.address)[0];
+                    $scope.vm.data.addressCity = splitPCA(res.data.borrowerDetail.address)[1];
+                    $scope.vm.data.addressDetail = splitPCA(res.data.borrowerDetail.address)[2];
+                    $scope.vm.data.registeredProvince = splitPCA(res.data.borrowerDetail.registeredAddress)[0];
+                    $scope.vm.data.registeredCity = splitPCA(res.data.borrowerDetail.registeredAddress)[1];
+                    $scope.vm.data.registeredDetail = splitPCA(res.data.borrowerDetail.registeredAddress)[2];
                     getBank();
                 });
             }
@@ -84,11 +126,14 @@ define([], function() {
         };
 
         function save() {
+            console.log($scope.vm.data.birthday)
             if (!$stateParams.id) {
                 //新增借款人
                 $scope.vm.data.bankCode = $scope.vm.bank.bankCode;
                 $scope.vm.data.bankName = $scope.vm.bank.bankName;
-
+                $scope.vm.data.address = $scope.vm.data.addressProvince + "-" + $scope.vm.data.addressCity + "-" + $scope.vm.data.addressDetail;
+                $scope.vm.data.registeredAddress = $scope.vm.data.registeredProvince + "-" + $scope.vm.data.registeredCity + "-" + $scope.vm.data.registeredDetail;
+                $scope.vm.data.birthday = $filter('exDate')($scope.vm.data.birthday, 'yyyy-MM-dd');
                 borrowerService.updateBorrower.save($scope.vm.data).$promise.then(function(res) {
                     if (res.code == 200) {
                         toaster.pop('success', '新增借款人成功！');
@@ -102,9 +147,11 @@ define([], function() {
                 return;
             }
             //修改借款人
-            console.log($scope.vm.bank.bankCode)
             $scope.vm.data.bankCode = $scope.vm.bank.bankCode;
             $scope.vm.data.bankName = $scope.vm.bank.bankName;
+            $scope.vm.data.address = $scope.vm.data.addressProvince + "-" + $scope.vm.data.addressCity + "-" + $scope.vm.data.addressDetail;
+            $scope.vm.data.registeredAddress = $scope.vm.data.registeredProvince + "-" + $scope.vm.data.registeredCity + "-" + $scope.vm.data.registeredDetail;
+            $scope.vm.data.birthday = $filter('exDate')($scope.vm.data.birthday, 'yyyy-MM-dd');
             borrowerService.updateBorrower.update($scope.vm.data).$promise.then(function(res) {
                 if (res.code == 200) {
                     toaster.pop('success', '修改借款人成功！');

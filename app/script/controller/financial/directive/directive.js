@@ -86,7 +86,6 @@ define([], function() {
             $scope.bsCashDirectiveTableControl = {
                 options: {
                     cache: false,
-                    height: 650,
                     pagination: true,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],

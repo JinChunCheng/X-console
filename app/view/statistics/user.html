@@ -33,17 +33,13 @@
                                     <thead>
                                         <tr>
                                             <th>投资人总数</th>
-                                            <th>公司内部员工</th>
-                                            <th>盒伙人</th>
-                                            <th>普通用户</th>
+                                            <th ng-repeat="item in vm.list" ng-bind="item.saleplatformVO.name"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>1</td>
-                                            <td>Mark</td>
-                                            <td>Otto</td>
-                                            <td>@mdo</td>
+                                            <td ng-bind="vm.totalInvestor"></td>
+                                            <td ng-repeat="item in vm.list" ng-bind="item.investorVO.totalInvestor"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -66,23 +62,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>公司内部员工</th>
-                                            <td>1111</td>
-                                            <td>2222</td>
-                                            <td>3333</td>
-                                        </tr>
-                                        <tr>
-                                            <th>盒伙人</th>
-                                            <td>1111</td>
-                                            <td>2222</td>
-                                            <td>3333</td>
-                                        </tr>
-                                        <tr>
-                                            <th>普通用户</th>
-                                            <td>1111</td>
-                                            <td>2222</td>
-                                            <td>3333</td>
+                                        <tr ng-repeat="item in vm.list">
+                                            <td ng-bind="item.saleplatformVO.name"></td>
+                                            <td ng-bind="item.investmentVO.totalInvestmentAmount"></td>
+                                            <td ng-bind="item.investmentVO.totalInvestmentPen"></td>
+                                            <td ng-bind="item.investmentVO.investmentAverageValue"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -101,7 +85,7 @@
                                     <h3><i class="fa fa-pie-chart"></i> <strong>投资人数统计</strong></h3>
                                 </div>
                                 <div class="panel-content">
-                                    <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                    <canvas class="chart chart-pie" chart-data="vm.investorData" chart-labels="vm.investorLabels" chart-options="options">
                                     </canvas>
                                 </div>
                             </div>
@@ -112,7 +96,7 @@
                                     <h3><i class="fa fa-pie-chart"></i> <strong>投资数据统计</strong></h3>
                                 </div>
                                 <div class="panel-content">
-                                    <canvas class="chart chart-pie" chart-data="data" chart-labels="labels" chart-options="options">
+                                    <canvas class="chart chart-pie" chart-data="vm.investmentData" chart-labels="vm.investmentLabels" chart-options="options">
                                     </canvas>
                                 </div>
                             </div>

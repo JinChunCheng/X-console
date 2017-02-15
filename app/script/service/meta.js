@@ -6,8 +6,8 @@ define(['common/config'], function(config) {
         var metas = [{
                 key: 'XB', //性别
                 value: [
-                    { value: '1', text: '男' },
-                    { value: '0', text: '女' }
+                    { value: 1, text: '男' },
+                    { value: 0, text: '女' }
                 ]
             }, {
                 key: 'SF', //是否
@@ -30,17 +30,17 @@ define(['common/config'], function(config) {
             }, {
                 key: 'ZCLX', //资产类型
                 value: [
-                    { value: '1', text: '车贷' },
-                    { value: '2', text: '房贷' },
-                    { value: '3', text: '信用贷' },
-                    { value: '4', text: '企业贷' },
-                    { value: '99', text: '其他' },
+                    { value: 1, text: '车贷' },
+                    { value: 2, text: '房贷' },
+                    { value: 3, text: '信用贷' },
+                    { value: 4, text: '企业贷' },
+                    { value: 99, text: '其他' },
                 ]
             }, {
                 key: 'HYZK', //婚姻状况
                 value: [
-                    { value: '0', text: '未婚' },
-                    { value: '1', text: '已婚' }
+                    { value: 0, text: '未婚' },
+                    { value: 1, text: '已婚' }
                 ]
             }, {
                 key: 'HKLX', //户口类型
@@ -67,10 +67,14 @@ define(['common/config'], function(config) {
             }, {
                 key: 'DWXZ', //单位性质
                 value: [
-                    { value: '1', text: '私企' },
-                    { value: '2', text: '国企' },
-                    { value: '3', text: '外企' },
-                    { value: '4', text: '自营' }
+                    { value: '1', text: '国有企业' },
+                    { value: '2', text: '国有控股企业' },
+                    { value: '3', text: '外资企业' },
+                    { value: '4', text: '合资企业' },
+                    { value: '5', text: '民营企业' },
+                    { value: '6', text: '事业单位' },
+                    { value: '7', text: '国家行政机关' },
+                    { value: '8', text: '政府机构' },
                 ]
             }, {
                 key: 'QYHY', //企业行业
@@ -104,6 +108,12 @@ define(['common/config'], function(config) {
                     { value: '2', text: '50-100' },
                     { value: '3', text: '100-500' },
                     { value: '4', text: '500以上' },
+                ]
+            }, {
+                key: 'QDZT', //渠道状态
+                value: [
+                    { value: '1', text: '正常' },
+                    { value: '2', text: '冻结' }
                 ]
             }, {
                 key: 'JKLX', //借款类型
@@ -159,7 +169,8 @@ define(['common/config'], function(config) {
                 key: 'SJJRFS', //数据接入方式
                 value: [
                     { value: '1', text: '接口' },
-                    { value: '2', text: '数据导入' }
+                    { value: '2', text: '数据导入' },
+                    { value: '3', text: '手动录入' }
                 ]
             }, {
                 key: 'ZCQT', //支持群体
@@ -202,6 +213,30 @@ define(['common/config'], function(config) {
                     { value: 'OTHERS', text: '其他' }
                 ]
             }, {
+                key: 'ZLYH', //主流银行20家
+                value: [
+                    { value: '1', text: '中国工商银行' },
+                    { value: '2', text: '中国银行' },
+                    { value: '3', text: '中国建设银行' },
+                    { value: '4', text: '中国农业银行' },
+                    { value: '5', text: '交通银行' },
+                    { value: '6', text: '中国招商银行' },
+                    { value: '7', text: '中信银行' },
+                    { value: '8', text: '上海浦东发展银行' },
+                    { value: '9', text: '中国民生银行' },
+                    { value: '10', text: '兴业银行' },
+                    { value: '11', text: '上海银行' },
+                    { value: '12', text: '华夏银行' },
+                    { value: '13', text: '北京银行' },
+                    { value: '14', text: '北京农村商业银行' },
+                    { value: '15', text: '深圳发展银行' },
+                    { value: '16', text: '上海农村商业银行' },
+                    { value: '17', text: '天津市商业银行' },
+                    { value: '18', text: '深圳市商业银行' },
+                    { value: '19', text: '渤海银行' },
+                    { value: '20', text: '大连市商业银行' }
+                ]
+            }, {
                 //===============================投资人============================
                 key: 'CZLY', //操作来源
                 value: [
@@ -211,7 +246,7 @@ define(['common/config'], function(config) {
             }, {
                 key: 'TZRZT', //投资人状态
                 value: [
-                    { value: 'P', text: '正常' },
+                    { value: 'O', text: '正常' },
                     { value: 'C', text: '关闭' }
                 ]
             }, {
@@ -355,6 +390,49 @@ define(['common/config'], function(config) {
                     { value: 'Y', text: '使用' },
                 ]
             }, {
+                key: 'SGZT', //申购状态
+                value: [
+                    { value: 'W', text: '待申购' },
+                    { value: 'C', text: '取消' },
+                    { value: 'S', text: '成功' },
+                    { value: 'F', text: '失败' },
+                    { value: 'P', text: '申购待确认' }
+                ]
+            }, {
+                key: 'JJLX', //基金类型
+                value: [
+                    { value: 'XJG', text: '恒丰小金贯' },
+                    { value: 'OTH', text: '其他' },
+                ]
+            }, {
+                key: 'SHFS', //赎回方式
+                value: [
+                    { value: 'PIl', text: '银行代付' },
+                    { value: 'OTH', text: '其他' },
+                ]
+            }, {
+                key: 'SHTD', //赎回通道
+                value: [
+                    { value: 'EGBANK', text: '恒丰银行' },
+                    { value: 'OTH', text: '其他' },
+                ]
+            }, {
+                key: 'REDEEMZT', //赎回状态
+                value: [
+                    { value: 'W', text: '待申购' },
+                    { value: 'C', text: '取消' },
+                    { value: 'S', text: '成功' },
+                    { value: 'F', text: '失败' },
+                    { value: 'P', text: '赎回待确认' }
+                ]
+            }, {
+                key: 'SHDFJG', //赎回代付结果
+                value: [
+                    { value: '00', text: '代付成功' },
+                    { value: '01', text: '代付失败以冲正' },
+                    { value: '10', text: '代付失败未冲正' },
+                ]
+            }, {
                 //===============================资金账户============================
                 key: 'ZJZHMC', //资金账户名称
                 value: [{
@@ -449,6 +527,8 @@ define(['common/config'], function(config) {
                     { value: 'OTH', text: '其他' },
                     { value: 'POS', text: 'POS收款' },
                     { value: 'RWD', text: '奖励' },
+                    { value: 'WH', text: '代扣' },
+                    { value: 'XJG', text: '小金贯' },
                 ]
             }, {
                 key: 'CZZT', //充值状态（区别于status）
@@ -530,13 +610,26 @@ define(['common/config'], function(config) {
                 // ============================资产=========================
                 key: 'ZCZT', //资产状态
                 value: [
-                    { value: '-1', text: '草稿' },
-                    { value: '0', text: '待审核' },
-                    { value: '1', text: '审核通过' },
-                    { value: '2', text: '上架' },
-                    { value: '3', text: '审核不通过' },
-                    { value: '4', text: '冻结' },
-                    { value: '5', text: '失效' }
+                    { value: -1, text: '草稿' },
+                    { value: 0, text: '待审核' },
+                    { value: 1, text: '审核通过' },
+                    { value: 2, text: '上架' },
+                    { value: 3, text: '审核不通过' },
+                    { value: 4, text: '冻结' },
+                    { value: 5, text: '失效' }
+                ]
+            }, {
+                key: 'CPZT', //产品状态
+                value: [
+                    { value: 0, text: '待上架' },
+                    { value: 2, text: '已上架' },
+                    { value: 1, text: '已下架' },
+                    { value: 5, text: '失效' },
+                    { value: 6, text: '满标' },
+                    { value: 7, text: '还款中' },
+                    { value: 8, text: '已打款' },
+                    { value: 9, text: '逾期' }
+
                 ]
             }, {
                 key: 'XMZT',
@@ -554,6 +647,17 @@ define(['common/config'], function(config) {
                     { value: 'ECL', text: '异常关闭' }
                 ]
             }, {
+                key: 'TAGS',
+                value: [
+                    { value: '01', text: '周期短', color: '#35B8E0' },
+                    { value: '02', text: '收益高', color: '#E95D4E' },
+                    { value: '03', text: '保本保息', color: '#FFB046' },
+                    { value: '04', text: '新手标', color: '#48D58E' },
+                    { value: '05', text: '特权标', color: '#83BDFE' },
+                    { value: '06', text: '秒杀标', color: '#5B69BC' },
+                    { value: '07', text: '体验金', color: '#85BE44' }
+                ]
+            }, {
                 key: 'CPLX', //产品类型(汇赚钱)
                 value: [
                     { value: '0101', text: '汇赚钱理财' },
@@ -564,6 +668,30 @@ define(['common/config'], function(config) {
                 key: 'XMLX', //项目类型
                 value: [
                     { value: 'NOR', text: '普通推荐' }
+                ]
+            }, {
+                key: 'SDZT', //锁定状态
+                value: [
+                    { value: '1', text: '未锁定' },
+                    { value: '2', text: '已锁定' }
+                ]
+            }, {
+                key: 'XMZCZT', //项目资产状态
+                value: [
+                    { value: '1', text: '未还款' },
+                    { value: '2', text: '已还款' }
+                ]
+            }, {
+                key: 'XMZCLX', //项目资产类型
+                value: [
+                    { value: '1', text: '信用贷款' }
+                ]
+            }, {
+                key: 'SFKSH', //是否可赎回
+                value: [
+                    { value: 'true', text: '可提前赎回' },
+                    { value: 'false', text: '不可提前赎回' }
+
                 ]
             }, {
                 key: 'HTMB', //合同模板
@@ -666,7 +794,7 @@ define(['common/config'], function(config) {
                 key: 'FBFS', //发布方式
                 value: [
                     { value: 'I', text: '立即发布' },
-                    { value: 'T', text: '定时发送' }
+                    { value: 'T', text: '定时发布' }
                 ]
             }, {
                 key: 'DZZT', //对账状态

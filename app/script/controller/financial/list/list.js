@@ -221,7 +221,8 @@ define([], function() {
                                     field: 'promptDate',
                                     title: '催款日期',
                                     align: 'center',
-                                    valign: 'middle'
+                                    valign: 'middle',
+                                    formatter: timeFormatter
                                 }, {
                                     field: 'projectId',
                                     title: '项目标识',
@@ -241,7 +242,8 @@ define([], function() {
                                 }, {
                                     field: 'paymentDueDate',
                                     title: '最后还款日',
-                                    align: 'center'
+                                    align: 'center',
+                                    formatter: timeFormatter
                                 }, {
                                     field: 'principal',
                                     title: '当期本金',
@@ -271,7 +273,7 @@ define([], function() {
                             }
                         };
                         function timeFormatter(value, row, index) {
-                            return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
+                            return $filter('exDate')(value, 'yyyy-MM-dd');
                         };
                         $scope.cancel = function () {
                             $modalInstance.dismiss();

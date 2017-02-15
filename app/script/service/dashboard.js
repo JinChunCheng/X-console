@@ -1,6 +1,27 @@
 define([], function() {
-    return ['dashboardService', [function() {
+    return ['dashboardService', ['$http', '$resource', '$q', function($http, $resource, $q) {
+        var serverErrorData = {
+            status: 500,
+            msg: '服务器连接失败，请检查服务是否可用或联系管理员！'
+        };
         var dashboard = {};
+        dashboard.getData = function() {
+            return $http({
+                    method: "GET",
+                    url: 'http://zhengtong.h2finance.com/console-statics/statics/all',
+                })
+                .then(function(res) {
+                        if (res) {
+                            return res.data;
+                        } else {
+                            return serverErrorData;
+                        }
+                    },
+                    function(errRes) {
+                        return $q.reject(errRes);
+                    }
+                );
+        }
         dashboard.init = function() {
 
             var minBulletSize = 3;
@@ -168,5 +189,3 @@ define([], function() {
 
     }]];
 });
-
-

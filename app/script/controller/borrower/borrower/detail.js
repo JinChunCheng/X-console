@@ -26,6 +26,18 @@ define([], function() {
                 metaService.getMeta('ZHKM', function(data) {
                     $scope.vm.accountSubjectCode = data;
                 });
+                metaService.getMeta('DWXZ', function(data) {
+                    $scope.vm.enterpriseNature = data;
+                });
+                metaService.getMeta('XB', function(data) {
+                    $scope.vm.sex = data;
+                });
+                metaService.getMeta('HYZK', function(data) {
+                    $scope.vm.marriage = data;
+                });
+                metaService.getMeta('SJJRFS', function(data) {
+                    $scope.vm.joinupType = data;
+                });
             }
             initMetaData();
 
@@ -139,8 +151,20 @@ define([], function() {
 
             };
 
+            function splitPCA(str) {
+                var PCAarr;
+                PCAarr = str.split('-');
+                return PCAarr;
+            };
+
             function getDetail(borrowerId) {
                 borrowerService.borrowerDetail.get({ id: borrowerId }).$promise.then(function(res) {
+                    $scope.vm.addressProvince = $filter('metaPCA')(splitPCA(res.data.borrowerDetail.address)[0], $scope.vm.provinces);
+                    $scope.vm.addressCity = $filter('metaPCA')(splitPCA(res.data.borrowerDetail.address)[1], $scope.vm.bankCity);
+                    $scope.vm.data.address = $scope.vm.addressProvince + $scope.vm.addressCity + splitPCA(res.data.borrowerDetail.address)[2];
+                    $scope.vm.registeredProvince = $filter('metaPCA')(splitPCA(res.data.borrowerDetail.address)[0], $scope.vm.provinces);
+                    $scope.vm.registeredCity = $filter('metaPCA')(splitPCA(res.data.borrowerDetail.address)[1], $scope.vm.bankCity);
+                    $scope.vm.data.registeredAddress = $scope.vm.registeredProvince + $scope.vm.registeredCity + splitPCA(res.data.borrowerDetail.registeredAddress)[2]; // $scope.vm.data.addressCity=splitPCA(res.data.borrowerDetail.address)[1];
                     $scope.vm.data.borrowerDetail = res.data.borrowerDetail;
                     $scope.vm.data.borrowerAccount = res.data.borrowerAccount;
                     init();

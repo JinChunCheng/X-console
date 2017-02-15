@@ -14,6 +14,8 @@ define(['common/config'], function(config) {
         var cashDetailsTable = $resource(config.CASHOUT_CONSOLE + '/cashout/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //划款打印
         var transferCashPrintTable = $resource(config.CASHOUT_CONSOLE + '/capitalAccountRemitePrint/showCapitalAccountRemiteList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var printTempWDR = $resource('http://172.21.1.205:8089/cashout-console/capitalAccountRemitePrint/getPrintWDR/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var printTempPRJ = $resource('http://172.21.1.205:8089/cashout-console/capitalAccountRemitePrint/getPrintPRJ/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         //提现出款监控
         var withdrawCashMonitorTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var monitorDetailsTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
@@ -24,15 +26,15 @@ define(['common/config'], function(config) {
         var fileInterfaceLogTable = $resource(config.FILE_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //催款单列表 催款单审核(接口一样)
         //var promptListTable = $resource(config.CASHOUT_CONSOLE + '/paymentMonitor/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
-        var promptListTable = $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
-        var promptLikeListTable = $resource('http://172.21.20.13:8080/prompt/promptDetail/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var promptListTable = $resource(config.PROMPT_CONSOLE + '/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var promptLikeListTable = $resource(config.PROMPT_CONSOLE + '/prompt/promptDetail/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //催款单审核批量到账确认
         //var financialCheckList =  $resource('http://172.21.20.13:8080/prompt/allList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
-        var POSDetailsTable = $resource('http://172.21.20.16:8080/recharge/autoStatement/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //var POSDetailsTable = $resource('http://172.21.20.16:8080/recharge/autoStatement/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
 
         //文件接口日志
-        var fileInterfaceLogTable = $resource(config.CASHOUT_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        var fileInterfaceLogTable = $resource(config.FILE_CONSOLE + '/file/allList', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
 
         return {
@@ -45,17 +47,19 @@ define(['common/config'], function(config) {
             cashDetailsTable: cashDetailsTable,
 
             transferCashPrintTable: transferCashPrintTable,
+            printTempWDR: printTempWDR,
+            printTempPRJ: printTempPRJ,
 
             withdrawCashMonitorTable: withdrawCashMonitorTable,
             monitorDetailsTable: monitorDetailsTable,
 
-            POSchargeReconTable:POSchargeReconTable,
-            POSDetailsTable:POSDetailsTable,
+            POSchargeReconTable: POSchargeReconTable,
+            POSDetailsTable: POSDetailsTable,
 
-            fileInterfaceLogTable:fileInterfaceLogTable,
+            fileInterfaceLogTable: fileInterfaceLogTable,
 
-            promptListTable:promptListTable,
-            promptLikeListTable:promptLikeListTable,
+            promptListTable: promptListTable,
+            promptLikeListTable: promptLikeListTable,
 
             //催款单审核
             //financialCheckList: financialCheckList,
@@ -79,21 +83,20 @@ define(['common/config'], function(config) {
             },
             financialCheckList: function(ids, exeChannel) {
                 return $http({
-                    method: 'PUT',
-                    url:'http://172.21.20.13:8080/prompt/auditPrompt/'+ids
-                    //url: config.CASHOUT_CONSOLE + '/cashout/withdraw/accept/' + ids + '/' + exeChannel
-                })
+                        method: 'PUT',
+                        url: config.PROMPT_CONSOLE + '/prompt/auditPrompt/' + ids
+                    })
                     .then(function(resp) {
-                        if (resp) {
-                            return resp.data;
-                        } else {
-                            return serverErrorData;
+                            if (resp) {
+                                return resp.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errResp) {
+                            return $q.reject(errResp);
                         }
-                    },
-                    function(errResp) {
-                        return $q.reject(errResp);
-                    }
-                );
+                    );
             },
             fullAccept: function(ids) {
                 return $http({
@@ -173,21 +176,21 @@ define(['common/config'], function(config) {
             },
             promptDetail: function(id) {
                 return $http({
-                    method: 'GET',
-                    url: 'http://172.21.20.13:8080/prompt/promptDetail/'+id
-                })
+                        method: 'GET',
+                        url: config.PROMPT_CONSOLE + '/prompt/promptDetail/' + id
+                    })
                     .then(function(res) {
-                        if (res) {
-                            return res.data;
+                            if (res) {
+                                return res.data;
 
-                        } else {
-                            return serverErrorData;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
                         }
-                    },
-                    function(errRes) {
-                        return $q.reject(errRes);
-                    }
-                );
+                    );
             }
 
         }

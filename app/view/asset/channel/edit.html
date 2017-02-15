@@ -43,6 +43,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':channelForm.assetCount.$invalid && (channelForm.assetCount.$dirty||channelVM.submitted)}">
+                    <label for="" class="control-label">接入资产数</label>
+                    <div class="input-group">
+                        <input type="number" name="assetCount" ng-model="channelVM.data.assetCount" class="form-control" required ng-pattern="/^\+?[1-9]\d*$/">
+                        <span class="input-group-addon">元</span>
+                    </div>
+                    <div class="form-error" ng-if="channelForm.assetCount.$error.required">接入资产数不能为空!</div>
+                    <div class="form-error" ng-if="channelForm.assetCount.$error.pattern">接入资产数必须是正整数!</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group" ng-class="{'has-error':channelForm.totalAsset.$invalid && (channelForm.totalAsset.$dirty||channelVM.submitted)}">
+                    <label for="" class="control-label">接入资产总额</label>
+                    <div class="input-group">
+                        <input type="number" name="totalAsset" ng-model="channelVM.data.totalAsset" class="form-control" required ng-pattern="/^\+?[1-9]\d*$/">
+                        <span class="input-group-addon">元</span>
+                    </div>
+                    <div class="form-error" ng-if="channelForm.totalAsset.$error.required">接入资产总额不能为空!</div>
+                    <div class="form-error" ng-if="channelForm.totalAsset.$error.pattern">接入资产总额必须是正整数!</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" ng-disabled="channelVM.processing">

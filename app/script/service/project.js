@@ -14,8 +14,48 @@ define(['common/config'], function(config) {
             finishAudit: function(data) {
                 return $http({
                         method: 'POST',
+                        url: config.RPOJECT_CONSOLE + '/hzq/project/biddingFinishApprove/' + data.optType + '/' + data.id
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            finishAuditRelease: function(data) {
+                return $http({
+                        method: 'POST',
                         url: config.RPOJECT_CONSOLE + '/hzq/project/audit',
                         data: data
+
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
+            importAssets: function(data) {
+                return $http({
+                        method: 'POST',
+                        url: config.RPOJECT_CONSOLE + '/hzq/project_borrower/imp',
+                        data: data,
+                        headers: {
+                            'Content-Type': undefined
+                        },
+                        transformRequest: angular.identity
                     })
                     .then(function(res) {
                             if (res) {

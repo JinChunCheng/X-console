@@ -57,7 +57,7 @@ define([], function() {
             condition.status = "R";
             var queryCondition = { "data": condition, "paginate": paganition };
             fundService.withdrawListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
-                res.data = res.data || { paginate: paganition, items: [] };
+                res.data = res.data || { paginate: {totalCount: 0}, items: [] }
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items

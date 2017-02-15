@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$http', '$filter', '$state', '$modal', 'projectService', 'metaService',
-        function($scope, $http, $filter, $state, $modal, projectService, metaService) {
+    return ['$scope', '$http', '$filter', '$state', '$modal', 'projectService', 'metaService', 'toaster',
+        function($scope, $http, $filter, $state, $modal, projectService, metaService, toaster) {
 
             /**
              * the default search condition
@@ -38,11 +38,17 @@ define([], function() {
                 var condition = $scope.listVM.condition;
                 condition.paginate = params.paginate;
                 projectService.project.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
-                    res.data.paginate = res.data.paginate || { totalCount: 0 };
-                    params.success({
-                        total: res.data.paginate.totalCount,
-                        rows: res.data.items
-                    });
+                    if (res.code == 200) {
+                        res.data = res.data || {};
+                        res.data.paginate = res.data.paginate || { totalCount: 0 };
+                        params.success({
+                            total: res.data.paginate.totalCount,
+                            rows: res.data.items
+                        });
+                    }
+                    else {
+                        toaster.pop('error', res.msg);
+                    }
                 });
             };
 
@@ -58,7 +64,7 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'projectId', title: '编号', align: 'center' },
+                            { field: 'id', title: '编号', align: 'center' },
                             { field: 'projectName', title: '项目名称' }, {
                                 field: 'prodTypeId',
                                 title: '产品类型',
@@ -76,7 +82,8 @@ define([], function() {
                             { field: 'borrowerId', title: '借款人编号' },
                             { field: 'borrowerName', title: '借款人' },
                             { field: 'requestAmount', title: '借款金额' },
-                            { field: 'purpose', title: '借款用途' },
+                            // { field: 'purpose', title: '借款用途' },
+                            { field: 'guaranteeOrg', title: '担保机构' },
                             { field: 'displayChannelCode', title: '销售平台' }, {
                                 field: 'repaymentType',
                                 title: '还款方式',
@@ -93,26 +100,25 @@ define([], function() {
                                 field: 'interestRate',
                                 title: '借款利率',
                                 formatter: function(value) {
-                                    return (value || 0) + '%';
+                                    return ((value || 0)*100).toFixed(2) + '%';
+                                }
+                            }, {
+                                field: 'discountRate',
+                                title: '优惠利率',
+                                formatter: function(value) {
+                                    return ((value || 0)*100).toFixed(2) + '%';
                                 }
                             }, {
                                 field: 'serviceFeeRate',
                                 title: '服务费率',
                                 formatter: function(value) {
-                                    return (value || 0) + '%';
-                                }
-                            },
-                            { field: 'biddingDeadline', title: '投标截止时间', formatter: dateFormatter }, {
-                                field: 'rebateRate',
-                                title: '返利利率',
-                                formatter: function(value) {
-                                    return (value || 0) + '%';
+                                    return ((value || 0)*100).toFixed(2) + '%';
                                 }
                             }, {
                                 field: 'biddingProgress',
                                 title: '投标进度',
                                 formatter: function(value) {
-                                    return (value || 0) + '%';
+                                    return ((value || 0)*100).toFixed(2) + '%';
                                 }
                             }, {
                                 field: 'biddingAmount',
@@ -146,7 +152,7 @@ define([], function() {
                                 formatter: flagFormatter,
                                 events: {
                                     'click [name="btnDetail"]': function(e, value, row, index) {
-                                        $state.go('project.info.detail', { id: row.projectId });
+                                        $state.go('project.info.detail', { id: row.id });
                                     }
                                 }
                             }

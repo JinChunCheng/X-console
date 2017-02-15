@@ -65,7 +65,7 @@ define([], function() {
 
                     }, {
                         field: 'name',
-                        title: '借款人姓名',
+                        title: '资产方',
                         align: 'center',
                         valign: 'middle',
 

@@ -41,6 +41,19 @@ define(['common/config'], function(config) {
         var infoDetail = $resource(config.INVESTMENT_CONSOLE + '/investment/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         //var infoRepayList = $resource(config.INVESTMENT_CONSOLE + '/investment/getRepaymentPlanById', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
         var infoRepayList = $resource(config.INVESTMENT_CONSOLE +'/investment/getRepaymentPlanList', null, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        //申购记录列表
+        var purchaseList = $resource(config.XJG_CONSOLE + '/subscription/list', null, { 'query': { isArray: false }, 'update': { method: 'GET' },'save': { method: 'POST' } });
+        //修改申购记录
+        var updatePurchaseList = $resource(config.XJG_CONSOLE + '/subscription', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //申购记录详情
+        var getPurchaseDetail = $resource(config.XJG_CONSOLE + '/subscription/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+
+        //赎回记录列表
+        var getRedeemList = $resource(config.XJG_CONSOLE + '/redeem/list', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
+        //修改赎回记录
+        var updateRedeemList = $resource(config.XJG_CONSOLE + '/redeem', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        //赎回记录详情
+        var getRedeemDetail = $resource(config.XJG_CONSOLE + '/redeem/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'GET' } });
 
         return {
             resource: investorRes,
@@ -62,6 +75,14 @@ define(['common/config'], function(config) {
             infoList: infoList,
             infoDetail: infoDetail,
             infoRepayList: infoRepayList,
+            //申购列表
+            purchaseList:purchaseList,
+            updatePurchaseList:updatePurchaseList,
+            getPurchaseDetail:getPurchaseDetail,
+            //赎回列表
+            getRedeemList:getRedeemList,
+            updateRedeemList:updateRedeemList,
+            getRedeemDetail:getRedeemDetail,
             /**
              * get investor list
              * @param  {string} data 

@@ -42,7 +42,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财渠道</span>
-                                <select class="form-control form-white" ng-model="listView.fundChannel" ng-options='channel as channel.text for channel in listView.fundChannelName'>
+                                <select class="form-control form-white" ng-model="listView.condition.data.fundChannel" ng-options='channel as channel.text for channel in listView.fundChannelName'>
                                     <option value="">- 请选择 -</option>
                                 </select>
                             </div>
@@ -54,7 +54,7 @@
                         <div class="col-sm-12">
                             <div class="input-group">
                                 <span class="input-group-addon">理财客户经理</span>
-                                <select class="form-control form-white" ng-model="listView.condition.data.fundManagerName" ng-options='item.code as item.text for item in listView.fundChannel.children'>
+                                <select class="form-control form-white" ng-model="listView.condition.data.fundManagerName" ng-options='item.code as item.text for item in listView.condition.data.fundChannel.children'>
                                     <option value="">- 请选择 -</option>
                                 </select>
                             </div>

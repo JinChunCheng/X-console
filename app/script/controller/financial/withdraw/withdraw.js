@@ -8,6 +8,7 @@ define([], function() {
          */
         var defaultCondition = {
             fundOutType: 'WDR',
+            status: 'P' ,
             sorting: 'update_time desc',
 
             //exeChannel为必选项 值默认为IBOXPAY
@@ -77,13 +78,7 @@ define([], function() {
             startingDay: 1,
             class: 'datepicker',
             showWeeks: false
-        };
-
-        /**
-         * do something after view loaded
-         * @param  {string}     event type                      
-         * @param  {function}   callback function
-         */
+        }
         $scope.$on('$viewContentLoaded', function() {
             $scope.listView.table = $('#withdrawCashTable');
         });
@@ -94,6 +89,7 @@ define([], function() {
 
             var queryCondition = { "data":data,"paginate": paganition };
             financialService.withdrawCashTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                console.log("a");
                 res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,
@@ -105,7 +101,6 @@ define([], function() {
             $scope.bsWithdrawCashTableControl = {
                 options: {
                     cache: false,
-                    height: 650,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",

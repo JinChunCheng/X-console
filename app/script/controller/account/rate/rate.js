@@ -32,7 +32,8 @@ define([], function() {
                 var data = $scope.listVM.condition;
                 var queryCondition = { "data": data, "paginate": paganition };
                 accountService.rateListTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
-                    res.data = res.data || { paginate: paganition, items: [] };
+                    res.paginate = res.paginate || { totalCount: 0 };
+                    res.data = res.data || { paginate: res.paginate, items: [] };
                     params.success({
                         total: res.data.paginate.totalCount,
                         rows: res.data.items

@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">用户编号</span>
+                                <span class="input-group-addon">登录账号</span>
                                 <input type="text" class="form-control form-white" ng-model="listView.condition.data.opcode">
                             </div>
                         </div>
@@ -19,12 +19,14 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">用户名</span>
+                                <span class="input-group-addon">真实姓名</span>
                                 <input type="text" class="form-control form-white" ng-model="listView.condition.data.opname">
                             </div>
                         </div>
                     </div>
+
                 </div>
+
                 <!--<div class="col-md-4">
                     <div class="form-group">
                         <div class="col-sm-12">
@@ -66,7 +68,7 @@
                         </div>
                     </div>
                 </div>-->
-                <div class="col-md-4 col-md-offset-5">
+                <div class="col-md-4">
                     <button class="btn btn-primary m-r-10" ng-click="search()">查找</button>
                     <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
                 </div>
@@ -75,7 +77,6 @@
     </form>
 </div>
 <div class="panel panel-default">
-    <div class="panel-header"><i class="icon icon-user"></i>查询结果</div>
     <div class="panel-body">
         <div class="row">
             <div class="col-md-12 m-b-10">

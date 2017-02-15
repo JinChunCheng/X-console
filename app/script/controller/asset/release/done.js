@@ -11,7 +11,7 @@ define([], function() {
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: { status: 2 }
+                data: { status: [2,3] }
             };
 
             $scope.listVM = {
@@ -69,15 +69,16 @@ define([], function() {
                         ajax: getData,
                         sidePagination: "server",
                         columns: [
-                            { field: 'asset.assetType', title: '资产类型', formatter: assetTypeFormatter },
-                            { field: 'asset.assetChannel', title: '资产渠道' },
+                            { field: 'asset.assetType', title: '类型', formatter: assetTypeFormatter },
+                            { field: 'productName', title: '产品名称' },
+
                             { field: 'name', title: '借款人' },
-                            { field: '', title: '借款金额/投标金额' },
+                            { field: '', title: '借款金额/投标金额', formatter: biddingFormatter },
                             { field: 'asset.loanUse', title: '资金用途' }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
-                                    return value ? value + '%' : '';
+                                    return value ? (value * 100).toFixed(2) + '%' : '';
                                 }
                             }, {
                                 field: 'loanTermCount',
@@ -89,10 +90,16 @@ define([], function() {
                                 field: 'licaiRate',
                                 title: '理财利率',
                                 formatter: function(value) {
-                                    return value ? value + '%' : '';
+                                    return value ? (value * 100).toFixed(2)+'%' : '';
+                                }
+                            }, {
+                                field: 'discountRate',
+                                title: '优惠利率',
+                                formatter: function(value) {
+                                    return value ? (value * 100).toFixed(2) + '%' : '';
                                 }
                             },
-                            { field: 'debtEndDate', title: '投标截止日期', formatter: dateFormatter },
+                            { field: 'biddingDeadline', title: '投标截止日期', formatter: dateFormatter },
                             { field: 'repaymentType', title: '还款方式', formatter: repaymentTypeFormatter },
                             { field: 'saleplatform', title: '销售平台' }, {
                                 field: 'flag',
@@ -108,6 +115,12 @@ define([], function() {
                         ]
                     }
                 };
+
+                function biddingFormatter(value, row, index) {
+                    var loanAmount = row ? (row.amount || 0) : 0;
+                    var biddingAmount = row ? (row.biddingAmount || 0) : 0;
+                    return loanAmount + ' / ' + biddingAmount;
+                }
 
                 function assetTypeFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.assetTypeList);
@@ -144,7 +157,7 @@ define([], function() {
                             }
 
                             $scope.ok = function() {
-                                assetService.offshelf(row.id).then(function(res) {
+                                assetService.offshelf(row.productId).then(function(res) {
                                     if (res.code == 200) {
                                         toaster.pop('success', '产品下架成功！');
                                         $modalInstance.dismiss();

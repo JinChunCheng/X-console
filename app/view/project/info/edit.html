@@ -4,288 +4,455 @@
     </div>
     <div class="panel-body">
         <form name="projectForm" class="form-validation" novalidate ng-submit="projectVM.submit(projectForm.$invalid)">
-            <div class="row m-t-10">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.creditchannel.$invalid && (projectForm.creditchannel.$dirty||projectVM.submitted)}">
-                                <label class="control-label">授信渠道</label>
-                                <div>
-                                    <select name="creditchannel" class="form-control" ng-model="projectVM.data.creditChannelId" ng-options="item.value as item.text for item in projectVM.creditChannelList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
+            <tabset class="tab-fade-in">
+                <tab>
+                    <tab-heading>
+                        基本信息
+                    </tab-heading>
+                    <div>
+                        <div class="row m-t-10">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.creditchannel.$invalid && (projectForm.creditchannel.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">授信渠道</label>
+                                            <div>
+                                                <select name="creditchannel" class="form-control" ng-model="projectVM.data.creditChannelId" ng-options="item.value as item.text for item in projectVM.creditChannelList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.creditmanager.$invalid && (projectForm.creditmanager.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">授信客户经理</label>
+                                            <div>
+                                                <select name="creditmanager" class="form-control" ng-model="projectVM.data.creditAccountManagerId" ng-options="item.value as item.text for item in projectVM.getManagerList()" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.creditmanager.$invalid && (projectForm.creditmanager.$dirty||projectVM.submitted)}">
-                                <label class="control-label">授信客户经理</label>
-                                <div>
-                                    <select name="creditmanager" class="form-control" ng-model="projectVM.data.creditAccountManagerId" ng-options="item.value as item.text for item in projectVM.getManagerList()" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.projectname.$invalid && (projectForm.projectname.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">项目名称</label>
+                                            <div>
+                                                <input name="projectname" type="text" ng-pattern="/^.{0,30}$/" class="form-control" ng-model="projectVM.data.projectName" required>
+                                                <div class='form-error' ng-if="projectForm.projectname.$error.pattern">项目名称长度不能超过30字符！</div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.borrowerid.$invalid && (projectForm.borrowerid.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">资产方</label>
+                                            <div>
+                                                <input name="borrowerid" type="text" ng-model="projectVM.borrower.id" ng-show="false" ng-cloak required>
+                                                <ui-select ng-model="projectVM.borrower" theme="bootstrap">
+                                                    <ui-select-match placeholder="输入资产方编号">{{projectVM.borrower.enterpriseName}}</ui-select-match>
+                                                    <ui-select-choices repeat="item in projectVM.borrowerList | filter: $select.search" refresh="projectVM.refreshBorrower($select.search)" refresh-delay="500">
+                                                        <div ng-bind-html="item.enterpriseName | highlight: $select.search"></div>
+                                                        <small ng-bind-html="'编号：'+item.id | highlight: $select.search"></small>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.prodtype.$invalid && (projectForm.prodtype.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">产品类型</label>
+                                            <div>
+                                                <select name="prodtype" class="form-control" ng-model="projectVM.data.prodTypeId" ng-options="p.value as p.text for p in projectVM.productTypeList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.projecttype.$invalid && (projectForm.projecttype.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">项目类型</label>
+                                            <div>
+                                                <select name="projecttype" class="form-control" ng-model="projectVM.data.projectType" ng-options="c.value as c.text for c in projectVM.projectTypeList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.contract.$invalid && (projectForm.contract.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">合同模板</label>
+                                            <div>
+                                                <select name="contract" class="form-control" ng-model="projectVM.data.contractTemplateId" ng-options="p.value as p.text for p in projectVM.contractList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.platform.$invalid && (projectForm.platform.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">销售平台</label>
+                                            <div>
+                                                <select name="platform" class="form-control" ng-model="projectVM.data.displayChannelCode" ng-options="item.code as item.name for item in projectVM.saleplatformList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.repaymenttype.$invalid && (projectForm.repaymenttype.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">还款方式</label>
+                                            <div>
+                                                <select name="repaymenttype" class="form-control" ng-model="projectVM.data.repaymentType" ng-options="p.value as p.text for p in projectVM.repaymentTypeList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.requestamount.$invalid && (projectForm.requestamount.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">借款需求金额</label>
+                                            <div class="input-group">
+                                                <input name="requestamount" min='1' type="number" class="form-control" ng-model="projectVM.data.requestAmount" required>
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="control-label">产品标签</label>
+                                            <div class="icheck-inline">
+                                                <div class="checkbox checkbox-info" ng-repeat="item in projectVM.tagList">
+                                                    <input id="chkTag_{{$index}}" type="checkbox" checklist-model="projectVM.tags" checklist-value="item.value">
+                                                    <label for="chkTag_{{$index}}" ng-bind="item.text"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2 p-r-5">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.duration.$invalid && (projectForm.duration.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">借款期限</label>
+                                            <div>
+                                                <input name="duration" min='1' type="number" class="form-control" ng-model="projectVM.data.duration" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-1 p-l-0">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.durationunit.$invalid && (projectForm.durationunit.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">单位</label>
+                                            <div>
+                                                <select name="durationunit" class="form-control" ng-model="projectVM.data.durationUnit" ng-options="p.value as p.text for p in projectVM.timeUnitList" required>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.interestrate.$invalid && (projectForm.interestrate.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">借款利率</label>
+                                            <div class="input-group">
+                                                <input name="interestrate" type="number" class="form-control" ng-model="projectVM.data.interestRate" required>
+                                                <span class="input-group-addon">%/年</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.discountRate.$invalid && (projectForm.discountRate.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">优惠利率</label>
+                                            <div class="input-group">
+                                                <input name="discountRate" type="number" class="form-control" ng-model="projectVM.data.discountRate" required>
+                                                <span class="input-group-addon">%/年</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.servicefeerate.$invalid && (projectForm.servicefeerate.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">服务费率</label>
+                                            <div class="input-group">
+                                                <input name="servicefeerate" type="number" class="form-control" ng-model="projectVM.data.serviceFeeRate" required>
+                                                <span class="input-group-addon">%/年</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.biddingstart.$invalid && (projectForm.biddingstart.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">投标起步金额</label>
+                                            <div class="input-group">
+                                                <input name="biddingstart" min='1' type="number" class="form-control" ng-model="projectVM.data.biddingStartAmount" required>
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.biddingstep.$invalid && (projectForm.biddingstep.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">投标间隔金额</label>
+                                            <div class="input-group">
+                                                <input name="biddingstep" min='1' type="number" class="form-control" ng-model="projectVM.data.biddingStepAmount" required>
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4" ng-class="{'has-error':projectForm.biddingend.$invalid && (projectForm.biddingend.$dirty||projectVM.submitted)}">
+                                        <div class="form-group">
+                                            <label class="control-label">投标上限金额</label>
+                                            <div class="input-group">
+                                                <input name="biddingend" type="number" class="form-control" ng-model="projectVM.data.biddingEndAmount" required>
+                                                <span class="input-group-addon">元</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.biddingdeadline.$invalid && (projectForm.biddingdeadline.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">投标截止日期</label>
+                                            <div class="append-icon">
+                                                <input name="biddingdeadline" type="text" class="form-control" datepicker-popup min-date="appView.today" ng-model="projectVM.data.biddingDeadline" is-open="biddingDeadlineOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="biddingDeadlineOpened=true" required />
+                                                <i class="icon-calendar"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.autoapprove.$invalid && (projectForm.autoapprove.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">结标方式</label>
+                                            <div>
+                                                <select name="autoapprove" class="form-control" ng-model="projectVM.data.autoApprove" ng-options="c.value as c.text for c in projectVM.autoApproveList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.transferor.$invalid && (projectForm.transferor.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">转让方</label>
+                                            <div>
+                                                <input type="text" name="transferor" ng-pattern="/^.{0,40}$/" class="form-control" ng-model="projectVM.data.transferor" required>
+                                                <div class="form-error" ng-if="projectForm.transferor.$error.pattern">转让方长度不能超过40字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.purpose.$invalid && (projectForm.purpose.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">借款用途</label>
+                                            <div>
+                                                <textarea name="purpose" class="form-control" ng-pattern="/^.{0,1000}$/" rows="2" ng-model="projectVM.data.purpose" required></textarea>
+                                                <div class="form-error" ng-if="projectForm.purpose.$error.pattern">借款用途长度不能超过1000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.description.$invalid && (projectForm.description.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">借款情况描述</label>
+                                            <div>
+                                                <textarea name="description" ng-pattern='/^.{0,1000}$/' class="form-control" rows="2" ng-model="projectVM.data.description" required></textarea>
+                                                <div class="form-error" ng-if="projectForm.description.$error.pattern">借款情况描述长度不得超过1000个字符!</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.isRecommend.$invalid && (projectForm.isRecommend.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">是否推荐</label>
+                                            <div class="checkbox checkbox-info">
+                                                <input id="chkIsRecommend" class="styled" type="checkbox" ng-model="projectVM.data.isRecommend" ng-true-value="1" ng-false-value="0">
+                                                <label for="chkIsRecommend" ng-bind="projectVM.data.isRecommend=='1'?'是':'否'"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.guaranteeflag.$invalid && (projectForm.guaranteeflag.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">是否担保</label>
+                                            <div>
+                                                <select name="guaranteeflag" class="form-control" ng-model="projectVM.data.guaranteeFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" ng-if='projectVM.data.guaranteeFlag=="Y"' ng-class="{'has-error':projectForm.guaranteeOrg.$invalid && (projectForm.guaranteeOrg.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">担保机构</label>
+                                            <div>
+                                                <input type="text" name="guaranteeOrg" ng-pattern="/^.{0,40}$/" class="form-control" ng-model="projectVM.data.guaranteeOrg" required>
+                                                </textarea>
+                                                <div class="form-error" ng-pattern="projectForm.guaranteeOrg.$error.pattern">担保机构长度不能超过40字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-if='projectVM.data.guaranteeFlag=="Y"' ng-class="{'has-error':projectForm.guarantee.$invalid && (projectForm.guarantee.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">担保情况说明</label>
+                                            <div>
+                                                <textarea name="guarantee" class="form-control" ng-pattern="/^.{0,1000}$/" rows="2" ng-model="projectVM.data.guarantee" required></textarea>
+                                                <div class="form-error" ng-pattern="projectForm.guarantee.$error.pattern">担保情况说明长度不能超过1000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group" ng-class="{'has-error':projectForm.mortgageflag.$invalid && (projectForm.mortgageflag.$dirty||projectVM.submitted)}">
+                                            <label class="control-label">是否抵押</label>
+                                            <div>
+                                                <select name="mortgageflag" class="form-control" ng-model="projectVM.data.mortgageFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
+                                                    <option value="">- 请选择 -</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" ng-if='projectVM.data.mortgageFlag=="Y"' ng-class="{'has-error':projectForm.mortgage.$invalid && (projectForm.mortgage.$dirty||projectVM.submitted)}">
+                                        <div class="form-group">
+                                            <label class="control-label">抵押情况说明</label>
+                                            <div>
+                                                <textarea name="mortgage" class="form-control" ng-pattern="/^.{0,1000}$/" rows="2" ng-model="projectVM.data.mortgage" required></textarea>
+                                                <div class="form-error" ng-pattern="projectForm.mortgage.$error.pattern">抵押情况说明长度不能超过1000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" ng-class="{'has-error':projectForm.ortherTrust.$invalid && (projectForm.ortherTrust.$dirty||projectVM.submitted)}">
+                                        <div class="form-group">
+                                            <label class="control-label">其他增信措施</label>
+                                            <div>
+                                                <textarea name="ortherTrust" class="form-control" ng-pattern="/^.{0,1000}$/" rows="2" ng-model="projectVM.data.ortherTrust" required></textarea>
+                                                <div class="form-error" ng-pattern="projectForm.ortherTrust.$error.pattern">其他增信措施长度不能超过1000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" ng-class="{'has-error':projectForm.risk.$invalid && (projectForm.risk.$dirty||projectVM.submitted)}">
+                                        <div class="form-group">
+                                            <label class="control-label">风控措施</label>
+                                            <div>
+                                                <textarea name="risk" class="form-control" rows="2" ng-pattern="/^.{0,2000}$/" ng-model="projectVM.data.risk" required></textarea>
+                                                <div class="form-error" ng-pattern="projectForm.risk.$error.pattern">风控措施长度不能超过2000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12" ng-class="{'has-error':projectForm.memo.$invalid && (projectForm.memo.$dirty||projectVM.submitted)}">
+                                        <div class="form-group">
+                                            <label class="control-label">项目介绍</label>
+                                            <div>
+                                                <textarea class="form-control" name='memo' rows="2" ng-pattern="/^.{0,2000}$/" ng-model="projectVM.data.memo"></textarea>
+                                                <div class="form-error" ng-pattern="projectForm.memo.$error.pattern">项目介绍长度不能超过2000字符！</div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.projectname.$invalid && (projectForm.projectname.$dirty||projectVM.submitted)}">
-                                <label class="control-label">项目名称</label>
-                                <div>
-                                    <input name="projectname" type="text" class="form-control" ng-model="projectVM.data.projectName" required>
-                                </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        债权信息
+                    </tab-heading>
+                    <div>
+                        <div class="row">
+                            <div class="col-md-12 m-b-10">
+                                <button type="button" class="btn btn-success btn-xs m-t-5" onclick="$('#file').click()" ng-disabled="projectVM.isUploading"><i class="icon icon-plus m-r-5"></i> 批量导入 <i class="fa fa-spinner faa-spin animated m-l-5" ng-if="projectVM.isUploading"></i></button>
+                                <input id="file" valid-file ng-model="importVM.file" class="form-control" name="file" type="file" base-sixty-four base-sixty-four-success="projectVM.fileSuccess(file, data, formData)" style="display: none;" />
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.borrowerid.$invalid && (projectForm.borrowerid.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款人</label>
-                                <div>
-                                    <input name="borrowerid" type="text" ng-model="projectVM.borrower.id" ng-show="false" ng-cloak required>
-                                    <ui-select ng-model="projectVM.borrower" theme="bootstrap">
-                                        <ui-select-match placeholder="输入借款人编号">{{projectVM.borrower.name}}</ui-select-match>
-                                        <ui-select-choices repeat="item in projectVM.borrowerList | filter: $select.search" refresh="projectVM.refreshBorrower($select.search)" refresh-delay="500">
-                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
-                                            <small ng-bind-html="'编号：'+item.id | highlight: $select.search"></small>
-                                        </ui-select-choices>
-                                    </ui-select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.prodtype.$invalid && (projectForm.prodtype.$dirty||projectVM.submitted)}">
-                                <label class="control-label">产品类型</label>
-                                <div>
-                                    <select name="prodtype" class="form-control" ng-model="projectVM.data.prodTypeId" ng-options="p.value as p.text for p in projectVM.productTypeList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.projecttype.$invalid && (projectForm.projecttype.$dirty||projectVM.submitted)}">
-                                <label class="control-label">项目类型</label>
-                                <div>
-                                    <select name="projecttype" class="form-control" ng-model="projectVM.data.projectType" ng-options="c.value as c.text for c in projectVM.projectTypeList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.contract.$invalid && (projectForm.contract.$dirty||projectVM.submitted)}">
-                                <label class="control-label">合同模板</label>
-                                <div>
-                                    <select name="contract" class="form-control" ng-model="projectVM.data.contractTemplateId" ng-options="p.value as p.text for p in projectVM.contractList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.platform.$invalid && (projectForm.platform.$dirty||projectVM.submitted)}">
-                                <label class="control-label">销售平台</label>
-                                <div>
-                                    <select name="platform" class="form-control" ng-model="projectVM.data.displayChannelCode" ng-options="item.code as item.name for item in projectVM.saleplatformList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.repaymenttype.$invalid && (projectForm.repaymenttype.$dirty||projectVM.submitted)}">
-                                <label class="control-label">还款方式</label>
-                                <div>
-                                    <select name="repaymenttype" class="form-control" ng-model="projectVM.data.repaymentType" ng-options="p.value as p.text for p in projectVM.repaymentTypeList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.requestamount.$invalid && (projectForm.requestamount.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款需求金额</label>
-                                <div class="input-group">
-                                    <input name="requestamount" type="number" class="form-control" ng-model="projectVM.data.requestAmount" required>
-                                    <span class="input-group-addon">元</span>
+                        <div class="row">
+                            <div class="panel">
+                                <div class="panel-content">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>批次号</th>
+                                                <th>债权流水号</th>
+                                                <th>合同编号</th>
+                                                <th>借款人身份证号</th>
+                                                <th>借款人名称</th>
+                                                <th>借款人手机号</th>
+                                                <th>紧急联系人姓名</th>
+                                                <th>紧急联系人电话</th>
+                                                <th>当前债权人</th>
+                                                <th>贷款产品</th>
+                                                <th>是否可赎回</th>
+                                                <th>资产类型</th>
+                                                <th>债权开始日期</th>
+                                                <th>债权结束日期</th>
+                                                <th>贷款状态</th>
+                                                <th>投资金额</th>
+                                                <th>剩余收益</th>
+                                                <th>剩余天数</th>
+                                                <th>预期年化</th>
+                                                <th>锁定状态</th>
+                                                <th>资产评级</th>
+                                                <th>操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in projectVM.data.projectBorrowerVOs">
+                                                <td ng-bind="item.batchNo"></td>
+                                                <td ng-bind="item.flowNo"></td>
+                                                <td ng-bind="item.contractNo"></td>
+                                                <td ng-bind="item.idNo"></td>
+                                                <td ng-bind="item.name"></td>
+                                                <td ng-bind="item.mobile"></td>
+                                                <td ng-bind="item.emergencyContact"></td>
+                                                <td ng-bind="item.emergencyContactPhone"></td>
+                                                <td ng-bind="item.creditor"></td>
+                                                <td ng-bind="item.productType"></td>
+                                                <td ng-bind="item.redeemable|meta:projectVM.redeemable"></td>
+                                                <td ng-bind="item.assetType|meta:projectVM.assetType"></td>
+                                                <td ng-bind="item.startTime"></td>
+                                                <td ng-bind="item.endTime"></td>
+                                                <!-- 待确认 -->
+                                                <td ng-bind="item.assetStatus|meta:projectVM.assetStatus"></td>
+                                                <td ng-bind="item.amount"></td>
+                                                <td ng-bind="item.remainProfit"></td>
+                                                <td ng-bind="item.remainDays"></td>
+                                                <td ng-bind="item.annualRate"></td>
+                                                <td ng-bind="item.lockStatus|meta:projectVM.lockStatus"></td>
+                                                <td ng-bind="item.assetRating"></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-xs" ng-click="projectVM.deleteRow($index)">删除</i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-3 p-r-5">
-                            <div class="form-group" ng-class="{'has-error':projectForm.duration.$invalid && (projectForm.duration.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款期限</label>
-                                <div>
-                                    <input name="duration" type="number" class="form-control" ng-model="projectVM.data.duration" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-1 p-l-0">
-                            <div class="form-group" ng-class="{'has-error':projectForm.durationunit.$invalid && (projectForm.durationunit.$dirty||projectVM.submitted)}">
-                                <label class="control-label">单位</label>
-                                <div>
-                                    <select name="durationunit" class="form-control" ng-model="projectVM.data.durationUnit" ng-options="p.value as p.text for p in projectVM.timeUnitList" required>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group" ng-class="{'has-error':projectForm.interestrate.$invalid && (projectForm.interestrate.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款利息</label>
-                                <div class="input-group">
-                                    <input name="interestrate" type="number" class="form-control" ng-model="projectVM.data.interestRate" required>
-                                    <span class="input-group-addon">%/年</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group" ng-class="{'has-error':projectForm.servicefeerate.$invalid && (projectForm.servicefeerate.$dirty||projectVM.submitted)}">
-                                <label class="control-label">服务费率</label>
-                                <div class="input-group">
-                                    <input name="servicefeerate" type="number" class="form-control" ng-model="projectVM.data.serviceFeeRate" required>
-                                    <span class="input-group-addon">%/年</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group" ng-class="{'has-error':projectForm.biddingstart.$invalid && (projectForm.biddingstart.$dirty||projectVM.submitted)}">
-                                <label class="control-label">投标起步金额</label>
-                                <div class="input-group">
-                                    <input name="biddingstart" type="number" class="form-control" ng-model="projectVM.data.biddingStartAmount" required>
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group" ng-class="{'has-error':projectForm.biddingstep.$invalid && (projectForm.biddingstep.$dirty||projectVM.submitted)}">
-                                <label class="control-label">投标间隔金额</label>
-                                <div class="input-group">
-                                    <input name="biddingstep" type="number" class="form-control" ng-model="projectVM.data.biddingStepAmount" required>
-                                    <span class="input-group-addon">元</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-4" ng-class="{'has-error':projectForm.biddingend.$invalid && (projectForm.biddingend.$dirty||projectVM.submitted)}">
-                            <div class="form-group">
-                                <label class="control-label">投标上限金额</label>
-                                <div class="input-group">
-                                    <input name="biddingend" type="number" class="form-control" ng-model="projectVM.data.biddingEndAmount" required>
-                                    <span class="input-group-addon">天</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.biddingdeadline.$invalid && (projectForm.biddingdeadline.$dirty||projectVM.submitted)}">
-                                <label class="control-label">投标截止日期</label>
-                                <div class="append-icon">
-                                    <input name="biddingdeadline" type="text" class="form-control" datepicker-popup ng-model="projectVM.data.biddingDeadline" is-open="biddingDeadlineOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="biddingDeadlineOpened=true" required />
-                                    <i class="icon-calendar"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group" ng-class="{'has-error':projectForm.autoapprove.$invalid && (projectForm.autoapprove.$dirty||projectVM.submitted)}">
-                                <label class="control-label">结标方式</label>
-                                <div>
-                                    <select name="autoapprove" class="form-control" ng-model="projectVM.data.autoApprove" ng-options="c.value as c.text for c in projectVM.autoApproveList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group" ng-class="{'has-error':projectForm.purpose.$invalid && (projectForm.purpose.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款用途</label>
-                                <div>
-                                    <textarea name="purpose" class="form-control" rows="3" ng-model="projectVM.data.purpose" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group" ng-class="{'has-error':projectForm.description.$invalid && (projectForm.description.$dirty||projectVM.submitted)}">
-                                <label class="control-label">借款情况描述</label>
-                                <div>
-                                    <textarea name="description" class="form-control" rows="3" ng-model="projectVM.data.description" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group" ng-class="{'has-error':projectForm.guaranteeflag.$invalid && (projectForm.guaranteeflag.$dirty||projectVM.submitted)}">
-                                <label class="control-label">是否担保</label>
-                                <div>
-                                    <select name="guaranteeflag" class="form-control" ng-model="projectVM.data.guaranteeFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group" ng-class="{'has-error':projectForm.guarantee.$invalid && (projectForm.guarantee.$dirty||projectVM.submitted)}">
-                                <label class="control-label">担保情况说明</label>
-                                <div>
-                                    <textarea name="guarantee" class="form-control" rows="3" ng-model="projectVM.data.guarantee" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group" ng-class="{'has-error':projectForm.mortgageflag.$invalid && (projectForm.mortgageflag.$dirty||projectVM.submitted)}">
-                                <label class="control-label">是否抵押</label>
-                                <div>
-                                    <select name="mortgageflag" class="form-control" ng-model="projectVM.data.mortgageFlag" ng-options="item.value as item.text for item in projectVM.youwuList" required>
-                                        <option value="">- 请选择 -</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12" ng-class="{'has-error':projectForm.mortgage.$invalid && (projectForm.mortgage.$dirty||projectVM.submitted)}">
-                            <div class="form-group">
-                                <label class="control-label">抵押情况说明</label>
-                                <div>
-                                    <textarea name="mortgage" class="form-control" rows="3" ng-model="projectVM.data.mortgage" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label class="control-label">备注</label>
-                                <div>
-                                    <textarea class="form-control" rows="3" ng-model="projectVM.data.memo"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </tab>
+            </tabset>
             <div class="row">
                 <div class="col-sm-12">
                     <button type="submit" class="btn btn-success m-r-10">提交</button>
-                    <!--                     <button type="button" class="btn btn-default" ng-click="projectVM.cancel()">返回</button>
- -->
                 </div>
             </div>
         </form>

@@ -12,14 +12,22 @@
             "icon": "icon-home",
             "state": "dashboard"
         }, {
+            "text": "资产方管理",
+            "icon": "icon-screen-desktop",
+            "state": "borrower",
+            "subMenus": [{
+                "text": "资产方列表",
+                "state": "borrower.info.list"
+            }, {
+                "text": "资产方还款列表",
+                "state": "borrower.repayment.list"
+            }]
+        }, {
             "text": "资产管理",
             "icon": "fa fa-files-o",
             "state": "asset",
             "subMenus": [{
-                "text": "渠道管理",
-                "state": "asset.channel.list"
-            }, {
-                "text": "草稿",
+                "text": "资产草稿",
                 "state": "asset.info.draft"
             }, {
                 "text": "未评审资产库",
@@ -41,17 +49,6 @@
                 "state": "asset.release.done"
             }]
         }, {
-            "text": "借款人管理",
-            "icon": "icon-screen-desktop",
-            "state": "borrower",
-            "subMenus": [{
-                "text": "借款人列表",
-                "state": "borrower.info.list"
-            }, {
-                "text": "借款人还款列表",
-                "state": "borrower.repayment.list"
-            }]
-        }, {
             "text": "投资人及投资管理",
             "icon": "icon-screen-desktop",
             "state": "investor",
@@ -67,6 +64,12 @@
             }, {
                 "text": "投资列表",
                 "state": "investor.info.list"
+            }, {
+                "text": "投资人申购列表",
+                "state": "investor.purchase.list"
+            }, {
+                "text": "投资人赎回列表",
+                "state": "investor.redeem.list"
             }]
         }, {
             "text": "项目管理",
@@ -88,7 +91,18 @@
                 "text": "项目还款计划列表",
                 "state": "project.repayment.list"
             }]
-        }, {
+        },{
+            "text" : "营销管理",
+            "icon" : "icon-screen-desktop",
+            "state" : "marketing",
+            "subMenus":[{
+                "text":"加息券模板管理",
+                "state": "marketing.template.list"
+                },{
+                "text": "加息券发布管理",
+                "state": "marketing.release.list"
+            }]
+        },{
             "text": "资金管理",
             "icon": "icon-screen-desktop",
             "state": "fund",
@@ -153,9 +167,6 @@
             }, {
                 "text": "POS充值对账",
                 "state": "financial.POS.POS"
-            }, {
-                "text": "提现出款对账",
-                "state": "financial.recon.recon"
             }, {
                 "text": "文件接口日志",
                 "state": "financial.file.file"

@@ -1,0 +1,20 @@
+<div class="header">
+	<h2><i class="fa fa-dashboard">加息劵发布管理</i></h2>
+
+</div>
+
+<div class="panel panel-default">	
+	<div class="panel-body">
+		<div class="row m-b-10 m-r-5">
+			<button type="button" class="btn btn-danger btn-xs pull-right" ng-disabled="listVM.checked.length==0" ng-click="listVM.batchFreeze()">
+				<i class="icon icon-plus m-r-5"></i>
+				批量删除
+			</button>
+			<button type="button" class="btn btn-success btn-xs pull-right m-r-10" ng-click="listVM.add()">
+				<i class="icon icon-plus m-r-5"></i>新建
+			</button>
+		</div>	
+		<table id="marketingReleaseTable" table-full-size bs-table-control="bsMarketingReleaseTableControl"></table>
+	</div>
+	
+</div>

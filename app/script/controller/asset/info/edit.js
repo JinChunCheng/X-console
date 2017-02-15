@@ -1,6 +1,6 @@
-define([], function() {
-    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', '$filter', 'assetService', 'metaService', 'toaster',
-        function($scope, $timeout, $state, $stateParams, $modal, $filter, assetService, metaService, toaster) {
+define(['common/config'], function(config) {
+    return ['$scope', '$timeout', '$state', '$stateParams', '$modal', '$filter', 'assetService', 'metaService', 'borrowerService', 'toaster',
+        function($scope, $timeout, $state, $stateParams, $modal, $filter, assetService, metaService, borrowerService, toaster) {
 
             var action = $stateParams.id ? 'edit' : 'add';
 
@@ -8,6 +8,7 @@ define([], function() {
                 action: action,
                 title: $stateParams.id ? '修改资产信息' : '新增资产信息',
                 data: {},
+                borrower:{},
                 cancel: function() {
                     if ($scope.assetVM.showDraftBtn())
                         $state.go('asset.info.draft');
@@ -15,44 +16,100 @@ define([], function() {
                         $state.go('asset.info.todo');
                 },
                 birthProvinceChange: function() {
+                    $scope.assetVM.data.birthProvinceName = $scope.assetVM.getProvinceName(this.data.birthProvince);
+                    console.log($scope.assetVM.data.birthProvinceName)
                     $scope.assetVM.birthCity = null;
                     $scope.assetVM.birthDistrict = null;
+                    $scope.assetVM.data.birthCityName=null;
+                    $scope.assetVM.data.birthDistrictName=null;
+
                 },
                 birthCityChange: function() {
+                    $scope.assetVM.data.birthCityName = $scope.assetVM.getCityName(this.data.birthProvince, this.data.birthCity);
+                    console.log($scope.assetVM.data.birthCityName)
                     $scope.assetVM.birthDistrict = null;
+                    $scope.assetVM.data.birthDistrictName=null;
+                },
+                birthDistrictChange: function() {
+                    $scope.assetVM.data.birthDistrictName = $scope.assetVM.getDistrictName(this.data.birthProvince, this.data.birthCity,this.data.birthDistrict);
+                    console.log($scope.assetVM.data.birthDistrictName)
                 },
                 localProvinceChange: function() {
+                    $scope.assetVM.data.localProvinceName = $scope.assetVM.getProvinceName(this.data.localProvince);
+                    console.log($scope.assetVM.data.localProvinceName)
                     $scope.assetVM.localCity = null;
                     $scope.assetVM.localDistrict = null;
+                    $scope.assetVM.data.localCityName=null;
+                    $scope.assetVM.data.localDistrictName=null;
                 },
                 localCityChange: function() {
+                    $scope.assetVM.data.localCityName = $scope.assetVM.getCityName(this.data.localProvince, this.data.localCity);
+                    console.log($scope.assetVM.data.localCityName)
+                    $scope.assetVM.data.localDistrictName=null;
                     $scope.assetVM.localDistrict = null;
+                },
+                localDistrictChange: function() {
+                    $scope.assetVM.data.localDistrictName = $scope.assetVM.getDistrictName(this.data.localProvince, this.data.localCity,this.data.localDistrict);
+                    console.log($scope.assetVM.data.localDistrictName)
                 },
                 showFiles: function(type, title) {
                     showFiles(type, title);
                 },
                 cache: function() {
                     var asset = $scope.assetVM.data;
+                    date = new Date();
+                    date = $filter('exDate')(date, 'yyyy-MM-dd');
+                    asset.loanDate = $filter('exDate')(asset.loanDate, 'yyyy-MM-dd');
+                    //处理时间
+                    if (asset.loanDate) {
+                        asset.loanDate = $filter('exDate')(asset.loanDate);
+                        if (asset.loanDate < date) {
+                            toaster.pop('error', '截止日期必须大于当天日期！');
+                            return false;
+                        }
+                    }
                     if (!asset.assetType) {
                         toaster.pop('error', '请选择资产类型！');
                         return false;
                     }
-                    if (!asset.assetType) {
-                        toaster.pop('error', '请选择资产类型！');
+                    if (!$scope.assetVM.borrower.id) {
+                        toaster.pop('error', '请填写资产方！');
                         return false;
                     }
                     $scope.assetVM.data.status = -1;
                     saveAsset();
                 },
                 submit: function(invalid) {
+                    var asset = $scope.assetVM.data;
                     $scope.assetVM.submitted = true;
+                    var date = new Date();
+                    date = $filter('exDate')(date, 'yyyy-MM-dd');
+                    //处理时间
+                    if (asset.loanDate) {
+                        asset.loanDate = $filter('exDate')(asset.loanDate);
+                        if (asset.loanDate < date) {
+                            toaster.pop('error', '截止日期必须大于当天日期！');
+                            return false;
+                        }
+                    }
                     if (invalid) {
                         return false;
                     }
+
                     $scope.assetVM.data.status = 0;
                     saveAsset();
                 },
                 provinces: [],
+                getProvince: function(provinceCode) {
+                    var result = [];
+                    $scope.assetVM.provinces.forEach(function(item) {
+                        if (item.code == provinceCode) {
+                            result = item.children;
+                            return;
+                        }
+                    });
+                    return result;
+                },
                 getCities: function(provinceCode) {
                     var result = [];
                     $scope.assetVM.provinces.forEach(function(item) {
@@ -76,9 +133,56 @@ define([], function() {
                     }
                     return result;
                 },
+                //获取省市区名称，提供给后端
+                getProvinceName: function(provinceCode) {
+                    var provinceName;
+                    $scope.assetVM.provinces.forEach(function(item) {
+                        if (item.code == provinceCode) {
+                            provinceName = item.name;
+                            return;
+                        }
+                    });
+                    return provinceName;
+                },
+                getCityName: function(provinceCode, cityCode) {
+                    var cityName;
+                    var cities = $scope.assetVM.getCities(provinceCode);
+                    cities.forEach(function(item) {
+                        if (item.code == cityCode) {
+                            cityName = item.name;
+                            return;
+                        }
+                    });
+                    return cityName;
+                },
+                getDistrictName: function(provinceCode, cityCode, districtCode) {
+                    var districtName;
+                    var cities = $scope.assetVM.getCities(provinceCode);
+                    var getDistrict = function (cityCode) {
+                        var districts = [];
+                        cities.forEach(function(item) {
+                            if (item.code == cityCode) {
+                                districts = item.children;
+                                return;
+                            }
+                        });
+                        return districts;
+                    };
+                    var district=getDistrict(cityCode);
+                    if (district.length > 0) {
+                        district.forEach(function(item) {
+                            if (item.code == districtCode) {
+                                districtName = item.name;
+                                return;
+                            }
+                        });
+                    }
+                    return districtName;
+                },
                 showDraftBtn: function() {
                     return action == 'add' || $scope.assetVM.data.status == -1;
-                }
+                },
+                refreshBorrower: refreshBorrower
             };
 
             (function(id) {
@@ -88,9 +192,11 @@ define([], function() {
                 }
                 $scope.assetVM.processing = true;
                 assetService.asset.get({ id: id }).$promise.then(function(res) {
-                    if (res.code == 200)
+                    if (res.code == 200) {
                         $scope.assetVM.data = res.data;
-                    else
+                        $scope.assetVM.data.loanRate = res.data.loanRate * 100;
+                        $scope.assetVM.borrower = { id: res.data.borrowerId, enterpriseName: res.data.borrowerName }
+                    } else
                         toaster.pop('error', '资产信息加载失败！');
                     $scope.assetVM.processing = false;
                 }, function(err) {
@@ -163,6 +269,17 @@ define([], function() {
                 });
             }
 
+            function refreshBorrower(txt) {
+                if (!txt) {
+                    return;
+                }
+                var condition = { data: { id: txt }, paginate: { pageNum: 1, pageSize: 10 } };
+                borrowerService.borrowerListTable.query({ where: JSON.stringify(condition) }).$promise.then(function(res) {
+                    if (res.code == 200 && res.data) {
+                        $scope.assetVM.borrowerList = res.data.items;
+                    }
+                });
+            }
 
             function showFiles(type, title) {
                 var allFiles = $scope.assetVM.data.files || [];
@@ -178,7 +295,8 @@ define([], function() {
                             files: files,
                             fileSuccess: fileSuccess,
                             ok: ok,
-                            cancel: cancel
+                            cancel: cancel,
+                            rootPath: config.FILE_READ_CONSOLE
                         };
 
                         function ok() {
@@ -226,15 +344,8 @@ define([], function() {
 
             function saveAsset() {
                 var asset = $scope.assetVM.data;
-                var channelList = $scope.assetVM.channelList;
-                if (asset.assetChannelId != null && asset.assetChannelId != undefined && channelList) {
-                    channelList.forEach(function(item) {
-                        if (item.id == asset.assetChannelId) {
-                            asset.assetChannel = item.name;
-                            return;
-                        }
-                    });
-                }
+                asset.borrowerId = $scope.assetVM.borrower.id;
+                asset.borrowerName = $scope.assetVM.borrower.enterpriseName;
                 if (asset.id)
                     assetService.asset.update({ id: asset.id }, asset).$promise.then(saveSuccess, saveError);
                 else

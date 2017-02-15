@@ -1,0 +1,36 @@
+<div class="header">
+    <h3><i class="fa fa-files-o m-r-5"></i><span ng-bind="listVM.title"></span></h3>
+</div>
+<div class="row">
+    <form class="form-horizontal" novalidate ng-submit="listVM.search()">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">姓名</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">手机号</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.mobile">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary">查找</button>
+                    <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<table id="repaymentConfirmListTable" table-full-size bs-table-control="tbControl"></table>

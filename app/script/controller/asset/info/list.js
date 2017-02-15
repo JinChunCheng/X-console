@@ -11,10 +11,10 @@ define([], function() {
             var buttons = [];
             var optColWidth = 120;
             var showAddBtn = false;
-            var status = -1;
+            var status = [-1];
             switch ($state.current.name) {
                 case 'asset.info.draft':
-                    status = -1;
+                    status = [-1];
                     action = 'draft';
                     title = '资产草稿';
                     buttons = [
@@ -25,7 +25,7 @@ define([], function() {
                     showAddBtn = true;
                     break;
                 case 'asset.info.todo':
-                    status = 0;
+                    status = [0];
                     action = 'todo';
                     title = '未评审资产库';
                     buttons = [
@@ -38,7 +38,7 @@ define([], function() {
                     showAddBtn = true;
                     break;
                 case 'asset.info.better':
-                    status = 1;
+                    status = [1];
                     action = 'better';
                     title = '优质资产库';
                     buttons = [
@@ -48,7 +48,7 @@ define([], function() {
                     optColWidth = 50;
                     break;
                 case 'asset.info.risk':
-                    status = 3;
+                    status = [3];
                     action = 'risk';
                     title = '风险资产库';
                     buttons = [
@@ -132,13 +132,15 @@ define([], function() {
                         ajax: findAsset,
                         sidePagination: "server",
                         columns: [
+                            { field: 'borrowerId', title: '资产方编号' },
+                            { field: 'borrowerName', title: '资产方姓名' },
                             { field: 'assetType', title: '类型', formatter: assetTypeFormatter },
                             { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
-                            { field: 'assetChannel', title: '来源' }, {
+                            {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
-                                    return value ? value + '%' : '';
+                                    return value ? (value*100).toFixed(2) + '%' : '';
                                 }
                             }, {
                                 field: 'loanTermCount',
@@ -147,8 +149,8 @@ define([], function() {
                                     return value ? value + '天' : ''
                                 }
                             },
-                            { field: 'createTime', title: '收录日期' },
-                            { field: 'loanDate', title: '过期时间', formatter: dateFormatter },
+                            { field: 'createTime', title: '收录日期', formatter: datetimeFormatter },
+                            { field: 'loanDate', title: '截止日期', formatter: dateFormatter },
                             { field: 'status', title: '状态', formatter: statusFormatter }, {
                                 field: 'flag',
                                 title: '操作',
@@ -185,6 +187,10 @@ define([], function() {
 
                 function dateFormatter(value, row, index) {
                     return $filter('exDate')(value);
+                }
+
+                function datetimeFormatter(value, row, index) {
+                    return $filter('exDate')(value, 'yyyy-MM-dd HH:mm:ss');
                 }
 
                 function statusFormatter(value, row, index) {
@@ -272,7 +278,7 @@ define([], function() {
                                         search();
                                         $modalInstance.dismiss();
                                     } else
-                                        toaster.pop('error', '服务器连接失败！');
+                                        toaster.pop('error', res.msg);
                                 }, function(err) {
                                     toaster.pop('error', '服务器连接失败！');
                                     $scope.confirmData.processing = false;
@@ -294,7 +300,8 @@ define([], function() {
                 metaService.getMeta('ZCLX', function(items) {
                     $scope.listVM.assetTypeList = items;
                 });
-            }
+            };
+            initMeta();
         }
     ];
 });

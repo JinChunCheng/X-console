@@ -18,6 +18,7 @@ define([], function() {
                 title: '渠道管理',
                 condition: angular.copy(defaultCondition),
                 table: null,
+                checked: [],
                 add: function() {
                     showChannelModal();
                 },
@@ -26,8 +27,51 @@ define([], function() {
                 },
                 reset: function() {
                     $scope.listVM.condition = angular.copy(defaultCondition);
+                },
+                batchFreeze: function() {
+                    batch(1, '批量冻结');
+                },
+                batchDelete: function() {
+                    batch(0, '批量删除');
                 }
             };
+
+            function batch(type, title) {
+                var text = "确定" + title + "？";
+                var ids = $scope.listVM.checked.map(function(item) {
+                    return item.id;
+                }).join(',');
+                $modal.open({
+                    templateUrl: 'view/shared/confirm.html',
+                    size: 'sm',
+                    controller: function($scope, $modalInstance) {
+                        $scope.confirmData = {
+                            text: text,
+                            processing: false,
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        $scope.ok = function() {
+                            assetService.batchUpdateChannel({ ids: [ids], type: type }).then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '批量操作成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
+                            return true;
+                        }
+                    }
+                });
+                $scope.listVM.checked = [];
+            };
+
 
             function refreshChannel() {
                 $scope.listVM.table.bootstrapTable('refresh');
@@ -59,10 +103,22 @@ define([], function() {
              * @param  {function}   callback function
              */
             $scope.$on('$viewContentLoaded', function() {
-                $scope.listVM.table = $('#channelTable');
+                var table = $('#channelTable');
+                table.on('check.bs.table uncheck.bs.table ' +
+                    'check-all.bs.table uncheck-all.bs.table',
+                    function() {
+                        $timeout(function() {
+                            var checked = table.bootstrapTable('getSelections')
+                            $scope.listVM.checked = checked || [];
+                        });
+                    });
+
+                $scope.listVM.table = table;
             });
 
-
+            function search() {
+                $scope.listVM.table.bootstrapTable('refresh');
+            };
             var findChannel = function(params) {
                 var condition = $scope.listVM.condition;
                 condition.paginate = params.paginate;
@@ -86,17 +142,23 @@ define([], function() {
                         ajax: findChannel,
                         sidePagination: "server",
                         columns: [
-                            { field: 'name', title: '渠道名称' },
-                            { field: 'createTime', title: '录入时间' },
+                            { field: 'state', checkbox: true, align: 'center', valign: 'middle' },
+                            // { field: 'id', title: '渠道ID' },
+                            { field: 'name', title: '渠道名称' }, { field: 'createTime', title: '渠道录入时间', formatter: createTimeFormatter },
                             { field: 'joinupType', title: '接入方式', formatter: joinupTypeFormatter },
                             { field: 'creditLimit', title: '授信额度' },
-                            { field: 'assetCount', title: '接入资产' }, {
+                            { field: 'assetCount', title: '接入资产数' },
+                            { field: 'totalAsset', title: '接入资产总额' },
+                            { field: 'status', title: '渠道状态', formatter: statusFormatter }, {
                                 field: 'flag',
                                 title: '操作',
-                                width: 60,
+                                align: 'center',
+                                width: 80,
                                 formatter: flagFormatter,
                                 events: {
-                                    'click [name="btn-edit"]': edit
+                                    'click [name="btn-edit"]': edit,
+                                    'click [name="btn-freeze"]': freeze,
+                                    'click [name="btn-delete"]': remove
                                 }
                             }
                         ]
@@ -107,15 +169,37 @@ define([], function() {
                     return $filter('meta')(value, $scope.listVM.joinupTypeList);
                 }
 
+                function statusFormatter(value, row, index) {
+                    return $filter('meta')(value, $scope.listVM.status);
+                }
+
+                function createTimeFormatter(value, row, index) {
+                    return $filter('exDate')(value, "yyyy-MM-dd HH:mm:ss");
+                }
+
                 function flagFormatter(value, row, index) {
                     var buttons = [
-                        '<button name="btn-edit" class="btn btn-xs btn-info"><i class="fa fa-edit"></i></button>'
+                        '<button name="btn-edit" class="btn btn-xs btn-info m-r-5"><i class="fa fa-edit"></i></button>',
+                        '<button name="btn-freeze" class="btn btn-xs btn-warning"><i class="icon icons-weather-14"></i></button>',
+                        //'<button name="btn-delete" class="btn btn-xs btn-danger"><i class="fa fa-close"></i></button>'
                     ]
                     return buttons.join('');
                 }
 
                 function edit(e, value, row, index) {
                     showChannelModal(row);
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+
+                function freeze(e, value, row, index) {
+                    one(1,row);
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+
+                function remove(e, value, row, index) {
+                    one(0,row);
                     e.stopPropagation();
                     e.preventDefault();
                 }
@@ -129,7 +213,59 @@ define([], function() {
                 metaService.getMeta('SJJRFS', function(data) {
                     $scope.listVM.joinupTypeList = data;
                 });
+                metaService.getMeta('QDZT', function(data) {
+                    $scope.listVM.status = data;
+                });
             }
+
+            function one(type,row) {
+                var title = type == 0 ? '删除' : '冻结';
+                var text = "确定" + title + "？";
+                var id = row.id;
+
+                $modal.open({
+                    templateUrl: 'view/shared/confirm.html',
+                    size: 'sm',
+                    controller: function($scope, $modalInstance) {
+                        $scope.confirmData = {
+                            text: text,
+                            processing: false,
+                        };
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss();
+                            return false;
+                        }
+
+                        $scope.ok = function() {
+                            if (type == 0) {
+                                assetService.oneDeleteChannel.delete({ id: id }).$promise.then(function(res) {
+                                    if (res.code == 200) {
+                                        toaster.pop('success', '删除成功！');
+                                        $modalInstance.dismiss();
+                                        search();
+                                    } else
+                                        toaster.pop('error', res.msg);
+                                }, function(err) {
+                                    toaster.pop('error', '服务器连接失败！');
+                                });
+                                return true;
+                            }
+                            assetService.oneFreezeChannel.delete({ id: id }).$promise.then(function(res) {
+                                if (res.code == 200) {
+                                    toaster.pop('success', '冻结成功！');
+                                    $modalInstance.dismiss();
+                                    search();
+                                } else
+                                    toaster.pop('error', res.msg);
+                            }, function(err) {
+                                toaster.pop('error', '服务器连接失败！');
+                            });
+                            return true;
+
+                        }
+                    }
+                });
+            };
 
             function showChannelModal(channel) {
                 var title = channel ? "修改渠道信息" : "新增渠道";
@@ -195,7 +331,7 @@ define([], function() {
                         }
                     }
                 });
-            }
+            };
         }
     ];
 });

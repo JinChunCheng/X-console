@@ -30,7 +30,8 @@ requirejs.config({
         'zh-cn': 'lib/angular/i18n/angular-locale_zh-cn',
         'select2': 'lib/select2-ng/select.min',
         'chart': 'lib/angular-chart/Chart.min',
-        'angular-chart': 'lib/angular-chart/angular-chart.min'
+        'angular-chart': 'lib/angular-chart/angular-chart.min',
+        'websocket': 'lib/websocket/angular-websocket.min',
     },
     shim: {
         'angular': {
@@ -58,7 +59,13 @@ requirejs.config({
         'module/common': {
             deps: ['angular', 'cookie', 'scrollbar', 'bootstrap', 'bootstrap-dropdown']
         },
+        'bootstrap': {
+            deps: ['jquery']
+        },
         'bootstrap-table': {
+            deps: ['jquery']
+        },
+        'scrollbar': {
             deps: ['jquery']
         },
         'bootstrap-table-zh-cn': {
@@ -81,6 +88,9 @@ requirejs.config({
         },
         'angular-chart': {
             deps: ['angular', 'chart']
+        },
+        'websocket': {
+          deps: ['angular']
         }
     },
     urlArgs: "v=" + (new Date()).getTime()

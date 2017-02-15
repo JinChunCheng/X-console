@@ -14,7 +14,7 @@
             <tr ng-repeat="file in filesVM.files">
                 <td ng-bind="$index+1"></td>
                 <td>
-                    <a ng-href="{{file.filePath}}" ng-bind="file.originalName"></a>
+                    <a ng-href="{{filesVM.rootPath+'/'+file.filePath}}" ng-bind="file.originalName" target="_blank"></a>
                 </td>
                 <td><a href="">删除</a></td>
             </tr>

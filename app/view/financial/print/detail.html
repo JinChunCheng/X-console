@@ -1,0 +1,837 @@
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+    <meta name=Generator content="Microsoft Word 12 (filtered)">
+    <style type="text/css" media="print">
+    .noprint {
+        display: none;
+    }
+    </style>
+    <style>
+    <!--
+    /* Font Definitions */
+    
+    @font-face {
+        font-family: 宋体;
+        panose-1: 2 1 6 0 3 1 1 1 1 1;
+    }
+    
+    @font-face {
+        font-family: "Cambria Math";
+        panose-1: 2 4 5 3 5 4 6 3 2 4;
+    }
+    
+    @font-face {
+        font-family: "\@宋体";
+        panose-1: 2 1 6 0 3 1 1 1 1 1;
+    }
+    /* Style Definitions */
+    
+    p.MsoNormal,
+    li.MsoNormal,
+    div.MsoNormal {
+        margin: 0cm;
+        margin-bottom: .0001pt;
+        text-align: justify;
+        text-justify: inter-ideograph;
+        line-height: 150%;
+        font-size: 10.5pt;
+        font-family: "Times New Roman", "serif";
+    }
+    
+    p.MsoHeader,
+    li.MsoHeader,
+    div.MsoHeader {
+        mso-style-link: "页眉 Char";
+        margin: 0cm;
+        margin-bottom: .0001pt;
+        text-align: center;
+        layout-grid-mode: char;
+        border: none;
+        padding: 0cm;
+        font-size: 9.0pt;
+        font-family: "Calibri", "sans-serif";
+    }
+    
+    p.MsoFooter,
+    li.MsoFooter,
+    div.MsoFooter {
+        mso-style-link: "页脚 Char";
+        margin: 0cm;
+        margin-bottom: .0001pt;
+        layout-grid-mode: char;
+        font-size: 9.0pt;
+        font-family: "Calibri", "sans-serif";
+    }
+    
+    span.Char {
+        mso-style-name: "页眉 Char";
+        mso-style-link: 页眉;
+    }
+    
+    span.Char0 {
+        mso-style-name: "页脚 Char";
+        mso-style-link: 页脚;
+    }
+    /* Page Definitions */
+    
+    @page Section1 {
+        size: 595.3pt 841.9pt;
+        margin: 72.0pt 90.0pt 72.0pt 90.0pt;
+        layout-grid: 15.6pt;
+    }
+    
+    div.Section1 {
+        page: Section1;
+    }
+    
+    -->
+    </style>
+</head>
+
+<body lang=ZH-CN style='text-justify-trim:punctuation'>
+    <div class="row noprint">
+        <div class="col-sm-12">
+            <button style="margin:10px auto 0 auto;" type="button" ng-click='vm.print()' class="btn btn-success m-t-30">打印</button>
+        </div>
+    </div>
+    <!-- 划款指令部分 -->
+    <div id="printArea">
+        <div class=Section1 style='layout-grid:15.6pt;'>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:12.0pt;line-height:150%;font-family:宋体'>客户专用账户划款指令</span></b></p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse;border:none'>
+                <tr>
+                    <td width="33%" valign=top style='width:33.0%;
+  padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-left:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:5.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.year"></span>年</span><span style='line-height:150%;
+  font-family:宋体;color:black'><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.month"></span>月</span><span style='line-height:150%;
+  font-family:宋体;color:black'><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.day"></span>日</span>
+                        </p>
+                    </td>
+                    <td width="33%" valign=top style='width:33.0%;
+  border-left:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt;text-align:center;'><span style="line-height:150%;font-family:宋体;color:black">单位：<span lang=EN-US>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>元<span lang=EN-US>&nbsp;</span></span>
+                        </p>
+                    </td>
+                    <td width="33%" valign=top style='width:33.0%;
+  border-left:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:5.25pt;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt;text-align:right;'><span style="line-height:150%;font-family:宋体;color:black">编号：<span style="line-height:150%;font-family:宋体;color:black" ng-bind="vm.data.remitAccountPrint.remitPrintId"></span></span><span style="line-height:150%;font-family:宋体;color:black" ng-bind=''></span></p>
+                    </td>
+                </tr>
+            </table>
+            <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse;border:none'>
+                <tr>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>付款户名：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.payCapitalAccountName"></span></span>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-left:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>收款户名：</span><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.receiveCapitalAccountName"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>付款账号：</span><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.payCapitalAccount"></span></p>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>收款账号：</span><span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.receiveCapitalAccount"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>开户行：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.payBankName"></span></span>
+                        </p>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>开户行：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.receiveBankName"></span></span>
+                        </p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>大额支付行号:<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.largePayBankCode"></span></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>大写金额：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.capitalAmount"></span></span>
+                        </p>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>小写金额：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.amount"></span></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr style='height:63.85pt'>
+                    <td width="100%" colspan=2 valign=top style='width:100.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:63.85pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>预期到账时间：<u><span lang=EN-US>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.arrivalDate"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                            </u>前</span>
+                        </p>
+                    </td>
+                </tr>
+                <tr style='height:143.0pt'>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:143.0pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>甲方：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.remitAccountPrint.payCompanyName"></span></span>
+                        </p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>经办人：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>复核人：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>审核人：</span></p>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm;height:143.0pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>甲方预留印鉴盖章处：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span lang=EN-US style='line-height:
+  150%;font-family:宋体;color:black'>&nbsp;</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span lang=EN-US style='line-height:
+  150%;font-family:宋体;color:black'>&nbsp;</span></p>
+                    </td>
+                </tr>
+                <tr style='height:155.7pt'>
+                    <td width="50%" valign=top style='width:50.0%;border:solid windowtext 1.0pt;
+  border-top:none;padding:0cm 0cm 0cm 0cm;height:155.7pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>乙方：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>经办人：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>复核人：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>审批人：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>签章处：</span></p>
+                    </td>
+                    <td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 0cm 0cm 0cm;height:155.7pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span style='line-height:150%;
+  font-family:宋体;color:black'>乙方预留印鉴盖章处：</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span lang=EN-US style='line-height:
+  150%;font-family:宋体;color:black'>&nbsp;</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span lang=EN-US style='line-height:
+  150%;font-family:宋体;color:black'>&nbsp;</span></p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:
+  7.8pt;margin-left:0cm;text-indent:9.25pt'><span lang=EN-US style='line-height:
+  150%;font-family:宋体;color:black'>&nbsp;</span></p>
+                    </td>
+                </tr>
+            </table>
+            <p class=MsoNormal align=left style='text-align:left;line-height:normal;padding-top:5px;'><span style='font-size:12.0pt;font-family:宋体'>备注：预期到账时间并不代表乙方对到账时间的承诺。</span></p>
+            <p>&nbsp;</p>
+            <p style='margin-top:15.2pt;margin-bottom:20.2pt;margin-left:0cm;'>&nbsp;</p>
+        </div>
+        <!-- 明细部分（满标出款才会有） -->
+        <div ng-if='vm.templateType=="PRJ"' class=Section1 style='layout-grid:15.6pt;page-break-after: always;'>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:12.0pt;line-height:150%;font-family:宋体'>投资人明细</span></b></p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <div align=center>
+                <table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width=586 style='width:450.45pt;border-collapse:collapse;border:none'>
+                    <tr>
+                        <td width=193 style='padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-top:2.8pt;margin-right:0cm;margin-bottom:
+  5.8pt;margin-left:0cm;'><span style='font-family:宋体'>项目名称：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.investmentAgreementPrint.projectName"></span></span><span style="line-height:150%;
+  font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=193 style='border-left:
+  none;padding:0px 0px 0px 0px;'>
+                            <p class=MsoNormal style='margin-top:2.8pt;margin-right:0cm;margin-bottom:
+  5.8pt;margin-left:0cm;text-align:right;'><span style='font-family:宋体'> 项目编号：<span style='line-height:150%;
+  font-family:宋体;color:black' ng-bind="vm.data.investmentAgreementPrint.remitPrintId"></span></span><span style="line-height:150%;
+  font-family:宋体;color:black"></span></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div align=center>
+                <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=586 style='width:450.45pt;border-collapse:collapse;border:none'>
+                    <tr>
+                        <td width=56 style='width:41.65pt;border:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt'><span style='font-family:宋体'>序号</span></p>
+                        </td>
+                        <td width=93 style='width:70.0pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt'><span style='font-family:宋体'>投资人编号</span></p>
+                        </td>
+                        <td width=94 style='width:70.8pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style='font-family:宋体'>姓名</span></p>
+                        </td>
+                        <td width=154 style='width:115.65pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style='font-family:宋体'>身份证号</span></p>
+                        </td>
+                        <td width=138 style='width:103.8pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style='font-family:宋体'>投资金额（元）</span></p>
+                        </td>
+                    </tr>
+                    <!-- list detailList -->
+                    <tr ng-repeat='item in vm.data.investDetails'>
+                        <td width=56 style='width:41.65pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='this.$index+1' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=93 style='border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.investorId' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=94 style='border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.investorName' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=154 style='width:115.65pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0px 0px 0px 0px;'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.idNo' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=138 style='width:103.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.amount' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                    </tr>
+                    <!-- end detailList -->
+                </table>
+            </div>
+            <p class=MsoNormal>&nbsp;</p>
+            <p class=MsoNormal>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center;margin-top:16.5pt;margin-bottom:19pt;'></p>
+        </div>
+        <!-- 明细部分（提现出款才会有） -->
+        <div ng-if='vm.templateType=="WDR"' class=Section1 style='layout-grid:15.6pt;page-break-after: always;'>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <p class=MsoNormal align=center style='text-align:center'><b><span
+style='font-size:12.0pt;line-height:150%;font-family:宋体'>投资人提现明细</span></b></p>
+            <p class=MsoNormal align=center style='text-align:center'>&nbsp;</p>
+            <div align=center>
+                <table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=586 style='width:450.45pt;border-collapse:collapse;border:none'>
+                    <tr>
+                        <td width=56 style='width:41.65pt;border:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt'><span style='font-family:宋体'>序号</span></p>
+                        </td>
+                        <td width=193 style='width:80.0pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt'><span style='font-family:宋体'>投资人编号</span></p>
+                        </td>
+                        <td width=94 style='width:70.8pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style="font-family: &quot;宋体&quot;"></span><span style="font-family: &quot;宋体&quot;"></span>姓名</p>
+                        </td>
+                        <td width=122 style='width:120.8pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style="font-family: &quot;宋体&quot;">卡号</span><span style="font-family: &quot;宋体&quot;"></span></p>
+                        </td>
+                        <td width=100 style='width:115.65pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style="font-family: &quot;宋体&quot;">银行</span><span style="font-family: &quot;宋体&quot;"></span></p>
+                        </td>
+                        <td width=60 style='width:70.8pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span style='font-family:宋体'>提现金额</span></p>
+                        </td>
+                    </tr>
+                    <!-- list detailList -->
+                    <tr ng-repeat='item in vm.data.detailList'>
+                        <td width=56 style='width:41.65pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='this.$index+1' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=93 style='border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.investorId' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=94 style='border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.investorName' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=154 style='width:115.65pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0px 0px 0px 0px;'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.bankAccount' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=154 style='width:115.65pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0px 0px 0px 0px;'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.bankName' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                        <td width=138 style='width:103.8pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0px 0px 0px 0px'>
+                            <p class=MsoNormal style='margin-left:5.25pt;margin-top:1.0pt;margin-right:0pt;margin-bottom:1.0pt;'><span ng-bind='item.amount' style="line-height:
+  200%;font-family:宋体;color:black"></span></p>
+                        </td>
+                    </tr>
+                    <!-- end detailList -->
+                </table>
+            </div>
+            <p class=MsoNormal>&nbsp;</p>
+            <p class=MsoNormal>&nbsp;</p>
+        </div>
+        <!-- 协议部分（满标出款才会有） -->
+        <div ng-if='vm.templateType=="PRJ"' class=Section1 style='layout-grid:15.6pt;margin-left:20px;margin-right:20px;'>
+            <p class=MsoNormal align=right style='text-align:right;line-height:200%'><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'></span></p>
+            <h1 align=center style='text-align:center;line-height:200%'>投资协议</h1>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h2 align=center style='text-align:center;line-height:200%'>甲方（投资人）</h2>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>姓<span lang=EN-US>&nbsp;&nbsp;&nbsp;
+</span>名：</span>
+            </p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>证件号码：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>借款金额：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>借款期限：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>应收总利息：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>注：因计算中存在四舍五入，最后一期应收本息与之前略有不同</span></p>
+            <h2 align=center style='text-align:center;line-height:200%'>乙方（借款人）</h2>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>真实姓名：深圳盒子支付信息技术有限公司</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>证件号：<span lang=EN-US>440301105577388</span></span>
+            </p>
+            <h2 style='line-height:200%'>丙方（见证人）：深圳汇和金服信息技术有限公司</h2>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>联系方式：<span lang=EN-US>10109888</span></span>
+            </p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>鉴于：</span></p>
+            <p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>丙方是一家合法成立并有效存续的有限责任公司，拥有理财网站（以下简称“本网站”）的经营权与所有权，提供信用信息咨询或投资咨询服务，为该笔交易提供信息咨询服务；</span></p>
+            <p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方已在本网站注册，并承诺其提供给丙方的信息是完全真实的；</span></p>
+            <p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方承诺对本协议涉及的借款具有完全的支配能力，是其自有并可用于投资资金，为其合法所得；并承诺其提供给丙方的信息是完全真实；</span></p>
+            <p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>4.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方有借款需求，甲方亦同意借款，双方有意成立借贷关系；</span></p>
+            <p class=MsoListParagraph style='margin-left:42.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>5.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>丙方在银行设立“平台客户资金收支账户”。平台托管账户信息：</span></p>
+            <p class=MsoNormal style='margin-left:63.0pt;line-height:200%'>
+                <span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>户名：【汇和金服托管专户】</span></p>
+            <p class=MsoNormal style='margin-left:63.0pt;line-height:200%'>
+                <span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>开户行：【恒丰银行苏州营业部】</span></p>
+            <p class=MsoNormal style='margin-left:63.0pt;line-height:200%'>
+                <span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>账号：【<span
+lang=EN-US>851210010122815750</span>】。</span>
+            </p>
+            <p class=MsoListParagraph align=left style='margin-left:42.0pt;text-align:left;
+text-indent:-21.0pt;line-height:200%'><span lang=EN-US style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>6.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方通过
+<span style='color:black'> □银行代扣 □汇款 □银行转账 方</span>式按期足额还款到平台在托管银行开具的收支账户，再由平台委托托管银行向甲方支付应还利息或本息。各方一致同意，该平台托管账户里存放的资金不计利息。</span>
+            </p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>各方经协商一致，于<span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.year"></span>年</span><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.month"></span>月</span><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.day"></span>日</span>签订如下协议，共同遵照履行：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h3 style='line-height:200%'><span style='font-family:宋体'>第一条借款基本信息</span></h3>
+            <table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+                <tr>
+                    <td width=196 style='width:147.15pt;border:solid windowtext 1.0pt;padding:
+  0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>借款详细用途</span></p>
+                    </td>
+                    <td width=372 style='width:278.95pt;border:solid windowtext 1.0pt;border-left:
+  none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>支付结算增值服务</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=196 style='width:147.15pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>项目名称</span></p>
+                    </td>
+                    <td width=372 style='width:278.95pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.projectName"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=196 style='width:147.15pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>借款本金数额</span></p>
+                    </td>
+                    <td width=372 style='width:278.95pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>人民币<span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.amount"></span><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>整</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=196 style='width:147.15pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>借款年化利率</span></p>
+                    </td>
+                    <td width=372 style='width:278.95pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.rateAlias"></span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width=196 style='width:147.15pt;border:solid windowtext 1.0pt;border-top:
+  none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"'>借款期限</span></p>
+                    </td>
+                    <td width=372 style='width:278.95pt;border-top:none;border-left:none;
+  border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.rateTerm"></span>
+                            <span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>，<span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.startDate"></span>起，至<span style='font-size:9.0pt;
+  line-height:200%;font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.endDate"></span>止</span>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h3 style='line-height:200%'><span style='font-family:宋体'>第二条各方权利和义务</span></h3>
+            <h5 style='line-height:200%'><span style='font-family:宋体'>甲方的权利和义务</span></h5>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方应按协议约定将足额的借款本金支付给乙方。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方保证其所用于出借的资金来源合法，甲方是该资金的合法所有人，如果第三人对资金归属、合法性问题发生争议，由甲方负责解决。如甲方未能解决，则放弃享有其所出借款项所带来的利息收益。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方享有其所出借款项所带来的利息收益。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>d)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如乙方违约，甲方有权要求丙方提供其已获得的乙方信息。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>e)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方应主动缴纳由利息所得带来的可能的税费。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>f)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如乙方还款不足以偿还约定本金、利息及违约金的，甲方同意各自按照其借出款项比例收取还款。</span></p>
+            <h5 style='line-height:200%'><span style='font-family:宋体'>乙方权利和义务</span></h5>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方必须按期足额向甲方支付应还的本金和利息。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方必须足额向丙方支付相关服务费用。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方承诺所借款项不用于任何违法用途。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>d)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方应确保其提供的信息和资料的真实性，不得提供虚假信息或隐瞒重要事实。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>e)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方有权了解其在丙方的信用评审进度及结果。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>f)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方不得将本协议项下的任何权利义务转让给任何其他方。</span></p>
+            <h5 style='line-height:200%'><span style='font-family:宋体'>丙方的权利和义务</span></h5>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方通过平台收支账户代其收取本协议文首所约定的出借人应收本息，乙方对此表示认可。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方同意由平台收支账户将其支付的出借本金直接划付至乙方账户，乙方对此表示认可。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>甲乙双方一致同意，在有必要时，丙方有权代甲方对乙方进行关于本协议借款的违约提醒及催收工作，包括但不限于：电话通知、上门催收提醒、函件催款、对乙方提起诉讼等。甲方在此确认委托丙方为其进行以上工作，并授权丙方可以将此工作委托给本协议外的其他方进行。乙方对前述委托的提醒、催收事项已明确知晓并应积极配合。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>d)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>丙方接受甲乙双方的委托行为所产生的法律后果由相应委托方承担。如因乙方或甲方造成的延误或错误，丙方不承担任何责任。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>e)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>丙方应对甲方和乙方的信息保密；如任何一方违约，或因相关权力部门要求（包括但不限于法院、仲裁机构、金融监管机构等），丙方有权披露。</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h3 style='line-height:200%'><span style='font-family:宋体'>第三条违约责任</span></h3>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>协议各方均应严格履行合同义务，非经各方协商一致或依照本协议约定，任何一方不得解除本协议。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>任何一方违约，违约方应承担因违约使得其他各方产生的费用和损失，包括但不限于调查费、诉讼费、律师费等，应由违约方承担。如违约方为乙方的，甲方有权立即解除本协议，并要求乙方立即偿还未偿还的本金、利息、罚息、违约金。如本协议提前解除时，乙方在本网站的账户里有任何余款的，丙方有权按照本协议第三条第<span lang=EN-US>b</span>）的清偿顺序将乙方的余款用于清偿，并要求乙方支付因此产生的相关费用。</span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>i.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>根据本协议产生的其他全部费用；</span></p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>ii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议第三条<span
+lang=EN-US>c</span>）约定的罚息；</span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iii.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>拖欠的利息；</span></p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>iv.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>拖欠的本金；</span></p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>v.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>正常的利息；</span></p>
+            <p class=MsoListParagraph style='margin-left:63.0pt;text-indent:-63.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'><span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>vi.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>正常的本金。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方应严格履行还款义务，如乙方逾期还款，则应按照下述条款向甲方支付逾期罚息，自逾期开始之后，逾期本金的正常利息停止计算。</span></p>
+            <p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt;line-height:
+150%'><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>罚息总额<span lang=EN-US> = </span>借款本金×对应罚息利率×逾期天数；</span>
+            </p>
+            <p class=MsoNormal style='margin-left:21.0pt;text-indent:21.0pt;line-height:
+150%'><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>逾期利率：<span
+lang=EN-US>0.05%</span></span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>d)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如果乙方逾期支付任何一期还款超过<span lang=EN-US>5</span>天，或乙方在逾期后出现逃避、拒绝沟通或拒绝承认欠款事实等恶意行为，本协议项下的全部借款本息均提前到期，乙方应立即清偿本协议下尚未偿付的全部本金、利息、罚息及根据本协议产生的其他全部费用。</span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>e)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如果乙方逾期支付任何一期还款超过<span lang=EN-US>5</span>天，或乙方在逾期后出现逃避、拒绝沟通或拒绝承认欠款事实等恶意行为，丙方有权将乙方的“逾期记录”记入人民银行公民征信系统，丙方不承担任何法律责任。</span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>f)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如果乙方逾期支付任何一期还款超过<span lang=EN-US>5</span>天，或乙方在逾期后出现逃避、拒绝沟通或拒绝承认欠款事实等恶意行为，丙方有权将乙方违约失信的相关信息及乙方其他信息向媒体、用人单位、公安机关、检查机关、法律机关披露，丙方不承担任何责任。</span>
+            </p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>g)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>在乙方还清全部本金、利息、罚息之前，罚息的计算不停止。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>h)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议中的所有甲方与乙方之间的借款均是相互独立的，一旦乙方逾期未归还借款本息，甲方中的任何一个出借人均有权单独向乙方追索或者提起诉讼。</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h3 style='line-height:200%'><span style='font-family:宋体'>第四条法律及争议解决</span></h3>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议的签订、履行、终止、解释均适用中华人民共和国法律，并由丙方所在地的人民法院管辖。</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <h3 style='line-height:200%'><span style='font-family:宋体'>第五条附则</span></h3>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>a)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议采用电子文本形式制成，并永久保存在丙方为此设立的专用服务器上备查，各方均认可该形式的协议效力。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>b)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议自文本最终生成之日生效。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>c)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>本协议签订之日起至借款全部清偿之日止，甲方或乙方的下列信息如发生变更的，其应当在相关信息发生变更三日内将更新后的信息提供给丙方：本人、本人的家庭联系人及紧急联系人、工作单位、居住地址、住所电话、手机号码、电子邮箱、银行账户的变更。若因任何一方不及时提供上述变更信息而带来的损失或额外费用应由该方承担。</span></p>
+            <p class=MsoListParagraph style='margin-left:21.0pt;text-indent:-21.0pt;
+line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;
+font-family:"微软雅黑","sans-serif"'>d)<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>如果本协议中的任何一条或多条违反适用的法律法规，则该条将被视为无效，但该无效条款并不影响本协议其他条款的效力。</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>甲方<span lang=EN-US>(</span>签字盖章<span lang=EN-US>)</span>：</span>
+            </p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>委托代理人：</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>乙方（签字盖章）：深圳盒子支付信息技术有限公司</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>委托代理人：韩昌雷</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span lang=EN-US style='font-size:
+9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>丙方（签字盖章）：深圳汇和金服信息技术有限公司</span></p>
+            <p class=MsoNormal style='line-height:200%'><span style='font-size:9.0pt;
+line-height:200%;font-family:"微软雅黑","sans-serif"'>委托代理人：顾斯阳</span></p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'><span lang=EN-US style='font-size:9.0pt;line-height:200%;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:340.0pt;line-height:300%'><span style='line-height:150%;
+  font-family:"微软雅黑","sans-serif"'><span style='line-height:150%;font-size:9.0pt;
+  font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.year"></span>年</span><span style='line-height:150%;
+  font-family:"微软雅黑","sans-serif"'><span style='line-height:150%;font-size:9.0pt;
+  font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.month"></span>月</span><span style='line-height:150%;
+  font-family:"微软雅黑","sans-serif"'><span style='line-height:150%;font-size:9.0pt;
+  font-family:"微软雅黑","sans-serif"' ng-bind="vm.data.investmentAgreementPrint.day"></span>日</span>
+            </p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+            <p class=MsoNormal style='text-indent:360.0pt;line-height:200%'>&nbsp;</p>
+        </div>
+    </div>
+</body>
+
+</html>

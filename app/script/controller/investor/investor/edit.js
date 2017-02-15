@@ -30,7 +30,6 @@ define([], function() {
         function initMetaData() {
             metaService.getMeta('LCQDMC', function(data) {
                 $scope.vm.fundChannelName = data;
-                console.log(data)
             });
             metaService.getMeta('SFBGSYG', function(data) {
                 $scope.vm.empFlag = data;
@@ -71,7 +70,7 @@ define([], function() {
                         toaster.pop('success', '新增投资人信息成功！');
                         $state.go("investor.investor.list");
                     } else
-                        toaster.pop('success', res.msg);
+                        toaster.pop('error', res.msg);
                 }, function(err) {
                     toaster.pop('error', '服务器连接失败！');
 

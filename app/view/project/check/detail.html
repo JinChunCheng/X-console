@@ -65,7 +65,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.projectId"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.id"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -107,7 +107,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.serviceFeeRate"></label>
+                                        <label type="text" name="name" ng-bind="((vm.data.projectVO.serviceFeeRate||0)*100).toFixed(2)+'%/'+(vm.data.projectVO.serviceFeeRateTerm|meta:vm.timeUnitList)"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -117,7 +117,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration+ (vm.data.projectVO.durationUnit|meta:vm.timeUnitList)"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -125,7 +125,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.interestRate"></label>
+                                        <label type="text" name="name" ng-bind="((vm.data.projectVO.interestRate||0)*100).toFixed(2)+'%'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -133,25 +133,25 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.rebateRate"></label>
+                                        <label type="text" name="name" ng-bind="((vm.data.projectVO.rebateRate||0)*100).toFixed(2)+'%'"></label>
                                     </div>
                                 </th>
                             </tr>
                             <tr>
+                                <th class='w-120'>
+                                    优惠利率
+                                </th>
+                                <th>
+                                    <div class="col-sm-12">
+                                        <label type="text" name="name" ng-bind="((vm.data.projectVO.discountRate||0)*100).toFixed(2)+'%'"></label>
+                                    </div>
+                                </th>
                                 <th class='w-120'>
                                     合同模板编号
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
                                         <label type="text" name="name" ng-bind="vm.data.projectVO.contractTemplateId"></label>
-                                    </div>
-                                </th>
-                                <th class='w-120'>
-                                    期限
-                                </th>
-                                <th>
-                                    <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.duration"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -195,7 +195,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingDeadline"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingDeadline|exDate:'yyyy-MM-dd HH:mm:ss'"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -215,7 +215,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            <tr >
+                            <tr>
                                 <th colspan="6">投标信息</th>
                             </tr>
                             <tr>
@@ -250,7 +250,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.publishType"></label>
+                                        <label type="text" name="name" ng-bind="vm.data.projectVO.publishType|meta:vm.publishType"></label>
                                     </div>
                                 </th>
                                 <th class='w-120'>
@@ -266,7 +266,7 @@
                                 </th>
                                 <th>
                                     <div class="col-sm-12">
-                                        <label type="text" name="name" ng-bind="vm.data.projectVO.biddingProgress"></label>
+                                        <label type="text" name="name" ng-bind="((vm.data.projectVO.biddingProgress||0)*100).toFixed(2)+'%'"></label>
                                     </div>
                                 </th>
                             </tr>
@@ -275,9 +275,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 text-center">
+                <div class="col-sm-12">
                     <button type="button" class="cancel btn  btn-primary m-r-5" ng-click="vm.pass()">审核通过</button>
-                    <button type="button" class="cancel btn btn-danger m-r-5" ng-click="vm.refuse()">拒绝</button>
+                    <!-- <button type="button" class="cancel btn btn-danger m-r-5" ng-click="vm.refuse()">拒绝</button> -->
                     <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
                 </div>
             </div>

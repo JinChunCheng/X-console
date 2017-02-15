@@ -1,166 +1,390 @@
 <div class="panel m-t-10">
     <div class="panel-header">
-        <h3 ng-bind="vm.title"></h3>
+        <h3 class="f-18" ng-model="vm.title"></h3>
     </div>
     <div class="panel-body">
         <form name="borrowerForm" class="form-horizontal form-validation" ng-submit="vm.submit(borrowerForm.$invalid)" novalidate>
-            <div class="form-group" ng-if="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    借款人编号
-                </label>
-                <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-bind="vm.data.id"></label>
-                </div>
-            </div>
-            <div class="form-group" ng-if="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    姓名
-                </label>
-                <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-bind="vm.data.name"></label>
-                </div>
-            </div>
-            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':borrowerForm.name.$invalid && (borrowerForm.name.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">姓名</label>
-                <div class="col-sm-10">
-                    <input type="text" name="name" ng-model="vm.data.name" class="form-control" required>
-                    <div class="form-error" ng-if="borrowerForm.name.$error.required">姓名不能为空!</div>
-                </div>
-            </div>
-            <div class="form-group" ng-if="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    身份证号码
-                </label>
-                <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-bind="vm.data.idNo"></label>
-                </div>
-            </div>
-            <div class="form-group" ng-if="vm.action=='add'" ng-class="{'has-error':borrowerForm.idNo.$invalid && (borrowerForm.idNo.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">身份证号码</label>
-                <div class="col-sm-10">
-                    <input type="text" name="idNo" ng-model="vm.data.idNo" class="form-control" required ng-pattern="/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/">
-                    <div class="form-error" ng-if="borrowerForm.idNo.$error.required">身份证号码不能为空!</div>
-                    <div class="form-error" ng-if="borrowerForm.idNo.$error.pattern">身份证号码格式不正确!</div>
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.mobile.$invalid && (borrowerForm.mobile.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">手机</label>
-                <div class="col-sm-10">
-                    <input type="text" name="mobile" ng-model="vm.data.mobile" class="form-control" required ng-pattern="/^1[3|4|5|7|8]\d{9}$/">
-                    <div class="form-error" ng-if="borrowerForm.mobile.$error.required">手机号码不能为空!</div>
-                    <div class="form-error" ng-if="borrowerForm.mobile.$error.pattern">手机号码格式不正确!</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    固定电话
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" ng-model="vm.data.telephone">
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.email.$invalid && (borrowerForm.email.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">邮箱</label>
-                <div class="col-sm-10">
-                    <input type="text" name="email" ng-model="vm.data.email" class="form-control" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/">
-                    <div class="form-error" ng-if="borrowerForm.email.$error.pattern">邮箱格式不正确!</div>
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.bankCode.$invalid && (borrowerForm.bankCode.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">开户行</label>
-                <!--这里绑定的是你已经选择的options,是一个对象,用于传输给后台的code需要自己再做处理  -->
-                <ui-select ng-model="vm.bank" theme="bootstrap" name='bankCode' class="col-sm-9" required>
-                    <!--这里绑定的是你已经选择的options的name,用于显示  -->
-                    <ui-select-match placeholder="输入开户行名查询">{{vm.bank.bankName}}</ui-select-match>
-                    <!--这里循环的是根据你的查询条件获得的结果的json列表  -->
-                    <ui-select-choices repeat="item in vm.bankList | filter: $select.search">
-                        <!--这里绑定的是json列表的所有银行name,用于显示  -->
-                        <div ng-bind-html="item.bankName | highlight: $select.search"></div>
-                    </ui-select-choices>
-                </ui-select>
-                <span class="form-group-btn">
-                                <button type="button" ng-click="vm.bank=undefined" class="btn btn-default h-35" ng-if="!vm.bankLoading" ng-cloak>
-                                     <span class="glyphicon glyphicon-trash"></span>
-                </button>
-                <span class="btn btn-default h-35" ng-if="vm.bankLoading" ng-cloak><i class="fa fa-spin fa-spinner text-lg"></i></span>
-                </span>
-                <div class="form-error col-sm-offset-2" ng-if="borrowerForm.bankCode.$error.required">开户行不能为空!</div>
-            </div>
-            <!-- <div class="form-group" ng-class="{'has-error':borrowerForm.bankCode.$invalid && (borrowerForm.bankCode.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">开户行</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="bankCode" ng-model="vm.data.bankCode" ng-options='b.code as b.title for b in vm.bankCode' required></select>
-                    <div class="form-error" ng-if="borrowerForm.bankCode.$error.required">开户行不能为空!</div>
-                </div>
-            </div> -->
-            <div class="form-group" ng-class="{'has-error':borrowerForm.bankProvince.$invalid && (borrowerForm.bankProvince.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">开户行省份</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="bankProvince" ng-change="vm.bankProvinceChange()" ng-model="vm.data.bankProvince" ng-options='b.code as b.name for b in vm.provinces' required></select>
-                    <div class="form-error" ng-if="borrowerForm.bankProvince.$error.required">开户行省份不能为空!</div>
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.bankCity.$invalid && (borrowerForm.bankCity.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">开户行城市</label>
-                <div class="col-sm-10">
-                    <select class="form-control" name="bankCity" ng-model="vm.data.bankCity" ng-options='b.code as b.name for b in vm.getCities(vm.data.bankProvince)' required></select>
-                    <div class="form-error" ng-if="borrowerForm.bankCity.$error.required">开户行城市不能为空!</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    银行账户名
-                </label>
-                <div class="col-sm-10">
-                    <label type="text" class="form-control" ng-bind="vm.data.name"></label>
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.bankAccount.$invalid && (borrowerForm.bankAccount.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">银行账号</label>
-                <div class="col-sm-10">
-                    <input type="text" name="bankAccount" ng-model="vm.data.bankAccount" class="form-control" required ng-pattern="/^[A-Za-z0-9]{12,24}$/">
-                    <div class="form-error" ng-if="borrowerForm.bankAccount.$error.required">银行账号不能为空!</div>
-                    <div class="form-error" ng-if="borrowerForm.bankAccount.$error.pattern">银行账号长度必须在12-24位之间!</div>
-                </div>
-            </div>
-            <div class="form-group" ng-if="vm.action=='edit'">
-                <label class="col-sm-2 control-label">
-                    状态
-                </label>
-                <div class="col-sm-10">
-                    <select class="form-control" ng-model="vm.data.status" ng-options='item.value as item.text for item in vm.status'></select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    地址
-                </label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" ng-model="vm.data.address">
-                </div>
-            </div>
-            <div class="form-group" ng-class="{'has-error':borrowerForm.zipCode.$invalid && (borrowerForm.zipCode.$dirty||vm.submitted)}">
-                <label class="col-sm-2 control-label">邮编</label>
-                <div class="col-sm-10">
-                    <input type="text" name="zipCode" ng-model="vm.data.zipCode" class="form-control" ng-pattern="/^[1-9]\d{5}$/">
-                    <div class="form-error" ng-if="borrowerForm.zipCode.$error.pattern">邮编格式不正确!</div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label">
-                    备注
-                </label>
-                <div class="col-sm-10">
-                    <textarea name="comment" rows="3" class="form-control" ng-model="vm.data.memo"></textarea>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-sm-10 col-sm-offset-2">
-                    <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
-                        <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
-                        <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
-                    </button>
-                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="header m-b-10">
+                        <span class="f-16">基本信息</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{'has-error':borrowerForm.enterpriseName.$invalid && (borrowerForm.enterpriseName.$dirty||vm.submitted)}">
+                                <label class="control-label">企业名称</label>
+                                <div>
+                                    <input type="text" name="enterpriseName" ng-model="vm.data.enterpriseName" class="form-control" ng-pattern='/^[A-Za-z0-9\u4e00-\u9fa5]{6,40}$/' required>
+                                    <div class="form-error" ng-if="borrowerForm.enterpriseName.$error.pattern">企业名称格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.enterpriseName.$error.required">企业名称不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group col-sm-12" ng-class="{'has-error':borrowerForm.enterpriseNature.$invalid && (borrowerForm.enterpriseNature.$dirty||vm.submitted)}">
+                                <label class="control-label">企业性质</label>
+                                <div>
+                                    <select class="form-control" name="enterpriseNature" ng-model="vm.data.enterpriseNature" ng-options='b.value as b.text for b in vm.enterpriseNature' required>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                    <div class="form-error" ng-if="borrowerForm.enterpriseNature.$error.required">企业性质不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="control-label">
+                                    注册地址
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-6" ng-class="{'has-error':borrowerForm.registeredprovince.$invalid && (borrowerForm.registeredprovince.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="registeredprovince" class="form-control" ng-model="vm.data.registeredProvince" ng-options="p.code as p.name for p in vm.provinces" ng-change="vm.registeredProvinceChange()" required>
+                                        <option value="">- 请选择省份 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 m-l-30" ng-class="{'has-error':borrowerForm.registeredcity.$invalid && (borrowerForm.registeredcity.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="registeredcity" class="form-control" ng-model="vm.data.registeredCity" ng-options="c.code as c.name for c in vm.getCities(vm.data.registeredProvince)" ng-change="vm.registeredCityChange()" required>
+                                        <option value="">- 请选择城市 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-sm-4 m-l-30" ng-class="{'has-error':borrowerForm.registereddistrict.$invalid && (borrowerForm.registereddistrict.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="registereddistrict" class="form-control" ng-model="vm.data.registeredDistrict" ng-options="a.code as a.name for a in vm.getDistricts(vm.data.registeredProvince,vm.data.registeredCity)" required>
+                                        <option value="">- 请选择地区 -</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group col-sm-12" ng-class="{'has-error':borrowerForm.registeredDetail.$invalid && (borrowerForm.registeredDetail.$dirty||vm.submitted)}">
+                                <label class="control-label">
+                                    请填写详细注册地址
+                                </label>
+                                <div>
+                                    <input type="text" name='registeredDetail' class="form-control" ng-model="vm.data.registeredDetail" required>
+                                    <div class="form-error" ng-if="borrowerForm.registeredDetail.$error.required">请填写详细注册地址!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="control-label">
+                                    办公地址
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-6" ng-class="{'has-error':borrowerForm.addressprovince.$invalid && (borrowerForm.addressprovince.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="addressprovince" class="form-control" ng-model="vm.data.addressProvince" ng-options="p.code as p.name for p in vm.provinces" ng-change="vm.addressProvinceChange()" required>
+                                        <option value="">- 请选择省份 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-6 m-l-30" ng-class="{'has-error':borrowerForm.addresscity.$invalid && (borrowerForm.addresscity.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="addresscity" class="form-control" ng-model="vm.data.addressCity" ng-options="c.code as c.name for c in vm.getCities(vm.data.addressProvince)" ng-change="vm.addressCityChange()" required>
+                                        <option value="">- 请选择城市 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-sm-4 m-l-30" ng-class="{'has-error':borrowerForm.addressdistrict.$invalid && (borrowerForm.addressdistrict.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="addressdistrict" class="form-control" ng-model="vm.data.addressDistrict" ng-options="a.code as a.name for a in vm.getDistricts(vm.data.addressProvince,vm.data.addressCity)" required>
+                                        <option value="">- 请选择地区 -</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.addressdetail.$invalid && (borrowerForm.addressdetail.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    请填写详细办公地址
+                                </label>
+                                <div>
+                                    <input type="text" name='addressdetail' class="form-control" ng-model="vm.data.addressDetail" required>
+                                    <div class="form-error" ng-if="borrowerForm.addressdetail.$error.required">请填写详细办公地址!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.registeredCapital.$invalid && (borrowerForm.registeredCapital.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    注册资金(万元)
+                                </label>
+                                <div>
+                                    <input type="text" name='registeredCapital' class="form-control" ng-model="vm.data.registeredCapital" ng-pattern='/^([1-9][0-9]*)$/'>
+                                    <div class="form-error" ng-if="borrowerForm.registeredCapital.$error.pattern">注册资金格式不正确!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.telephone.$invalid && (borrowerForm.telephone.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    办公地电话
+                                </label>
+                                <div>
+                                    <input type="text" class="form-control" name='telephone' ng-model="vm.data.telephone" ng-pattern='/^(\(\d{3,4}\)|\d{3,4}-)+\d{7,8}$/' required>
+                                    <div class="form-error" ng-if="borrowerForm.telephone.$error.pattern">办公地电话格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.telephone.$error.required">办公地电话不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.zipCode.$invalid && (borrowerForm.zipCode.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    办公地邮编
+                                </label>
+                                <div>
+                                    <input type="text" name='zipCode' class="form-control" ng-model="vm.data.zipCode" ng-pattern='/^\d{6}$/'>
+                                </div>
+                                <div class="form-error" ng-if="borrowerForm.zipCode.$error.pattern">请6位数字!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.bankAccount.$invalid && (borrowerForm.bankAccount.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    银行账号
+                                </label>
+                                <div>
+                                    <input type="text" name='bankAccount' class="form-control" ng-pattern='/^\d{12,24}$/' ng-model="vm.data.bankAccount" required>
+                                    <div class="form-error" ng-if="borrowerForm.bankAccount.$error.pattern">银行账号格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.bankAccount.$error.required">银行账号不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group col-sm-12" ng-class="{'has-error':borrowerForm.bankCode.$invalid && (borrowerForm.bankCode.$dirty||vm.submitted)}">
+                                <label class="control-label">开户行</label>
+                                <!--这里绑定的是你已经选择的options,是一个对象,用于传输给后台的code需要自己再做处理  -->
+                                <div>
+                                    <input name="bankCode" type="text" ng-show="false" ng-model='vm.bank.bankName' ng-cloak required>
+                                    <ui-select theme="bootstrap" ng-model="vm.bank">
+                                        <!--这里绑定的是你已经选择的options的name,用于显示 -->
+                                        <ui-select-match placeholder="输入开户行名查询" required>{{vm.bank.bankName}}</ui-select-match>
+                                        <!--这里循环的是根据你的查询条件获得的结果的json列表  -->
+                                        <ui-select-choices repeat="item in vm.bankList | filter: $select.search">
+                                            <!--这里绑定的是json列表的所有银行name,用于显示  -->
+                                            <div ng-bind-html="item.bankName | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <div class="form-error" ng-if="borrowerForm.bankCode.$error.required">开户行不能为空!</div>
+                                </div>
+                            </div>
+                            <!--  <div class="form-group col-sm-12" ng-class="{'has-error':borrowerForm.bankNum.$invalid && (borrowerForm.bankNum.$dirty||vm.submitted)}">
+                                <label class="control-label">所属银行</label>
+                                <div>
+                                    <select class="form-control" name="bankNum" ng-model="vm.data.bankNum" ng-options='b.value as b.text for b in vm.bankNum' required>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                    <div class="form-error" ng-if="borrowerForm.bankNum.$error.required">所属银行不能为空!</div>
+                                </div> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <label class="control-label">
+                                    开户行地址
+                                </label>
+                            </div>
+                            <div class="form-group col-sm-4" ng-class="{'has-error':borrowerForm.bankprovince.$invalid && (borrowerForm.bankprovince.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="bankprovince" class="form-control" ng-model="vm.data.bankProvince" ng-options="p.code as p.name for p in vm.provinces" ng-change="vm.bankProvinceChange()" required>
+                                        <option value="">- 请选择省份 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4 m-l-30" ng-class="{'has-error':borrowerForm.bankcity.$invalid && (borrowerForm.bankcity.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="bankcity" class="form-control" ng-model="vm.data.bankCity" ng-options="c.code as c.name for c in vm.getCities(vm.data.bankProvince)" ng-change="vm.bankCityChange()" required>
+                                        <option value="">- 请选择城市 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="form-group col-sm-4 m-l-30" ng-class="{'has-error':borrowerForm.bankdistrict.$invalid && (borrowerForm.bankdistrict.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="bankdistrict" class="form-control" ng-model="vm.data.bankDistrict" ng-options="a.code as a.name for a in vm.getDistricts(vm.data.bankProvince,vm.data.bankCity)" ng-change="vm.bankDistrictChange()" required>
+                                        <option value="">- 请选择地区 -</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.branchCode.$invalid && (borrowerForm.branchCode.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    请填写开户行支行地址
+                                </label>
+                                <div>
+                                    <input type="text" name='branchCode' class="form-control" ng-model="vm.data.branchCode" required>
+                                    <div class="form-error" ng-if="borrowerForm.branchCode.$error.required">请填写开户行支行地址!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group col-sm-3 m-l-20" ng-class="{'has-error':borrowerForm.bankbranch.$invalid && (borrowerForm.bankbranch.$dirty||vm.submitted)}">
+                                <div>
+                                    <select name="bankbranch" class="form-control" ng-model="vm.data.bankBranch" ng-options="a.code as a.name for a in vm.getBranch(vm.data.bankProvince,vm.data.bankCity)" required>
+                                        <option value="">- 请选择支行 -</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                    <div class="header m-b-10">
+                        <span class="f-16">法人/联系人信息</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.name.$invalid && (borrowerForm.name.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    姓名
+                                </label>
+                                <div>
+                                    <input type="text" name='name' class="form-control" ng-pattern='/^[A-Za-z0-9\u4e00-\u9fa5]{2,50}$/' ng-model="vm.data.name" required>
+                                    <div class="form-error" ng-if="borrowerForm.name.$error.required">法人姓名不能为空!</div>
+                                    <div class="form-error" ng-if="borrowerForm.name.$error.pattern">法人姓名格式不正确!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.sex.$invalid && (borrowerForm.sex.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    性别
+                                </label>
+                                <div>
+                                    <select class="form-control" name="sex" ng-model="vm.data.sex" ng-options='b.value as b.text for b in vm.sex' required>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                    <div class="form-error" ng-if="borrowerForm.sex.$error.required">性别不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.nation.$invalid && (borrowerForm.nation.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    民族
+                                </label>
+                                <div>
+                                    <input type="text" name='nation' class="form-control" ng-pattern='/^[\u4e00-\u9fa5]{1,10}$/' ng-model="vm.data.nation">
+                                    <div class="form-error" ng-if="borrowerForm.nation.$error.pattern">民族格式不正确!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.marriage.$invalid && (borrowerForm.marriage.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    婚姻状况
+                                </label>
+                                <div>
+                                    <select class="form-control" name="marriage" ng-model="vm.data.marriage" ng-options='b.value as b.text for b in vm.marriage'>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group" ng-class="{'has-error':borrowerForm.birthday.$invalid && (borrowerForm.birthday.$dirty||vm.submitted)}">
+                                <label class="control-label">出生日期</label>
+                                <div class="append-icon">
+                                    <input name="birthday" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="vm.data.birthday" is-open="birthDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="birthDateOpened=true" position="top" required>
+                                    <i class="icon-calendar"></i>
+                                </div>
+                                <div class="form-error" ng-if="borrowerForm.birthday.$error.required">请选择生日!</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.idNo.$invalid && (borrowerForm.idNo.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    身份证号
+                                </label>
+                                <div>
+                                    <input type="text" class="form-control" name='idNo' ng-pattern='/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/' ng-model="vm.data.idNo" required>
+                                    <div class="form-error" ng-if="borrowerForm.idNo.$error.pattern">身份证号格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.idNo.$error.required">身份证号不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.mobile.$invalid && (borrowerForm.mobile.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    手机号
+                                </label>
+                                <div>
+                                    <input type="text" name='mobile' class="form-control" ng-pattern='/^1[34578]\d{9}$/' ng-model="vm.data.mobile" required>
+                                    <div class="form-error" ng-if="borrowerForm.mobile.$error.pattern">手机号格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.mobile.$error.required">手机号不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.email.$invalid && (borrowerForm.email.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    邮箱地址
+                                </label>
+                                <div>
+                                    <input type="text" class="form-control" name='email' ng-pattern='/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/' ng-model="vm.data.email" required>
+                                    <div class="form-error" ng-if="borrowerForm.email.$error.pattern">邮箱格式不正确!</div>
+                                    <div class="form-error" ng-if="borrowerForm.email.$error.required">邮箱不能为空!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header m-b-10">
+                        <span class="f-16">对接信息</span>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.creditLimit.$invalid && (borrowerForm.creditLimit.$dirty||vm.submitted)}">
+                            <div class="form-group">
+                                <label class="control-label">
+                                    授信额度
+                                </label>
+                                <div>
+                                    <input type="text" class="form-control" ng-pattern='/^([1-9][0-9]*)$/' name='creditLimit' ng-model="vm.data.creditLimit" required>
+                                    <div class="form-error" ng-if="borrowerForm.creditLimit.$error.required">授信额度不能为空!</div>
+                                    <div class="form-error" ng-if="borrowerForm.creditLimit.$error.pattern">请输入整数!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6" ng-class="{'has-error':borrowerForm.joinupType.$invalid && (borrowerForm.joinupType.$dirty||vm.submitted)}">
+                            <div class="form-group col-sm-12">
+                                <label class="control-label">
+                                    接入方式
+                                </label>
+                                <div>
+                                    <select class="form-control" name="joinupType" ng-model="vm.data.joinupType" ng-options='b.value as b.text for b in vm.joinupType' required>
+                                        <option value="">- 请选择 -</option>
+                                    </select>
+                                    <div class="form-error" ng-if="borrowerForm.joinupType.$error.required">请选择接入方式!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-30 m-b-30">
+                        <div class="col-sm-10 col-sm-offset-5">
+                            <button type="submit" class="btn btn-primary m-r-10" ng-disabled="vm.processing">
+                                <span class="w2em" ng-if="!vm.processing" ng-cloak>保存</span>
+                                <i class="fa fa-spin fa-spinner w2em" ng-if="vm.processing" ng-cloak></i>
+                            </button>
+                            <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>

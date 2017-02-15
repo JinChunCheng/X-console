@@ -139,7 +139,7 @@ define([], function() {
                         valign: 'middle',
 
                     }, {
-                        field: 'rechargeVO.bankCode',
+                        field: 'rechargeVO.bankName',
                         title: '银行名称',
                         align: 'center',
                         valign: 'middle',

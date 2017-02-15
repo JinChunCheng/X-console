@@ -1585,7 +1585,10 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
                     if (value) {
                         scope.$broadcast('datepicker.focus');
                         scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-                        scope.position.top = scope.position.top + element.prop('offsetHeight');
+                        if(attrs.position== 'top')
+                            scope.position.top = scope.position.top - 278;
+                        else
+                            scope.position.top = scope.position.top + element.prop('offsetHeight');
                         $document.bind('click', documentClickBind);
                     } else {
                         $document.unbind('click', documentClickBind);

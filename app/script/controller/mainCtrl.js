@@ -1,6 +1,6 @@
 ﻿define(['common/session', 'common/path-helper'], function(session, ph) {
-    return ['$rootScope', '$scope', '$state', '$timeout', '$modal', 'pluginsService', 'applicationService', 'builderService',
-        function($rootScope, $scope, $state, $timeout, $modal, pluginsService, applicationService, builderService) {
+    return ['$rootScope', '$scope', '$state', '$timeout', '$modal', '$filter', '$websocket', 'pluginsService', 'applicationService', 'builderService',
+        function($rootScope, $scope, $state, $timeout, $modal, $filter, $websocket, pluginsService, applicationService, builderService) {
 
             /**
              * data used in html pages
@@ -14,7 +14,9 @@
                 },
                 getSubMenuStyle: function(states) {
                     return isStateActive(states) ? 'display:"block";' : '';
-                }
+                },
+                today: $filter('date')(new Date(), 'yyyy-MM-dd'),
+                tomorrow:$filter('date')(new Date(new Date().setDate(new Date().getDate()+1)), 'yyyy-MM-dd'),
             };
 
             $rootScope.dateOptions = {
@@ -44,12 +46,13 @@
                     return false;
                 }
                 applicationService.menuResource.query().$promise.then(function(res) {
-                    $scope.appView.menus = res.data.items;
+                    $scope.appView.menus = res.data;
+                    //加延迟处理，数据绑定之后初始化dom样式结构（如：滚动条）
                     $timeout(function() {
                         //pluginsService.init();
                         applicationService.init();
                         builderService.init();
-                    });
+                    }, 200);
                 });
             }
 
@@ -86,6 +89,15 @@
 
             $scope.$on('login', function(event, userInfo) {
                 $scope.appView.user = userInfo;
+                // // Open a WebSocket connection
+                // var dataStream = $websocket('ws://172.21.20.17:8080/websocket');
+                //
+                // var collection = [];
+                //
+                // dataStream.onMessage(function(message) {
+                //   //collection.push(JSON.parse(message.data));
+                //   console.log(message);
+                // });
             });
 
             $scope.logout = function() {

@@ -2,7 +2,7 @@
     <h2><i class="fa fa-dashboard"></i>出款指令列表</h2>
 </div>
 <div class="row" id="toolbar">
-    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="listView.search()">
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
@@ -59,7 +59,7 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-5">
                     <div class="form-group">
-                        <button class="btn btn-primary m-r-10" ng-click="listView.search()">查找</button>
+                        <button class="btn btn-primary m-r-10">查找</button>
                         <button type="button" class="btn btn-default" ng-click="listView.reset()">重置</button>
                     </div>
                 </div>

@@ -1,10 +1,6 @@
 define([], function () {
     return ['$scope', '$state',  '$modal','$filter','metaService', 'investorService', function ($scope, $state,  $modal,$filter,metaService, investorService) {
 
-        /**
-         * the default search condition
-         * @type {Object}
-         */
         var defaultCondition = {
             data: {},
             paginate:{
@@ -18,11 +14,6 @@ define([], function () {
             table: null
         };
 
-        /**
-         * do something after view loaded
-         * @param  {string}     event type
-         * @param  {function}   callback function
-         */
         $scope.$on('$viewContentLoaded', function () {
             $scope.listView.table = $('#investmentListTable');
         });
@@ -42,8 +33,8 @@ define([], function () {
         var getData = function (params) {
             var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
             var condition = $scope.listView.condition;
-            if($scope.listView.fundChannel) {
-                condition.data.fundChannelId = $scope.listView.fundChannel.value;
+            if($scope.listView.condition.data.fundChannel) {
+                condition.data.fundChannelId = $scope.listView.condition.data.fundChannel.value;
             }
             if($scope.listView.condition.data.statusName){
                 condition.data.status= $scope.listView.condition.data.statusName;
@@ -62,8 +53,8 @@ define([], function () {
             }
             condition.paginate = paganition;
             investorService.infoList.query({where: JSON.stringify(condition)}).$promise.then(function (res) {
-                res.data = res.data || { paginate: paganition, items: [] };
-                res.data.paginate = res.data.paginate || {totalCount: 0};
+                res.paginate = res.paginate || { totalCount: 0 };
+                res.data = res.data || { paginate: res.paginate, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items

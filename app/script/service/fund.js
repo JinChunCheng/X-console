@@ -129,8 +129,7 @@ define(['common/config'], function(config) {
                         method: method,
                         data: $.param(data),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                        //url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback',
-                        url:'http://172.21.20.8:8080/withdrawback/fallback'
+                        url: config.WITHDRAW_CONSOLE + '/withdrawback/fallback'
 
                     })
                     .then(function(res) {

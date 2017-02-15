@@ -1,6 +1,6 @@
 define([], function() {
-    return ['$scope', '$state', '$stateParams', 'projectService', 'metaService',
-        function($scope, $state, $stateParams, projectService, metaService) {
+    return ['$scope', '$state', '$stateParams', 'projectService', 'metaService', 'toaster',
+        function($scope, $state, $stateParams, projectService, metaService, toaster) {
 
             $scope.projectVM = {
                 borrower: {},
@@ -17,6 +17,7 @@ define([], function() {
                         if (res.data) {
                             $scope.projectVM.borrower = res.data.borrowerVO;
                             $scope.projectVM.project = res.data.projectVO;
+                            $scope.projectVM.projectBorrowerVOs = res.data.projectBorrowerVOs;
                         }
                     } else
                         toaster.pop('error', res.msg);

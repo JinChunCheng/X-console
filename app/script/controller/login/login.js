@@ -10,6 +10,9 @@ define(['common/config', 'common/session'], function(config, session) {
         };
 
         $scope.$on('$viewContentLoaded', function() {
+            var imgWidth = 3000;
+            var imgHeight = 2008;
+            var imgWHPercent = imgWidth / imgHeight;
 
             $(window).on('resize', function() {
                 resizeBG();
@@ -18,13 +21,30 @@ define(['common/config', 'common/session'], function(config, session) {
             function resizeBG() {
                 var $ph = $('#page-signin-bg'),
                     $img = $ph.find('> img');
+
+                var pageHeight = $ph.height();
+                var pageWidth = $ph.width();
+
                 $img.attr('style', '');
-                if ($img.height() < $ph.height()) {
+
+                if (imgWHPercent < pageWidth / pageHeight) {
+                    $img.css({
+                        height: 'auto',
+                        width: '100%'
+                    });
+                } else {
                     $img.css({
                         height: '100%',
                         width: 'auto'
                     });
                 }
+
+                // if ($img.height() < $ph.height()) {
+                //     $img.css({
+                //         height: '100%',
+                //         width: 'auto'
+                //     });
+                // }
             }
 
             $timeout(function() {

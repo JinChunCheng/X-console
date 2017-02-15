@@ -76,7 +76,7 @@ define([], function() {
                                 field: 'borrowerVO.name',
                                 title: '借款人姓名'
                             }, {
-                                field: 'projectVO.projectId',
+                                field: 'projectVO.id',
                                 title: '项目编号'
                             }, {
                                 field: 'projectVO.projectName',

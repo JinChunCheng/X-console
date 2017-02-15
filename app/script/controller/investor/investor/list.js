@@ -10,7 +10,6 @@ define([], function() {
                 },
                 channelChange: function() {
                     $scope.listVM.condition.fundAccountManagerId = null;
-                    console.log($scope.listVM.condition.fundChannelId)
                 },
                 fundChannelName: [],
                 getManagers: function(channelId) {
@@ -108,12 +107,6 @@ define([], function() {
                             valign: 'middle',
 
                         }, {
-                            field: 'loginName',
-                            title: '登录名',
-                            align: 'center',
-                            valign: 'middle',
-
-                        }, {
                             field: 'name',
                             title: '真实姓名',
                             align: 'center',
@@ -195,12 +188,6 @@ define([], function() {
                         }, {
                             field: 'zipCode',
                             title: '邮编',
-                            align: 'center',
-                            valign: 'middle',
-
-                        }, {
-                            field: 'address',
-                            title: '地址',
                             align: 'center',
                             valign: 'middle',
 

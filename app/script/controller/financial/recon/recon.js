@@ -97,30 +97,14 @@ define([], function() {
         (function init() {
 
             $scope.bsWithdrawCashReconTableControl = {
-                options: {
-                    //data: rows,
-                    // rowStyle: function(row, index) {
-                    //     return { classes: 'none' };
-                    // },
-                    // fixedColumns: true,
-                    // fixedNumber: 2,
+                options: {                    
                     cache: false,
-                    height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",
                     ajax: getData,
-                    //autoLoad: true,
                     onPageChange: pageChange,
                     sidePagination: "server",
-                    //search: true,
-                    //showColumns: true,
-                    //showRefresh: false,
-                    //minimumCountColumns: 2,
-                    //clickToSelect: false,
-                    //showToggle: true,
-                    //maintainSelected: true,
                     columns: [{
                         field: 'state',
                         checkbox: true,

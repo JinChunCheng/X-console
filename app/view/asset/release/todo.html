@@ -5,27 +5,39 @@
     <form class="form-horizontal ng-pristine novalidate" ng-submit="listVM.search()">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">姓名</span>
-                                <input type="text" class="form-control form-white" ng-model="listVM.condition.name">
+                                <span class="input-group-addon">产品名称</span>
+                                <input type="text" class="form-control form-white" ng-model="listVM.condition.data.productName">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-3">
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="input-group">
-                                <span class="input-group-addon">手机号</span>
-                                <input type="text" class="form-control form-white" ng-model="listVM.condition.mobile">
+                                <span class="input-group-addon">类型</span>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.assetType" ng-options='s.value as s.text for s in listVM.assetTypeList'>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listVM.condition.data.status" ng-options='s.value as s.text for s in listVM.statusList'>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <button class="btn btn-primary">查找</button>
                     <button type="button" class="btn btn-default" ng-click="listVM.reset()">重置</button>
                 </div>

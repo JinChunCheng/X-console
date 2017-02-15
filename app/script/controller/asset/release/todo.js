@@ -11,7 +11,7 @@ define([], function() {
                     pageNum: 1,
                     pageSize: 10
                 },
-                data: { status: 0 }
+                data: { status: [0, 1] }
             };
 
             $scope.listVM = {
@@ -56,6 +56,9 @@ define([], function() {
                 metaService.getMeta('ZCLX', function(items) {
                     $scope.listVM.assetTypeList = items;
                 });
+                metaService.getMeta('CPZT', function(items) {
+                    $scope.listVM.statusList = items;
+                });
             }
 
             (function init() {
@@ -70,12 +73,12 @@ define([], function() {
                         sidePagination: "server",
                         columns: [
                             { field: 'asset.assetType', title: '类型', formatter: assetTypeFormatter },
-                            { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter },
-                            { field: 'asset.assetChannel', title: '来源' }, {
+                            { field: 'productName', title: '产品名称' },
+                            { field: 'loanRemark', title: '借款概要', formatter: loanRemarkFormatter }, {
                                 field: 'loanRate',
                                 title: '借款利率',
                                 formatter: function(value) {
-                                    return value ? value + '%' : '';
+                                    return value ? (value * 100).toFixed(2) + '%' : '';
                                 }
                             }, {
                                 field: 'loanTermCount',
@@ -85,7 +88,8 @@ define([], function() {
                                 }
                             },
                             { field: 'createTime', title: '收录日期', formatter: dateFormatter },
-                            { field: 'loanDate', title: '过期时间', formatter: dateFormatter }, {
+                            { field: 'loanDate', title: '过期时间', formatter: dateFormatter },
+                            { field: 'status', title: '状态', formatter: statusFormatter }, {
                                 field: 'flag',
                                 title: '操作',
                                 align: 'center',
@@ -102,6 +106,11 @@ define([], function() {
 
                 function assetTypeFormatter(value, row, index) {
                     return $filter('meta')(value, $scope.listVM.assetTypeList);
+                }
+
+                function statusFormatter(value, row, index) {
+                    var cls = value == 1 ? 'text-danger' : '';
+                    return '<span class="' + cls + '">' + $filter('meta')(value, $scope.listVM.statusList) + '</span>';
                 }
 
                 function loanRemarkFormatter(value, row, index) {
@@ -126,7 +135,7 @@ define([], function() {
                 }
 
                 function release(e, value, row, index) {
-                    $state.go('asset.release.edit', { id: row.id })
+                    $state.go('asset.release.edit', { id: row.productId })
                     e.stopPropagation();
                     e.preventDefault();
                 }

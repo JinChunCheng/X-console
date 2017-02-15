@@ -1,32 +1,93 @@
 <div class="header">
     <span class="f-18">关键数据</span>
-    <span class="f-12">（以下数据从2016年8月8日开始统计，近7日/30日不包括今日）</span>
-    <div class="header-right text-md">
-        <div class="btn-group">
-            <button type="button" class="btn btn-xs btn-default" ng-class="{'btn-success': dashboardVM.dataRange==1}" ng-click="dashboardVM.changeDataRange(1)">今日</button>
-            <button type="button" class="btn btn-xs btn-default" ng-class="{'btn-success': dashboardVM.dataRange==2}" ng-click="dashboardVM.changeDataRange(2)">本周</button>
-            <button type="button" class="btn btn-xs btn-default" ng-class="{'btn-success': dashboardVM.dataRange==3}" ng-click="dashboardVM.changeDataRange(3)">本月</button>
-        </div>
+    <span class="f-12">（以下数据从2016年8月8日开始统计）</span>
+</div>
+<div class="row m-t-20 bold">
+    <div class="col-md-4 text-center">
+        <span class='f-18'>平台总资产(元)</span>
+        <p class="c-orange f-16 m-t-10" ng-bind='dashboardVM.data.totalAmount||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-18'>平台余额(元)</span>
+        <p class="c-orange f-16 m-t-10" ng-bind='dashboardVM.data.depositAmount||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-18'>在仓金额(元)</span>
+        <p class="c-orange f-16 m-t-10" ng-bind='dashboardVM.data.biddingAmount||0'></p>
     </div>
 </div>
-<div class="row m-t-60 bold">
-	<div class="col-md-3 text-center">
-		<span>交易总额(元)</span>
-		<p class="c-orange m-t-10">10,025,976</p>
-	</div>
-	<div class="col-md-3 text-center">
-		<span>交易总笔数(笔)</span>
-		<p class="c-orange m-t-10">6178</p>
-	</div>
-	<div class="col-md-3 text-center">
-		<span>赎回资金(元)</span>
-		<p class="c-orange m-t-10">589,312</p>
-	</div>
-	<div class="col-md-3 text-center">
-		<span>赎回利息(元)</span>
-		<p class="c-orange m-t-10">36,065</p>
-	</div>
+<div class="row bold m-t-40">
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日注册(人)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.userIncreAmount||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日到期金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.periodEndByPrincipal||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日购买金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.biddingAmountByDate||0'></p>
+    </div>
+
 </div>
-<div class="header m-t-60">
-    <span class="f-18">每日趋势数据</span>
+<div class="row m-t-20 bold">
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日小金罐充值金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.depositXJG||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日汇赚钱充值金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.depositAmountByDate||0'></p>
+    </div>
+</div>
+<div class="row m-t-20 bold">
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日到账未批准(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.withdrawBeforeAccount||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日全部提现申请(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.withdrawAccount||0'></p>
+    </div>
+</div>
+<div class="row m-t-20 bold">
+    <div class="col-md-4 text-center">
+        <span class='f-16'>往日充值在途金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.depositbeforeAmountByDate||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日充值在途金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.depositAmountByDate||0'></p>
+    </div>
+    <div class="col-md-4 text-center">
+        <span class='f-16'>今日充值到账金额(元)</span>
+        <p class="c-orange f-14 m-t-10" ng-bind='dashboardVM.data.depositSByDate||0'></p>
+    </div>
+</div>
+<div>
+    <span class="f-18">透视图</span>
+    <div>
+        <div class="row">
+            <div class="col-md-4 m-l-negative-60">
+                <h3 class='text-center'><strong>平台总资产(元)</strong></h3>
+                <canvas class="chart chart-pie" chart-data="dashboardVM.assetData" chart-labels="dashboardVM.assetLabel" chart-options="options">
+                </canvas>
+            </div>
+            <div class="col-md-4 m-l-negative-80">
+                <h3><strong>今日用户逐层转化情况(人)</strong></h3>
+                <span class='authPercent'>实名率：<span ng-bind="dashboardVM.authPercent"></span></span>
+                <span class='depositPercent'>充值率：<span ng-bind="dashboardVM.depositPercent"></span></span>
+                <canvas class="chart chart-horizontalBar" chart-data="dashboardVM.userTransformData" chart-labels="dashboardVM.userTransformLabel" chart-options="options">
+
+                </canvas>
+
+            </div>
+            <div class="col-md-4 m-l-40">
+                <h3><strong>净增情况(元)</strong></h3>
+                <canvas class="chart chart-bar" chart-data="dashboardVM.increaseData" chart-labels="dashboardVM.increaseLabel" chart-options="options">
+                </canvas>
+            </div>
+        </div>
+    </div>
 </div>

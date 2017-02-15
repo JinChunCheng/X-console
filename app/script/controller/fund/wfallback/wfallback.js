@@ -5,7 +5,7 @@ define([], function() {
             condition: {},
             withdraw: {},
             getDetail: getDetail,
-            batch:batch,
+            batch: batch,
         };
 
         function initMetaData() {
@@ -22,6 +22,11 @@ define([], function() {
         };
 
         function getDetail(id) {
+            if (!id){
+                toaster.pop('error', '请输入提现编号！');
+                return false;
+            }
+            
             fundService.withdrawBackLabel.get({ id: id }).$promise.then(function(res) {
                 //基本信息
                 $scope.listView.condition = res.data.result;
@@ -31,12 +36,15 @@ define([], function() {
         }
 
         function batch() {
-    
-            fundService.fallbackApply({ withdrawId: $scope.listView.withdraw.id,memo:$scope.listView.condition.memo },'POST').then(function(res) {
+            if (!$scope.listView.withdraw.id){
+                toaster.pop('error', '请输入提现编号！');
+                return false;
+            }
+            fundService.fallbackApply({ withdrawId: $scope.listView.withdraw.id, memo: $scope.listView.condition.memo }, 'POST').then(function(res) {
                 if (res.code == 200) {
                     toaster.pop('success', '提现回退申请成功！');
-                    $scope.listView.withdraw.id=null;
-                    $scope.listView.condition={};
+                    $scope.listView.withdraw.id = null;
+                    $scope.listView.condition = {};
                 } else
                     toaster.pop('error', res.msg);
             }, function(err) {

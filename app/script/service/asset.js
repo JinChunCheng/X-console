@@ -10,15 +10,21 @@ define(['common/config'], function(config) {
         var assetResource = $resource(config.ASSET_CONSOLE + '/asset/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var platformResource = $resource(config.SALEPLATFORM_CONSOLE + '/saleplatform/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
         var productResource = $resource(config.PRODUCT_CONSOLE + '/product/:id', null, { 'query': { isArray: false }, 'update': { method: 'PUT' } });
+        var oneFreezeChannel=$resource(config.ASSET_CONSOLE+'/assetchannel/freeze/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' },'delete':{method:'DELETE'} });
+        var oneDeleteChannel=$resource(config.ASSET_CONSOLE+'/assetchannel/:id', { id: "@id" }, { 'query': { isArray: false }, 'update': { method: 'PUT' },'delete':{method:'DELETE'} });
+
         return {
             channel: channelResource,
             asset: assetResource,
             platform: platformResource,
             product: productResource,
+            oneFreezeChannel:oneFreezeChannel,
+            oneDeleteChannel:oneDeleteChannel,
             findChannel: function(condition) {
                 return $http({
                         method: 'POST',
                         url: config.ASSET_CONSOLE + '/assetchannel/list',
+                        //url: 'http://172.21.22.28:8080/assetchannel/list',
                         data: condition
                     })
                     .then(function(res) {
@@ -36,6 +42,8 @@ define(['common/config'], function(config) {
             findAsset: function(condition) {
                 return $http({
                         method: 'POST',
+                        //url:'http://172.21.22.28:8080/asset/list',
+
                         url: config.ASSET_CONSOLE + '/asset/list',
                         data: condition
                     })
@@ -99,6 +107,7 @@ define(['common/config'], function(config) {
              * @param  {string} ids      platform id list
              * @param  {int} status     
              */
+             
             batchUpdatePlatform: function(data) {
                 return $http({
                         method: 'POST',
@@ -118,9 +127,31 @@ define(['common/config'], function(config) {
                         }
                     );
             },
+            batchUpdateChannel: function(data) {
+                return $http({
+                        method: 'POST',
+                        //headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        //url:'http://172.21.22.28:8080/assetchannel/batchdeal',
+                        
+                        url:config.ASSET_CONSOLE +'/assetchannel/batchdeal',
+                        data: data
+                    })
+                    .then(function(res) {
+                            if (res) {
+                                return res.data;
+                            } else {
+                                return serverErrorData;
+                            }
+                        },
+                        function(errRes) {
+                            return $q.reject(errRes);
+                        }
+                    );
+            },
             findProduct: function(condition) {
                 return $http({
                         method: 'POST',
+                        //url:'http://172.21.22.28:8080/product/list',
                         url: config.PRODUCT_CONSOLE + '/product/list',
                         data: condition
                     })

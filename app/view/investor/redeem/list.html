@@ -1,0 +1,89 @@
+<div class="header">
+    <h2><i class="fa fa-dashboard"></i>投资人赎回列表</h2>
+</div>
+<div class="row" id="toolbar">
+    <form class="form-horizontal ng-pristine novalidate" ng-submit="search()">
+        <div class="col-md-12">
+            <div class="row">
+                <!-- <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">申购流水</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.id">
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">投资人标识</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.investorId">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">代付流水号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.pilFlowNo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">申购序号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.redeemOrderNo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">外部参考号</span>
+                                <input type="text" class="form-control form-white" ng-model="listView.condition.externalRef">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="input-group">
+                                <span class="input-group-addon">状态</span>
+                                <select class="form-control form-white" ng-model="listView.condition.status" ng-options='i.value as i.text for i in listView.redeemStatus'>
+                                    <option value="">- 请选择 -</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary">查找</button>
+                            <button type="button" class="btn btn-default" ng-click="reset()">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <table id="redeemListTable" table-full-size bs-table-control="bsRedeemListTableControl"></table>
+    </div>
+</div>

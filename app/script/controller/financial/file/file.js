@@ -5,18 +5,13 @@ define([], function() {
          * the default search condition
          * @type {Object}
          */
-        var defaultCondition = {
-            sorting: 'update_time desc',
-            pageNum: 1,
-            pageSize: 10
-        };
 
         $scope.listView = {
-            condition: angular.copy(defaultCondition),
+            condition: {},
             table: null,
             search: search,
             reset: function() {
-                $scope.listView.condition = angular.copy(defaultCondition);
+                $scope.listView.condition = {};
             }
         };
 
@@ -48,10 +43,11 @@ define([], function() {
         });
 
         var getData = function(params) {
-            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
+            var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize };
             var data = $scope.listView.condition;
             var queryCondition = { "data":data,"paginate": paganition };
             financialService.fileInterfaceLogTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
+                res.data = res.data || { paginate: paganition, items: [] };
                 params.success({
                     total: res.data.paginate.totalCount,
                     rows: res.data.items
@@ -64,7 +60,6 @@ define([], function() {
             $scope.bsFileInterfaceLogTableControl = {
                 options: {
                     cache: false,
-                    height: 650,
                     pagination: true,
                     pageSize: 10,
                     pageList: [10, 25, 50, 100, 200],

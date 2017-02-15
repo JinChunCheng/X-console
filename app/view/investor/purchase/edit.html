@@ -1,0 +1,145 @@
+<div class="panel m-t-10">
+    <div class="panel-header">
+        <h3 ng-bind="vm.title"></h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal form-validation">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    申购流水
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.id" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    投资人标识
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.investorId" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    申购批次号
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.subscriptionBatchId" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    申购金额
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.amount" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    实际结算金额
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.actualSettlementAmount" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    费率标识
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.serviceRateId" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    服务费
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.serviceFee" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    第三方账号
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.thirtpartyAccountNo" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    基金代码
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.fundCode" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    基金类型
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.fundType|meta:vm.fundType" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    状态
+                </label>
+                <div class="col-sm-10">
+                    <select class="form-control form-white" ng-model="vm.data.status" ng-options='s.value as s.text for s in vm.status'>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    外部参考号
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.externalRef" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    申购序号
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.subscriptionOrderNo" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    错误编码
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.errorCode" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    错误信息
+                </label>
+                <div class="col-sm-10">
+                    <label type="text" class="form-control" ng-bind="vm.data.errorMsg" readonly></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">
+                    备注
+                </label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="vm.data.memo">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="button" class="btn btn-primary m-r-10" ng-click="vm.submit()">保存
+                    </button>
+                    <button type="button" class="cancel btn btn-default" ng-click="vm.cancel()">返回</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

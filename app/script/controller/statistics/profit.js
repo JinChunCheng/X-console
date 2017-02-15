@@ -6,7 +6,9 @@ define([], function() {
             var date = new Date(now.getTime() - 7 * 24 * 3600 * 1000);
             var year = date.getFullYear();
             var month = date.getMonth() + 1;
+            month = month < 10 ? ("0" + month) : month;
             var day = date.getDate();
+            day = day < 10 ? ("0" + day) : day;
             var end = $filter('exDate')(new Date());
             var start = $filter('exDate')(year + '-' + month + '-' + day);
 
@@ -28,6 +30,7 @@ define([], function() {
                     toaster.pop('error', '请选择开始和结束日期！');
                     return false;
                 }
+                console.log(startDate, endDate)
                 if (startDate > endDate) {
                     toaster.pop('error', '结束日期不能小于开始日期！');
                     return false;
@@ -41,81 +44,8 @@ define([], function() {
                 }, function(err) {
                     toaster.pop('error', '服务器连接出错！');
                 });
-
-                // var data = [{
-                //     "profitLogType": null,
-                //     "profitDate": "2016-04-25",
-                //     "withdrawProfit": 129.00,
-                //     "depositProfit": 766.00,
-                //     "investmentProfit": 110.00,
-                //     "projectProfit": 0.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-04-27",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 0.00,
-                //     "investmentProfit": 431.58,
-                //     "projectProfit": 0.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-04-28",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 10.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 10.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-04-29",
-                //     "withdrawProfit": 110.00,
-                //     "depositProfit": 0.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 0.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-04-30",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 10.00,
-                //     "investmentProfit": 431.58,
-                //     "projectProfit": 0.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-05-01",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 110.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 0.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-05-02",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 0.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 110.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-05-03",
-                //     "withdrawProfit": 0.00,
-                //     "depositProfit": 0.00,
-                //     "investmentProfit": 10.00,
-                //     "projectProfit": 11.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-05-04",
-                //     "withdrawProfit": 10.00,
-                //     "depositProfit": 110.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 10.00
-                // }, {
-                //     "profitLogType": null,
-                //     "profitDate": "2016-05-05",
-                //     "withdrawProfit": 110.00,
-                //     "depositProfit": 10.00,
-                //     "investmentProfit": 0.00,
-                //     "projectProfit": 10.00
-                // }];
-                // processData(data);
-
             }
+            search();
 
             function processData(data) {
                 data = data || [];

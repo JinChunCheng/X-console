@@ -4,8 +4,6 @@ define([], function() {
             $scope.vm = {
                 table: null,
                 data: {},
-                accountLogType: [{ code: 'IV_WITHDRAW_APPROVED', title: "提现申请通过" }, { code: 'IV_INVESTMENT_REPAYMENT', title: "投资还款" }, { code: 'IV_INVESTMENT', title: "投资(结标审核通过)" }],
-                status: [{ code: "C", title: "关闭" }, { code: "O", title: "正常" }],
                 //初始化bsInvestorDetailTableControl对象，并将其扔到vm里面去，防止init调用的时候还没有加载出bsInvestorDetailTableControl这个对象而报错
                 bsInvestorDetailTableControl: {},
                 cancel: function() {
@@ -203,9 +201,10 @@ define([], function() {
 
 
             function getDetailTable(params) {
+                console.log(params)
                 //这里的params就是分页的json
                 var paganition = { pageNum: params.paginate.pageNum, pageSize: params.paginate.pageSize, sort: params.data.sort };
-                var queryCondition = { data: { accountNo: params.accountNo }, paginate: paganition };
+                var queryCondition = { data: { accountNo: $scope.vm.data.investorInfo.accountNo }, paginate: paganition };
                 investorService.investorDetailTable.query({ where: JSON.stringify(queryCondition) }).$promise.then(function(res) {
                     res.data = res.data || { paginate: paganition, items: [] };
                     params.success({

@@ -24,12 +24,20 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-8">
-                                        <div class="form-group" ng-class="{'has-error':assetForm.channel.$invalid && (assetForm.channel.$dirty||assetVM.submitted)}">
-                                            <label class="control-label">资产来源</label>
+                                        <div class="form-group" ng-class="{'has-error':assetForm.borrowerid.$invalid && (assetForm.borrowerid.$dirty||assetVM.submitted)}">
+                                            <label class="control-label">资产方</label>
                                             <div>
-                                                <select name="channel" class="form-control" ng-model="assetVM.data.assetChannelId" ng-options="item.id as item.name for item in assetVM.channelList" required>
+                                                <!-- <select name="channel" class="form-control" ng-model="assetVM.data.assetChannelId" ng-options="item.id as item.name for item in assetVM.channelList" required>
                                                     <option value="">- 请选择 -</option>
-                                                </select>
+                                                </select> -->
+                                                <input name="borrowerid" type="text" ng-model="assetVM.borrower.id" ng-show="false" ng-cloak required>
+                                                <ui-select ng-model="assetVM.borrower" theme="bootstrap">
+                                                    <ui-select-match placeholder="输入资产方编号">{{assetVM.borrower.enterpriseName}}</ui-select-match>
+                                                    <ui-select-choices repeat="item in assetVM.borrowerList | filter: $select.search" refresh="assetVM.refreshBorrower($select.search)" refresh-delay="500">
+                                                        <div ng-bind-html="item.enterpriseName | highlight: $select.search"></div>
+                                                        <small ng-bind-html="'编号：'+item.id | highlight: $select.search"></small>
+                                                    </ui-select-choices>
+                                                </ui-select>
                                             </div>
                                         </div>
                                     </div>
@@ -118,7 +126,7 @@
                                         <div class="form-group" ng-class="{'has-error':assetForm.birthdistrict.$invalid && (assetForm.birthdistrict.$dirty||assetVM.submitted)}">
                                             <label class="control-label">地区</label>
                                             <div>
-                                                <select name="birthdistrict" class="form-control" ng-model="assetVM.data.birthDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.birthProvince,assetVM.data.birthCity)" required>
+                                                <select name="birthdistrict" class="form-control" ng-model="assetVM.data.birthDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.birthProvince,assetVM.data.birthCity)" ng-change='assetVM.birthDistrictChange()' required>
                                                     <option value="">- 请选择地区 -</option>
                                                 </select>
                                             </div>
@@ -150,7 +158,7 @@
                                         <div class="form-group" ng-class="{'has-error':assetForm.localdistrict.$invalid && (assetForm.localdistrict.$dirty||assetVM.submitted)}">
                                             <label class="control-label">地区</label>
                                             <div>
-                                                <select name="localdistrict" class="form-control" ng-model="assetVM.data.localDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.localProvince,assetVM.data.localCity)" required>
+                                                <select name="localdistrict" class="form-control" ng-model="assetVM.data.localDistrict" ng-options="a.code as a.name for a in assetVM.getDistricts(assetVM.data.localProvince,assetVM.data.localCity)" ng-change='assetVM.localDistrictChange()' required>
                                                     <option value="">- 请选择地区 -</option>
                                                 </select>
                                             </div>
@@ -308,7 +316,7 @@
                                         <div class="form-group" ng-class="{'has-error':assetForm.entrydate.$invalid && (assetForm.entrydate.$dirty||assetVM.submitted)}">
                                             <label class="control-label">入职时间</label>
                                             <div class="append-icon">
-                                                <input name="entrydate" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="assetVM.data.entryDate" is-open="entryDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="entryDateOpened=true" required />
+                                                <input name="entrydate" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="assetVM.data.entryDate" is-open="entryDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="entryDateOpened=true" position="top" required />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>
@@ -460,7 +468,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group" ng-class="{'has-error':assetForm.loanrate.$invalid && (assetForm.loanrate.$dirty||assetVM.submitted)}">
-                                            <label class="control-label">借款费率</label>
+                                            <label class="control-label">借款利率</label>
                                             <div class="input-group">
                                                 <input name="loanrate" type="number" class="form-control" ng-model="assetVM.data.loanRate" required>
                                                 <span class="input-group-addon">%</span>
@@ -473,7 +481,7 @@
                                         <div class="form-group" ng-class="{'has-error':assetForm.loandate.$invalid && (assetForm.loandate.$dirty||assetVM.submitted)}">
                                             <label class="control-label">截止日期</label>
                                             <div class="append-icon">
-                                                <input name="loandate" type="text" class="form-control" datepicker-popup ng-model="assetVM.data.loanDate" is-open="loanDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="loanDateOpened=true" required />
+                                                <input name="loandate" type="text" class="form-control" datepicker-popup min-date="{{format}}" ng-model="assetVM.data.loanDate" is-open="loanDateOpened" datepicker-options="dateOptions" close-text="关闭" ng-click="loanDateOpened=true" required />
                                                 <i class="icon-calendar"></i>
                                             </div>
                                         </div>

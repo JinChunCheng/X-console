@@ -26,7 +26,7 @@ define([], function () {
                                 $scope.confirmData.processing = true;
                                 investorService.finishCancel(
                                     data.investorVO.investorId,
-                                    data.projectVO.projectId,
+                                    data.projectVO.id,
                                     data.biddingVO.biddingId
                                 ).then(function (res) {
                                     if (res.code == 200) {

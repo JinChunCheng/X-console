@@ -15,7 +15,7 @@ define(['common/config'], function(config) {
                 var dateFilter = $filter('date');
                 var result = dateFilter(date, format || 'yyyy-MM-dd');
                 if (result) {
-                    return result
+                    return result;
                 }
 
                 var newTime;

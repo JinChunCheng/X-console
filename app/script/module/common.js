@@ -2070,7 +2070,7 @@ angular.module('bootModule', [])
         applicationService.toggleTopbar = toggleTopbar;
         applicationService.handlePanelAction = handlePanelAction;
         applicationService.toggleSidebarMenu = toggleSidebarMenu;
-        applicationService.menuResource = $resource('/script/data/menus.json', {}, { 'query': { isArray: false } });
+        applicationService.menuResource = $resource('http://172.21.20.9:8084/mgr/main', {}, { 'query': { isArray: false } });
         return applicationService;
 
     }]).factory('builderService', ['applicationService', function(applicationService) {
@@ -2422,7 +2422,7 @@ angular.module('bootModule', [])
                 });
             }
         };
-    }]).directive('tableFullSize', ['$timeout', function($timeout) {
+    }]).directive('tableFullSize', ['$timeout', '$interval', function($timeout, $interval) {
         /**
          * bootstrap table fill full page
          */
@@ -2436,14 +2436,22 @@ angular.module('bootModule', [])
                 }
 
                 function resetView() {
-                    $(iElement).bootstrapTable('resetView', {
-                        height: getHeight()
-                    });
+                    // $(iElement).bootstrapTable('resetView', {
+                    //     height: getHeight()
+                    // });
                 }
+
+                // /**
+                //  * 解决bootstraptable表格样式错乱的问题
+                //  * 临时方案，以后再改,
+                //  * ps: 以后很可能就忘了...忘了...了...
+                //  */
+                // if (window.tableInterval)
+                //     $interval.cancel(window.tableInterval);
+                // window.tableInterval = $interval(resetView, 200);
 
                 $timeout(function() {
                     resetView();
-
                     $(window).resize(function() {
                         resetView();
                     });

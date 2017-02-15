@@ -46,8 +46,6 @@ define([], function() {
             $scope.bsProfitDrawListTableControl = {
                 options: {
                     cache: false,
-                    height: 650,
-                    //striped: true,
                     pagination: true,
                     pageSize: 10,
                     pageList: "[10, 25, 50, 100, 200]",

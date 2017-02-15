@@ -22,20 +22,20 @@
             菜单导航
         </div>
         <ul class="nav nav-sidebar">
-            <li ng-repeat="menu in appView.menus" ng-class="{'nav-parent': menu.subMenus.length>0, 'active': appView.isActive([menu.state, menu.state+'*'])}">
-                <a href='{{$state.href(menu.state)}}' ng-class="{'submenu-root': menu.subMenus.length>0}">
-                    <i class="{{menu.icon}}"></i>
+            <li ng-repeat="menu in appView.menus" ng-class="{'nav-parent': menu.children.length>0, 'active': appView.isActive([menu.state, menu.state+'*'])}">
+                <a href='{{$state.href(menu.state)}}' ng-class="{'submenu-root': menu.children.length>0}">
+                    <i class="icon-home"></i>
                     <span ng-bind="menu.text"></span>
-                    <span class="fa arrow" ng-if="menu.subMenus.length>0"></span>
+                    <span class="fa arrow" ng-if="menu.children.length>0"></span>
                 </a>
-                <ul ng-if="menu.subMenus.length>0" class="children collapse" style="{{appView.getSubMenuStyle([menu.state+'*'])}}" ng-cloak>
-                    <li ng-repeat="submenu in menu.subMenus" ng-class="{active: appView.isActive(submenu.state)}">
+                <ul ng-if="menu.children.length>0" class="children collapse" style="{{appView.getSubMenuStyle([menu.state+'*'])}}" ng-cloak>
+                    <li ng-repeat="submenu in menu.children" ng-class="{active: appView.isActive(submenu.state)}">
                         <a ui-sref="{{submenu.state}}" ng-bind="submenu.text"></a>
                     </li>
                 </ul>
             </li>
         </ul>
-        <div class="sidebar-footer clearfix">
+        <!-- <div class="sidebar-footer clearfix">
             <a class="pull-left footer-settings" data-target="#" data-rel="tooltip" data-placement="top" data-original-title="Settings">
                 <i class="icon-settings"></i>
             </a>
@@ -48,6 +48,6 @@
             <a class="pull-left btn-effect" href="" data-modal="modal-1" data-rel="tooltip" data-placement="top" data-original-title="Logout" ng-click="logout()">
                 <i class="icon-power"></i>
             </a>
-        </div>
+        </div> -->
     </div>
 </div>

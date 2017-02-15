@@ -4,7 +4,7 @@
     var session = {
         setTicket: function(ticketObj) {
             var exp = new Date();
-            exp.setTime(exp.getTime() + 20 * 60 * 1000);//20分钟
+            exp.setTime(exp.getTime() + 60 * 60 * 1000);//20分钟
             document.cookie = ticket + "=" + escape(ticketObj) + ";path=/;expires=" + exp.toGMTString();
         },
         getTicket: function() {
